@@ -3,28 +3,13 @@
     "activityCreationType": "from_scratch",
     "alias": "alu-market-virgin-fr",
     "comment": "based on share of recycled material and net importations. France is used as a reference for Europe. Details in documentation",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 0.012,
-        "name": "aluminium, primary, ingot//[IAI Area, Asia, without China and GCC] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.706,
-        "name": "aluminium, primary, ingot//[IAI Area, EU27 & EFTA] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.093,
-        "name": "aluminium, primary, ingot//[IAI Area, Gulf Cooperation Council] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.026,
-        "name": "aluminium, primary, ingot//[IAI Area, South America] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.163,
-        "name": "aluminium, primary, ingot//[RoW] aluminium production, primary, ingot"
-      }
+      { "amount": 0.012, "name": "Aluminium, primary, at plant {RER} U" },
+      { "amount": 0.706, "name": "Aluminium, primary, at plant {RER} U" },
+      { "amount": 0.093, "name": "Aluminium, primary, at plant {RER} U" },
+      { "amount": 0.026, "name": "Aluminium, primary, at plant {RER} U" },
+      { "amount": 0.163, "name": "Aluminium, primary, at plant {RER} U" }
     ],
     "location": "FR",
     "newName": "aluminium ingot, virgin, market, FR"
@@ -38,8 +23,8 @@
       { "amount": 0.557, "name": "aluminium ingot, virgin, market, FR" },
       {
         "amount": 0.089,
-        "database": "Ecoinvent 3.9.1",
-        "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
+        "database": "BAFU 2025v2",
+        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
       },
       { "amount": 0.354, "name": "aluminium ingot, virgin, market, FR" }
     ],
@@ -1177,6 +1162,7 @@
       { "name": "Heat, light fuel oil, at industrial furnace 1MW {RER} U" },
       { "name": "Natural gas, burned in industrial furnace 1MWth {CH} U" }
     ],
+    "exchanges": [],
     "existingActivity": { "name": "Zinc coating, pieces {RER} U" },
     "newName": "zinc coat, pieces, without energy, per m2, RER"
   },
@@ -1198,7 +1184,8 @@
     "exchanges": [
       {
         "amount": 0.44,
-        "name": "polyethylene, low density, granulate//[RER] polyethylene production, low density, granulate"
+        "database": "BAFU 2025v2",
+        "name": "Polyethylene, LDPE, granulate, at plant {RER} U"
       },
       {
         "amount": 0.56,
@@ -1212,15 +1199,12 @@
     "activityCreationType": "from_scratch",
     "alias": "heat-europe",
     "comment": "44% natural gas and 56% other, see detail here: https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/energies-des-etapes-de-transformation",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 0.44,
-        "name": "heat, district or industrial, natural gas//[RER] market group for heat, district or industrial, natural gas"
-      },
+      { "amount": 0.44, "name": "Heat, from natural gas {ENTSO-E} U" },
       {
         "amount": 0.56,
-        "name": "heat, district or industrial, other than natural gas//[RER] market group for heat, district or industrial, other than natural gas"
+        "name": "Heat, hard coal, at cogen, allocation exergy {ENTSO-E} U"
       }
     ],
     "newName": "heat, industrial, market, RER"
@@ -1229,15 +1213,12 @@
     "activityCreationType": "from_scratch",
     "alias": "heat-world",
     "comment": "23% natural gas and 77% other, see detail here: https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/energies-des-etapes-de-transformation",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 0.23,
-        "name": "heat, district or industrial, natural gas//[GLO] market group for heat, district or industrial, natural gas"
-      },
+      { "amount": 0.23, "name": "Heat, from natural gas {ENTSO-E} U" },
       {
         "amount": 0.77,
-        "name": "heat, district or industrial, other than natural gas//[GLO] market group for heat, district or industrial, other than natural gas"
+        "name": "Heat, hard coal, at cogen, allocation exergy {ENTSO-E} U"
       }
     ],
     "newName": "heat, industrial, market, RoW"
@@ -2272,16 +2253,10 @@
     "activityCreationType": "from_scratch",
     "alias": "steel-recycled-rer-cff",
     "comment": "CFF parameters: A=0.2, Q=1",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 0.8,
-        "name": "steel, unalloyed//[RER] steel production, converter, unalloyed"
-      },
-      {
-        "amount": 0.2,
-        "name": "steel, low-alloyed//[Europe without Switzerland and Austria] steel production, electric, low-alloyed"
-      }
+      { "amount": 0.8, "name": "Steel, converter, unalloyed, at plant {RER} U" },
+      { "amount": 0.2, "name": "Steel, electric, un- and low-alloyed, at plant {RER} U" }
     ],
     "location": "RER",
     "newName": "steel, low-alloyed, recycled, RER, CFF"
@@ -2294,13 +2269,13 @@
     "exchanges": [
       {
         "amount": 0.564,
-        "database": "Ecoinvent 3.9.1",
-        "name": "steel, unalloyed//[RER] steel production, converter, unalloyed"
+        "database": "BAFU 2025v2",
+        "name": "Steel, converter, unalloyed, at plant {RER} U"
       },
       {
         "amount": 0.043,
-        "database": "Ecoinvent 3.9.1",
-        "name": "steel, unalloyed//[RoW] steel production, converter, unalloyed"
+        "database": "BAFU 2025v2",
+        "name": "Steel, converter, unalloyed, at plant {RER} U"
       },
       { "amount": 0.393, "name": "steel, low-alloyed, recycled, RER, CFF" }
     ],
@@ -2315,13 +2290,13 @@
     "exchanges": [
       {
         "amount": 0.002,
-        "database": "Ecoinvent 3.9.1",
-        "name": "steel, unalloyed//[RER] steel production, converter, unalloyed"
+        "database": "BAFU 2025v2",
+        "name": "Steel, converter, unalloyed, at plant {RER} U"
       },
       {
         "amount": 0.894,
-        "database": "Ecoinvent 3.9.1",
-        "name": "steel, unalloyed//[RoW] steel production, converter, unalloyed"
+        "database": "BAFU 2025v2",
+        "name": "Steel, converter, unalloyed, at plant {RER} U"
       },
       { "amount": 0.104, "name": "steel, low-alloyed, recycled, RER, CFF" }
     ],
@@ -2374,16 +2349,10 @@
     "activityCreationType": "from_scratch",
     "alias": "steel-recycled-row-cff",
     "comment": "CFF parameters: A=0.2, Q=1",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 0.8,
-        "name": "steel, unalloyed//[RoW] steel production, converter, unalloyed"
-      },
-      {
-        "amount": 0.2,
-        "name": "steel, low-alloyed//[RoW] steel production, electric, low-alloyed"
-      }
+      { "amount": 0.8, "name": "Steel, converter, unalloyed, at plant {RER} U" },
+      { "amount": 0.2, "name": "Steel, electric, un- and low-alloyed, at plant {RER} U" }
     ],
     "location": "RoW",
     "newName": "steel, low-alloyed, recycled, RoW, CFF"
@@ -2413,28 +2382,13 @@
     "activityCreationType": "from_scratch",
     "alias": "alu-market-virgin-kr",
     "comment": "based on share of recycled material and net importations. South Korea is used as a reference for Out of Europe and India. Details in documentation",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 0.36,
-        "name": "aluminium, primary, ingot//[IAI Area, Asia, without China and GCC] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.006,
-        "name": "aluminium, primary, ingot//[IAI Area, EU27 & EFTA] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.211,
-        "name": "aluminium, primary, ingot//[IAI Area, Gulf Cooperation Council] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.002,
-        "name": "aluminium, primary, ingot//[IAI Area, South America] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.421,
-        "name": "aluminium, primary, ingot//[RoW] aluminium production, primary, ingot"
-      }
+      { "amount": 0.36, "name": "Aluminium, primary, at plant {RER} U" },
+      { "amount": 0.006, "name": "Aluminium, primary, at plant {RER} U" },
+      { "amount": 0.211, "name": "Aluminium, primary, at plant {RER} U" },
+      { "amount": 0.002, "name": "Aluminium, primary, at plant {RER} U" },
+      { "amount": 0.421, "name": "Aluminium, primary, at plant {RER} U" }
     ],
     "location": "KR",
     "newName": "aluminium ingot, virgin, market, KR"
@@ -2448,8 +2402,8 @@
       { "amount": 0.529, "name": "aluminium ingot, virgin, market, KR" },
       {
         "amount": 0.377,
-        "database": "Ecoinvent 3.9.1",
-        "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
+        "database": "BAFU 2025v2",
+        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
       },
       { "amount": 0.094, "name": "aluminium ingot, virgin, market, KR" }
     ],
@@ -2460,20 +2414,11 @@
     "activityCreationType": "from_scratch",
     "alias": "alu-market-virgin-cn",
     "comment": "Based on share of production and net importations. Details in documentation",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 0.01,
-        "name": "aluminium, primary, ingot//[IAI Area, Asia, without China and GCC] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.002,
-        "name": "aluminium, primary, ingot//[IAI Area, Gulf Cooperation Council] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.987,
-        "name": "aluminium, primary, ingot//[RoW] aluminium production, primary, ingot"
-      }
+      { "amount": 0.01, "name": "Aluminium, primary, at plant {RER} U" },
+      { "amount": 0.002, "name": "Aluminium, primary, at plant {RER} U" },
+      { "amount": 0.987, "name": "Aluminium, primary, at plant {RER} U" }
     ],
     "location": "CN",
     "newName": "aluminium ingot, virgin, market, CN"
@@ -2487,8 +2432,8 @@
       { "amount": 0.806, "name": "aluminium ingot, virgin, market, CN" },
       {
         "amount": 0.155,
-        "database": "Ecoinvent 3.9.1",
-        "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
+        "database": "BAFU 2025v2",
+        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
       },
       { "amount": 0.039, "name": "aluminium ingot, virgin, market, CN" }
     ],
@@ -2499,24 +2444,12 @@
     "activityCreationType": "from_scratch",
     "alias": "alu-market-virgin-in",
     "comment": "Based on share of production and net importations. Details in documentation",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 0.878,
-        "name": "aluminium, primary, ingot//[IAI Area, Asia, without China and GCC] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.092,
-        "name": "aluminium, primary, ingot//[IAI Area, Gulf Cooperation Council] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.001,
-        "name": "aluminium, primary, ingot//[IAI Area, South America] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.029,
-        "name": "aluminium, primary, ingot//[RoW] aluminium production, primary, ingot"
-      }
+      { "amount": 0.878, "name": "Aluminium, primary, at plant {RER} U" },
+      { "amount": 0.092, "name": "Aluminium, primary, at plant {RER} U" },
+      { "amount": 0.001, "name": "Aluminium, primary, at plant {RER} U" },
+      { "amount": 0.029, "name": "Aluminium, primary, at plant {RER} U" }
     ],
     "location": "IN",
     "newName": "aluminium ingot, virgin, market, IN"
@@ -2525,11 +2458,11 @@
     "activityCreationType": "from_scratch",
     "alias": "wood-chips-dry-post-consumer-m3",
     "comment": "created process to convert unit from kg to m3. Average density from softwood (490kg/m3)and hardwood (640kg/m3) species",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
       {
         "amount": 565,
-        "name": "wood chips, from post-consumer wood, measured as dry mass//[RER] market for wood chips, from post-consumer wood, measured as dry mass"
+        "name": "Wood chips, production mix, wet, measured as dry mass, at forest road & at sawmill {RER} U"
       }
     ],
     "location": "RER",
@@ -2540,11 +2473,11 @@
     "activityCreationType": "from_scratch",
     "alias": "wood-chips-wet-m3",
     "comment": "created process to convert unit from kg to m3. Average density from softwood (490kg/m3)and hardwood (640kg/m3) species",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
       {
         "amount": 565,
-        "name": "wood chips, wet, measured as dry mass//[Europe without Switzerland] market for wood chips, wet, measured as dry mass"
+        "name": "Wood chips, production mix, wet, measured as dry mass, at forest road & at sawmill {RER} U"
       }
     ],
     "location": "Europe without Switzerland",
@@ -2580,8 +2513,8 @@
       { "amount": 0.8, "name": "aluminium ingot, virgin, market, FR" },
       {
         "amount": 0.2,
-        "database": "Ecoinvent 3.9.1",
-        "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
+        "database": "BAFU 2025v2",
+        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
       }
     ],
     "location": "RER",
@@ -2596,8 +2529,8 @@
       { "amount": 0.8, "name": "aluminium ingot, virgin, market, IN" },
       {
         "amount": 0.2,
-        "database": "Ecoinvent 3.9.1",
-        "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
+        "database": "BAFU 2025v2",
+        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
       }
     ],
     "location": "IN",
@@ -2612,8 +2545,8 @@
       { "amount": 0.8, "name": "aluminium ingot, virgin, market, KR" },
       {
         "amount": 0.2,
-        "database": "Ecoinvent 3.9.1",
-        "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
+        "database": "BAFU 2025v2",
+        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
       }
     ],
     "location": "RoW",
@@ -2623,16 +2556,13 @@
     "activityCreationType": "from_scratch",
     "alias": "pet-recycled-cff",
     "comment": "CFF parameters: A=0.5, Q=1",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
       {
         "amount": 0.5,
-        "name": "polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous"
+        "name": "Polyethylene terephthalate, granulate, amorphous, at plant {RER} U"
       },
-      {
-        "amount": 0.5,
-        "name": "polyethylene terephthalate, granulate, amorphous, recycled//[RoW] polyethylene terephthalate production, granulate, amorphous, recycled"
-      }
+      { "amount": 0.5, "name": "Xx Recycling PET {RER} U" }
     ],
     "location": "GLO",
     "newName": "polyethylene terephthalate, granulate, amorphous, recycled, GLO, CFF"
@@ -2641,25 +2571,16 @@
     "activityCreationType": "from_scratch",
     "alias": "battery-cell-cam-lfp-cn",
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      { "amount": 0.234, "name": "lithium carbonate//[GLO] market for lithium carbonate" },
-      {
-        "amount": 0.489,
-        "name": "iron ore concentrate//[GLO] market for iron ore concentrate"
-      },
+      { "amount": 0.234, "name": "Lithium carbonate, at plant {GLO} U" },
+      { "amount": 0.489, "name": "Iron ore, 65% Fe, at beneficiation {GLO} U" },
       {
         "amount": 0.837,
-        "name": "diammonium phosphate//[CN] diammonium phosphate production"
+        "name": "Diammonium phosphate, as N, at regional storehouse {RER} U"
       },
-      {
-        "amount": 0.007,
-        "name": "N-methyl-2-pyrrolidone//[RoW] N-methyl-2-pyrrolidone production"
-      },
-      {
-        "amount": 0.7,
-        "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
-      }
+      { "amount": 0.007, "name": "N-methyl-2-pyrrolidone, at plant {RER} U" },
+      { "amount": 0.7, "name": "Electricity, medium voltage, at grid {CN} U" }
     ],
     "location": "CN",
     "newName": "CAM of Battery cell, LFP, CN"
@@ -2670,25 +2591,41 @@
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      { "amount": 1.34, "name": "nickel sulfate//[GLO] nickel sulfate production" },
-      { "amount": 0.168, "name": "cobalt sulfate//[CN] cobalt sulfate production" },
-      { "amount": 0.163, "name": "manganese sulfate//[GLO] manganese sulfate production" },
+      {
+        "amount": 1.34,
+        "database": "BAFU 2025v2",
+        "name": "Nickel, 99.5%, at plant {GLO} U"
+      },
+      { "amount": 0.168, "database": "BAFU 2025v2", "name": "Cobalt sulfate {GLO} U" },
+      {
+        "amount": 0.163,
+        "database": "BAFU 2025v2",
+        "name": "Manganese, at regional storage {RER} U"
+      },
       {
         "amount": 0.89,
-        "name": "sodium hydroxide, without water, in 50% solution state//[GLO] market for sodium hydroxide, without water, in 50% solution state"
+        "database": "BAFU 2025v2",
+        "name": "Sodium hydroxide, 50% in H2O, production mix, at plant {RER} U"
       },
       {
         "amount": 0.124,
-        "name": "ammonia, anhydrous, liquid//[CN] ammonia production, steam reforming, liquid"
+        "database": "BAFU 2025v2",
+        "name": "Ammonia, liquid, at regional storehouse {RER} U"
       },
-      { "amount": 0.246, "name": "lithium hydroxide//[GLO] lithium hydroxide production" },
+      {
+        "amount": 0.246,
+        "database": "BAFU 2025v2",
+        "name": "Lithium hydroxide, at plant {GLO} U"
+      },
       {
         "amount": 0.007,
-        "name": "N-methyl-2-pyrrolidone//[RoW] N-methyl-2-pyrrolidone production"
+        "database": "BAFU 2025v2",
+        "name": "N-methyl-2-pyrrolidone, at plant {RER} U"
       },
       {
         "amount": 7.48,
-        "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {CN} U"
       },
       {
         "amount": 40.392,
@@ -2705,25 +2642,41 @@
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      { "amount": 1.34, "name": "nickel sulfate//[GLO] nickel sulfate production" },
-      { "amount": 0.168, "name": "cobalt sulfate//[CN] cobalt sulfate production" },
-      { "amount": 0.163, "name": "manganese sulfate//[GLO] manganese sulfate production" },
+      {
+        "amount": 1.34,
+        "database": "BAFU 2025v2",
+        "name": "Nickel, 99.5%, at plant {GLO} U"
+      },
+      { "amount": 0.168, "database": "BAFU 2025v2", "name": "Cobalt sulfate {GLO} U" },
+      {
+        "amount": 0.163,
+        "database": "BAFU 2025v2",
+        "name": "Manganese, at regional storage {RER} U"
+      },
       {
         "amount": 0.89,
-        "name": "sodium hydroxide, without water, in 50% solution state//[GLO] market for sodium hydroxide, without water, in 50% solution state"
+        "database": "BAFU 2025v2",
+        "name": "Sodium hydroxide, 50% in H2O, production mix, at plant {RER} U"
       },
       {
         "amount": 0.124,
-        "name": "ammonia, anhydrous, liquid//[CN] ammonia production, steam reforming, liquid"
+        "database": "BAFU 2025v2",
+        "name": "Ammonia, liquid, at regional storehouse {RER} U"
       },
-      { "amount": 0.246, "name": "lithium hydroxide//[GLO] lithium hydroxide production" },
+      {
+        "amount": 0.246,
+        "database": "BAFU 2025v2",
+        "name": "Lithium hydroxide, at plant {GLO} U"
+      },
       {
         "amount": 0.007,
-        "name": "N-methyl-2-pyrrolidone//[RoW] N-methyl-2-pyrrolidone production"
+        "database": "BAFU 2025v2",
+        "name": "N-methyl-2-pyrrolidone, at plant {RER} U"
       },
       {
         "amount": 7.48,
-        "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {RER} U"
       },
       {
         "amount": 40.392,
@@ -2740,19 +2693,30 @@
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      { "amount": 0.268, "name": "lithium hydroxide//[GLO] lithium hydroxide production" },
+      {
+        "amount": 0.268,
+        "database": "BAFU 2025v2",
+        "name": "Lithium hydroxide, at plant {GLO} U"
+      },
       {
         "amount": 0.366,
-        "name": "phosphoric acid, fertiliser grade, without water, in 70% solution state//[RoW] phosphoric acid production, dihydrate process"
+        "database": "BAFU 2025v2",
+        "name": "Phosphoric acid, fertiliser grade, 70% in H2O, at plant {GLO} U"
       },
-      { "amount": 0.567, "name": "iron sulfate//[RoW] iron sulfate production" },
+      {
+        "amount": 0.567,
+        "database": "BAFU 2025v2",
+        "name": "Iron sulphate, at plant {RER} U"
+      },
       {
         "amount": 0.007,
-        "name": "N-methyl-2-pyrrolidone//[RoW] N-methyl-2-pyrrolidone production"
+        "database": "BAFU 2025v2",
+        "name": "N-methyl-2-pyrrolidone, at plant {RER} U"
       },
       {
         "amount": 9.2,
-        "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {CN} U"
       },
       {
         "amount": 0.14,
@@ -2772,8 +2736,8 @@
     "exchanges": [
       {
         "amount": 32.6,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {CN} U"
       },
       { "amount": 10.1, "name": "heat, industrial, market, RoW" },
       {
@@ -2796,39 +2760,39 @@
       { "amount": 0.234, "name": "Graphite production for battery cell, CN" },
       {
         "amount": 0.014,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polyvinylfluoride//[RoW] polyvinylfluoride production"
+        "database": "BAFU 2025v2",
+        "name": "Polyvinylfluoride, at plant {US} U"
       },
       {
         "amount": 0.138,
-        "database": "Ecoinvent 3.9.1",
-        "name": "copper collector foil, for Li-ion battery//[GLO] copper collector foil production, for Li-ion battery"
+        "database": "BAFU 2025v2",
+        "name": "Copper collector foil production, for Li-ion battery {GLO} U"
       },
       { "amount": 0.021, "name": "aluminium ingot, market, CN" },
       {
         "amount": 0.021,
-        "database": "Ecoinvent 3.9.1",
-        "name": "lithium hexafluorophosphate//[CN] lithium hexafluorophosphate production"
+        "database": "BAFU 2025v2",
+        "name": "Lithium hexafluorophosphate, at plant {CN} U"
       },
       {
         "amount": 0.058,
-        "database": "Ecoinvent 3.9.1",
-        "name": "ethylene carbonate//[CN] ethylene carbonate production"
+        "database": "BAFU 2025v2",
+        "name": "Ethylene carbonate, at plant {CN} U"
       },
       {
         "amount": 0.058,
-        "database": "Ecoinvent 3.9.1",
-        "name": "dimethyl carbonate//[RoW] dimethyl carbonate production"
+        "database": "BAFU 2025v2",
+        "name": "Ethylene carbonate, at plant {CN} U"
       },
       {
         "amount": 0.002,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
+        "database": "BAFU 2025v2",
+        "name": "Polypropylene, granulate, at plant {RER} U"
       },
       {
         "amount": 4.4,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {CN} U"
       },
       { "amount": 24, "name": "heat, industrial, market, RoW" }
     ],
@@ -2845,39 +2809,39 @@
       { "amount": 0.234, "name": "Graphite production for battery cell, CN" },
       {
         "amount": 0.014,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polyvinylfluoride//[RoW] polyvinylfluoride production"
+        "database": "BAFU 2025v2",
+        "name": "Polyvinylfluoride, at plant {US} U"
       },
       {
         "amount": 0.138,
-        "database": "Ecoinvent 3.9.1",
-        "name": "copper collector foil, for Li-ion battery//[GLO] copper collector foil production, for Li-ion battery"
+        "database": "BAFU 2025v2",
+        "name": "Copper collector foil production, for Li-ion battery {GLO} U"
       },
       { "amount": 0.021, "name": "aluminium ingot, market, CN" },
       {
         "amount": 0.021,
-        "database": "Ecoinvent 3.9.1",
-        "name": "lithium hexafluorophosphate//[CN] lithium hexafluorophosphate production"
+        "database": "BAFU 2025v2",
+        "name": "Lithium hexafluorophosphate, at plant {CN} U"
       },
       {
         "amount": 0.058,
-        "database": "Ecoinvent 3.9.1",
-        "name": "ethylene carbonate//[CN] ethylene carbonate production"
+        "database": "BAFU 2025v2",
+        "name": "Ethylene carbonate, at plant {CN} U"
       },
       {
         "amount": 0.058,
-        "database": "Ecoinvent 3.9.1",
-        "name": "dimethyl carbonate//[RoW] dimethyl carbonate production"
+        "database": "BAFU 2025v2",
+        "name": "Ethylene carbonate, at plant {CN} U"
       },
       {
         "amount": 0.002,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
+        "database": "BAFU 2025v2",
+        "name": "Polypropylene, granulate, at plant {RER} U"
       },
       {
         "amount": 4.4,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {CN} U"
       },
       { "amount": 24, "name": "heat, industrial, market, RoW" }
     ],
@@ -2894,39 +2858,39 @@
       { "amount": 0.296, "name": "Graphite production for battery cell, CN" },
       {
         "amount": 0.015,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polyvinylfluoride//[RoW] polyvinylfluoride production"
+        "database": "BAFU 2025v2",
+        "name": "Polyvinylfluoride, at plant {US} U"
       },
       {
         "amount": 0.121,
-        "database": "Ecoinvent 3.9.1",
-        "name": "copper collector foil, for Li-ion battery//[GLO] copper collector foil production, for Li-ion battery"
+        "database": "BAFU 2025v2",
+        "name": "Copper collector foil production, for Li-ion battery {GLO} U"
       },
       { "amount": 0.022, "name": "aluminium ingot, market, CN" },
       {
         "amount": 0.019,
-        "database": "Ecoinvent 3.9.1",
-        "name": "lithium hexafluorophosphate//[CN] lithium hexafluorophosphate production"
+        "database": "BAFU 2025v2",
+        "name": "Lithium hexafluorophosphate, at plant {CN} U"
       },
       {
         "amount": 0.051,
-        "database": "Ecoinvent 3.9.1",
-        "name": "ethylene carbonate//[CN] ethylene carbonate production"
+        "database": "BAFU 2025v2",
+        "name": "Ethylene carbonate, at plant {CN} U"
       },
       {
         "amount": 0.051,
-        "database": "Ecoinvent 3.9.1",
-        "name": "dimethyl carbonate//[RoW] dimethyl carbonate production"
+        "database": "BAFU 2025v2",
+        "name": "Ethylene carbonate, at plant {CN} U"
       },
       {
         "amount": 0.002,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
+        "database": "BAFU 2025v2",
+        "name": "Polypropylene, granulate, at plant {RER} U"
       },
       {
         "amount": 6.4,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {CN} U"
       },
       { "amount": 34.3, "name": "heat, industrial, market, RoW" }
     ],
@@ -2943,39 +2907,39 @@
       { "amount": 0.296, "name": "Graphite production for battery cell, CN" },
       {
         "amount": 0.015,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polyvinylfluoride//[RoW] polyvinylfluoride production"
+        "database": "BAFU 2025v2",
+        "name": "Polyvinylfluoride, at plant {US} U"
       },
       {
         "amount": 0.121,
-        "database": "Ecoinvent 3.9.1",
-        "name": "copper collector foil, for Li-ion battery//[GLO] copper collector foil production, for Li-ion battery"
+        "database": "BAFU 2025v2",
+        "name": "Copper collector foil production, for Li-ion battery {GLO} U"
       },
       { "amount": 0.022, "name": "aluminium ingot, market, FR" },
       {
         "amount": 0.019,
-        "database": "Ecoinvent 3.9.1",
-        "name": "lithium hexafluorophosphate//[CN] lithium hexafluorophosphate production"
+        "database": "BAFU 2025v2",
+        "name": "Lithium hexafluorophosphate, at plant {CN} U"
       },
       {
         "amount": 0.051,
-        "database": "Ecoinvent 3.9.1",
-        "name": "ethylene carbonate//[CN] ethylene carbonate production"
+        "database": "BAFU 2025v2",
+        "name": "Ethylene carbonate, at plant {CN} U"
       },
       {
         "amount": 0.051,
-        "database": "Ecoinvent 3.9.1",
-        "name": "dimethyl carbonate//[RoW] dimethyl carbonate production"
+        "database": "BAFU 2025v2",
+        "name": "Ethylene carbonate, at plant {CN} U"
       },
       {
         "amount": 0.002,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
+        "database": "BAFU 2025v2",
+        "name": "Polypropylene, granulate, at plant {RER} U"
       },
       {
         "amount": 6.4,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {FR} U"
       },
       { "amount": 34.3, "name": "heat, industrial, market, RER" }
     ],
@@ -2990,38 +2954,50 @@
     "exchanges": [
       {
         "amount": 1,
-        "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {RER} U"
       },
       {
         "amount": 2.288,
-        "name": "heat, district or industrial, natural gas//[RER] market group for heat, district or industrial, natural gas"
+        "database": "BAFU 2025v2",
+        "name": "Heat, from natural gas {ENTSO-E} U"
       },
       {
         "amount": 0.237,
-        "name": "heat, district or industrial, other than natural gas//[RER] market group for heat, district or industrial, other than natural gas"
+        "database": "BAFU 2025v2",
+        "name": "Heat, hard coal, at cogen, allocation exergy {ENTSO-E} U"
       },
       {
         "amount": 0.136,
-        "name": "limestone, crushed, washed//[CH] limestone production, crushed, washed"
+        "database": "BAFU 2025v2",
+        "name": "Limestone, crushed, washed {CH} U"
       },
-      { "amount": 0.119, "name": "silica sand//[DE] silica sand production" },
+      {
+        "amount": 0.119,
+        "database": "BAFU 2025v2",
+        "name": "Silica sand, at plant {DE} U"
+      },
       {
         "amount": 0.085,
-        "name": "quicklime, milled, loose//[CH] quicklime production, milled, loose"
+        "database": "BAFU 2025v2",
+        "name": "Quicklime, milled, loose, at plant {CH} U"
       },
-      { "amount": 0.001, "name": "carbon black//[GLO] carbon black production" },
+      {
+        "amount": 0.001,
+        "database": "BAFU 2025v2",
+        "name": "Carbon black, at plant {GLO} U"
+      },
       {
         "amount": 0.13,
-        "name": "transport, freight, lorry >32 metric ton, EURO4//[RER] transport, freight, lorry >32 metric ton, EURO4"
+        "database": "BAFU 2025v2",
+        "name": "Transport, freight, lorry, 32t-40t gross weight, fleet average {RER} U"
       },
       {
         "amount": 0.24,
-        "name": "transport, freight train//[RER] market group for transport, freight train"
+        "database": "BAFU 2025v2",
+        "name": "Transport, freight, rail {RER} U"
       },
-      {
-        "amount": 0.27,
-        "name": "transport, freight, inland waterways, barge//[RER] transport, freight, inland waterways, barge"
-      },
+      { "amount": 0.27, "database": "BAFU 2025v2", "name": "Transport, barge {RER} U" },
       {
         "amount": 1.194,
         "code": "349b29d1-3e58-4c66-98b9-9d1a076efd2e",
@@ -3036,37 +3012,25 @@
     "activityCreationType": "from_scratch",
     "alias": "hydrometallurgical-treatment-da",
     "comment": "For 0.34kg Metal alloy of battery cell. Source : Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries, Table 5. Credits for metal recovery is excluded.",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 0.085,
-        "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage"
-      },
-      {
-        "amount": 1.847,
-        "name": "heat, district or industrial, natural gas//[RER] market group for heat, district or industrial, natural gas"
-      },
+      { "amount": 0.085, "name": "Electricity, medium voltage, at grid {RER} U" },
+      { "amount": 1.847, "name": "Heat, from natural gas {ENTSO-E} U" },
       {
         "amount": 0.017,
-        "name": "hydrochloric acid, without water, in 30% solution state//[RER] Mannheim process"
+        "name": "Xx Hydrochloric acid, 36% in H2O, from reacting propylene and chlorine, at plant {RER} U"
       },
-      {
-        "amount": 0.305,
-        "name": "hydrogen peroxide, without water, in 50% solution state//[RER] hydrogen peroxide production, product in 50% solution state"
-      },
-      {
-        "amount": 0.017,
-        "name": "calcium chloride//[RER] soda production, solvay process"
-      },
+      { "amount": 0.305, "name": "Hydrogen peroxide, 50% in H2O, at plant {RER} U" },
+      { "amount": 0.017, "name": "Calcium chloride, CaCl2, at plant {RER} U" },
       {
         "amount": 0.458,
-        "name": "sodium hydroxide, without water, in 50% solution state//[GLO] market for sodium hydroxide, without water, in 50% solution state"
+        "name": "Sodium hydroxide, 50% in H2O, production mix, at plant {RER} U"
       },
-      { "amount": 0.881, "name": "sulfuric acid//[RER] sulfuric acid production" },
-      { "amount": 3, "name": "tap water//[RER] market group for tap water" },
+      { "amount": 0.881, "name": "Sulphuric acid, liquid, at plant {RER} U" },
+      { "amount": 3, "name": "Tap water, at user {RER} U" },
       {
         "amount": 0.00864,
-        "name": "wastewater, average//[Europe without Switzerland] treatment of wastewater, average, wastewater treatment"
+        "name": "Treatment, sewage, to wastewater treatment, class 3 {CH} U"
       }
     ],
     "location": "RER",
@@ -3102,12 +3066,21 @@
         "database": "Ecobalyse_custom_lci",
         "name": "Hydrometallurgical treatment of battery cell"
       },
-      { "amount": -0.099, "name": "copper, cathode//[GLO] market for copper, cathode" },
-      { "amount": 0, "name": "cobalt sulfate//[CN] cobalt sulfate production" },
-      { "amount": 0, "name": "nickel sulfate//[GLO] market for nickel sulfate" },
+      {
+        "amount": -0.099,
+        "database": "BAFU 2025v2",
+        "name": "Copper, at regional storage {RER} U"
+      },
+      { "amount": 0, "database": "BAFU 2025v2", "name": "Cobalt sulfate {GLO} U" },
+      {
+        "amount": 0,
+        "database": "BAFU 2025v2",
+        "name": "Nickel, 99.5%, at plant {GLO} U"
+      },
       {
         "amount": -0.034,
-        "name": "lithium carbonate//[GLO] market for lithium carbonate"
+        "database": "BAFU 2025v2",
+        "name": "Lithium carbonate, at plant {GLO} U"
       }
     ],
     "location": "RER",
@@ -3129,12 +3102,21 @@
         "database": "Ecobalyse_custom_lci",
         "name": "Hydrometallurgical treatment of battery cell"
       },
-      { "amount": -0.0874, "name": "copper, cathode//[GLO] market for copper, cathode" },
-      { "amount": -0.0409, "name": "cobalt sulfate//[CN] cobalt sulfate production" },
-      { "amount": -0.3263, "name": "nickel sulfate//[GLO] market for nickel sulfate" },
+      {
+        "amount": -0.0874,
+        "database": "BAFU 2025v2",
+        "name": "Copper, at regional storage {RER} U"
+      },
+      { "amount": -0.0409, "database": "BAFU 2025v2", "name": "Cobalt sulfate {GLO} U" },
+      {
+        "amount": -0.3263,
+        "database": "BAFU 2025v2",
+        "name": "Nickel, 99.5%, at plant {GLO} U"
+      },
       {
         "amount": -0.033,
-        "name": "lithium carbonate//[GLO] market for lithium carbonate"
+        "database": "BAFU 2025v2",
+        "name": "Lithium carbonate, at plant {GLO} U"
       }
     ],
     "location": "RER",
@@ -3156,12 +3138,21 @@
         "database": "Ecobalyse_custom_lci",
         "name": "Hydrometallurgical treatment of battery cell"
       },
-      { "amount": -0.0866, "name": "copper, cathode//[GLO] market for copper, cathode" },
-      { "amount": -0.086, "name": "cobalt sulfate//[CN] cobalt sulfate production" },
-      { "amount": -0.2576, "name": "nickel sulfate//[GLO] market for nickel sulfate" },
+      {
+        "amount": -0.0866,
+        "database": "BAFU 2025v2",
+        "name": "Copper, at regional storage {RER} U"
+      },
+      { "amount": -0.086, "database": "BAFU 2025v2", "name": "Cobalt sulfate {GLO} U" },
+      {
+        "amount": -0.2576,
+        "database": "BAFU 2025v2",
+        "name": "Nickel, 99.5%, at plant {GLO} U"
+      },
       {
         "amount": -0.054,
-        "name": "lithium carbonate//[GLO] market for lithium carbonate"
+        "database": "BAFU 2025v2",
+        "name": "Lithium carbonate, at plant {GLO} U"
       }
     ],
     "location": "RER",
@@ -3198,13 +3189,15 @@
       },
       {
         "amount": -0.146,
-        "name": "steel, unalloyed//[RER] steel production, converter, unalloyed"
+        "database": "BAFU 2025v2",
+        "name": "Steel, converter, unalloyed, at plant {RER} U"
       },
       {
         "amount": -0.1294,
-        "name": "zinc//[RoW] primary zinc production from concentrate"
+        "database": "BAFU 2025v2",
+        "name": "Zinc, primary, at regional storage {RER} U"
       },
-      { "amount": -0.0179, "name": "brass//[RoW] market for brass" }
+      { "amount": -0.0179, "database": "BAFU 2025v2", "name": "Brass, at plant {CH} U" }
     ],
     "location": "RER",
     "newName": "Battery EoL recycling, Alkaline, CFF"
@@ -3213,29 +3206,20 @@
     "activityCreationType": "from_scratch",
     "alias": "pwb-recycling",
     "comment": "For 1kg pwb. Based on Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries.",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 0.712,
-        "name": "electronics scrap from control units//[RER] treatment of electronics scrap from control units"
-      },
+      { "amount": 0.712, "name": "Disposal, electronics for control units {RER} U" },
       {
         "amount": 0.088,
-        "name": "metal part of electronics scrap, in copper, anode//[SE] treatment of electronics scrap, metals recovery in copper smelter"
+        "name": "Xx Copper, secondary, from electronic and electric scrap recycling, at refinery {SE} U"
       },
-      { "amount": -0.088, "name": "copper, cathode//[GLO] market for copper, cathode" },
-      {
-        "amount": -1.12e-05,
-        "name": "gold, unrefined//[RoW] gold mine operation and gold production, unrefined"
-      },
+      { "amount": -0.088, "name": "Copper, at regional storage {RER} U" },
+      { "amount": -1.12e-05, "name": "Gold, primary, at refinery {GLO} U" },
       {
         "amount": -0.0007816,
-        "name": "silver//[RoW] silver-gold mine operation with refinery"
+        "name": "Silver, from combined gold-silver production, at refinery {GLO} U"
       },
-      {
-        "amount": -7.45e-08,
-        "name": "palladium//[RU] platinum group metal mine operation, ore with high palladium content"
-      }
+      { "amount": -7.45e-08, "name": "Palladium, primary, at refinery {RU} U" }
     ],
     "location": "RER",
     "newName": "Printed Wiring Board EoL recycling, CFF"
@@ -3244,16 +3228,10 @@
     "activityCreationType": "from_scratch",
     "alias": "steel-eol-recycling-rer-cff",
     "comment": "CFF parameters: A=0.2, Q=1",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": -0.8,
-        "name": "steel, unalloyed//[RER] steel production, converter, unalloyed"
-      },
-      {
-        "amount": 0.8,
-        "name": "steel, low-alloyed//[Europe without Switzerland and Austria] steel production, electric, low-alloyed"
-      }
+      { "amount": -0.8, "name": "Steel, converter, unalloyed, at plant {RER} U" },
+      { "amount": 0.8, "name": "Steel, electric, un- and low-alloyed, at plant {RER} U" }
     ],
     "location": "RER",
     "newName": "steel EoL recycling, RER, CFF"
@@ -3267,8 +3245,8 @@
       { "amount": -0.8, "name": "aluminium ingot, virgin, market, FR" },
       {
         "amount": 0.8,
-        "database": "Ecoinvent 3.9.1",
-        "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
+        "database": "BAFU 2025v2",
+        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
       }
     ],
     "location": "RER",
@@ -3278,13 +3256,10 @@
     "activityCreationType": "from_scratch",
     "alias": "copper-eol-recycling-rer-cff",
     "comment": "CFF parameters: A=0.2, Q=1",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      { "amount": -0.8, "name": "copper, cathode//[GLO] market for copper, cathode" },
-      {
-        "amount": 0.8,
-        "name": "copper, cathode//[RER] treatment of copper scrap by electrolytic refining"
-      }
+      { "amount": -0.8, "name": "Copper, at regional storage {RER} U" },
+      { "amount": 0.8, "name": "Copper, secondary, at refinery {RER} U" }
     ],
     "location": "RER",
     "newName": "copper EoL recycling, RER, CFF"
@@ -3293,15 +3268,15 @@
     "activityCreationType": "from_scratch",
     "alias": "wood-eol-recycling-rer-cff",
     "comment": "CFF parameters: A=0.8, Q=1",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
       {
         "amount": -0.2,
-        "name": "wood chips, dry, measured as dry mass//[RER] three and five layered board production"
+        "name": "Residual wood, dry, from three layered laminated board production, for outdoor use, measured as dry mass, at plant {RER} U"
       },
       {
         "amount": 0.2,
-        "name": "wood chips, from post-consumer wood, measured as dry mass//[RER] market for wood chips, from post-consumer wood, measured as dry mass"
+        "name": "Wood chips, production mix, wet, measured as dry mass, at forest road & at sawmill {RER} U"
       }
     ],
     "location": "RER",
@@ -3311,16 +3286,10 @@
     "activityCreationType": "from_scratch",
     "alias": "glass-eol-recycling-rer-cff",
     "comment": "CFF parameters: A=0.2, Q=1. Reduction of glass manufacturing energy consumption by 25% with glass cullet",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": -0.8,
-        "name": "packaging glass, green//[RER w/o CH+DE] packaging glass production, green"
-      },
-      {
-        "amount": 0.6,
-        "name": "packaging glass, green//[RER w/o CH+DE] packaging glass production, green"
-      }
+      { "amount": -0.8, "name": "Xx Packaging glass, green, at plant {RER} U" },
+      { "amount": 0.6, "name": "Xx Packaging glass, green, at plant {RER} U" }
     ],
     "location": "RER",
     "newName": "glass EoL recycling, RER, CFF"
@@ -3329,15 +3298,15 @@
     "activityCreationType": "from_scratch",
     "alias": "cardboard-eol-recycling-rer-cff",
     "comment": "CFF parameters: A=0.2, Q=1",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
       {
         "amount": -0.8,
-        "name": "containerboard, fluting medium//[RER] market for containerboard, fluting medium"
+        "name": "Corrugated board base paper, semichemical fluting, at plant {RER} U"
       },
       {
         "amount": 0.8,
-        "name": "containerboard, fluting medium//[RER] containerboard production, fluting medium, recycled"
+        "name": "Corrugated board base paper, semichemical fluting, at plant {RER} U"
       }
     ],
     "location": "RER",
@@ -3347,13 +3316,10 @@
     "activityCreationType": "from_scratch",
     "alias": "rubber-eol-recycling-rer-cff",
     "comment": "CFF parameters: A=0.5, Q=0.75",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      { "amount": -0.375, "name": "synthetic rubber//[GLO] market for synthetic rubber" },
-      {
-        "amount": 0.5,
-        "name": "polyethylene terephthalate, granulate, amorphous, recycled//[Europe without Switzerland] polyethylene terephthalate production, granulate, amorphous, recycled"
-      }
+      { "amount": -0.375, "name": "Synthetic rubber, at plant {RER} U" },
+      { "amount": 0.5, "name": "Xx Recycling PET {RER} U" }
     ],
     "location": "RER",
     "newName": "rubber EoL recycling, RER, CFF"
@@ -3362,24 +3328,18 @@
     "activityCreationType": "from_scratch",
     "alias": "pet-bottle-eol-recycling-rer-cff",
     "comment": "CFF parameters: A=0.5, Q=0.95, recycling 50% to bottle and 50% to fibers",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
       {
         "amount": -0.2375,
-        "name": "polyethylene terephthalate, granulate, bottle grade//[RER] polyethylene terephthalate production, granulate, bottle grade"
+        "name": "Polyethylene terephthalate, granulate, bottle grade, at plant {RER} U"
       },
       {
         "amount": -0.2375,
-        "name": "polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous"
+        "name": "Polyethylene terephthalate, granulate, amorphous, at plant {RER} U"
       },
-      {
-        "amount": 0.25,
-        "name": "polyethylene terephthalate, granulate, bottle grade, recycled//[CH] polyethylene terephthalate production, granulate, bottle grade, recycled"
-      },
-      {
-        "amount": 0.25,
-        "name": "polyethylene terephthalate, granulate, amorphous, recycled//[RoW] polyethylene terephthalate production, granulate, amorphous, recycled"
-      }
+      { "amount": 0.25, "name": "Xx Recycling PET {RER} U" },
+      { "amount": 0.25, "name": "Xx Recycling PET {RER} U" }
     ],
     "location": "RER",
     "newName": "pet bottle EoL recycling, RER, CFF"
@@ -3388,16 +3348,10 @@
     "activityCreationType": "from_scratch",
     "alias": "plastics-eol-recycling-rer-cff",
     "comment": "CFF parameters: A=0.5, Q=0.90",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": -0.45,
-        "name": "polyethylene, high density, granulate//[RER] polyethylene production, high density, granulate"
-      },
-      {
-        "amount": 0.5,
-        "name": "polyethylene, high density, granulate, recycled//[Europe without Switzerland] polyethylene production, high density, granulate, recycled"
-      }
+      { "amount": -0.45, "name": "Polyethylene, HDPE, granulate, at plant {RER} U" },
+      { "amount": 0.5, "name": "Polyethylene, HDPE, granulate, at plant {RER} U" }
     ],
     "location": "RER",
     "newName": "plastics EoL recycling, RER, CFF"
@@ -3406,16 +3360,10 @@
     "activityCreationType": "from_scratch",
     "alias": "pur-fiber-eol-recycling-cff",
     "comment": "CFF parameters: A=0.5, Q=0.75",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": -0.375,
-        "name": "polyurethane, rigid foam//[RER] polyurethane production, rigid foam"
-      },
-      {
-        "amount": 0.5,
-        "name": "polyethylene terephthalate, granulate, amorphous, recycled//[Europe without Switzerland] polyethylene terephthalate production, granulate, amorphous, recycled"
-      }
+      { "amount": -0.375, "name": "Polyurethane, rigid foam, at plant {RER} U" },
+      { "amount": 0.5, "name": "Xx Recycling PET {RER} U" }
     ],
     "location": "GLO",
     "newName": "PUR foam EoL recycling, RER, CFF"
@@ -3424,16 +3372,13 @@
     "activityCreationType": "from_scratch",
     "alias": "pet-fiber-eol-recycling-cff",
     "comment": "CFF parameters: A=0.8, Q=0.3",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
       {
         "amount": -0.06,
-        "name": "polyethylene terephthalate, granulate, amorphous//[RER] polyethylene terephthalate production, granulate, amorphous"
+        "name": "Polyethylene terephthalate, granulate, amorphous, at plant {RER} U"
       },
-      {
-        "amount": 0.2,
-        "name": "polyethylene terephthalate, granulate, amorphous, recycled//[Europe without Switzerland] polyethylene terephthalate production, granulate, amorphous, recycled"
-      }
+      { "amount": 0.2, "name": "Xx Recycling PET {RER} U" }
     ],
     "location": "GLO",
     "newName": "PET fiber EoL recycling, GLO, CFF"
@@ -8976,8 +8921,8 @@
     "exchanges": [
       {
         "amount": 1.05,
-        "database": "Ecoinvent 3.9.1",
-        "name": "containerboard, linerboard//[RER] containerboard production, linerboard, kraftliner"
+        "database": "BAFU 2025v2",
+        "name": "Corrugated board base paper, kraftliner, at plant {RER} U"
       },
       {
         "amount": 1.5,
@@ -8996,18 +8941,18 @@
       },
       {
         "amount": 0.07,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {FR} U"
       },
       {
         "amount": -0.08,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste paperboard//[CH] treatment of waste paperboard, sanitary landfill"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, packaging cardboard, 19.6% water, to sanitary landfill {CH} U"
       },
       {
         "amount": -0.22,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste paperboard//[CH] treatment of waste paperboard, municipal incineration"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, packaging cardboard, 19.6% water, to municipal incineration {CH} U"
       },
       {
         "amount": 0.7,
@@ -9136,14 +9081,10 @@
     "exchanges": [
       {
         "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polypropylene, granulate//[RER] polypropylene production, granulate"
+        "database": "BAFU 2025v2",
+        "name": "Polypropylene, granulate, at plant {RER} U"
       },
-      {
-        "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "injection moulding//[RER] injection moulding"
-      },
+      { "amount": 1, "database": "BAFU 2025v2", "name": "Injection moulding {RER} U" },
       {
         "amount": 1.34,
         "database": "Agribalyse 3.2",
@@ -9161,18 +9102,18 @@
       },
       {
         "amount": 0.07,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {FR} U"
       },
       {
         "amount": -0.27,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, plastics, mixture, 15.3% water, to sanitary landfill {CH} U"
       },
       {
         "amount": -0.67,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, plastics, mixture, 15.3% water, to municipal incineration {CH} U"
       },
       {
         "amount": 0.06,
@@ -9191,8 +9132,8 @@
     "exchanges": [
       {
         "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polystyrene, expandable//[RER] polystyrene production, expandable"
+        "database": "BAFU 2025v2",
+        "name": "Polystyrene, expandable, at plant {RER} U"
       },
       {
         "amount": 1.34,
@@ -9211,18 +9152,18 @@
       },
       {
         "amount": 0.07,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {FR} U"
       },
       {
         "amount": -0.27,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, plastics, mixture, 15.3% water, to sanitary landfill {CH} U"
       },
       {
         "amount": -0.67,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, plastics, mixture, 15.3% water, to municipal incineration {CH} U"
       },
       {
         "amount": 0.06,
@@ -9241,14 +9182,10 @@
     "exchanges": [
       {
         "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polyethylene, high density, granulate//[RER] polyethylene production, high density, granulate"
+        "database": "BAFU 2025v2",
+        "name": "Polyethylene, HDPE, granulate, at plant {RER} U"
       },
-      {
-        "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "injection moulding//[RER] injection moulding"
-      },
+      { "amount": 1, "database": "BAFU 2025v2", "name": "Injection moulding {RER} U" },
       {
         "amount": 1.34,
         "database": "Agribalyse 3.2",
@@ -9266,18 +9203,18 @@
       },
       {
         "amount": 0.07,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {FR} U"
       },
       {
         "amount": -0.27,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, plastics, mixture, 15.3% water, to sanitary landfill {CH} U"
       },
       {
         "amount": -0.67,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, plastics, mixture, 15.3% water, to municipal incineration {CH} U"
       },
       {
         "amount": 0.06,
@@ -9296,14 +9233,10 @@
     "exchanges": [
       {
         "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polyethylene, low density, granulate//[RER] polyethylene production, low density, granulate"
+        "database": "BAFU 2025v2",
+        "name": "Polyethylene, LDPE, granulate, at plant {RER} U"
       },
-      {
-        "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "injection moulding//[RER] injection moulding"
-      },
+      { "amount": 1, "database": "BAFU 2025v2", "name": "Injection moulding {RER} U" },
       {
         "amount": 1.34,
         "database": "Agribalyse 3.2",
@@ -9321,18 +9254,18 @@
       },
       {
         "amount": 0.07,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {FR} U"
       },
       {
         "amount": -0.27,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, plastics, mixture, 15.3% water, to sanitary landfill {CH} U"
       },
       {
         "amount": -0.67,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, plastics, mixture, 15.3% water, to municipal incineration {CH} U"
       },
       {
         "amount": 0.06,
@@ -9347,16 +9280,12 @@
     "activityCreationType": "from_scratch",
     "alias": "glass-laminated",
     "comment": "Laminated glass with 2x2.1mm glass layer and 0.76mm PVB interlayer, modelled as PVC (no PVB in ecoinvent, low sensibility).",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 0.98,
-        "name": "flat glass, uncoated//[RER] flat glass production, uncoated"
-      },
+      { "amount": 0.98, "name": "Flat glass, uncoated, at plant {RER} U" },
       {
         "amount": 0.02,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised"
+        "name": "Polyvinylchloride, suspension polymerised, at plant {RER} U"
       }
     ],
     "location": "RER",
@@ -9370,13 +9299,13 @@
     "exchanges": [
       {
         "amount": 1.15,
-        "database": "Ecoinvent 3.9.1",
-        "name": "cleft timber, measured as dry mass//[DE] hardwood forestry, beech, sustainable forest management"
+        "database": "BAFU 2025v2",
+        "name": "Cleft timber, beech, sustainable forest management, measured as dry mass, at forest road {DE} U"
       },
       {
         "amount": 0.001515,
-        "database": "Ecoinvent 3.9.1",
-        "name": "sawnwood, board, softwood, raw, dried (u=20%)//[Europe without Switzerland] board, softwood, raw, air drying to u=20%"
+        "database": "BAFU 2025v2",
+        "name": "Sawnwood, board, softwood, raw, air dried (u=20%), at sawmill {RER} U"
       },
       {
         "amount": 0.84,
@@ -9395,18 +9324,18 @@
       },
       {
         "amount": 0.07,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {FR} U"
       },
       {
         "amount": -0.45,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste wood, untreated//[CH] treatment of waste wood, untreated, sanitary landfill"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, wood untreated, 20% water, to sanitary landfill {CH} U"
       },
       {
         "amount": -0.5,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste wood, untreated//[CH] treatment of waste wood, untreated, municipal incineration"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, wood untreated, 20% water, to municipal incineration {CH} U"
       },
       {
         "amount": 0.05,
@@ -9425,8 +9354,8 @@
     "exchanges": [
       {
         "amount": 1.05,
-        "database": "Ecoinvent 3.9.1",
-        "name": "paper, woodfree, uncoated//[RER] paper production, woodfree, uncoated, at integrated mill"
+        "database": "BAFU 2025v2",
+        "name": "Paper, woodfree, uncoated, at integrated mill {RER} U"
       },
       {
         "amount": 1.5,
@@ -9445,18 +9374,18 @@
       },
       {
         "amount": 0.07,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {FR} U"
       },
       {
         "amount": -0.08,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste paperboard//[CH] treatment of waste paperboard, sanitary landfill"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, packaging cardboard, 19.6% water, to sanitary landfill {CH} U"
       },
       {
         "amount": -0.22,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste paperboard//[CH] treatment of waste paperboard, municipal incineration"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, packaging cardboard, 19.6% water, to municipal incineration {CH} U"
       },
       {
         "amount": 0.7,
@@ -9473,25 +9402,41 @@
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      { "amount": 1.009, "name": "nickel sulfate//[GLO] nickel sulfate production" },
-      { "amount": 0.337, "name": "cobalt sulfate//[CN] cobalt sulfate production" },
-      { "amount": 0.328, "name": "manganese sulfate//[GLO] manganese sulfate production" },
+      {
+        "amount": 1.009,
+        "database": "BAFU 2025v2",
+        "name": "Nickel, 99.5%, at plant {GLO} U"
+      },
+      { "amount": 0.337, "database": "BAFU 2025v2", "name": "Cobalt sulfate {GLO} U" },
+      {
+        "amount": 0.328,
+        "database": "BAFU 2025v2",
+        "name": "Manganese, at regional storage {RER} U"
+      },
       {
         "amount": 0.89,
-        "name": "sodium hydroxide, without water, in 50% solution state//[GLO] market for sodium hydroxide, without water, in 50% solution state"
+        "database": "BAFU 2025v2",
+        "name": "Sodium hydroxide, 50% in H2O, production mix, at plant {RER} U"
       },
       {
         "amount": 0.124,
-        "name": "ammonia, anhydrous, liquid//[CN] ammonia production, steam reforming, liquid"
+        "database": "BAFU 2025v2",
+        "name": "Ammonia, liquid, at regional storehouse {RER} U"
       },
-      { "amount": 0.381, "name": "lithium carbonate//[GLO] market for lithium carbonate" },
+      {
+        "amount": 0.381,
+        "database": "BAFU 2025v2",
+        "name": "Lithium carbonate, at plant {GLO} U"
+      },
       {
         "amount": 0.007,
-        "name": "N-methyl-2-pyrrolidone//[RoW] N-methyl-2-pyrrolidone production"
+        "database": "BAFU 2025v2",
+        "name": "N-methyl-2-pyrrolidone, at plant {RER} U"
       },
       {
         "amount": 7.48,
-        "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {CN} U"
       },
       {
         "amount": 40.392,
@@ -9512,39 +9457,39 @@
       { "amount": 0.278, "name": "Graphite production for battery cell, CN" },
       {
         "amount": 0.015,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polyvinylfluoride//[RoW] polyvinylfluoride production"
+        "database": "BAFU 2025v2",
+        "name": "Polyvinylfluoride, at plant {US} U"
       },
       {
         "amount": 0.12,
-        "database": "Ecoinvent 3.9.1",
-        "name": "copper collector foil, for Li-ion battery//[GLO] copper collector foil production, for Li-ion battery"
+        "database": "BAFU 2025v2",
+        "name": "Copper collector foil production, for Li-ion battery {GLO} U"
       },
       { "amount": 0.022, "name": "aluminium ingot, market, CN" },
       {
         "amount": 0.018,
-        "database": "Ecoinvent 3.9.1",
-        "name": "lithium hexafluorophosphate//[CN] lithium hexafluorophosphate production"
+        "database": "BAFU 2025v2",
+        "name": "Lithium hexafluorophosphate, at plant {CN} U"
       },
       {
         "amount": 0.051,
-        "database": "Ecoinvent 3.9.1",
-        "name": "ethylene carbonate//[CN] ethylene carbonate production"
+        "database": "BAFU 2025v2",
+        "name": "Ethylene carbonate, at plant {CN} U"
       },
       {
         "amount": 0.051,
-        "database": "Ecoinvent 3.9.1",
-        "name": "dimethyl carbonate//[RoW] dimethyl carbonate production"
+        "database": "BAFU 2025v2",
+        "name": "Ethylene carbonate, at plant {CN} U"
       },
       {
         "amount": 0.002,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
+        "database": "BAFU 2025v2",
+        "name": "Polypropylene, granulate, at plant {RER} U"
       },
       {
         "amount": 6,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {CN} U"
       },
       { "amount": 32.3, "name": "heat, industrial, market, RoW" }
     ],
@@ -9559,11 +9504,13 @@
     "exchanges": [
       {
         "amount": 0.0134,
-        "name": "manganese dioxide//[GLO] manganese dioxide production"
+        "database": "BAFU 2025v2",
+        "name": "Manganese oxide (Mn2O3), at plant {CN} U"
       },
       {
         "amount": 0.0037,
-        "name": "potassium hydroxide//[GLO] market for potassium hydroxide"
+        "database": "BAFU 2025v2",
+        "name": "Potassium hydroxide, at regional storage {RER} U"
       },
       {
         "amount": 0.0012,
@@ -9575,24 +9522,36 @@
         "database": "Ecobalyse_custom_lci",
         "name": "steel, low-alloyed, market, CN"
       },
-      { "amount": 0.00014, "name": "nickel sulfate//[GLO] nickel sulfate production" },
-      { "amount": 0.0058, "name": "zinc//[RoW] primary zinc production from concentrate" },
-      { "amount": 0.00103, "name": "brass//[RoW] market for brass" },
+      {
+        "amount": 0.00014,
+        "database": "BAFU 2025v2",
+        "name": "Nickel, 99.5%, at plant {GLO} U"
+      },
+      {
+        "amount": 0.0058,
+        "database": "BAFU 2025v2",
+        "name": "Zinc, primary, at regional storage {RER} U"
+      },
+      { "amount": 0.00103, "database": "BAFU 2025v2", "name": "Brass, at plant {CH} U" },
       {
         "amount": 0.000558,
-        "name": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8"
+        "database": "BAFU 2025v2",
+        "name": "Chromium steel 18/8, at plant {RER} U"
       },
       {
         "amount": 0.00055,
-        "name": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised"
+        "database": "BAFU 2025v2",
+        "name": "Polyvinylchloride, suspension polymerised, at plant {RER} U"
       },
       {
         "amount": 0.00055,
-        "name": "potassium hydroxide//[GLO] market for potassium hydroxide"
+        "database": "BAFU 2025v2",
+        "name": "Potassium hydroxide, at regional storage {RER} U"
       },
       {
         "amount": 0.02,
-        "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {RER} U"
       },
       {
         "amount": 0.0343,
@@ -9728,20 +9687,17 @@
     "activityCreationType": "from_scratch",
     "alias": "tire",
     "comment": "Tire made of 50% rubber (80% synthetic, 20% natural), 30% carbon black, 12% PET plastic, 7% stainless steel and 1% brass.",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      { "amount": 0.4, "name": "synthetic rubber//[RER] synthetic rubber production" },
-      { "amount": 0.3, "name": "carbon black//[GLO] carbon black production" },
-      {
-        "amount": 0.07,
-        "name": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8"
-      },
-      { "amount": 0.1, "name": "chemical, organic//[GLO] market for chemical, organic" },
+      { "amount": 0.4, "name": "Synthetic rubber, at plant {RER} U" },
+      { "amount": 0.3, "name": "Carbon black, at plant {GLO} U" },
+      { "amount": 0.07, "name": "Chromium steel 18/8, at plant {RER} U" },
+      { "amount": 0.1, "name": "Chemicals organic, at plant {GLO} U" },
       {
         "amount": 0.12,
-        "name": "polyethylene terephthalate, granulate, amorphous//[GLO] market for polyethylene terephthalate, granulate, amorphous"
+        "name": "Polyethylene terephthalate, granulate, amorphous, at plant {RER} U"
       },
-      { "amount": 0.01, "name": "brass//[RoW] market for brass" }
+      { "amount": 0.01, "name": "Brass, at plant {CH} U" }
     ],
     "location": "GLO",
     "newName": "Tire"
@@ -9750,15 +9706,12 @@
     "activityCreationType": "from_scratch",
     "alias": "vehicle-use-diesel-upstream-200kkm",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 1562,
-        "name": "diesel, low-sulfur//[RER] market group for diesel, low-sulfur"
-      },
+      { "amount": 1562, "name": "Diesel, at regional storage {RER} U" },
       {
         "amount": 118,
-        "name": "fatty acid methyl ester//[RoW] market for fatty acid methyl ester"
+        "name": "Methyl ester, from biogenic oils, mix, at regional storage {RER} U"
       }
     ],
     "newName": "Diesel B7, upstream, 200 000 km"
@@ -9839,15 +9792,12 @@
     "activityCreationType": "from_scratch",
     "alias": "vehicle-use-petrol-upstream-200kkm",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 1359,
-        "name": "petrol, low-sulfur//[Europe without Switzerland] market for petrol, low-sulfur"
-      },
+      { "amount": 1359, "name": "Petrol, at regional storage {RER} U" },
       {
         "amount": 151,
-        "name": "ethyl tert-butyl ether//[RER] ethyl tert-butyl ether production, from bioethanol"
+        "name": "Ethyl tert-butyl ether, from bioethanol, at plant {RER} U"
       }
     ],
     "newName": "Petrol E10, upstream, 200 000 km"
@@ -9856,15 +9806,12 @@
     "activityCreationType": "from_scratch",
     "alias": "product-use-petrol-upstream",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 0.68,
-        "name": "petrol, low-sulfur//[Europe without Switzerland] market for petrol, low-sulfur"
-      },
+      { "amount": 0.68, "name": "Petrol, at regional storage {RER} U" },
       {
         "amount": 0.075,
-        "name": "ethyl tert-butyl ether//[RER] ethyl tert-butyl ether production, from bioethanol"
+        "name": "Ethyl tert-butyl ether, from bioethanol, at plant {RER} U"
       }
     ],
     "newName": "Petrol E10, upstream, 1L"
@@ -9930,76 +9877,46 @@
     "activityCreationType": "from_scratch",
     "alias": "vehicle-ev-other-materials-rer",
     "comment": "according to score environnemental methodology",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
       {
         "amount": 0.0457,
-        "name": "acrylonitrile-butadiene-styrene copolymer//[RER] acrylonitrile-butadiene-styrene copolymer production"
+        "name": "Acrylonitrile-butadiene-styrene copolymer, ABS, at plant {RER} U"
       },
-      { "amount": 0.0427, "name": "synthetic rubber//[RER] synthetic rubber production" },
-      {
-        "amount": 0.0643,
-        "name": "epoxy resin, liquid//[RER] epoxy resin production, liquid"
-      },
-      {
-        "amount": 0.0042,
-        "name": "polystyrene, general purpose//[RER] polystyrene production, general purpose"
-      },
-      {
-        "amount": 0.0042,
-        "name": "polystyrene, high impact//[RER] polystyrene production, high impact"
-      },
-      {
-        "amount": 0.0084,
-        "name": "polyethylene, high density, granulate//[RER] polyethylene production, high density, granulate"
-      },
-      {
-        "amount": 0.0084,
-        "name": "polyethylene, low density, granulate//[RER] polyethylene production, low density, granulate"
-      },
-      {
-        "amount": 0.0084,
-        "name": "polyethylene, linear low density, granulate//[RER] polyethylene production, linear low density, granulate"
-      },
+      { "amount": 0.0427, "name": "Synthetic rubber, at plant {RER} U" },
+      { "amount": 0.0643, "name": "Epoxy resin, liquid, at plant {RER} U" },
+      { "amount": 0.0042, "name": "Polystyrene, general purpose, GPPS, at plant {RER} U" },
+      { "amount": 0.0042, "name": "Polystyrene, high impact, HIPS, at plant {RER} U" },
+      { "amount": 0.0084, "name": "Polyethylene, HDPE, granulate, at plant {RER} U" },
+      { "amount": 0.0084, "name": "Polyethylene, LDPE, granulate, at plant {RER} U" },
+      { "amount": 0.0084, "name": "Polyethylene, LLDPE, granulate, at plant {RER} U" },
       {
         "amount": 0.0066,
-        "name": "glass fibre reinforced plastic, polyamide, injection moulded//[RER] glass fibre reinforced plastic production, polyamide, injection moulded"
+        "name": "Glass fibre reinforced plastic, polyamide, injection moulding, at plant {RER} U"
       },
       {
         "amount": 0.0421,
-        "name": "glass fibre reinforced plastic, polyamide, injection moulded//[RER] glass fibre reinforced plastic production, polyamide, injection moulded"
+        "name": "Glass fibre reinforced plastic, polyamide, injection moulding, at plant {RER} U"
       },
-      { "amount": 0.021, "name": "polycarbonate//[RER] polycarbonate production" },
+      { "amount": 0.021, "name": "Polycarbonate, at plant {RER} U" },
       {
         "amount": 0.0102,
-        "name": "polyethylene terephthalate, granulate, amorphous//[RER] polyethylene terephthalate production, granulate, amorphous"
+        "name": "Polyethylene terephthalate, granulate, amorphous, at plant {RER} U"
       },
-      {
-        "amount": 0.1087,
-        "name": "polypropylene, granulate//[RER] polypropylene production, granulate"
-      },
-      {
-        "amount": 0.0733,
-        "name": "polyurethane, flexible foam//[RER] polyurethane production, flexible foam, TDI-based, low density"
-      },
-      {
-        "amount": 0.0697,
-        "name": "polyurethane, flexible foam, flame retardant//[RER] polyurethane production, flexible foam, TDI-based, flame retardant"
-      },
+      { "amount": 0.1087, "name": "Polypropylene, granulate, at plant {RER} U" },
+      { "amount": 0.0733, "name": "Polyurethane, flexible foam, at plant {RER} U" },
+      { "amount": 0.0697, "name": "Polyurethane, flexible foam, at plant {RER} U" },
       {
         "amount": 0.0829,
-        "name": "polyvinylchloride, suspension polymerised//[RER] polyvinylchloride production, suspension polymerisation"
+        "name": "Polyvinylchloride, suspension polymerised, at plant {RER} U"
       },
-      { "amount": 0.13, "name": "copper, cathode//[GLO] market for copper, cathode" },
-      { "amount": 0.13, "name": "wire drawing, copper//[RER] wire drawing, copper" },
-      { "amount": 0.1112, "name": "tempering, flat glass//[RER] tempering, flat glass" },
-      {
-        "amount": 0.1112,
-        "name": "flat glass, coated//[RER] market for flat glass, coated"
-      },
-      { "amount": 0.1582, "name": "latex//[RER] latex production" },
-      { "amount": 0.1582, "name": "injection moulding//[RER] injection moulding" },
-      { "amount": 0.1582, "name": "blow moulding//[RER] blow moulding" }
+      { "amount": 0.13, "name": "Copper, at regional storage {RER} U" },
+      { "amount": 0.13, "name": "Wire drawing, copper {RER} U" },
+      { "amount": 0.1112, "name": "Tempering, flat glass {RER} U" },
+      { "amount": 0.1112, "name": "Flat glass, coated, at plant {RER} U" },
+      { "amount": 0.1582, "name": "Latex, at plant {RER} U" },
+      { "amount": 0.1582, "name": "Injection moulding {RER} U" },
+      { "amount": 0.1582, "name": "Stretch blow moulding {RER} U" }
     ],
     "newName": "EV other materials, RER"
   },
@@ -10007,76 +9924,46 @@
     "activityCreationType": "from_scratch",
     "alias": "vehicle-ev-other-materials-row",
     "comment": "according to score environnemental methodology",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
       {
         "amount": 0.0457,
-        "name": "acrylonitrile-butadiene-styrene copolymer//[RoW] acrylonitrile-butadiene-styrene copolymer production"
+        "name": "Acrylonitrile-butadiene-styrene copolymer, ABS, at plant {RER} U"
       },
-      { "amount": 0.0427, "name": "synthetic rubber//[RoW] synthetic rubber production" },
-      {
-        "amount": 0.0643,
-        "name": "epoxy resin, liquid//[RoW] epoxy resin production, liquid"
-      },
-      {
-        "amount": 0.0042,
-        "name": "polystyrene, general purpose//[RoW] polystyrene production, general purpose"
-      },
-      {
-        "amount": 0.0042,
-        "name": "polystyrene, high impact//[RoW] polystyrene production, high impact"
-      },
-      {
-        "amount": 0.0084,
-        "name": "polyethylene, high density, granulate//[RoW] polyethylene production, high density, granulate"
-      },
-      {
-        "amount": 0.0084,
-        "name": "polyethylene, low density, granulate//[RoW] polyethylene production, low density, granulate"
-      },
-      {
-        "amount": 0.0084,
-        "name": "polyethylene, linear low density, granulate//[RoW] polyethylene production, linear low density, granulate"
-      },
+      { "amount": 0.0427, "name": "Synthetic rubber, at plant {RER} U" },
+      { "amount": 0.0643, "name": "Epoxy resin, liquid, at plant {RER} U" },
+      { "amount": 0.0042, "name": "Polystyrene, general purpose, GPPS, at plant {RER} U" },
+      { "amount": 0.0042, "name": "Polystyrene, high impact, HIPS, at plant {RER} U" },
+      { "amount": 0.0084, "name": "Polyethylene, HDPE, granulate, at plant {RER} U" },
+      { "amount": 0.0084, "name": "Polyethylene, LDPE, granulate, at plant {RER} U" },
+      { "amount": 0.0084, "name": "Polyethylene, LLDPE, granulate, at plant {RER} U" },
       {
         "amount": 0.0066,
-        "name": "glass fibre reinforced plastic, polyamide, injection moulded//[RoW] glass fibre reinforced plastic production, polyamide, injection moulded"
+        "name": "Glass fibre reinforced plastic, polyamide, injection moulding, at plant {RER} U"
       },
       {
         "amount": 0.0421,
-        "name": "glass fibre reinforced plastic, polyamide, injection moulded//[RoW] glass fibre reinforced plastic production, polyamide, injection moulded"
+        "name": "Glass fibre reinforced plastic, polyamide, injection moulding, at plant {RER} U"
       },
-      { "amount": 0.021, "name": "polycarbonate//[RoW] polycarbonate production" },
+      { "amount": 0.021, "name": "Polycarbonate, at plant {RER} U" },
       {
         "amount": 0.0102,
-        "name": "polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous"
+        "name": "Polyethylene terephthalate, granulate, amorphous, at plant {RER} U"
       },
-      {
-        "amount": 0.1087,
-        "name": "polypropylene, granulate//[RoW] polypropylene production, granulate"
-      },
-      {
-        "amount": 0.0733,
-        "name": "polyurethane, flexible foam//[RoW] polyurethane production, flexible foam, TDI-based, low density"
-      },
-      {
-        "amount": 0.0697,
-        "name": "polyurethane, flexible foam, flame retardant//[RoW] polyurethane production, flexible foam, TDI-based, flame retardant"
-      },
+      { "amount": 0.1087, "name": "Polypropylene, granulate, at plant {RER} U" },
+      { "amount": 0.0733, "name": "Polyurethane, flexible foam, at plant {RER} U" },
+      { "amount": 0.0697, "name": "Polyurethane, flexible foam, at plant {RER} U" },
       {
         "amount": 0.0829,
-        "name": "polyvinylchloride, suspension polymerised//[RoW] polyvinylchloride production, suspension polymerisation"
+        "name": "Polyvinylchloride, suspension polymerised, at plant {RER} U"
       },
-      { "amount": 0.13, "name": "copper, cathode//[GLO] market for copper, cathode" },
-      { "amount": 0.13, "name": "wire drawing, copper//[RoW] wire drawing, copper" },
-      { "amount": 0.1112, "name": "tempering, flat glass//[RoW] tempering, flat glass" },
-      {
-        "amount": 0.1112,
-        "name": "flat glass, coated//[RoW] market for flat glass, coated"
-      },
-      { "amount": 0.1582, "name": "latex//[RoW] latex production" },
-      { "amount": 0.1582, "name": "injection moulding//[RoW] injection moulding" },
-      { "amount": 0.1582, "name": "blow moulding//[RoW] blow moulding" }
+      { "amount": 0.13, "name": "Copper, at regional storage {RER} U" },
+      { "amount": 0.13, "name": "Wire drawing, copper {RER} U" },
+      { "amount": 0.1112, "name": "Tempering, flat glass {RER} U" },
+      { "amount": 0.1112, "name": "Flat glass, coated, at plant {RER} U" },
+      { "amount": 0.1582, "name": "Latex, at plant {RER} U" },
+      { "amount": 0.1582, "name": "Injection moulding {RER} U" },
+      { "amount": 0.1582, "name": "Stretch blow moulding {RER} U" }
     ],
     "newName": "EV other materials, RoW"
   }
