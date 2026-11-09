@@ -23,10 +23,10 @@ validate db query =
     Ok Query
         |> Validation.ok "airTransportRatio" query.airTransportRatio
         |> Validation.ok "business" query.business
-        |> Validation.maybe "countryDyeing" query.countryDyeing (Country.validateForScope Sector.Textile db.countries)
-        |> Validation.maybe "countryFabric" query.countryFabric (Country.validateForScope Sector.Textile db.countries)
-        |> Validation.maybe "countryMaking" query.countryMaking (Country.validateForScope Sector.Textile db.countries)
-        |> Validation.maybe "countrySpinning" query.countrySpinning (Country.validateForScope Sector.Textile db.countries)
+        |> Validation.maybe "countryDyeing" query.countryDyeing (Country.validateForSector Sector.Textile db.countries)
+        |> Validation.maybe "countryFabric" query.countryFabric (Country.validateForSector Sector.Textile db.countries)
+        |> Validation.maybe "countryMaking" query.countryMaking (Country.validateForSector Sector.Textile db.countries)
+        |> Validation.maybe "countrySpinning" query.countrySpinning (Country.validateForSector Sector.Textile db.countries)
         |> Validation.ok "disabledSteps" query.disabledStages
         |> Validation.ok "dyeingProcessType" query.dyeingProcessType
         |> Validation.ok "fabricProcess" query.fabricProcess
@@ -81,7 +81,7 @@ validateMaterialQuery db materialQuery =
     Ok MaterialQuery
         |> RE.andMap
             (materialQuery.country
-                |> validateMaybe (Country.validateForScope Sector.Textile db.countries)
+                |> validateMaybe (Country.validateForSector Sector.Textile db.countries)
             )
         |> RE.andMap
             (db.textile.materials

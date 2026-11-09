@@ -29,7 +29,7 @@ validateIngredient db ingredientQuery =
     Ok IngredientQuery
         |> RE.andMap
             (ingredientQuery.country
-                |> validateMaybe (Country.validateForScope Sector.Food db.countries)
+                |> validateMaybe (Country.validateForSector Sector.Food db.countries)
             )
         |> RE.andMap
             (db.food.ingredients

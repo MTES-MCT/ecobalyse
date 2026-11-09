@@ -94,22 +94,22 @@ parseGenericSimulatorRoutes : Parser (Route -> a) a
 parseGenericSimulatorRoutes =
     Parser.oneOf
         [ Parser.map GenericSimulatorHome
-            (scopeParser </> Parser.s "simulator")
+            (sectorParser </> Parser.s "simulator")
         , Parser.map GenericSimulator <|
-            scopeParser
+            sectorParser
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
                 </> Component.parseBase64Query
         , Parser.map GenericSimulatorExample
-            (scopeParser
+            (sectorParser
                 </> Parser.s "edit-example"
                 </> Example.parseUuid
             )
         ]
 
 
-scopeParser : Parser (Sector.GenericSector -> a) a
-scopeParser =
+sectorParser : Parser (Sector.GenericSector -> a) a
+sectorParser =
     List.map
         (\sector ->
             sector

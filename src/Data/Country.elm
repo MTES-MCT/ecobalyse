@@ -9,7 +9,7 @@ module Data.Country exposing
     , isEuropeOrTurkey
     , resolveMaybe
     , toSearchableString
-    , validateForScope
+    , validateForSector
     )
 
 import Data.Common.DecodeUtils as DU
@@ -170,8 +170,8 @@ toSearchableString country =
         ]
 
 
-validateForScope : Sector -> List Country -> Code -> Result String Code
-validateForScope sector countries countryCode =
+validateForSector : Sector -> List Country -> Code -> Result String Code
+validateForSector sector countries countryCode =
     countries
         |> findByCode countryCode
         |> Result.andThen

@@ -126,10 +126,10 @@ fromString string =
         "textile" ->
             Ok Textile
 
-        genericScopeString ->
-            case fromStringGeneric genericScopeString of
+        genericSectorString ->
+            case fromStringGeneric genericSectorString of
                 Err _ ->
-                    Err <| "Couldn't decode unknown scope " ++ genericScopeString
+                    Err <| "Couldn't decode unknown scope " ++ genericSectorString
 
                 Ok genericSector ->
                     Ok (Generic genericSector)

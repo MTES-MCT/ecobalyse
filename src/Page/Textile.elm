@@ -1041,7 +1041,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , explorerRoute = Just (Route.Explore Sector.Textile (Dataset.Components Sector.Textile Nothing))
         , floatInputState = Nothing
         , impact = model.impact
-        , labels = ComponentView.scopeLabels Context.TextileTrims Sector.Textile
+        , labels = ComponentView.sectorLabels Context.TextileTrims Sector.Textile
         , lifeCycle =
             Component.emptyQuery
                 |> Component.setQueryItems inputs.trims

@@ -84,7 +84,7 @@ module Data.Component exposing
     , getDistributionProcessId
     , getDocLink
     , getEndOfLifeDetailedImpacts
-    , getEndOfLifeScopeCollectionRate
+    , getEndOfLifeSectorCollectionRate
     , getEndOfLifeTotalMass
     , getFinalElementCountry
     , getPackagingProcessId
@@ -1379,13 +1379,13 @@ decode =
         |> Decode.required "scopes"
             (Decode.list Sector.decode
                 |> Decode.map
-                    (\scopes ->
-                        if List.isEmpty scopes then
+                    (\sectors ->
+                        if List.isEmpty sectors then
                             -- Always ensure at least one sector is present
                             [ Sector.Generic Sector.Object ]
 
                         else
-                            scopes
+                            sectors
                     )
             )
 
@@ -2419,7 +2419,7 @@ getEndOfLifeDetailedImpacts { config, sector } recyclable lifeCycle =
                 Mass.inKilograms lifeCycle.productMass / Mass.inKilograms productionMass
 
         collectionRatio =
-            sector |> getEndOfLifeScopeCollectionRate config recyclable
+            sector |> getEndOfLifeSectorCollectionRate config recyclable
 
         nonCollectionRatio =
             Split.complement collectionRatio
@@ -2486,8 +2486,8 @@ getEndOfLifeImpacts ({ config, sector } as requirements) recyclable lifeCycle =
         Impact.empty
 
 
-getEndOfLifeScopeCollectionRate : Config -> Bool -> Sector -> Split
-getEndOfLifeScopeCollectionRate { endOfLife } recyclable sector =
+getEndOfLifeSectorCollectionRate : Config -> Bool -> Sector -> Split
+getEndOfLifeSectorCollectionRate { endOfLife } recyclable sector =
     if recyclable then
         endOfLife.scopeCollectionRates
             |> AnyDict.get sector
@@ -3490,7 +3490,7 @@ validateCountry { db, sector } maybeCountryCode =
     case maybeCountryCode of
         Just countryCode ->
             countryCode
-                |> Country.validateForScope sector db.countries
+                |> Country.validateForSector sector db.countries
                 |> Result.map Just
 
         Nothing ->

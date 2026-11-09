@@ -103,8 +103,8 @@ buildGenericApiQuery sector maybeToken clientUrl query =
             (query |> Component.encodeQuery |> Encode.encode 0)
 
 
-shareGenericScope : Definition -> Session -> Sector.GenericSector -> ( String, String, String )
-shareGenericScope impact session genericSector =
+shareGenericSector : Definition -> Session -> Sector.GenericSector -> ( String, String, String )
+shareGenericSector impact session genericSector =
     let
         query =
             Session.genericQuery genericSector session
@@ -143,7 +143,7 @@ shareTabView { copyToClipBoard, impact, sector, session } =
                     )
 
                 Sector.Generic genericSector ->
-                    shareGenericScope impact session genericSector
+                    shareGenericSector impact session genericSector
 
                 Sector.Textile ->
                     let
@@ -219,7 +219,7 @@ managerView cfg =
         ( queryExists, nameExists ) =
             ( bookmarks
                 |> List.map .query
-                |> List.member (queryFromScope cfg.session cfg.sector)
+                |> List.member (queryFromSector cfg.session cfg.sector)
             , bookmarks
                 |> List.map .name
                 |> List.member cfg.bookmarkName
@@ -322,7 +322,7 @@ bookmarkView : ManagerConfig msg -> Bookmark -> Html msg
 bookmarkView cfg ({ name, query } as bookmark) =
     let
         currentQuery =
-            queryFromScope cfg.session cfg.sector
+            queryFromSector cfg.session cfg.sector
 
         bookmarkRoute =
             case query of
@@ -486,8 +486,8 @@ contributeExampleTabView ({ sector, session } as config) =
         ]
 
 
-queryFromScope : Session -> Sector -> Bookmark.Query
-queryFromScope session sector =
+queryFromSector : Session -> Sector -> Bookmark.Query
+queryFromSector session sector =
     case sector of
         Sector.Food ->
             Bookmark.Food session.queries.food

@@ -101,12 +101,12 @@ encode v =
         [ ( "created", v.created |> Time.posixToMillis |> Encode.int |> Just )
         , ( "name", Encode.string v.name |> Just )
         , ( "query", encodeQuery v.query |> Just )
-        , ( "subScope", encodeGenericScope v.query )
+        , ( "subScope", encodeGenericSector v.query )
         ]
 
 
-encodeGenericScope : Query -> Maybe Encode.Value
-encodeGenericScope query =
+encodeGenericSector : Query -> Maybe Encode.Value
+encodeGenericSector query =
     case query of
         Generic genericSector _ ->
             Just (Sector.encodeGeneric genericSector)
@@ -147,8 +147,8 @@ isFood { query } =
 isGeneric : GenericSector -> Bookmark -> Bool
 isGeneric genericSector { query } =
     case query of
-        Generic bookmarkScope _ ->
-            bookmarkScope == genericSector
+        Generic bookmarkSector _ ->
+            bookmarkSector == genericSector
 
         _ ->
             False

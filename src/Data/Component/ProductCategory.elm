@@ -6,7 +6,7 @@ module Data.Component.ProductCategory exposing
     , encode
     , encodeId
     , findById
-    , findByScope
+    , findBySector
     , idFromString
     , idToString
     , toSearchableString
@@ -105,8 +105,8 @@ findById id =
         >> Result.fromMaybe ("Catégorie de produit introuvable id=" ++ idToString id ++ ".")
 
 
-findByScope : Sector.GenericSector -> List ProductCategory -> List ProductCategory
-findByScope genericSector =
+findBySector : Sector.GenericSector -> List ProductCategory -> List ProductCategory
+findBySector genericSector =
     List.filter (.sector >> (==) genericSector)
 
 

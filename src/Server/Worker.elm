@@ -385,7 +385,7 @@ handleConfiguredRequest db config request =
 
         Just (Route.GenericGetCategoryList genericSector) ->
             db.products
-                |> ProductCategory.findByScope genericSector
+                |> ProductCategory.findBySector genericSector
                 |> Encode.list ProductCategory.encode
                 |> respondWith 200
 

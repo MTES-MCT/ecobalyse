@@ -144,7 +144,7 @@ loadData sessionConfig =
      , ( "/data/transports.json", \data raw -> { raw | transports = data } )
      , ( "/data/processes.json", \data raw -> { raw | processes = data } )
      ]
-        ++ List.concatMap scopeLoadData Sector.all
+        ++ List.concatMap sectorLoadData Sector.all
     )
         |> List.map
             (\( path, onLoaded ) ->
@@ -153,8 +153,8 @@ loadData sessionConfig =
         |> Cmd.batch
 
 
-scopeLoadData : Sector -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
-scopeLoadData sector =
+sectorLoadData : Sector -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
+sectorLoadData sector =
     case sector of
         Sector.Food ->
             [ ( "/data/food/ingredients.json", \data raw -> { raw | foodIngredients = data } )
@@ -162,7 +162,7 @@ scopeLoadData sector =
             ]
 
         Sector.Generic genericSector ->
-            scopeGenericLoadData genericSector
+            sectorGenericLoadData genericSector
 
         Sector.Textile ->
             [ ( "/data/textile/components.json", \data raw -> { raw | textileComponents = data } )
@@ -172,8 +172,8 @@ scopeLoadData sector =
             ]
 
 
-scopeGenericLoadData : Sector.GenericSector -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
-scopeGenericLoadData sector =
+sectorGenericLoadData : Sector.GenericSector -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
+sectorGenericLoadData sector =
     case sector of
         Sector.Apparel ->
             [ ( "/data/apparel/categories.json", \data raw -> { raw | apparelProductCategories = data } )

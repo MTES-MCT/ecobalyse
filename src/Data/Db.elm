@@ -81,7 +81,7 @@ build json =
                 Ok Db
                     |> RE.andMap
                         (Sector.all
-                            |> List.filterMap (scopeComponents json)
+                            |> List.filterMap (sectorComponents json)
                             |> List.map (extractJsonString >> Component.decodeListFromJsonString)
                             |> RE.combine
                             -- A missing country inherits the process default origin. Resolve it once here at build
@@ -113,7 +113,7 @@ build json =
                         )
                     |> RE.andMap
                         (Sector.allGeneric
-                            |> List.map (\sector -> extractJsonString (scopeGenericExamples json sector))
+                            |> List.map (\sector -> extractJsonString (sectorGenericExamples json sector))
                             |> GenericDb.buildFromJson processes
                         )
                     |> RE.andMap (Ok processes)
@@ -122,7 +122,7 @@ build json =
                             |> List.map
                                 (\sector ->
                                     sector
-                                        |> scopeGenericProductCategories json
+                                        |> sectorGenericProductCategories json
                                         |> extractJsonString
                                         |> ProductCategory.decodeListFromJsonString
                                 )
@@ -139,21 +139,21 @@ build json =
             )
 
 
-scopeComponents : RawJsonStrings -> Sector -> Maybe RawJsonString
-scopeComponents json sector =
+sectorComponents : RawJsonStrings -> Sector -> Maybe RawJsonString
+sectorComponents json sector =
     case sector of
         Sector.Food ->
             Nothing
 
         Sector.Generic genericSector ->
-            Just (scopeGenericComponents json genericSector)
+            Just (sectorGenericComponents json genericSector)
 
         Sector.Textile ->
             Just json.textileComponents
 
 
-scopeGenericComponents : RawJsonStrings -> Sector.GenericSector -> RawJsonString
-scopeGenericComponents json sector =
+sectorGenericComponents : RawJsonStrings -> Sector.GenericSector -> RawJsonString
+sectorGenericComponents json sector =
     case sector of
         Sector.Apparel ->
             json.apparelComponents
@@ -168,8 +168,8 @@ scopeGenericComponents json sector =
             json.veliComponents
 
 
-scopeGenericExamples : RawJsonStrings -> Sector.GenericSector -> RawJsonString
-scopeGenericExamples json sector =
+sectorGenericExamples : RawJsonStrings -> Sector.GenericSector -> RawJsonString
+sectorGenericExamples json sector =
     case sector of
         Sector.Apparel ->
             json.apparelExamples
@@ -184,8 +184,8 @@ scopeGenericExamples json sector =
             json.veliExamples
 
 
-scopeGenericProductCategories : RawJsonStrings -> Sector.GenericSector -> RawJsonString
-scopeGenericProductCategories json sector =
+sectorGenericProductCategories : RawJsonStrings -> Sector.GenericSector -> RawJsonString
+sectorGenericProductCategories json sector =
     case sector of
         Sector.Apparel ->
             json.apparelProductCategories
@@ -239,11 +239,11 @@ propGetters =
         :: .definitions
         :: .transports
         :: .processes
-        :: List.concatMap scopePropGetters Sector.all
+        :: List.concatMap sectorPropGetters Sector.all
 
 
-scopePropGetters : Sector -> List (Properties a -> a)
-scopePropGetters sector =
+sectorPropGetters : Sector -> List (Properties a -> a)
+sectorPropGetters sector =
     case sector of
         Sector.Food ->
             [ .foodIngredients
@@ -251,7 +251,7 @@ scopePropGetters sector =
             ]
 
         Sector.Generic genericSector ->
-            scopeGenericPropGetters genericSector
+            sectorGenericPropGetters genericSector
 
         Sector.Textile ->
             [ .textileComponents
@@ -261,8 +261,8 @@ scopePropGetters sector =
             ]
 
 
-scopeGenericPropGetters : Sector.GenericSector -> List (Properties a -> a)
-scopeGenericPropGetters sector =
+sectorGenericPropGetters : Sector.GenericSector -> List (Properties a -> a)
+sectorGenericPropGetters sector =
     case sector of
         Sector.Apparel ->
             [ .apparelProductCategories

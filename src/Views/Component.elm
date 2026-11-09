@@ -3,7 +3,7 @@ module Views.Component exposing
     , editorView
     , itemEditorView
     , productCategorySelectorView
-    , scopeLabels
+    , sectorLabels
     )
 
 import Autocomplete exposing (Autocomplete)
@@ -133,8 +133,8 @@ type alias Labels =
 FIXME: we should make these configurable in components/config.json
 
 -}
-scopeLabels : Context -> Sector -> Labels
-scopeLabels context sector =
+sectorLabels : Context -> Sector -> Labels
+sectorLabels context sector =
     case context of
         Context.Generic ->
             case sector of
@@ -944,7 +944,7 @@ endOfLifeMaterialRow : Config db msg -> ( Category.Material, EndOfLifeMaterialIm
 endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialType, { collected, nonCollected } ) =
     let
         collectionShare =
-            sector |> Component.getEndOfLifeScopeCollectionRate componentConfig query.recyclable
+            sector |> Component.getEndOfLifeSectorCollectionRate componentConfig query.recyclable
 
         nonCollectionShare =
             Split.complement collectionShare
@@ -1039,7 +1039,7 @@ productCategorySelectorView { onSelect, products, query, sector } =
     let
         sectoredProducts =
             products
-                |> ProductCategory.findByScope sector
+                |> ProductCategory.findBySector sector
                 |> List.sortBy .label
     in
     if List.isEmpty sectoredProducts || List.isEmpty query.items then

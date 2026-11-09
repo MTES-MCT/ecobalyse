@@ -4,7 +4,7 @@ module Data.Example exposing
     , findByName
     , findByQuery
     , findByUuid
-    , forScope
+    , forSector
     , parseUuid
     , toCategory
     , toName
@@ -66,8 +66,8 @@ findByQuery query =
         >> Result.fromMaybe "Exemple introuvable"
 
 
-forScope : Sector -> List (Example query) -> List (Example query)
-forScope sector =
+forSector : Sector -> List (Example query) -> List (Example query)
+forSector sector =
     List.filter (.sector >> (==) sector)
 
 

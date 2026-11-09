@@ -172,7 +172,7 @@ init genericSector trigram maybeUrlQuery session =
 
         examples =
             session.db.generic.examples
-                |> Example.forScope (Sector.Generic genericSector)
+                |> Example.forSector (Sector.Generic genericSector)
     in
     { activeImpactsTab = ImpactTabs.StagesImpactsTab
     , bookmarkName = initialQuery |> suggestBookmarkName session genericSector examples
@@ -227,7 +227,7 @@ initFromExample session genericSector uuid =
 
         examples =
             session.db.generic.examples
-                |> Example.forScope sector
+                |> Example.forSector sector
 
         example =
             examples
@@ -458,7 +458,7 @@ applyUnitMassInputState session model query itemIndex state =
 update : Session -> Msg -> Model -> PageUpdate Model Msg
 update ({ navKey } as session) msg model =
     let
-        globalScope =
+        globalSector =
             Sector.Generic model.genericSector
 
         query =
@@ -468,7 +468,7 @@ update ({ navKey } as session) msg model =
         requirements =
             { config = session.componentConfig
             , db = session.db
-            , sector = globalScope
+            , sector = globalSector
             }
     in
     case msg of
@@ -677,7 +677,7 @@ update ({ navKey } as session) msg model =
             { model | modals = [ ComparatorModal ] }
                 |> createPageUpdate (session |> Session.checkComparedSimulations)
                 |> App.withCmds
-                    [ Plausible.send session <| Plausible.ComparatorOpened globalScope
+                    [ Plausible.send session <| Plausible.ComparatorOpened globalSector
                     , Ports.loadCharts ()
                     ]
 
@@ -694,7 +694,7 @@ update ({ navKey } as session) msg model =
             }
                 |> createPageUpdate session
                 |> updateQuery (query |> Component.mapItems (LE.removeAt itemIndex))
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalSector ]
 
         RemoveConsumption index ->
             createPageUpdate session model
@@ -703,7 +703,7 @@ update ({ navKey } as session) msg model =
         RemoveElement targetElement ->
             createPageUpdate session model
                 |> updateQuery (query |> Component.mapItems (Component.removeElement targetElement))
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalSector ]
 
         RemoveElementTransform targetElement transformIndex ->
             createPageUpdate session model
@@ -712,7 +712,7 @@ update ({ navKey } as session) msg model =
                         |> Component.mapItems
                             (Component.removeElementTransform targetElement transformIndex)
                     )
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalSector ]
 
         RemovePackaging index ->
             createPageUpdate session model
@@ -739,7 +739,7 @@ update ({ navKey } as session) msg model =
                                 |> Bookmark.Generic model.genericSector
                                 |> SaveBookmarkWithTime model.bookmarkName
                             )
-                    , Plausible.send session <| Plausible.BookmarkSaved globalScope
+                    , Plausible.send session <| Plausible.BookmarkSaved globalSector
                     ]
 
         SaveBookmarkWithTime name bookmarkQuery now ->
@@ -783,7 +783,7 @@ update ({ navKey } as session) msg model =
                 |> createPageUpdate session
                 |> App.withCmds
                     [ ComparatorView.comparisonTypeToString displayChoice
-                        |> Plausible.ComparisonTypeSelected globalScope
+                        |> Plausible.ComparisonTypeSelected globalSector
                         |> Plausible.send session
                     ]
 
@@ -798,7 +798,7 @@ update ({ navKey } as session) msg model =
                         |> Route.GenericSimulator model.genericSector trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
-                    , Plausible.send session <| Plausible.ImpactSelected globalScope trigram
+                    , Plausible.send session <| Plausible.ImpactSelected globalSector trigram
                     ]
 
         SwitchImpactsTab impactsTab ->
@@ -806,7 +806,7 @@ update ({ navKey } as session) msg model =
                 |> createPageUpdate session
                 |> App.withCmds
                     [ ImpactTabs.tabToString impactsTab
-                        |> Plausible.TabSelected globalScope
+                        |> Plausible.TabSelected globalSector
                         |> Plausible.send session
                     ]
 
@@ -843,7 +843,7 @@ update ({ navKey } as session) msg model =
                     (query
                         |> Component.mapItems (Component.updateItem itemIndex (\item -> { item | quantity = quantity }))
                     )
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalSector ]
 
         UpdateConsumptionAmount index state ->
             ( session, model )
@@ -889,7 +889,7 @@ update ({ navKey } as session) msg model =
                         |> Component.mapItems
                             (Component.updateElementMaterialCountry targetElement maybeCountryCode)
                     )
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalSector ]
 
         UpdateElementTransformCountry targetElement transformIndex maybeCountryCode ->
             createPageUpdate session model
@@ -898,7 +898,7 @@ update ({ navKey } as session) msg model =
                         |> Component.mapItems
                             (Component.updateElementTransformCountry targetElement transformIndex maybeCountryCode)
                     )
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalSector ]
 
         UpdateItemUnitMass itemIndex state ->
             applyUnitMassInputState session model query itemIndex state
@@ -1339,7 +1339,7 @@ editorConfig session ({ genericSector } as model) =
     , explorerRoute = Just (Route.Explore sector (Dataset.Components sector Nothing))
     , floatInputState = model.floatInputState
     , impact = model.impact
-    , labels = ComponentView.scopeLabels Context.Generic sector
+    , labels = ComponentView.sectorLabels Context.Generic sector
     , noOp = NoOp
     , openItemEditModal = \targetItem -> AppendModal (ItemEditModal targetItem)
     , openSelectAssemblyOperationModal = SelectAssemblyOperationModal >> AppendModal
@@ -1567,8 +1567,8 @@ view session model =
 modalView : Session -> Model -> Modal -> Html Msg
 modalView session ({ modals } as model) modal =
     let
-        scopeLabels =
-            ComponentView.scopeLabels Context.Generic (Sector.Generic model.genericSector)
+        sectorLabels =
+            ComponentView.sectorLabels Context.Generic (Sector.Generic model.genericSector)
     in
     case modal of
         AddProductionItemModal autocompleteState ->
@@ -1578,8 +1578,8 @@ modalView session ({ modals } as model) modal =
                 , footer = []
                 , onAutocomplete = OnAutocompleteAddProductionItem
                 , onAutocompleteSelect = OnAutocompleteSelectProductionItem
-                , placeholderText = scopeLabels.search
-                , title = scopeLabels.select
+                , placeholderText = sectorLabels.search
+                , title = sectorLabels.select
                 , toLabel = Component.productionItemToLabel
                 , toCategory = always ""
                 }

@@ -377,11 +377,11 @@ same a b =
         ( FoodIngredients _, FoodIngredients _ ) ->
             True
 
-        ( Processes scope1 _, Processes scope2 _ ) ->
-            scope1 == scope2
+        ( Processes sector1 _, Processes sector2 _ ) ->
+            sector1 == sector2
 
-        ( ProductCategory scope1 _, ProductCategory scope2 _ ) ->
-            scope1 == scope2
+        ( ProductCategory sector1 _, ProductCategory sector2 _ ) ->
+            sector1 == sector2
 
         ( Impacts _, Impacts _ ) ->
             True
@@ -389,11 +389,11 @@ same a b =
         ( TextileExamples _, TextileExamples _ ) ->
             True
 
-        ( Components scope1 _, Components scope2 _ ) ->
-            scope1 == scope2
+        ( Components sector1 _, Components sector2 _ ) ->
+            sector1 == sector2
 
-        ( GenericExamples scope1 _, GenericExamples scope2 _ ) ->
-            scope1 == scope2
+        ( GenericExamples sector1 _, GenericExamples sector2 _ ) ->
+            sector1 == sector2
 
         ( TextileMaterials _, TextileMaterials _ ) ->
             True

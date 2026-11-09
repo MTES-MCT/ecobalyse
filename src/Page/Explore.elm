@@ -157,8 +157,8 @@ update session msg model =
 
                         Dataset.ProductCategory _ _ ->
                             case Sector.toGenericSector sector of
-                                Just newGenericScope ->
-                                    Dataset.ProductCategory newGenericScope Nothing
+                                Just newGenericSector ->
+                                    Dataset.ProductCategory newGenericSector Nothing
 
                                 Nothing ->
                                     Dataset.defaultDatasetFor sector
@@ -223,8 +223,8 @@ datasetsMenuView { sector, dataset } =
             ]
 
 
-scopesMenuView : Session -> Model -> Html Msg
-scopesMenuView { enabledSections } model =
+sectorsMenuView : Session -> Model -> Html Msg
+sectorsMenuView { enabledSections } model =
     div [ class "d-flex align-items-center gap-3" ]
         [ label [ class "fw-bold d-none d-sm-block", for "scope-selector" ]
             [ text "Secteur" ]
@@ -682,7 +682,7 @@ productCategoriesExplorer session genericSector tableConfig tableState maybeId =
             Sector.Generic genericSector
     in
     [ session.db.products
-        |> ProductCategory.findByScope genericSector
+        |> ProductCategory.findBySector genericSector
         |> Table.viewList (.id >> ProductCategory.idToString >> OpenDetail)
             tableConfig
             tableState
@@ -826,8 +826,8 @@ exploreView ({ db } as session) { facetValues, sector, dataset, tableState, sear
             }
     in
     case dataset of
-        Dataset.Components scope_ maybeId ->
-            componentsExplorer session scope_ tableConfig tableState maybeId
+        Dataset.Components sector_ maybeId ->
+            componentsExplorer session sector_ tableConfig tableState maybeId
 
         Dataset.Countries maybeCode ->
             countriesExplorer db tableConfig tableState sector maybeCode
@@ -844,8 +844,8 @@ exploreView ({ db } as session) { facetValues, sector, dataset, tableState, sear
         Dataset.Impacts maybeTrigram ->
             impactsExplorer db.definitions tableConfig tableState sector maybeTrigram
 
-        Dataset.Processes scope_ maybeId ->
-            processesExplorer session scope_ tableConfig tableState maybeId
+        Dataset.Processes sector_ maybeId ->
+            processesExplorer session sector_ tableConfig tableState maybeId
 
         Dataset.ProductCategory genericSector maybeId ->
             productCategoriesExplorer session genericSector tableConfig tableState maybeId
@@ -882,7 +882,7 @@ view session model =
     , [ Container.centered [ class "pb-3" ]
             [ div [ class "row d-flex align-item-end" ]
                 [ div [ class "col-sm-8 mb-1" ] [ h1 [] [ text "Explorateur" ] ]
-                , div [ class "col-sm-4 mt-2" ] [ scopesMenuView session model ]
+                , div [ class "col-sm-4 mt-2" ] [ sectorsMenuView session model ]
                 ]
             , div [ class "row d-flex align-items-end mt-1 mx-0 g-0" ]
                 [ div [ class "col-12 col-xl-3 col-xxl-4 border-bottom" ]

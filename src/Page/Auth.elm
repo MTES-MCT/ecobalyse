@@ -841,7 +841,7 @@ viewApiTokens session apiTokens =
 viewGenericApiBetaAccess : Session -> Html Msg
 viewGenericApiBetaAccess session =
     let
-        genericScopesLabel =
+        genericSectorsLabel =
             Sector.allGeneric
                 |> List.map (Sector.Generic >> Sector.toLabel)
                 |> String.join ", "
@@ -856,7 +856,7 @@ viewGenericApiBetaAccess session =
             , span []
                 [ text "Votre compte dispose d’un accès bêta à "
                 , a [ Route.href Route.Api ] [ text "l’API générique" ]
-                , text <| " (" ++ genericScopesLabel ++ ")."
+                , text <| " (" ++ genericSectorsLabel ++ ")."
                 ]
             ]
 
