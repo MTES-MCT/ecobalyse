@@ -27,10 +27,10 @@ const {
   getProcessesAsString,
 } = require("./lib");
 const {
-  applyGenericScopesToOpenApi,
-  getEnabledGenericScopeEntries,
-  isGenericScopeEnabled,
-  parseGenericScopeFromUrl,
+  applyGenericSectorsToOpenApi,
+  getEnabledGenericSectorEntries,
+  isGenericSectorEnabled,
+  parseGenericSectorFromUrl,
 } = require("./lib/sectors");
 const express = require("express");
 
@@ -133,7 +133,7 @@ function processOpenApi(contents, versionNumber) {
   if (ENABLE_FOOD_SECTION !== "True" || ENABLE_FOOD1_API_DOCS !== "True") {
     contents.paths = filterLegacyFood1Paths(contents.paths);
   }
-  applyGenericScopesToOpenApi(contents);
+  applyGenericSectorsToOpenApi(contents);
   return contents;
 }
 
@@ -262,7 +262,7 @@ api.get("/generic/scopes", async (req, res) => {
 
   matomoTracker.track(200, req);
   await plausibleTracker.captureEvent(200, req);
-  respondWithFormattedJSON(res, 200, getEnabledGenericScopeEntries());
+  respondWithFormattedJSON(res, 200, getEnabledGenericSectorEntries());
 });
 
 // Redirects: API
@@ -282,9 +282,9 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
     });
   }
 
-  const scope = parseGenericScopeFromUrl(req.url);
+  const scope = parseGenericSectorFromUrl(req.url);
   if (scope) {
-    if (!isGenericScopeEnabled(scope)) {
+    if (!isGenericSectorEnabled(scope)) {
       return res.status(403).send({
         error: { scope: `Le périmètre "${scope}" n'est pas activé sur cette instance.` },
         documentation: API_DOCS_URL,
