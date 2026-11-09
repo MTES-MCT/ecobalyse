@@ -28,7 +28,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split exposing (Split)
 import Data.Transport exposing (Transport)
 import Data.Unit as Unit
@@ -80,7 +80,7 @@ type alias Config db msg =
     , removeElementTransform : TargetElement -> Index -> msg
     , removeItem : Index -> msg
     , removePackaging : Index -> msg
-    , scope : Scope
+    , scope : Sector
     , setDetailed : List Index -> msg
     , toggleTransportByAir : Split -> msg
     , toggleTransportCooling : Bool -> msg
@@ -133,7 +133,7 @@ type alias Labels =
 FIXME: we should make these configurable in components/config.json
 
 -}
-scopeLabels : Context -> Scope -> Labels
+scopeLabels : Context -> Sector -> Labels
 scopeLabels context scope =
     case context of
         Context.Generic ->

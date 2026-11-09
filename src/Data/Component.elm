@@ -154,7 +154,7 @@ import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category, MaterialDict)
 import Data.Scoring as Scoring exposing (Scoring)
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split exposing (Split)
 import Data.Stages exposing (Stages)
 import Data.Transport as Transport exposing (Transport)
@@ -187,7 +187,7 @@ type alias Component =
     , id : Maybe Id
     , name : String
     , published : Bool
-    , scopes : List Scope
+    , scopes : List Sector
     }
 
 
@@ -458,7 +458,7 @@ type Stage
 type alias Requirements db =
     { config : Config
     , db : DataContainer db
-    , scope : Scope
+    , scope : Sector
     }
 
 
@@ -2294,7 +2294,7 @@ getAssemblyOperations { db } query =
                 |> Maybe.withDefault []
 
 
-getAvailableDistributionProcesses : DataContainer db -> Scope -> List Process
+getAvailableDistributionProcesses : DataContainer db -> Sector -> List Process
 getAvailableDistributionProcesses db scope =
     db.processes
         |> Sector.anyOf [ scope ]
@@ -2363,7 +2363,7 @@ getDistributionProcessId { config, db, scope } query =
 {-| Retrieve a documentation link from config, if defined
 Note: proxified from Config for convenience
 -}
-getDocLink : Config.Config -> Scope -> String -> Maybe String
+getDocLink : Config.Config -> Sector -> String -> Maybe String
 getDocLink =
     Config.getDocLink
 
@@ -2486,7 +2486,7 @@ getEndOfLifeImpacts ({ config, scope } as requirements) recyclable lifeCycle =
         Impact.empty
 
 
-getEndOfLifeScopeCollectionRate : Config -> Bool -> Scope -> Split
+getEndOfLifeScopeCollectionRate : Config -> Bool -> Sector -> Split
 getEndOfLifeScopeCollectionRate { endOfLife } recyclable scope =
     if recyclable then
         endOfLife.scopeCollectionRates

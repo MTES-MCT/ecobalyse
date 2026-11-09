@@ -6,7 +6,7 @@ module Page.Explore.GenericExamples exposing (table)
 import Data.Component as Component
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Text as Text
 import Data.Uuid as Uuid
 import Html exposing (..)
@@ -20,7 +20,7 @@ import Views.Icon as Icon
 table :
     { maxScore : Float, maxPer100g : Float }
     -> Sector.GenericScope
-    -> { detailed : Bool, scope : Scope }
+    -> { detailed : Bool, scope : Sector }
     -> Table ( Example Component.Query, { score : Float, per100g : Float } ) String msg
 table { maxScore, maxPer100g } genericScope { detailed, scope } =
     { filename = Sector.toString scope ++ "-examples"

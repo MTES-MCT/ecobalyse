@@ -1,7 +1,7 @@
 module Data.Sector exposing
     ( Dict
     , GenericScope(..)
-    , Scope(..)
+    , Sector(..)
     , all
     , allGeneric
     , anyOf
@@ -30,7 +30,7 @@ import Json.Encode as Encode
 import Url.Parser as Parser exposing (Parser)
 
 
-type Scope
+type Sector
     = Food
     | Generic GenericScope
     | Textile
@@ -46,10 +46,10 @@ type GenericScope
 {-| A dict where keys are typed as `Scope`
 -}
 type alias Dict a =
-    AnyDict String Scope a
+    AnyDict String Sector a
 
 
-all : List Scope
+all : List Sector
 all =
     -- Legacy scopes
     [ Food, Textile ]
@@ -68,14 +68,14 @@ allGeneric =
 
 {-| Filter a list of scoped records against any passed allowed scopes
 -}
-anyOf : List Scope -> List { a | scopes : List Scope } -> List { a | scopes : List Scope }
+anyOf : List Sector -> List { a | scopes : List Sector } -> List { a | scopes : List Sector }
 anyOf scopes =
     List.filter <|
         .scopes
             >> List.any (\scope -> List.member scope scopes)
 
 
-decode : Decoder Scope
+decode : Decoder Sector
 decode =
     Decode.string
         |> Decode.andThen (fromString >> DE.fromResult)
@@ -92,12 +92,12 @@ decodeGeneric =
         |> Decode.andThen (fromStringGeneric >> DE.fromResult)
 
 
-dictGet : Scope -> Dict a -> Maybe a
+dictGet : Sector -> Dict a -> Maybe a
 dictGet =
     AnyDict.get
 
 
-dictGetMaybe : Scope -> Dict (Maybe a) -> Maybe a
+dictGetMaybe : Sector -> Dict (Maybe a) -> Maybe a
 dictGetMaybe scope dict =
     case dictGet scope dict of
         Just maybe ->
@@ -107,7 +107,7 @@ dictGetMaybe scope dict =
             Nothing
 
 
-encode : Scope -> Encode.Value
+encode : Sector -> Encode.Value
 encode =
     toString >> Encode.string
 
@@ -117,7 +117,7 @@ encodeGeneric =
     toStringGeneric >> Encode.string
 
 
-fromString : String -> Result String Scope
+fromString : String -> Result String Sector
 fromString string =
     case string of
         "food" ->
@@ -155,7 +155,7 @@ genericNameDict =
             Dict.empty
 
 
-isGeneric : Scope -> Bool
+isGeneric : Sector -> Bool
 isGeneric scope =
     case scope of
         Generic _ ->
@@ -165,7 +165,7 @@ isGeneric scope =
             False
 
 
-parse : Parser (Scope -> a) a
+parse : Parser (Sector -> a) a
 parse =
     Parser.custom "SCOPE" <|
         (fromString >> Result.toMaybe)
@@ -176,7 +176,7 @@ parseGeneric =
     Parser.custom "GENERIC_SCOPE" (fromStringGeneric >> Result.toMaybe)
 
 
-toGenericScope : Scope -> Maybe GenericScope
+toGenericScope : Sector -> Maybe GenericScope
 toGenericScope scope =
     case scope of
         Generic genericScope ->
@@ -186,7 +186,7 @@ toGenericScope scope =
             Nothing
 
 
-toLabel : Scope -> String
+toLabel : Sector -> String
 toLabel scope =
     case scope of
         Food ->
@@ -215,7 +215,7 @@ toLabelGeneric genericScope =
             "Véhicules"
 
 
-toString : Scope -> String
+toString : Sector -> String
 toString scope =
     case scope of
         Food ->

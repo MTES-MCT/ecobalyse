@@ -5,7 +5,7 @@ import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Gitbook as Gitbook
 import Data.Process as Process
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split
 import Data.Text as Text
 import Data.Transport as Transport
@@ -20,7 +20,7 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-table : Transport.Distances -> List Country.Country -> { detailed : Bool, scope : Scope } -> Table Country String msg
+table : Transport.Distances -> List Country.Country -> { detailed : Bool, scope : Sector } -> Table Country String msg
 table distances countries { detailed, scope } =
     { filename = "countries"
     , toId = .code >> CountryCode.toString

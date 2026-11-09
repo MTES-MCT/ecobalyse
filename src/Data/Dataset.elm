@@ -17,7 +17,7 @@ import Data.Country.Code as CountryCode
 import Data.Food.Ingredient as Ingredient
 import Data.Impact.Definition as Definition
 import Data.Process as Process
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
 import Data.Uuid as Uuid exposing (Uuid)
@@ -31,20 +31,20 @@ It's used by Page.Explore and related routes.
 
 -}
 type Dataset
-    = Components Scope (Maybe Component.Id)
+    = Components Sector (Maybe Component.Id)
     | Countries (Maybe CountryCode.Code)
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
     | GenericExamples Sector.GenericScope (Maybe Uuid)
     | Impacts (Maybe Definition.Trigram)
-    | Processes Scope (Maybe Process.Id)
+    | Processes Sector (Maybe Process.Id)
     | ProductCategory Sector.GenericScope (Maybe ProductCategory.Id)
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
     | TextileProducts (Maybe Product.Id)
 
 
-datasets : Scope -> List Dataset
+datasets : Sector -> List Dataset
 datasets scope =
     case scope of
         Sector.Food ->
@@ -108,7 +108,7 @@ datasetsGeneric scope =
             ]
 
 
-defaultDatasetFor : Scope -> Dataset
+defaultDatasetFor : Sector -> Dataset
 defaultDatasetFor scope =
     case scope of
         Sector.Food ->
@@ -188,7 +188,7 @@ datasetToString string =
             "products"
 
 
-componentDatasetToString : Scope -> String
+componentDatasetToString : Sector -> String
 componentDatasetToString scope =
     case scope of
         Sector.Food ->
@@ -217,7 +217,7 @@ componentGenericDatasetToString scope =
             "veli-components"
 
 
-processesDatasetToString : Scope -> String
+processesDatasetToString : Sector -> String
 processesDatasetToString scope =
     case scope of
         Sector.Food ->

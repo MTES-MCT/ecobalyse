@@ -5,7 +5,7 @@ module Request.Contrib exposing
     )
 
 import Data.Component as Component
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Session exposing (Session)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
@@ -17,7 +17,7 @@ type alias ExampleContribData =
     { description : String
     , name : String
     , query : Component.Query
-    , scope : Scope
+    , scope : Sector
     }
 
 

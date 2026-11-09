@@ -28,7 +28,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Process as Process exposing (Process)
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Session exposing (Session)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as Product exposing (Product)
@@ -64,7 +64,7 @@ import Views.Modal as ModalView
 type alias Model =
     { dataset : Dataset
     , facetValues : Table.Facets
-    , scope : Scope
+    , scope : Sector
     , search : String
     , tableState : SortableTable.State
     }
@@ -74,13 +74,13 @@ type Msg
     = CloseModal
     | DownloadCsv String Csv
     | OpenDetail String
-    | ScopeChange Scope
+    | ScopeChange Sector
     | SetTableState SortableTable.State
     | ToggleFacetValue String String Bool
     | UpdateSearch String
 
 
-init : Scope -> Dataset -> Session -> PageUpdate Model Msg
+init : Sector -> Dataset -> Session -> PageUpdate Model Msg
 init scope dataset session =
     let
         initialSort =
@@ -287,7 +287,7 @@ countriesExplorer :
     Db
     -> Table.Config Country Msg
     -> SortableTable.State
-    -> Scope
+    -> Sector
     -> Maybe CountryCode.Code
     -> List (Html Msg)
 countriesExplorer { distances, countries } tableConfig tableState scope maybeCode =
@@ -319,7 +319,7 @@ impactsExplorer :
     Definitions
     -> Table.Config Definition Msg
     -> SortableTable.State
-    -> Scope
+    -> Sector
     -> Maybe Definition.Trigram
     -> List (Html Msg)
 impactsExplorer definitions tableConfig tableState scope maybeTrigram =
@@ -438,7 +438,7 @@ foodIngredientDetails =
 
 processesExplorer :
     Session
-    -> Scope
+    -> Sector
     -> Table.Config Process Msg
     -> SortableTable.State
     -> Maybe Process.Id
@@ -475,7 +475,7 @@ processesExplorer session scope tableConfig tableState maybeId =
 
 componentsExplorer :
     Session
-    -> Scope
+    -> Sector
     -> Table.Config Component Msg
     -> SortableTable.State
     -> Maybe Component.Id
@@ -760,7 +760,7 @@ getFoodScorePer100g db =
         >> Result.withDefault 0
 
 
-getGenericScore : Session -> Scope -> Example Component.Query -> Float
+getGenericScore : Session -> Sector -> Example Component.Query -> Float
 getGenericScore { componentConfig, db } scope { query } =
     query
         |> GenericSimulator.compute { config = componentConfig, db = db, scope = scope }
@@ -772,7 +772,7 @@ getGenericScore { componentConfig, db } scope { query } =
         |> Result.withDefault 0
 
 
-getGenericScorePer100g : Session -> Scope -> Example Component.Query -> Float
+getGenericScorePer100g : Session -> Sector -> Example Component.Query -> Float
 getGenericScorePer100g { componentConfig, db } scope { query } =
     query
         |> GenericSimulator.compute { config = componentConfig, db = db, scope = scope }

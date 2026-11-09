@@ -4,7 +4,7 @@ import Data.Component as Component
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Process as Process
-import Data.Sector exposing (Scope)
+import Data.Sector exposing (Sector)
 import Data.Session exposing (Session)
 import Data.Split as Split
 import Data.Text as Text
@@ -29,7 +29,7 @@ withTitle str =
     span [ title str ] [ text str ]
 
 
-table : Session -> { detailed : Bool, scope : Scope } -> Table Product String msg
+table : Session -> { detailed : Bool, scope : Sector } -> Table Product String msg
 table { db } { detailed, scope } =
     { filename = "products"
     , toId = .id >> Product.idToString

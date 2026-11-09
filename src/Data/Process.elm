@@ -34,7 +34,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process.Category as Category exposing (Category)
 import Data.Process.Metadata as Metadata exposing (Metadata)
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Text as Text
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
@@ -68,7 +68,7 @@ type alias Process =
     , massPerUnit : Maybe Float
     , metadata : Maybe Metadata
     , qtyVariationRatio : Unit.QuantityVariationRatio
-    , scopes : List Scope
+    , scopes : List Sector
     , searchableText : String
     , source : String
     , unit : Unit
@@ -285,7 +285,7 @@ hasValidMassPerUnit process =
     process.unit == Kilogram || process.massPerUnit /= Nothing
 
 
-listAvailableByCategory : Scope -> Category -> List Process -> List Process
+listAvailableByCategory : Sector -> Category -> List Process -> List Process
 listAvailableByCategory scope category processes =
     processes
         |> List.filter .visible

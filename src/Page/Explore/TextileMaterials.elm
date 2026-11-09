@@ -6,7 +6,7 @@ import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Process as Process
-import Data.Sector exposing (Scope)
+import Data.Sector exposing (Sector)
 import Data.Split as Split
 import Data.Text as Text
 import Data.Textile.Material as Material exposing (Id, Material)
@@ -39,7 +39,7 @@ getRecycledProcess materials material =
             )
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
+table : Db -> { detailed : Bool, scope : Sector } -> Table Material String msg
 table db { detailed, scope } =
     let
         withPill url content =

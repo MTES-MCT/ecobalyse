@@ -21,7 +21,7 @@ import Data.Component as Component
 import Data.Db exposing (Db)
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
-import Data.Sector as Sector exposing (GenericScope, Scope)
+import Data.Sector as Sector exposing (GenericScope, Sector)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
@@ -191,7 +191,7 @@ replace bookmark =
         (always bookmark)
 
 
-scope : Bookmark -> Scope
+scope : Bookmark -> Sector
 scope bookmark =
     case bookmark.query of
         Food _ ->

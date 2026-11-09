@@ -14,7 +14,7 @@ import Data.Impact as Impact
 import Data.Key as Key
 import Data.Notification as Notification exposing (Notification)
 import Data.Plausible as Plausible
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
@@ -153,7 +153,7 @@ loadData sessionConfig =
         |> Cmd.batch
 
 
-scopeLoadData : Scope -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
+scopeLoadData : Sector -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
 scopeLoadData scope =
     case scope of
         Sector.Food ->

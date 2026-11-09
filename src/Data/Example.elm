@@ -12,7 +12,7 @@ module Data.Example exposing
     )
 
 import Data.Common.DecodeUtils as DU
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -26,7 +26,7 @@ type alias Example query =
     , name : String
     , query : query
     , recyclable : Bool
-    , scope : Scope
+    , scope : Sector
     }
 
 
@@ -66,7 +66,7 @@ findByQuery query =
         >> Result.fromMaybe "Exemple introuvable"
 
 
-forScope : Scope -> List (Example query) -> List (Example query)
+forScope : Sector -> List (Example query) -> List (Example query)
 forScope scope =
     List.filter (.scope >> (==) scope)
 

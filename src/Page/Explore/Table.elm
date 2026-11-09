@@ -13,7 +13,7 @@ module Page.Explore.Table exposing
 
 import Csv.Encode exposing (Csv)
 import Data.Env as Env
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Text as Text
 import Dict exposing (Dict)
 import Html exposing (..)
@@ -77,8 +77,8 @@ type alias Config data msg =
 
 
 viewDetails :
-    Scope
-    -> ({ detailed : Bool, scope : Scope } -> Table data comparable msg)
+    Sector
+    -> ({ detailed : Bool, scope : Sector } -> Table data comparable msg)
     -> data
     -> Html msg
 viewDetails scope createTable item =
@@ -106,8 +106,8 @@ viewList :
     (data -> msg)
     -> Config data msg
     -> SortableTable.State
-    -> Scope
-    -> ({ detailed : Bool, scope : Scope } -> Table data comparable msg)
+    -> Sector
+    -> ({ detailed : Bool, scope : Sector } -> Table data comparable msg)
     -> List data
     -> Html msg
 viewList dataToMsg defaultConfig tableState scope createTable items =

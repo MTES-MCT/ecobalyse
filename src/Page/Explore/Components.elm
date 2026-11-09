@@ -6,7 +6,7 @@ import Data.Dataset as Dataset
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process
-import Data.Sector exposing (Scope)
+import Data.Sector exposing (Sector)
 import Data.Session exposing (Session)
 import Data.Text as Text
 import Data.Unit as Unit
@@ -18,7 +18,7 @@ import Views.Alert as Alert
 import Views.Format as Format
 
 
-table : Session -> { detailed : Bool, scope : Scope } -> Table Component.Component String msg
+table : Session -> { detailed : Bool, scope : Sector } -> Table Component.Component String msg
 table ({ db } as session) { scope } =
     { filename = "components"
     , toId = .id >> Maybe.map Component.idToString >> Maybe.withDefault ""
@@ -104,7 +104,7 @@ table ({ db } as session) { scope } =
     }
 
 
-getComponentEcoscore : Session -> Scope -> Component -> Result String Float
+getComponentEcoscore : Session -> Sector -> Component -> Result String Float
 getComponentEcoscore { componentConfig, db } scope =
     Component.computeImpacts
         { config = componentConfig

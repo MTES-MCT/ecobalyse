@@ -3,7 +3,7 @@ module Views.Sidebar exposing (Config, view)
 import Data.Bookmark exposing (Bookmark)
 import Data.Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition, Trigram)
-import Data.Sector exposing (Scope)
+import Data.Sector exposing (Sector)
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -33,7 +33,7 @@ type alias Config msg =
     , productMass : Mass
     , renameBookmark : msg
     , saveBookmark : msg
-    , scope : Scope
+    , scope : Sector
     , selectedImpact : Definition
     , session : Session
     , switchBookmarkTab : BookmarkView.ActiveTab -> msg

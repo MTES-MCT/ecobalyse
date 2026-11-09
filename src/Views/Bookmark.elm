@@ -10,7 +10,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition exposing (Definition)
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Session as Session exposing (Session)
 import Data.Text as Text
 import Data.Textile.Query as TextileQuery
@@ -40,7 +40,7 @@ type alias ManagerConfig msg =
     , noOp : msg
     , rename : msg
     , save : msg
-    , scope : Scope
+    , scope : Sector
     , session : Session
     , switchTab : ActiveTab -> msg
     , update : String -> msg
@@ -96,7 +96,7 @@ view cfg =
         }
 
 
-buildGenericApiQuery : Scope -> Maybe String -> String -> Component.Query -> String
+buildGenericApiQuery : Sector -> Maybe String -> String -> Component.Query -> String
 buildGenericApiQuery scope maybeToken clientUrl query =
     (clientUrl ++ "/api/" ++ Sector.toString scope ++ "/simulator")
         |> Text.buildCurlCommand maybeToken
@@ -486,7 +486,7 @@ contributeExampleTabView ({ scope, session } as config) =
         ]
 
 
-queryFromScope : Session -> Scope -> Bookmark.Query
+queryFromScope : Session -> Sector -> Bookmark.Query
 queryFromScope session scope =
     case scope of
         Sector.Food ->
@@ -499,7 +499,7 @@ queryFromScope session scope =
             Bookmark.Textile session.queries.textile
 
 
-scopedBookmarks : Session -> Scope -> List Bookmark
+scopedBookmarks : Session -> Sector -> List Bookmark
 scopedBookmarks session scope =
     session.store.bookmarks
         |> List.filter

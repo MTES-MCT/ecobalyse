@@ -15,7 +15,7 @@ module Data.Country exposing
 import Data.Common.DecodeUtils as DU
 import Data.Country.Code as CountryCode exposing (Code)
 import Data.Process as Process exposing (Process)
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split exposing (Split)
 import Data.Zone as Zone exposing (Zone)
 import Json.Decode as Decode exposing (Decoder)
@@ -40,7 +40,7 @@ type alias Country =
     , electricityProcess : Process
     , heatProcess : Process
     , name : String
-    , scopes : List Scope
+    , scopes : List Sector
     , zone : Zone
     }
 
@@ -170,7 +170,7 @@ toSearchableString country =
         ]
 
 
-validateForScope : Scope -> List Country -> Code -> Result String Code
+validateForScope : Sector -> List Country -> Code -> Result String Code
 validateForScope scope countries countryCode =
     countries
         |> findByCode countryCode

@@ -5,7 +5,7 @@ module Data.Plausible exposing
     )
 
 import Data.Impact.Definition as Definition exposing (Trigram)
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Session as Session exposing (Session)
 import Json.Encode as Encode
 import Ports
@@ -27,25 +27,25 @@ type Event
     | -- `auth_signup`: (Auth) A signup form was submitted successfully
       AuthSignup
     | -- `bookmark_saved`: (Bookmarks) A simulation was saved as a bookmark
-      BookmarkSaved Scope
+      BookmarkSaved Sector
     | -- `comparator_opened`: (Comparator) The comparison modal was opened
-      ComparatorOpened Scope
+      ComparatorOpened Sector
     | -- `comparison_type_selected`: (Comparator) A tab was selected; can be "Impacts", "Étapes", "Sous-scores" or "Total"
-      ComparisonTypeSelected Scope String
+      ComparisonTypeSelected Sector String
     | -- `component_added` (Generic simulator) A production item was added (existing component or raw material)
-      ComponentAdded Scope
+      ComponentAdded Sector
     | -- `component_updated` (Generic simulator) A production item's quantity, name or elements list was updated
-      ComponentUpdated Scope
+      ComponentUpdated Sector
     | -- `consumption_added` (Generic simulator) A new consumption was added at the use stage
-      ConsumptionAdded Scope
+      ConsumptionAdded Sector
     | -- `example_selected`: (Simulator) An example simulation was loaded into the simulator
-      ExampleSelected Scope
+      ExampleSelected Sector
     | -- `impact_selected`: (Simulator) The current impact indicator changed (eg. `ecs` -> `acd`)
-      ImpactSelected Scope Trigram
+      ImpactSelected Sector Trigram
     | -- `pageview`: (Navigation) Triggered every time the URL changes
       PageViewed Url
     | -- `tab_selected`: (Simulator) A tab was selected, eg. "Partager", "Impacts", "Étapes", "Sous-scores" etc.
-      TabSelected Scope String
+      TabSelected Sector String
 
 
 type alias Key =

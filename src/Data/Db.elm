@@ -17,7 +17,7 @@ import Data.Generic.Db as GenericDb
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport exposing (Distances)
 import Json.Decode as Decode
@@ -139,7 +139,7 @@ build json =
             )
 
 
-scopeComponents : RawJsonStrings -> Scope -> Maybe RawJsonString
+scopeComponents : RawJsonStrings -> Sector -> Maybe RawJsonString
 scopeComponents json scope =
     case scope of
         Sector.Food ->
@@ -242,7 +242,7 @@ propGetters =
         :: List.concatMap scopePropGetters Sector.all
 
 
-scopePropGetters : Scope -> List (Properties a -> a)
+scopePropGetters : Sector -> List (Properties a -> a)
 scopePropGetters scope =
     case scope of
         Sector.Food ->

@@ -22,7 +22,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -59,7 +59,7 @@ type alias Config db msg =
     , query : Query
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
-    , scope : Scope
+    , scope : Sector
     , updateElementAmount : TargetElement -> FloatInput.State -> msg
     , updateElementMaterialCountry : TargetElement -> Maybe CountryCode.Code -> msg
     , updateElementTransformCountry : TargetElement -> Index -> Maybe CountryCode.Code -> msg
@@ -111,7 +111,7 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
         ]
 
 
-createElementMaterialAutocomplete : Component.DataContainer db -> Scope -> Autocomplete Process
+createElementMaterialAutocomplete : Component.DataContainer db -> Sector -> Autocomplete Process
 createElementMaterialAutocomplete db scope =
     db.processes
         |> Process.listAvailableByCategory scope Category.Material

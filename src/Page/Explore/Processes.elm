@@ -9,7 +9,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Sector exposing (Scope)
+import Data.Sector exposing (Sector)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Energy
@@ -20,7 +20,7 @@ import Route
 import Views.Format as Format
 
 
-table : Session -> { detailed : Bool, scope : Scope } -> Table Process String msg
+table : Session -> { detailed : Bool, scope : Sector } -> Table Process String msg
 table session { detailed, scope } =
     { filename = "processes"
     , toId = .id >> Process.idToString

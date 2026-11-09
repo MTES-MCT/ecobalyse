@@ -3,7 +3,7 @@ module Page.Explore.ProductCategories exposing (table)
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Dataset as Dataset
 import Data.Process as Process
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Session exposing (Session)
 import Data.Text as Text
 import Html exposing (..)
@@ -11,7 +11,7 @@ import Page.Explore.Table as Table exposing (Table)
 import Route
 
 
-table : Session -> Sector.GenericScope -> { detailed : Bool, scope : Scope } -> Table ProductCategory String msg
+table : Session -> Sector.GenericScope -> { detailed : Bool, scope : Sector } -> Table ProductCategory String msg
 table { db } genericScope _ =
     { filename = Sector.toStringGeneric genericScope ++ "-product-categories"
     , toId = .id >> ProductCategory.idToString

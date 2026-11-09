@@ -14,7 +14,7 @@ import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (MaterialDict)
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
 import Data.Uuid as Uuid exposing (Uuid)
@@ -217,7 +217,7 @@ decodeUseConfig processes =
         |> Decode.requiredAt [ "defaultProcesses", "heat" ] (Process.decodeFromId processes)
 
 
-getDocLink : Config -> Scope -> String -> Maybe String
+getDocLink : Config -> Sector -> String -> Maybe String
 getDocLink { docLinks } scope key =
     case docLinks.scoped |> Sector.dictGet scope |> Maybe.andThen (Dict.get key) of
         Just link ->
@@ -233,7 +233,7 @@ parse db =
         >> Result.mapError Decode.errorToString
 
 
-scopeEnabled : Scope -> { a | enabled : Sector.Dict Bool } -> Bool
+scopeEnabled : Sector -> { a | enabled : Sector.Dict Bool } -> Bool
 scopeEnabled scope =
     .enabled
         >> Sector.dictGet scope

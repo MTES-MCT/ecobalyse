@@ -3,7 +3,7 @@ module Page.Explore.FoodExamples exposing (table)
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
 import Data.Food.Query exposing (Query)
-import Data.Sector exposing (Scope)
+import Data.Sector exposing (Sector)
 import Data.Text as Text
 import Data.Uuid as Uuid
 import Html exposing (..)
@@ -16,7 +16,7 @@ import Views.Icon as Icon
 
 table :
     { maxScore : Float, maxPer100g : Float }
-    -> { detailed : Bool, scope : Scope }
+    -> { detailed : Bool, scope : Sector }
     -> Table ( Example Query, { score : Float, per100g : Float } ) String msg
 table { maxScore, maxPer100g } { detailed, scope } =
     { filename = "examples"

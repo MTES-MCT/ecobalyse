@@ -18,7 +18,7 @@ import Data.Component.Amount as Amount
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process
 import Data.Process.Category as Category
-import Data.Sector exposing (Scope)
+import Data.Sector exposing (Sector)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -57,7 +57,7 @@ type alias Config db msg =
     , openSelectProductionItem : Autocomplete ProductionItem -> msg
     , query : Query
     , removeItem : Index -> msg
-    , scope : Scope
+    , scope : Sector
     , setDetailed : List Index -> msg
     , unitMassLocked : Bool
     , updateItemQuantity : Index -> Quantity -> msg

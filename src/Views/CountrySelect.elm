@@ -2,7 +2,7 @@ module Views.CountrySelect exposing (view)
 
 import Data.Country exposing (Country)
 import Data.Country.Code as CountryCode
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -12,7 +12,7 @@ type alias Config msg =
     { attributes : List (Attribute msg)
     , countries : List Country
     , onSelect : CountryCode.Code -> msg
-    , scope : Scope
+    , scope : Sector
     , selectedCountry : CountryCode.Code
     }
 

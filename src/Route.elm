@@ -11,7 +11,7 @@ import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Sector as Sector exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Textile.Query as TextileQuery
 import Data.Uuid as Uuid exposing (Uuid)
 import Html exposing (Attribute)
@@ -26,7 +26,7 @@ type Route
     | AuthLogin String String
     | AuthSignup
     | Editorial String
-    | Explore Scope Dataset
+    | Explore Sector Dataset
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
     | FoodBuilderExample Uuid
     | FoodBuilderHome

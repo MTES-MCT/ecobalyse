@@ -29,7 +29,7 @@ import Data.Key as Key
 import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Sector as Sector exposing (GenericScope, Scope)
+import Data.Sector as Sector exposing (GenericScope, Sector)
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
 import Data.Unit as Unit
@@ -1469,7 +1469,7 @@ simulatorView ({ componentConfig } as session) ({ genericScope } as model) =
         ]
 
 
-durabilityView : Component.Config -> Scope -> Maybe Unit.Ratio -> Html Msg
+durabilityView : Component.Config -> Sector -> Maybe Unit.Ratio -> Html Msg
 durabilityView componentConfig scope maybeDurability =
     if componentConfig.durability |> Config.scopeEnabled scope |> not then
         text ""

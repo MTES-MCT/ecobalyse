@@ -2,7 +2,7 @@ module Page.Explore.Impacts exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
-import Data.Sector exposing (Scope)
+import Data.Sector exposing (Sector)
 import Data.Split as Split
 import Data.Text as Text
 import Data.Unit as Unit
@@ -14,7 +14,7 @@ import Views.Format as Format
 import Views.Markdown as Markdown
 
 
-table : { detailed : Bool, scope : Scope } -> Table Definition String msg
+table : { detailed : Bool, scope : Sector } -> Table Definition String msg
 table { detailed, scope } =
     { filename = "impacts"
     , toId = .trigram >> Definition.toString

@@ -9,7 +9,7 @@ import Data.Food.Ingredient.Scenario as Scenario
 import Data.Food.Origin as Origin
 import Data.Gitbook as Gitbook
 import Data.Process as Process
-import Data.Sector exposing (Scope)
+import Data.Sector exposing (Sector)
 import Data.Split as Split
 import Data.Text as Text
 import Data.Unit as Unit
@@ -22,7 +22,7 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-table : { detailed : Bool, scope : Scope } -> Table Ingredient String msg
+table : { detailed : Bool, scope : Sector } -> Table Ingredient String msg
 table { detailed, scope } =
     { filename = "ingredients"
     , toId = .id >> Ingredient.idToString
