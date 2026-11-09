@@ -1,6 +1,6 @@
 const {
   ALL_SCOPES,
-  GENERIC_SCOPES,
+  GENERIC_SECTORS,
   LEGACY_SCOPES,
   applyGenericScopesToOpenApi,
   getEnabledGenericScopeEntries,
@@ -15,7 +15,7 @@ describe("lib.sectors", () => {
     test("should list legacy and generic sectors", () => {
       expect(ALL_SCOPES).toEqual(["apparel", "food", "food2", "object", "textile", "veli"]);
       expect(LEGACY_SCOPES).toEqual(["food", "textile"]);
-      expect(GENERIC_SCOPES).toEqual(["apparel", "food2", "object", "veli"]);
+      expect(GENERIC_SECTORS).toEqual(["apparel", "food2", "object", "veli"]);
     });
   });
 
