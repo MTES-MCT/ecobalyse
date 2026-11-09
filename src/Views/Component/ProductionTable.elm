@@ -71,7 +71,7 @@ addProductionItemButton ({ db } as config) =
         availableComponents =
             db.components
                 |> List.filter (not << Component.isEmpty)
-                |> List.filter (.scopes >> List.member config.sector)
+                |> List.filter (.sectors >> List.member config.sector)
                 |> List.map ComponentItem
 
         availableMaterials =

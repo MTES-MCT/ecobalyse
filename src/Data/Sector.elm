@@ -68,10 +68,10 @@ allGeneric =
 
 {-| Filter a list of scoped records against any passed allowed scopes
 -}
-anyOf : List Sector -> List { a | scopes : List Sector } -> List { a | scopes : List Sector }
+anyOf : List Sector -> List { a | sectors : List Sector } -> List { a | sectors : List Sector }
 anyOf scopes =
     List.filter <|
-        .scopes
+        .sectors
             >> List.any (\scope -> List.member scope scopes)
 
 

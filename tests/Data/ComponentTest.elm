@@ -726,7 +726,7 @@ suite =
                                                     testDistributionProcess =
                                                         { randomProcess
                                                             | categories = [ Category.Distribution ]
-                                                            , scopes = [ requirements.sector ]
+                                                            , sectors = [ requirements.sector ]
                                                             , unit = Process.CubicMeter
                                                         }
                                                 in
@@ -2861,7 +2861,7 @@ suite =
                                         |> Component.validateQuery
                                             (requirements
                                                 |> updateRequirementsProcess dryDistributionProcess
-                                                    (\p -> { p | scopes = [] })
+                                                    (\p -> { p | sectors = [] })
                                             )
                                         |> expectResultErrorContains
                                             ("Le procédé "

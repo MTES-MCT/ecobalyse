@@ -292,7 +292,7 @@ countriesExplorer :
     -> List (Html Msg)
 countriesExplorer { distances, countries } tableConfig tableState scope maybeCode =
     [ countries
-        |> List.filter (.scopes >> List.member scope)
+        |> List.filter (.sectors >> List.member scope)
         |> Table.viewList (.code >> CountryCode.toString >> OpenDetail)
             tableConfig
             tableState
@@ -483,7 +483,7 @@ componentsExplorer :
 componentsExplorer session scope tableConfig tableState maybeId =
     let
         scopedComponents =
-            session.db.components |> List.filter (.scopes >> List.member scope)
+            session.db.components |> List.filter (.sectors >> List.member scope)
     in
     [ scopedComponents
         |> List.sortBy .name

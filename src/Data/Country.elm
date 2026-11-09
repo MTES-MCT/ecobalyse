@@ -40,7 +40,7 @@ type alias Country =
     , electricityProcess : Process
     , heatProcess : Process
     , name : String
-    , scopes : List Sector
+    , sectors : List Sector
     , zone : Zone
     }
 
@@ -89,7 +89,7 @@ encode v =
         , ( "electricityProcessId", v.electricityProcess.id |> Process.idToString |> Encode.string )
         , ( "heatProcessId", v.heatProcess.id |> Process.idToString |> Encode.string )
         , ( "name", Encode.string v.name )
-        , ( "scopes", v.scopes |> Encode.list Sector.encode )
+        , ( "scopes", v.sectors |> Encode.list Sector.encode )
         ]
 
 
@@ -165,7 +165,7 @@ toSearchableString country =
         , country.name
         , country.electricityProcess |> Process.getDisplayName
         , country.heatProcess |> Process.getDisplayName
-        , country.scopes |> List.map Sector.toLabel |> String.join " "
+        , country.sectors |> List.map Sector.toLabel |> String.join " "
         , country.zone |> Zone.toLabel
         ]
 
@@ -175,8 +175,8 @@ validateForScope scope countries countryCode =
     countries
         |> findByCode countryCode
         |> Result.andThen
-            (\{ code, scopes } ->
-                if List.member scope scopes then
+            (\{ code, sectors } ->
+                if List.member scope sectors then
                     Ok code
 
                 else

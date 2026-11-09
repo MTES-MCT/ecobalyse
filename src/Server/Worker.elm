@@ -379,7 +379,7 @@ handleConfiguredRequest db config request =
         Just (Route.GenericGetCatalogList genericScope) ->
             db.components
                 |> List.filter (not << Component.isEmpty)
-                |> List.filter (.scopes >> List.member (Sector.Generic genericScope))
+                |> List.filter (.sectors >> List.member (Sector.Generic genericScope))
                 |> Encode.list encodeComponent
                 |> respondWith 200
 
@@ -449,7 +449,7 @@ handleConfiguredRequest db config request =
 
         Just Route.TextileGetTrimList ->
             db.components
-                |> List.filter (.scopes >> List.member Sector.Textile)
+                |> List.filter (.sectors >> List.member Sector.Textile)
                 |> Encode.list encodeComponent
                 |> respondWith 200
 

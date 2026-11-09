@@ -11,19 +11,19 @@ suite =
     describe "Data.Scope"
         [ describe "anyOf should filter records against any of passed scopes"
             [ asTest "test1"
-                ([ { scopes = [ Sector.Food ] }, { scopes = [ Sector.Food, Sector.Textile ] } ]
+                ([ { sectors = [ Sector.Food ] }, { sectors = [ Sector.Food, Sector.Textile ] } ]
                     |> Sector.anyOf [ Sector.Food ]
                     |> List.length
                     |> Expect.equal 2
                 )
             , asTest "test2"
-                ([ { scopes = [ Sector.Textile ] }, { scopes = [ Sector.Food, Sector.Textile ] } ]
+                ([ { sectors = [ Sector.Textile ] }, { sectors = [ Sector.Food, Sector.Textile ] } ]
                     |> Sector.anyOf [ Sector.Food ]
                     |> List.length
                     |> Expect.equal 1
                 )
             , asTest "test3"
-                ([ { scopes = [ Sector.Generic Sector.Object ] }, { scopes = [ Sector.Generic Sector.Object, Sector.Textile ] } ]
+                ([ { sectors = [ Sector.Generic Sector.Object ] }, { sectors = [ Sector.Generic Sector.Object, Sector.Textile ] } ]
                     |> Sector.anyOf [ Sector.Food ]
                     |> List.length
                     |> Expect.equal 0

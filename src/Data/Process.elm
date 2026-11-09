@@ -68,7 +68,7 @@ type alias Process =
     , massPerUnit : Maybe Float
     , metadata : Maybe Metadata
     , qtyVariationRatio : Unit.QuantityVariationRatio
-    , scopes : List Sector
+    , sectors : List Sector
     , searchableText : String
     , source : String
     , unit : Unit
@@ -184,7 +184,7 @@ encode process =
         , ( "massPerUnit", EncodeExtra.maybe Encode.float process.massPerUnit )
         , ( "metadata", EncodeExtra.maybe Metadata.encode process.metadata )
         , ( "qtyVariationRatio", Unit.encodeQuantityVariationRatio process.qtyVariationRatio )
-        , ( "scopes", process.scopes |> Encode.list Sector.encode )
+        , ( "scopes", process.sectors |> Encode.list Sector.encode )
         , ( "source", Encode.string process.source )
         , ( "unit", process.unit |> unitToString |> Encode.string )
         ]
@@ -338,7 +338,7 @@ toSearchableString process =
         , getDisplayName process
         , getTechnicalName process
         , process.categories |> List.map Category.toLabel |> String.join " "
-        , process.scopes |> List.map Sector.toString |> String.join " "
+        , process.sectors |> List.map Sector.toString |> String.join " "
         , process.comment
         , process.source
         ]

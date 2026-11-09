@@ -187,7 +187,7 @@ type alias Component =
     , id : Maybe Id
     , name : String
     , published : Bool
-    , scopes : List Sector
+    , sectors : List Sector
     }
 
 
@@ -1647,7 +1647,7 @@ emptyComponent =
     , id = Nothing
     , name = ""
     , published = False
-    , scopes = [ Sector.Generic Sector.Object ]
+    , sectors = [ Sector.Generic Sector.Object ]
     }
 
 
@@ -3512,7 +3512,7 @@ validateDistribution { db, sector } maybeProcessId =
                     else if process.unit /= Process.CubicMeter then
                         Err "Le procédé de distribution doit accepter un volume"
 
-                    else if not <| List.member sector process.scopes then
+                    else if not <| List.member sector process.sectors then
                         Err <| "Le procédé " ++ Process.idToString processId ++ " n'est pas disponible pour le périmètre " ++ Sector.toLabel sector
 
                     else

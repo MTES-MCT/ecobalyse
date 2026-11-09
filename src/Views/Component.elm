@@ -494,13 +494,13 @@ transportToDistributionView ({ componentConfig, impact, sector } as config) mass
     let
         -- if no plane transport process is available in current scope, disable
         airTransportAvailable =
-            componentConfig.transports.modeProcesses.plane.scopes
+            componentConfig.transports.modeProcesses.plane.sectors
                 |> List.member sector
 
         -- transport cooling is only available when both boat and lorry cooled transport
         -- processes are available in current scope
         transportCoolingAvailable =
-            List.all (\{ scopes } -> List.member sector scopes)
+            List.all (\{ sectors } -> List.member sector sectors)
                 [ componentConfig.transports.modeProcesses.boatCooling
                 , componentConfig.transports.modeProcesses.lorryCooling
                 ]

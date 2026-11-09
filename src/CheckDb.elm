@@ -124,7 +124,7 @@ checkComponentItemId knownComponentStringIds item =
 checkComponentsProcessIds : Set String -> Db -> List Error
 checkComponentsProcessIds knownProcessStringIds db =
     db.components
-        |> List.filter (.scopes >> List.any Sector.isGeneric)
+        |> List.filter (.sectors >> List.any Sector.isGeneric)
         |> List.concatMap
             (\component ->
                 component.elements
@@ -154,8 +154,8 @@ checkComponentProcessScope processes component example fieldName processId =
         Just process ->
             let
                 missingScopes =
-                    component.scopes
-                        |> List.filter (\scope -> List.member scope process.scopes |> not)
+                    component.sectors
+                        |> List.filter (\scope -> List.member scope process.sectors |> not)
             in
             if List.isEmpty missingScopes then
                 []
@@ -179,7 +179,7 @@ checkComponentScopeMismatch : Dict String Process -> Example query -> Component 
 checkComponentScopeMismatch processes example component =
     let
         scopeMismatchErrors =
-            if List.member example.sector component.scopes then
+            if List.member example.sector component.sectors then
                 []
 
             else
@@ -211,7 +211,7 @@ checkExampleConsumption processes example consumption =
     in
     case processes |> Dict.get processIdString of
         Just process ->
-            if List.member example.sector process.scopes then
+            if List.member example.sector process.sectors then
                 case Consumption.validate (Dict.values processes) consumption of
                     Err error ->
                         formatError
@@ -301,7 +301,7 @@ checkProductCategoryAssembly processes product processId =
     in
     case processes |> Dict.get processIdString of
         Just process ->
-            if process.scopes |> List.member (Sector.Generic product.sector) |> not then
+            if process.sectors |> List.member (Sector.Generic product.sector) |> not then
                 formatError
                     [ "Product category " ++ productCategoryLabel product
                     , "references process " ++ processLabel process
@@ -355,7 +355,7 @@ checkProductCategoryConsumption processes product consumption =
     in
     case processes |> Dict.get processIdString of
         Just process ->
-            if process.scopes |> List.member (Sector.Generic product.sector) |> not then
+            if process.sectors |> List.member (Sector.Generic product.sector) |> not then
                 formatError
                     [ "Product category " ++ productCategoryLabel product
                     , "references process " ++ processLabel process
@@ -480,7 +480,7 @@ componentLabel : Component -> String
 componentLabel component =
     quote component.name
         ++ " ("
-        ++ backtick (component.scopes |> List.map Sector.toString |> String.join ", ")
+        ++ backtick (component.sectors |> List.map Sector.toString |> String.join ", ")
         ++ ", "
         ++ (component.id
                 |> Maybe.map Component.idToString
