@@ -1,6 +1,6 @@
 module Data.SectorTest exposing (..)
 
-import Data.Sector as Scope
+import Data.Sector as Sector
 import Expect
 import Test exposing (..)
 import TestUtils exposing (asTest)
@@ -11,29 +11,29 @@ suite =
     describe "Data.Scope"
         [ describe "anyOf should filter records against any of passed scopes"
             [ asTest "test1"
-                ([ { scopes = [ Scope.Food ] }, { scopes = [ Scope.Food, Scope.Textile ] } ]
-                    |> Scope.anyOf [ Scope.Food ]
+                ([ { scopes = [ Sector.Food ] }, { scopes = [ Sector.Food, Sector.Textile ] } ]
+                    |> Sector.anyOf [ Sector.Food ]
                     |> List.length
                     |> Expect.equal 2
                 )
             , asTest "test2"
-                ([ { scopes = [ Scope.Textile ] }, { scopes = [ Scope.Food, Scope.Textile ] } ]
-                    |> Scope.anyOf [ Scope.Food ]
+                ([ { scopes = [ Sector.Textile ] }, { scopes = [ Sector.Food, Sector.Textile ] } ]
+                    |> Sector.anyOf [ Sector.Food ]
                     |> List.length
                     |> Expect.equal 1
                 )
             , asTest "test3"
-                ([ { scopes = [ Scope.Generic Scope.Object ] }, { scopes = [ Scope.Generic Scope.Object, Scope.Textile ] } ]
-                    |> Scope.anyOf [ Scope.Food ]
+                ([ { scopes = [ Sector.Generic Sector.Object ] }, { scopes = [ Sector.Generic Sector.Object, Sector.Textile ] } ]
+                    |> Sector.anyOf [ Sector.Food ]
                     |> List.length
                     |> Expect.equal 0
                 )
             ]
         , describe "allGeneric"
             [ asTest "matches the generic entries of all"
-                (Scope.all
-                    |> List.filterMap Scope.toGenericScope
-                    |> Expect.equal Scope.allGeneric
+                (Sector.all
+                    |> List.filterMap Sector.toGenericScope
+                    |> Expect.equal Sector.allGeneric
                 )
             ]
         ]

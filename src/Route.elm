@@ -11,7 +11,7 @@ import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Textile.Query as TextileQuery
 import Data.Uuid as Uuid exposing (Uuid)
 import Html exposing (Attribute)
@@ -30,9 +30,9 @@ type Route
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
     | FoodBuilderExample Uuid
     | FoodBuilderHome
-    | GenericSimulator Scope.GenericScope Definition.Trigram (Maybe Component.Query)
-    | GenericSimulatorExample Scope.GenericScope Uuid
-    | GenericSimulatorHome Scope.GenericScope
+    | GenericSimulator Sector.GenericScope Definition.Trigram (Maybe Component.Query)
+    | GenericSimulatorExample Sector.GenericScope Uuid
+    | GenericSimulatorHome Sector.GenericScope
     | Home
     | Stats
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
@@ -55,10 +55,10 @@ parser =
         , Parser.map Stats (Parser.s "stats")
 
         --  Explorer
-        , (Parser.s "explore" </> Scope.parse)
+        , (Parser.s "explore" </> Sector.parse)
             |> Parser.map (\scope -> Explore scope (Dataset.defaultDatasetFor scope))
         , Parser.map Explore
-            (Parser.s "explore" </> Scope.parse </> Dataset.parseSlug)
+            (Parser.s "explore" </> Sector.parse </> Dataset.parseSlug)
 
         -- Generic simulator routes
         , parseGenericSimulatorRoutes
@@ -108,16 +108,16 @@ parseGenericSimulatorRoutes =
         ]
 
 
-scopeParser : Parser (Scope.GenericScope -> a) a
+scopeParser : Parser (Sector.GenericScope -> a) a
 scopeParser =
     List.map
         (\scope ->
             scope
-                |> Scope.toStringGeneric
+                |> Sector.toStringGeneric
                 |> Parser.s
                 |> Parser.map scope
         )
-        Scope.allGeneric
+        Sector.allGeneric
         |> Parser.oneOf
 
 
@@ -203,14 +203,14 @@ toString route =
                 Editorial slug ->
                     [ "pages", slug ]
 
-                Explore Scope.Food (Dataset.FoodExamples Nothing) ->
+                Explore Sector.Food (Dataset.FoodExamples Nothing) ->
                     [ "explore", "food" ]
 
-                Explore Scope.Textile (Dataset.TextileExamples Nothing) ->
+                Explore Sector.Textile (Dataset.TextileExamples Nothing) ->
                     [ "explore", "textile" ]
 
                 Explore scope dataset ->
-                    "explore" :: Scope.toString scope :: Dataset.toRoutePath dataset
+                    "explore" :: Sector.toString scope :: Dataset.toRoutePath dataset
 
                 FoodBuilder trigram Nothing ->
                     [ "food", Definition.toString trigram ]
@@ -225,26 +225,26 @@ toString route =
                     [ "food" ]
 
                 GenericSimulator genericScope trigram (Just query) ->
-                    [ Scope.toString (Scope.Generic genericScope)
+                    [ Sector.toString (Sector.Generic genericScope)
                     , "simulator"
                     , Definition.toString trigram
                     , Component.encodeBase64Query query
                     ]
 
                 GenericSimulator genericScope trigram Nothing ->
-                    [ Scope.toString (Scope.Generic genericScope)
+                    [ Sector.toString (Sector.Generic genericScope)
                     , "simulator"
                     , Definition.toString trigram
                     ]
 
                 GenericSimulatorExample genericScope uuid ->
-                    [ Scope.toString (Scope.Generic genericScope)
+                    [ Sector.toString (Sector.Generic genericScope)
                     , "edit-example"
                     , Uuid.toString uuid
                     ]
 
                 GenericSimulatorHome genericScope ->
-                    [ Scope.toString (Scope.Generic genericScope)
+                    [ Sector.toString (Sector.Generic genericScope)
                     , "simulator"
                     ]
 

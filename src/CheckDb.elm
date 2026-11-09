@@ -8,7 +8,7 @@ import Data.Db exposing (Db)
 import Data.Example as Example exposing (Example)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Sector as Scope
+import Data.Sector as Sector
 import Data.Uuid as Uuid
 import Dict exposing (Dict)
 import Dict.Any as AnyDict
@@ -96,7 +96,7 @@ checkDefaultExamples db config =
                             [ "Default example"
                                 ++ Uuid.toString uuid
                                 ++ " doesn't belong to the scope "
-                                ++ Scope.toString scope
+                                ++ Sector.toString scope
                             ]
             )
 
@@ -124,7 +124,7 @@ checkComponentItemId knownComponentStringIds item =
 checkComponentsProcessIds : Set String -> Db -> List Error
 checkComponentsProcessIds knownProcessStringIds db =
     db.components
-        |> List.filter (.scopes >> List.any Scope.isGeneric)
+        |> List.filter (.scopes >> List.any Sector.isGeneric)
         |> List.concatMap
             (\component ->
                 component.elements
@@ -163,7 +163,7 @@ checkComponentProcessScope processes component example fieldName processId =
             else
                 formatError
                     [ "Process " ++ processLabel process
-                    , "is not scoped for " ++ backtick (missingScopes |> List.map Scope.toString |> String.join ", ")
+                    , "is not scoped for " ++ backtick (missingScopes |> List.map Sector.toString |> String.join ", ")
                     , "but is referenced in " ++ backtick fieldName
                     , "by component " ++ componentLabel component
                     , "used by example " ++ exampleLabel example
@@ -226,7 +226,7 @@ checkExampleConsumption processes example consumption =
                 formatError
                     [ "Example " ++ exampleLabel example
                     , "references process " ++ processLabel process
-                    , "in consumptions but isn't scoped for " ++ backtick (Scope.toString example.scope)
+                    , "in consumptions but isn't scoped for " ++ backtick (Sector.toString example.scope)
                     ]
 
         Nothing ->
@@ -252,7 +252,7 @@ checkExampleComponentItem processes components example =
 checkExamplesComponentIds : Set String -> Db -> List Error
 checkExamplesComponentIds knownComponentStringIds db =
     db.generic.examples
-        |> List.filter (.scope >> Scope.isGeneric)
+        |> List.filter (.scope >> Sector.isGeneric)
         |> List.concatMap
             (\example ->
                 example.query.items
@@ -278,7 +278,7 @@ checkExamplesScope db =
             )
     in
     db.generic.examples
-        |> List.filter (.scope >> Scope.isGeneric)
+        |> List.filter (.scope >> Sector.isGeneric)
         |> List.concatMap
             (\example ->
                 List.concat
@@ -301,11 +301,11 @@ checkProductCategoryAssembly processes product processId =
     in
     case processes |> Dict.get processIdString of
         Just process ->
-            if process.scopes |> List.member (Scope.Generic product.scope) |> not then
+            if process.scopes |> List.member (Sector.Generic product.scope) |> not then
                 formatError
                     [ "Product category " ++ productCategoryLabel product
                     , "references process " ++ processLabel process
-                    , "in assembly but isn't scoped for " ++ backtick (Scope.toStringGeneric product.scope)
+                    , "in assembly but isn't scoped for " ++ backtick (Sector.toStringGeneric product.scope)
                     ]
 
             else if not (List.member ProcessCategory.Assembly process.categories) then
@@ -355,11 +355,11 @@ checkProductCategoryConsumption processes product consumption =
     in
     case processes |> Dict.get processIdString of
         Just process ->
-            if process.scopes |> List.member (Scope.Generic product.scope) |> not then
+            if process.scopes |> List.member (Sector.Generic product.scope) |> not then
                 formatError
                     [ "Product category " ++ productCategoryLabel product
                     , "references process " ++ processLabel process
-                    , "in consumptions but isn't scoped for " ++ backtick (Scope.toStringGeneric product.scope)
+                    , "in consumptions but isn't scoped for " ++ backtick (Sector.toStringGeneric product.scope)
                     ]
 
             else
@@ -480,7 +480,7 @@ componentLabel : Component -> String
 componentLabel component =
     quote component.name
         ++ " ("
-        ++ backtick (component.scopes |> List.map Scope.toString |> String.join ", ")
+        ++ backtick (component.scopes |> List.map Sector.toString |> String.join ", ")
         ++ ", "
         ++ (component.id
                 |> Maybe.map Component.idToString
@@ -505,7 +505,7 @@ exampleLabel : Example query -> String
 exampleLabel example =
     quote example.name
         ++ " ("
-        ++ backtick (Scope.toString example.scope)
+        ++ backtick (Sector.toString example.scope)
         ++ ", "
         ++ Uuid.toString example.id
         ++ ")"
@@ -567,7 +567,7 @@ productCategoryLabel : ProductCategory -> String
 productCategoryLabel product =
     quote product.label
         ++ " ("
-        ++ backtick (Scope.toStringGeneric product.scope)
+        ++ backtick (Sector.toStringGeneric product.scope)
         ++ ", "
         ++ ProductCategory.idToString product.id
         ++ ")"

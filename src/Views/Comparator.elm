@@ -14,7 +14,7 @@ import Data.Food.Recipe as Recipe
 import Data.Generic.Simulator as GenericSimulator
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
-import Data.Sector as Scope
+import Data.Sector as Sector
 import Data.Session as Session exposing (Session)
 import Data.Textile.Simulator as TextileSimulator
 import Data.Unit as Unit
@@ -159,7 +159,7 @@ addToComparison { componentConfig, db } { name, query } =
                 |> GenericSimulator.compute
                     { config = componentConfig
                     , db = db
-                    , scope = Scope.Generic genericScope
+                    , scope = Sector.Generic genericScope
                     }
                 |> Result.map
                     (\lifeCycle ->

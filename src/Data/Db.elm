@@ -17,7 +17,7 @@ import Data.Generic.Db as GenericDb
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport exposing (Distances)
 import Json.Decode as Decode
@@ -80,7 +80,7 @@ build json =
             (\processes ->
                 Ok Db
                     |> RE.andMap
-                        (Scope.all
+                        (Sector.all
                             |> List.filterMap (scopeComponents json)
                             |> List.map (extractJsonString >> Component.decodeListFromJsonString)
                             |> RE.combine
@@ -112,13 +112,13 @@ build json =
                                 (extractJsonString json.foodIngredients)
                         )
                     |> RE.andMap
-                        (Scope.allGeneric
+                        (Sector.allGeneric
                             |> List.map (\scope -> extractJsonString (scopeGenericExamples json scope))
                             |> GenericDb.buildFromJson processes
                         )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap
-                        (Scope.allGeneric
+                        (Sector.allGeneric
                             |> List.map
                                 (\scope ->
                                     scope
@@ -142,61 +142,61 @@ build json =
 scopeComponents : RawJsonStrings -> Scope -> Maybe RawJsonString
 scopeComponents json scope =
     case scope of
-        Scope.Food ->
+        Sector.Food ->
             Nothing
 
-        Scope.Generic genericScope ->
+        Sector.Generic genericScope ->
             Just (scopeGenericComponents json genericScope)
 
-        Scope.Textile ->
+        Sector.Textile ->
             Just json.textileComponents
 
 
-scopeGenericComponents : RawJsonStrings -> Scope.GenericScope -> RawJsonString
+scopeGenericComponents : RawJsonStrings -> Sector.GenericScope -> RawJsonString
 scopeGenericComponents json scope =
     case scope of
-        Scope.Apparel ->
+        Sector.Apparel ->
             json.apparelComponents
 
-        Scope.Food2 ->
+        Sector.Food2 ->
             json.food2Components
 
-        Scope.Object ->
+        Sector.Object ->
             json.objectComponents
 
-        Scope.Veli ->
+        Sector.Veli ->
             json.veliComponents
 
 
-scopeGenericExamples : RawJsonStrings -> Scope.GenericScope -> RawJsonString
+scopeGenericExamples : RawJsonStrings -> Sector.GenericScope -> RawJsonString
 scopeGenericExamples json scope =
     case scope of
-        Scope.Apparel ->
+        Sector.Apparel ->
             json.apparelExamples
 
-        Scope.Food2 ->
+        Sector.Food2 ->
             json.food2Examples
 
-        Scope.Object ->
+        Sector.Object ->
             json.objectExamples
 
-        Scope.Veli ->
+        Sector.Veli ->
             json.veliExamples
 
 
-scopeGenericProductCategories : RawJsonStrings -> Scope.GenericScope -> RawJsonString
+scopeGenericProductCategories : RawJsonStrings -> Sector.GenericScope -> RawJsonString
 scopeGenericProductCategories json scope =
     case scope of
-        Scope.Apparel ->
+        Sector.Apparel ->
             json.apparelProductCategories
 
-        Scope.Food2 ->
+        Sector.Food2 ->
             json.food2ProductCategories
 
-        Scope.Object ->
+        Sector.Object ->
             json.objectProductCategories
 
-        Scope.Veli ->
+        Sector.Veli ->
             json.veliProductCategories
 
 
@@ -239,21 +239,21 @@ propGetters =
         :: .definitions
         :: .transports
         :: .processes
-        :: List.concatMap scopePropGetters Scope.all
+        :: List.concatMap scopePropGetters Sector.all
 
 
 scopePropGetters : Scope -> List (Properties a -> a)
 scopePropGetters scope =
     case scope of
-        Scope.Food ->
+        Sector.Food ->
             [ .foodIngredients
             , .foodProductExamples
             ]
 
-        Scope.Generic genericScope ->
+        Sector.Generic genericScope ->
             scopeGenericPropGetters genericScope
 
-        Scope.Textile ->
+        Sector.Textile ->
             [ .textileComponents
             , .textileMaterials
             , .textileProductExamples
@@ -261,28 +261,28 @@ scopePropGetters scope =
             ]
 
 
-scopeGenericPropGetters : Scope.GenericScope -> List (Properties a -> a)
+scopeGenericPropGetters : Sector.GenericScope -> List (Properties a -> a)
 scopeGenericPropGetters scope =
     case scope of
-        Scope.Apparel ->
+        Sector.Apparel ->
             [ .apparelProductCategories
             , .apparelComponents
             , .apparelExamples
             ]
 
-        Scope.Food2 ->
+        Sector.Food2 ->
             [ .food2ProductCategories
             , .food2Components
             , .food2Examples
             ]
 
-        Scope.Object ->
+        Sector.Object ->
             [ .objectProductCategories
             , .objectComponents
             , .objectExamples
             ]
 
-        Scope.Veli ->
+        Sector.Veli ->
             [ .veliProductCategories
             , .veliComponents
             , .veliExamples

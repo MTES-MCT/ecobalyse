@@ -13,7 +13,7 @@ import Browser.Navigation as Nav
 import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
 import Data.Env as Env
 import Data.Plausible as Plausible
-import Data.Sector as Scope
+import Data.Sector as Sector
 import Data.Session as Session exposing (Session)
 import Data.User as User exposing (AccessTokenData, FormErrors, ProfileForm, SignupForm, User)
 import Dict
@@ -842,8 +842,8 @@ viewGenericApiBetaAccess : Session -> Html Msg
 viewGenericApiBetaAccess session =
     let
         genericScopesLabel =
-            Scope.allGeneric
-                |> List.map (Scope.Generic >> Scope.toLabel)
+            Sector.allGeneric
+                |> List.map (Sector.Generic >> Sector.toLabel)
                 |> String.join ", "
     in
     if

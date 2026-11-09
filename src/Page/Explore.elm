@@ -28,7 +28,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Process as Process exposing (Process)
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as Product exposing (Product)
@@ -156,7 +156,7 @@ update session msg model =
                             Dataset.Processes scope Nothing
 
                         Dataset.ProductCategory _ _ ->
-                            case Scope.toGenericScope scope of
+                            case Sector.toGenericScope scope of
                                 Just newGenericScope ->
                                     Dataset.ProductCategory newGenericScope Nothing
 
@@ -228,29 +228,29 @@ scopesMenuView { enabledSections } model =
     div [ class "d-flex align-items-center gap-3" ]
         [ label [ class "fw-bold d-none d-sm-block", for "scope-selector" ]
             [ text "Secteur" ]
-        , [ ( Scope.Food, enabledSections.food )
-          , ( Scope.Generic Scope.Food2, enabledSections.food2 )
-          , ( Scope.Generic Scope.Object, enabledSections.objects )
-          , ( Scope.Textile, True )
-          , ( Scope.Generic Scope.Veli, enabledSections.veli )
-          , ( Scope.Generic Scope.Apparel, enabledSections.apparel )
+        , [ ( Sector.Food, enabledSections.food )
+          , ( Sector.Generic Sector.Food2, enabledSections.food2 )
+          , ( Sector.Generic Sector.Object, enabledSections.objects )
+          , ( Sector.Textile, True )
+          , ( Sector.Generic Sector.Veli, enabledSections.veli )
+          , ( Sector.Generic Sector.Apparel, enabledSections.apparel )
           ]
             |> List.filter Tuple.second
             |> List.map
                 (\( scope, _ ) ->
                     option
                         [ selected <| model.scope == scope
-                        , value <| Scope.toString scope
+                        , value <| Sector.toString scope
                         ]
-                        [ text <| Scope.toLabel scope ]
+                        [ text <| Sector.toLabel scope ]
                 )
             |> select
                 [ class "form-select"
                 , id "scope-selector"
                 , onInput
-                    (Scope.fromString
+                    (Sector.fromString
                         >> Result.toMaybe
-                        >> Maybe.withDefault Scope.Textile
+                        >> Maybe.withDefault Sector.Textile
                         >> ScopeChange
                     )
                 ]
@@ -377,7 +377,7 @@ foodExamplesExplorer db tableConfig tableState maybeId =
         |> Table.viewList (Tuple.first >> .id >> Data.Uuid.toString >> OpenDetail)
             tableConfig
             tableState
-            Scope.Food
+            Sector.Food
             (FoodExamples.table max)
     , case maybeId of
         Just id ->
@@ -387,7 +387,7 @@ foodExamplesExplorer db tableConfig tableState maybeId =
                         alert error
 
                     Ok example ->
-                        Table.viewDetails Scope.Food
+                        Table.viewDetails Sector.Food
                             (FoodExamples.table max)
                             ( example
                             , { score = getFoodScore db example
@@ -413,7 +413,7 @@ foodIngredientsExplorer { food } tableConfig tableState maybeId =
         |> Table.viewList (.id >> Ingredient.idToString >> OpenDetail)
             tableConfig
             tableState
-            Scope.Food
+            Sector.Food
             FoodIngredients.table
     , case maybeId of
         Just id ->
@@ -433,7 +433,7 @@ foodIngredientsExplorer { food } tableConfig tableState maybeId =
 
 foodIngredientDetails : Ingredient -> Html msg
 foodIngredientDetails =
-    Table.viewDetails Scope.Food FoodIngredients.table
+    Table.viewDetails Sector.Food FoodIngredients.table
 
 
 processesExplorer :
@@ -447,7 +447,7 @@ processesExplorer session scope tableConfig tableState maybeId =
     let
         scopedProcesses =
             session.db.processes
-                |> Scope.anyOf [ scope ]
+                |> Sector.anyOf [ scope ]
     in
     [ scopedProcesses
         |> List.sortBy Process.getDisplayName
@@ -515,13 +515,13 @@ genericExamplesExplorer :
     Session
     -> Table.Config ( Example Component.Query, { score : Float, per100g : Float } ) Msg
     -> SortableTable.State
-    -> Scope.GenericScope
+    -> Sector.GenericScope
     -> Maybe Uuid
     -> List (Html Msg)
 genericExamplesExplorer session tableConfig tableState genericScope maybeId =
     let
         scope =
-            Scope.Generic genericScope
+            Sector.Generic genericScope
 
         scoredExamples =
             session.db.generic.examples
@@ -616,7 +616,7 @@ textileExamplesExplorer session tableConfig tableState maybeId =
         |> Table.viewList (Tuple.first >> .id >> Data.Uuid.toString >> OpenDetail)
             tableConfig
             tableState
-            Scope.Textile
+            Sector.Textile
             (TextileExamples.table session max)
     , case maybeId of
         Just id ->
@@ -626,7 +626,7 @@ textileExamplesExplorer session tableConfig tableState maybeId =
                         alert error
 
                     Ok example ->
-                        Table.viewDetails Scope.Textile
+                        Table.viewDetails Sector.Textile
                             (TextileExamples.table session max)
                             ( example
                             , { score = getTextileScore session example
@@ -651,7 +651,7 @@ textileProductsExplorer session tableConfig tableState maybeId =
         |> Table.viewList (.id >> Product.idToString >> OpenDetail)
             tableConfig
             tableState
-            Scope.Textile
+            Sector.Textile
             (TextileProducts.table session)
     , case maybeId of
         Just id ->
@@ -661,7 +661,7 @@ textileProductsExplorer session tableConfig tableState maybeId =
                         alert error
 
                     Ok product ->
-                        Table.viewDetails Scope.Textile (TextileProducts.table session) product
+                        Table.viewDetails Sector.Textile (TextileProducts.table session) product
                 )
 
         Nothing ->
@@ -671,7 +671,7 @@ textileProductsExplorer session tableConfig tableState maybeId =
 
 productCategoriesExplorer :
     Session
-    -> Scope.GenericScope
+    -> Sector.GenericScope
     -> Table.Config ProductCategory Msg
     -> SortableTable.State
     -> Maybe ProductCategory.Id
@@ -679,7 +679,7 @@ productCategoriesExplorer :
 productCategoriesExplorer session genericScope tableConfig tableState maybeId =
     let
         scope =
-            Scope.Generic genericScope
+            Sector.Generic genericScope
     in
     [ session.db.products
         |> ProductCategory.findByScope genericScope
@@ -712,7 +712,7 @@ textileMaterialsExplorer :
     -> List (Html Msg)
 textileMaterialsExplorer db tableConfig tableState maybeId =
     [ db.textile.materials
-        |> Table.viewList (.id >> Material.idToString >> OpenDetail) tableConfig tableState Scope.Textile (TextileMaterials.table db)
+        |> Table.viewList (.id >> Material.idToString >> OpenDetail) tableConfig tableState Sector.Textile (TextileMaterials.table db)
     , case maybeId of
         Just id ->
             detailsModal
@@ -731,7 +731,7 @@ textileMaterialsExplorer db tableConfig tableState maybeId =
 
 textileMaterialDetails : Db -> Material -> Html msg
 textileMaterialDetails db =
-    Table.viewDetails Scope.Textile (TextileMaterials.table db)
+    Table.viewDetails Sector.Textile (TextileMaterials.table db)
 
 
 getFoodScore : Db -> Example FoodQuery.Query -> Float

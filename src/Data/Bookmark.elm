@@ -21,7 +21,7 @@ import Data.Component as Component
 import Data.Db exposing (Db)
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
-import Data.Sector as Scope exposing (GenericScope, Scope)
+import Data.Sector as Sector exposing (GenericScope, Scope)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
@@ -49,7 +49,7 @@ decode : Decoder Bookmark
 decode =
     Decode.succeed Bookmark
         |> JDP.required "created" (Decode.map Time.millisToPosix Decode.int)
-        |> DU.strictOptionalWithDefault "subScope" (Decode.maybe Scope.decodeGeneric) Nothing
+        |> DU.strictOptionalWithDefault "subScope" (Decode.maybe Sector.decodeGeneric) Nothing
         |> JDP.required "name" Decode.string
         |> JDP.required "query" decodeQuery
         |> Decode.map
@@ -90,7 +90,7 @@ decodeQuery : Decoder Query
 decodeQuery =
     Decode.oneOf
         [ Decode.map Food FoodQuery.decode
-        , Decode.map (Generic Scope.Object) (Component.decodeQuery [])
+        , Decode.map (Generic Sector.Object) (Component.decodeQuery [])
         , Decode.map Textile TextileQuery.decode
         ]
 
@@ -109,7 +109,7 @@ encodeGenericScope : Query -> Maybe Encode.Value
 encodeGenericScope query =
     case query of
         Generic genericScope _ ->
-            Just (Scope.encodeGeneric genericScope)
+            Just (Sector.encodeGeneric genericScope)
 
         _ ->
             Nothing
@@ -195,13 +195,13 @@ scope : Bookmark -> Scope
 scope bookmark =
     case bookmark.query of
         Food _ ->
-            Scope.Food
+            Sector.Food
 
         Generic genericScope _ ->
-            Scope.Generic genericScope
+            Sector.Generic genericScope
 
         Textile _ ->
-            Scope.Textile
+            Sector.Textile
 
 
 sort : List Bookmark -> List Bookmark
@@ -211,7 +211,7 @@ sort =
 
 toId : Bookmark -> String
 toId bookmark =
-    Scope.toString (scope bookmark) ++ ":" ++ bookmark.name
+    Sector.toString (scope bookmark) ++ ":" ++ bookmark.name
 
 
 toQueryDescription : Db -> Bookmark -> String

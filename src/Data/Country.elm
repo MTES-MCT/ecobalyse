@@ -15,7 +15,7 @@ module Data.Country exposing
 import Data.Common.DecodeUtils as DU
 import Data.Country.Code as CountryCode exposing (Code)
 import Data.Process as Process exposing (Process)
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Zone as Zone exposing (Zone)
 import Json.Decode as Decode exposing (Decoder)
@@ -61,7 +61,7 @@ decode processes =
         |> Pipe.required "electricityProcessId" (Process.decodeFromId processes)
         |> Pipe.required "heatProcessId" (Process.decodeFromId processes)
         |> Pipe.required "name" Decode.string
-        |> Pipe.optional "scopes" (Decode.list Scope.decode) [ Scope.Food, Scope.Textile ]
+        |> Pipe.optional "scopes" (Decode.list Sector.decode) [ Sector.Food, Sector.Textile ]
         |> Pipe.required "zone" Zone.decode
 
 
@@ -89,7 +89,7 @@ encode v =
         , ( "electricityProcessId", v.electricityProcess.id |> Process.idToString |> Encode.string )
         , ( "heatProcessId", v.heatProcess.id |> Process.idToString |> Encode.string )
         , ( "name", Encode.string v.name )
-        , ( "scopes", v.scopes |> Encode.list Scope.encode )
+        , ( "scopes", v.scopes |> Encode.list Sector.encode )
         ]
 
 
@@ -165,7 +165,7 @@ toSearchableString country =
         , country.name
         , country.electricityProcess |> Process.getDisplayName
         , country.heatProcess |> Process.getDisplayName
-        , country.scopes |> List.map Scope.toLabel |> String.join " "
+        , country.scopes |> List.map Sector.toLabel |> String.join " "
         , country.zone |> Zone.toLabel
         ]
 
@@ -183,7 +183,7 @@ validateForScope scope countries countryCode =
                     "Le code pays "
                         ++ CountryCode.toString countryCode
                         ++ " n’est pas utilisable dans un contexte "
-                        ++ Scope.toLabel scope
+                        ++ Sector.toLabel scope
                         ++ "."
                         |> Err
             )

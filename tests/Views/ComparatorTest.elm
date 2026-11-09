@@ -5,7 +5,7 @@ import Data.Complement as Complement
 import Data.Component as Component
 import Data.Db exposing (Db)
 import Data.Process as Process
-import Data.Sector as Scope
+import Data.Sector as Sector
 import Data.Unit as Unit
 import Expect exposing (Expectation)
 import Json.Decode as Decode
@@ -112,9 +112,9 @@ cookedHamBookmark db =
         |> Result.map
             (\query ->
                 { created = Time.millisToPosix 0
-                , genericScope = Just Scope.Food2
+                , genericScope = Just Sector.Food2
                 , name = "Test bookmark"
-                , query = Bookmark.Generic Scope.Food2 query
+                , query = Bookmark.Generic Sector.Food2 query
                 }
             )
 

@@ -2,7 +2,7 @@ module Data.BookmarkTest exposing (..)
 
 import Data.Bookmark as Bookmark
 import Data.Component as Component
-import Data.Sector as Scope
+import Data.Sector as Sector
 import Data.Session as Session
 import Expect
 import Json.Decode as Decode
@@ -50,47 +50,47 @@ suite =
                 )
             , it "should encode and decode generic food2 bookmarks"
                 ([ { created = Time.millisToPosix 1
-                   , genericScope = Just Scope.Food2
+                   , genericScope = Just Sector.Food2
                    , name = "food2 bookmark"
-                   , query = Bookmark.Generic Scope.Food2 Component.emptyQuery
+                   , query = Bookmark.Generic Sector.Food2 Component.emptyQuery
                    }
                  ]
                     |> Bookmark.encodeJsonList
                     |> Encode.encode 0
-                    |> expectQueryDecoded (Bookmark.Generic Scope.Food2 Component.emptyQuery)
+                    |> expectQueryDecoded (Bookmark.Generic Sector.Food2 Component.emptyQuery)
                 )
             , it "should encode and decode generic object bookmarks"
                 ([ { created = Time.millisToPosix 1
-                   , genericScope = Just Scope.Object
+                   , genericScope = Just Sector.Object
                    , name = "object bookmark"
-                   , query = Bookmark.Generic Scope.Object Component.emptyQuery
+                   , query = Bookmark.Generic Sector.Object Component.emptyQuery
                    }
                  ]
                     |> Bookmark.encodeJsonList
                     |> Encode.encode 0
-                    |> expectQueryDecoded (Bookmark.Generic Scope.Object Component.emptyQuery)
+                    |> expectQueryDecoded (Bookmark.Generic Sector.Object Component.emptyQuery)
                 )
             , it "should encode and decode generic veli bookmarks"
                 ([ { created = Time.millisToPosix 1
-                   , genericScope = Just Scope.Veli
+                   , genericScope = Just Sector.Veli
                    , name = "veli bookmark"
-                   , query = Bookmark.Generic Scope.Veli Component.emptyQuery
+                   , query = Bookmark.Generic Sector.Veli Component.emptyQuery
                    }
                  ]
                     |> Bookmark.encodeJsonList
                     |> Encode.encode 0
-                    |> expectQueryDecoded (Bookmark.Generic Scope.Veli Component.emptyQuery)
+                    |> expectQueryDecoded (Bookmark.Generic Sector.Veli Component.emptyQuery)
                 )
             , it "should encode and decode generic bookmarks when genericScope field is missing"
                 ([ { created = Time.millisToPosix 1
                    , genericScope = Nothing
                    , name = "food2 bookmark"
-                   , query = Bookmark.Generic Scope.Food2 Component.emptyQuery
+                   , query = Bookmark.Generic Sector.Food2 Component.emptyQuery
                    }
                  ]
                     |> Bookmark.encodeJsonList
                     |> Encode.encode 0
-                    |> expectQueryDecoded (Bookmark.Generic Scope.Food2 Component.emptyQuery)
+                    |> expectQueryDecoded (Bookmark.Generic Sector.Food2 Component.emptyQuery)
                 )
             , it "should decode a scoped generic bookmark"
                 ("""
@@ -101,7 +101,7 @@ suite =
                      "subScope": "veli"
                  }]
                  """
-                    |> expectQueryDecoded (Bookmark.Generic Scope.Veli Component.emptyQuery)
+                    |> expectQueryDecoded (Bookmark.Generic Sector.Veli Component.emptyQuery)
                 )
             ]
         , describe "findByGenericQuery"
@@ -109,30 +109,30 @@ suite =
                 (let
                     food2Bookmark =
                         { created = Time.millisToPosix 1
-                        , genericScope = Just Scope.Food2
+                        , genericScope = Just Sector.Food2
                         , name = "food2 bookmark"
-                        , query = Bookmark.Generic Scope.Food2 Component.emptyQuery
+                        , query = Bookmark.Generic Sector.Food2 Component.emptyQuery
                         }
 
                     objectBookmark =
                         { created = Time.millisToPosix 2
-                        , genericScope = Just Scope.Object
+                        , genericScope = Just Sector.Object
                         , name = "object bookmark"
-                        , query = Bookmark.Generic Scope.Object Component.emptyQuery
+                        , query = Bookmark.Generic Sector.Object Component.emptyQuery
                         }
                  in
                  [ food2Bookmark, objectBookmark ]
-                    |> Bookmark.findByGenericQuery Scope.Food2 Component.emptyQuery
+                    |> Bookmark.findByGenericQuery Sector.Food2 Component.emptyQuery
                     |> Expect.equal (Just food2Bookmark)
                 )
             , it "should not match a bookmark from another generic scope"
                 ([ { created = Time.millisToPosix 1
-                   , genericScope = Just Scope.Object
+                   , genericScope = Just Sector.Object
                    , name = "object bookmark"
-                   , query = Bookmark.Generic Scope.Object Component.emptyQuery
+                   , query = Bookmark.Generic Sector.Object Component.emptyQuery
                    }
                  ]
-                    |> Bookmark.findByGenericQuery Scope.Veli Component.emptyQuery
+                    |> Bookmark.findByGenericQuery Sector.Veli Component.emptyQuery
                     |> Expect.equal Nothing
                 )
             ]

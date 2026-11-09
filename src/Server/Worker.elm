@@ -22,7 +22,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Sector as Scope exposing (GenericScope)
+import Data.Sector as Sector exposing (GenericScope)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as TextileProduct exposing (Product)
@@ -198,7 +198,7 @@ executeGenericQuery { config, db, genericScope } request query =
         |> GenericSimulator.compute
             { config = config
             , db = db
-            , scope = Scope.Generic genericScope
+            , scope = Sector.Generic genericScope
             }
         |> Result.mapError Validation.fromErrorString
         |> Result.map (toGenericResults request db genericScope query)
@@ -289,7 +289,7 @@ genericProcessesResponse db genericScope filters =
         |> List.foldl List.filter
             (db.processes
                 |> List.filter .visible
-                |> Scope.anyOf [ Scope.Generic genericScope ]
+                |> Sector.anyOf [ Sector.Generic genericScope ]
             )
         |> List.sortBy Process.getDisplayName
         |> Encode.list encodeGenericProcess
@@ -348,7 +348,7 @@ handleConfiguredRequest db config request =
         -- GET routes
         Just Route.FoodGetCountryList ->
             db.countries
-                |> Scope.anyOf [ Scope.Food ]
+                |> Sector.anyOf [ Sector.Food ]
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
@@ -359,14 +359,14 @@ handleConfiguredRequest db config request =
 
         Just Route.FoodGetPackagingList ->
             db.processes
-                |> Scope.anyOf [ Scope.Food ]
+                |> Sector.anyOf [ Sector.Food ]
                 |> List.filter (.categories >> List.member ProcessCategory.Packaging)
                 |> Encode.list encodeProcess
                 |> respondWith 200
 
         Just Route.FoodGetTransformList ->
             db.processes
-                |> Scope.anyOf [ Scope.Food ]
+                |> Sector.anyOf [ Sector.Food ]
                 |> List.filter (.categories >> List.member ProcessCategory.Transform)
                 |> Encode.list encodeProcess
                 |> respondWith 200
@@ -379,7 +379,7 @@ handleConfiguredRequest db config request =
         Just (Route.GenericGetCatalogList genericScope) ->
             db.components
                 |> List.filter (not << Component.isEmpty)
-                |> List.filter (.scopes >> List.member (Scope.Generic genericScope))
+                |> List.filter (.scopes >> List.member (Sector.Generic genericScope))
                 |> Encode.list encodeComponent
                 |> respondWith 200
 
@@ -396,7 +396,7 @@ handleConfiguredRequest db config request =
 
         Just (Route.GenericGetCountryList genericScope) ->
             db.countries
-                |> Scope.anyOf [ Scope.Generic genericScope ]
+                |> Sector.anyOf [ Sector.Generic genericScope ]
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
@@ -433,7 +433,7 @@ handleConfiguredRequest db config request =
 
         Just Route.TextileGetCountryList ->
             db.countries
-                |> Scope.anyOf [ Scope.Textile ]
+                |> Sector.anyOf [ Sector.Textile ]
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
@@ -449,7 +449,7 @@ handleConfiguredRequest db config request =
 
         Just Route.TextileGetTrimList ->
             db.components
-                |> List.filter (.scopes >> List.member Scope.Textile)
+                |> List.filter (.scopes >> List.member Sector.Textile)
                 |> Encode.list encodeComponent
                 |> respondWith 200
 

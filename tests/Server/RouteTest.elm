@@ -7,7 +7,7 @@ import Data.Example as Example
 import Data.Food.Preparation as Preparation
 import Data.Food.Query as FoodQuery exposing (PackagingAmount(..))
 import Data.Process.Category as ProcessCategory
-import Data.Sector as Scope
+import Data.Sector as Sector
 import Data.Split as Split
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
@@ -132,29 +132,29 @@ genericEndpoints db =
             [ describe "GET endpoints"
                 [ Encode.null
                     |> testEndpoint db "GET" "/object/countries"
-                    |> Expect.equal (Just (Route.GenericGetCountryList Scope.Object))
+                    |> Expect.equal (Just (Route.GenericGetCountryList Sector.Object))
                     |> asTest "map GET /object/countries"
                 , Encode.null
                     |> testEndpoint db "GET" "/food2/categories"
-                    |> Expect.equal (Just (Route.GenericGetCategoryList Scope.Food2))
+                    |> Expect.equal (Just (Route.GenericGetCategoryList Sector.Food2))
                     |> asTest "map GET /food2/categories"
                 , Encode.null
                     |> testEndpoint db "GET" "/veli/catalog"
-                    |> Expect.equal (Just (Route.GenericGetCatalogList Scope.Veli))
+                    |> Expect.equal (Just (Route.GenericGetCatalogList Sector.Veli))
                     |> asTest "map GET /veli/catalog"
                 , Encode.null
                     |> testEndpoint db "GET" "/object/processes/assembly"
-                    |> Expect.equal (Just (Route.GenericGetAssemblyList Scope.Object))
+                    |> Expect.equal (Just (Route.GenericGetAssemblyList Sector.Object))
                     |> asTest "map GET /object/processes/assembly"
                 , Encode.null
                     |> testEndpoint db "GET" "/object/processes/transform/pp"
-                    |> Expect.equal (Just (Route.GenericGetTransformList Scope.Object (Ok ProcessCategory.PP)))
+                    |> Expect.equal (Just (Route.GenericGetTransformList Sector.Object (Ok ProcessCategory.PP)))
                     |> asTest "map GET /object/processes/transform/{materialType}"
                 , Encode.null
                     |> testEndpoint db "GET" "/food2/processes/transform/not-a-type"
                     |> Expect.equal
                         (Just
-                            (Route.GenericGetTransformList Scope.Food2
+                            (Route.GenericGetTransformList Sector.Food2
                                 (Err "Type de matière non supporté: not-a-type")
                             )
                         )
@@ -167,15 +167,15 @@ genericEndpoints db =
             , describe "POST endpoints"
                 [ Component.encodeQuery query
                     |> testGenericEndpoint db "/object/simulator"
-                    |> Expect.equal (Just (Route.GenericPostSimulator Scope.Object (Ok query)))
+                    |> Expect.equal (Just (Route.GenericPostSimulator Sector.Object (Ok query)))
                     |> asTest "map POST /object/simulator"
                 , Encode.object []
                     |> testGenericEndpoint db "/object/simulator"
-                    |> Expect.equal (Just (Route.GenericPostSimulator Scope.Object (Ok Component.emptyQuery)))
+                    |> Expect.equal (Just (Route.GenericPostSimulator Sector.Object (Ok Component.emptyQuery)))
                     |> asTest "accept an empty JSON object"
                 , Encode.object [ ( "components", Encode.list Encode.string [] ) ]
                     |> testGenericEndpoint db "/object/simulator"
-                    |> Expect.equal (Just (Route.GenericPostSimulator Scope.Object (Ok Component.emptyQuery)))
+                    |> Expect.equal (Just (Route.GenericPostSimulator Sector.Object (Ok Component.emptyQuery)))
                     |> asTest "accept an empty components list"
                 , Encode.null
                     |> testGenericEndpoint db "/object/simulator"

@@ -14,7 +14,7 @@ import Data.Impact as Impact
 import Data.Key as Key
 import Data.Notification as Notification exposing (Notification)
 import Data.Plausible as Plausible
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
@@ -144,7 +144,7 @@ loadData sessionConfig =
      , ( "/data/transports.json", \data raw -> { raw | transports = data } )
      , ( "/data/processes.json", \data raw -> { raw | processes = data } )
      ]
-        ++ List.concatMap scopeLoadData Scope.all
+        ++ List.concatMap scopeLoadData Sector.all
     )
         |> List.map
             (\( path, onLoaded ) ->
@@ -156,15 +156,15 @@ loadData sessionConfig =
 scopeLoadData : Scope -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
 scopeLoadData scope =
     case scope of
-        Scope.Food ->
+        Sector.Food ->
             [ ( "/data/food/ingredients.json", \data raw -> { raw | foodIngredients = data } )
             , ( "/data/food/examples.json", \data raw -> { raw | foodProductExamples = data } )
             ]
 
-        Scope.Generic genericScope ->
+        Sector.Generic genericScope ->
             scopeGenericLoadData genericScope
 
-        Scope.Textile ->
+        Sector.Textile ->
             [ ( "/data/textile/components.json", \data raw -> { raw | textileComponents = data } )
             , ( "/data/textile/examples.json", \data raw -> { raw | textileProductExamples = data } )
             , ( "/data/textile/materials.json", \data raw -> { raw | textileMaterials = data } )
@@ -172,28 +172,28 @@ scopeLoadData scope =
             ]
 
 
-scopeGenericLoadData : Scope.GenericScope -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
+scopeGenericLoadData : Sector.GenericScope -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
 scopeGenericLoadData scope =
     case scope of
-        Scope.Apparel ->
+        Sector.Apparel ->
             [ ( "/data/apparel/categories.json", \data raw -> { raw | apparelProductCategories = data } )
             , ( "/data/apparel/components.json", \data raw -> { raw | apparelComponents = data } )
             , ( "/data/apparel/examples.json", \data raw -> { raw | apparelExamples = data } )
             ]
 
-        Scope.Food2 ->
+        Sector.Food2 ->
             [ ( "/data/food2/components.json", \data raw -> { raw | food2Components = data } )
             , ( "/data/food2/categories.json", \data raw -> { raw | food2ProductCategories = data } )
             , ( "/data/food2/examples.json", \data raw -> { raw | food2Examples = data } )
             ]
 
-        Scope.Object ->
+        Sector.Object ->
             [ ( "/data/object/categories.json", \data raw -> { raw | objectProductCategories = data } )
             , ( "/data/object/components.json", \data raw -> { raw | objectComponents = data } )
             , ( "/data/object/examples.json", \data raw -> { raw | objectExamples = data } )
             ]
 
-        Scope.Veli ->
+        Sector.Veli ->
             [ ( "/data/veli/categories.json", \data raw -> { raw | veliProductCategories = data } )
             , ( "/data/veli/components.json", \data raw -> { raw | veliComponents = data } )
             , ( "/data/veli/examples.json", \data raw -> { raw | veliExamples = data } )

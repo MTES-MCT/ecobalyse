@@ -27,7 +27,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Plausible as Plausible
-import Data.Sector as Scope
+import Data.Sector as Sector
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
 import Data.Textile.Db as TextileDb
@@ -448,7 +448,7 @@ update ({ db, queries, navKey } as session) msg model =
             { model | modal = ComparatorModal }
                 |> createPageUpdate (session |> Session.checkComparedSimulations)
                 |> App.withCmds
-                    [ Plausible.send session <| Plausible.ComparatorOpened Scope.Textile
+                    [ Plausible.send session <| Plausible.ComparatorOpened Sector.Textile
                     , Ports.loadCharts ()
                     ]
 
@@ -484,7 +484,7 @@ update ({ db, queries, navKey } as session) msg model =
                             (SaveBookmarkWithTime model.bookmarkName
                                 (Bookmark.Textile query)
                             )
-                    , Plausible.send session <| Plausible.BookmarkSaved Scope.Textile
+                    , Plausible.send session <| Plausible.BookmarkSaved Sector.Textile
                     ]
 
         SaveBookmarkWithTime name foodQuery now ->
@@ -513,7 +513,7 @@ update ({ db, queries, navKey } as session) msg model =
             { model | bookmarkTab = bookmarkTab }
                 |> createPageUpdate session
                 |> App.withCmds
-                    [ Plausible.TabSelected Scope.Textile "Partager"
+                    [ Plausible.TabSelected Sector.Textile "Partager"
                         |> Plausible.sendIf session (bookmarkTab == BookmarkView.ShareTab)
                     ]
 
@@ -522,7 +522,7 @@ update ({ db, queries, navKey } as session) msg model =
                 |> createPageUpdate session
                 |> App.withCmds
                     [ ComparatorView.comparisonTypeToString displayChoice
-                        |> Plausible.ComparisonTypeSelected Scope.Textile
+                        |> Plausible.ComparisonTypeSelected Sector.Textile
                         |> Plausible.send session
                     ]
 
@@ -537,7 +537,7 @@ update ({ db, queries, navKey } as session) msg model =
                         |> Route.TextileSimulator trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
-                    , Plausible.send session <| Plausible.ImpactSelected Scope.Textile trigram
+                    , Plausible.send session <| Plausible.ImpactSelected Sector.Textile trigram
                     ]
 
         SwitchImpactsTab impactsTab ->
@@ -545,14 +545,14 @@ update ({ db, queries, navKey } as session) msg model =
                 |> createPageUpdate session
                 |> App.withCmds
                     [ ImpactTabs.tabToString impactsTab
-                        |> Plausible.TabSelected Scope.Textile
+                        |> Plausible.TabSelected Sector.Textile
                         |> Plausible.send session
                     ]
 
         SwitchTab ExploratoryTab ->
             { model | activeTab = ExploratoryTab }
                 |> createPageUpdate session
-                |> App.withCmds [ Plausible.send session <| Plausible.TabSelected Scope.Textile "Exploratory" ]
+                |> App.withCmds [ Plausible.send session <| Plausible.TabSelected Sector.Textile "Exploratory" ]
 
         SwitchTab RegulatoryTab ->
             createPageUpdate session
@@ -562,7 +562,7 @@ update ({ db, queries, navKey } as session) msg model =
                  else
                     { model | activeTab = RegulatoryTab }
                 )
-                |> App.withCmds [ Plausible.send session <| Plausible.TabSelected Scope.Textile "Regulatory" ]
+                |> App.withCmds [ Plausible.send session <| Plausible.TabSelected Sector.Textile "Regulatory" ]
 
         ToggleComparedSimulation bookmark checked ->
             model
@@ -767,7 +767,7 @@ selectExample autocompleteState { model, session } =
         |> createPageUpdate (Session.updateTextileQuery example session)
         |> App.apply update (SetModal NoModal)
         |> updateQuery example
-        |> App.withCmds [ Plausible.send session <| Plausible.ExampleSelected Scope.Textile ]
+        |> App.withCmds [ Plausible.send session <| Plausible.ExampleSelected Sector.Textile ]
 
 
 selectTrim : Autocomplete Component.ProductionItem -> PageUpdate Model Msg -> PageUpdate Model Msg
@@ -834,7 +834,7 @@ productCategoryField { products } query =
                 [ text "Catégorie de produit" ]
             , Button.smallPillLink
                 [ class "text-primary"
-                , Route.href <| Route.Explore Scope.Textile (Dataset.TextileProducts Nothing)
+                , Route.href <| Route.Explore Sector.Textile (Dataset.TextileProducts Nothing)
                 , title "Explorer les catégories de produit"
                 , target "_blank"
                 ]
@@ -1038,17 +1038,17 @@ simulatorFormView session model ({ inputs } as simulator) =
         , debug = False
         , detailed = []
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
-        , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
+        , explorerRoute = Just (Route.Explore Sector.Textile (Dataset.Components Sector.Textile Nothing))
         , floatInputState = Nothing
         , impact = model.impact
-        , labels = ComponentView.scopeLabels Context.TextileTrims Scope.Textile
+        , labels = ComponentView.scopeLabels Context.TextileTrims Sector.Textile
         , lifeCycle =
             Component.emptyQuery
                 |> Component.setQueryItems inputs.trims
                 |> Component.compute
                     { config = session.componentConfig
                     , db = session.db
-                    , scope = Scope.Textile
+                    , scope = Sector.Textile
                     }
         , noOp = NoOp
         , openItemEditModal = \_ -> NoOp
@@ -1064,7 +1064,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , removeElement = \_ -> NoOp
         , removeElementTransform = \_ _ -> NoOp
         , removeItem = RemoveTrim
-        , scope = Scope.Textile
+        , scope = Sector.Textile
         , setDetailed = \_ -> NoOp
         , toggleTransportByAir = \_ -> NoOp
         , unitMassLocked = False
@@ -1196,7 +1196,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                     , helpUrl = Just Gitbook.TextileExamples
                     , onOpen = SelectExampleModal >> SetModal
                     , routes =
-                        { explore = Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
+                        { explore = Route.Explore Sector.Textile (Dataset.TextileExamples Nothing)
                         , load = Route.TextileSimulatorExample
                         , scopeHome = Route.TextileSimulatorHome
                         }
@@ -1231,7 +1231,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
             [ SidebarView.view
                 { noOp = NoOp
                 , session = session
-                , scope = Scope.Textile
+                , scope = Sector.Textile
 
                 -- Impact selector
                 , selectedImpact = model.impact

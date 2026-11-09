@@ -13,7 +13,7 @@ module Page.Explore.Table exposing
 
 import Csv.Encode exposing (Csv)
 import Data.Env as Env
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Text as Text
 import Dict exposing (Dict)
 import Html exposing (..)
@@ -172,7 +172,7 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
             List.length resultItems
 
         csv =
-            { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
+            { filename = "ecobalyse-" ++ Sector.toString scope ++ "-" ++ filename ++ ".csv"
             , content = resultItems |> toCSV table
             }
 
@@ -185,7 +185,7 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
             , close = Nothing
             , content =
                 [ text <| "Aucun enregistrement disponible pour le secteur "
-                , strong [] [ text <| Scope.toLabel scope ]
+                , strong [] [ text <| Sector.toLabel scope ]
                 ]
             , level = Alert.Info
             , title = Nothing

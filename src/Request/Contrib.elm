@@ -5,7 +5,7 @@ module Request.Contrib exposing
     )
 
 import Data.Component as Component
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Session exposing (Session)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
@@ -53,5 +53,5 @@ encodeExampleContribData contribData =
         [ ( "description", Encode.string contribData.description )
         , ( "name", Encode.string contribData.name )
         , ( "query", Component.encodeQuery contribData.query )
-        , ( "scope", contribData.scope |> Scope.toString |> Encode.string )
+        , ( "scope", contribData.scope |> Sector.toString |> Encode.string )
         ]

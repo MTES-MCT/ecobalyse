@@ -12,7 +12,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Sector as Scope exposing (GenericScope)
+import Data.Sector as Sector exposing (GenericScope)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Validation as TextileValidation
 import Data.Validation as Validation
@@ -103,7 +103,7 @@ decodeGenericQueryBody config db genericScope body =
             (Component.validateQuery
                 { config = config
                 , db = db
-                , scope = Scope.Generic genericScope
+                , scope = Sector.Generic genericScope
                 }
                 >> Result.mapError Validation.fromErrorString
             )
@@ -131,7 +131,7 @@ genericGet path toRoute =
     path
         |> List.foldl
             (\segment parser_ -> parser_ </> s segment)
-            (s "GET" </> Scope.parseGeneric)
+            (s "GET" </> Sector.parseGeneric)
         |> Parser.map toRoute
 
 
@@ -159,9 +159,9 @@ parser db config body =
         , genericGet [ "processes", "distribution" ] GenericGetDistributionList
         , genericGet [ "processes", "material" ] GenericGetMaterialList
         , genericGet [ "processes", "packaging" ] GenericGetPackagingList
-        , (s "GET" </> Scope.parseGeneric </> s "processes" </> s "transform" </> ProcessCategory.parseMaterialType)
+        , (s "GET" </> Sector.parseGeneric </> s "processes" </> s "transform" </> ProcessCategory.parseMaterialType)
             |> Parser.map GenericGetTransformList
-        , (s "POST" </> Scope.parseGeneric </> s "simulator")
+        , (s "POST" </> Sector.parseGeneric </> s "simulator")
             |> Parser.map
                 (\genericScope ->
                     body

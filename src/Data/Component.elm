@@ -153,8 +153,8 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category, MaterialDict)
-import Data.Sector as Scope exposing (Scope)
 import Data.Scoring as Scoring exposing (Scoring)
+import Data.Sector as Sector exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Stages exposing (Stages)
 import Data.Transport as Transport exposing (Transport)
@@ -1377,12 +1377,12 @@ decode =
         -- be considered as published
         |> Decode.optional "published" Decode.bool True
         |> Decode.required "scopes"
-            (Decode.list Scope.decode
+            (Decode.list Sector.decode
                 |> Decode.map
                     (\scopes ->
                         if List.isEmpty scopes then
                             -- Always ensure at least one scope is present
-                            [ Scope.Generic Scope.Object ]
+                            [ Sector.Generic Sector.Object ]
 
                         else
                             scopes
@@ -1647,7 +1647,7 @@ emptyComponent =
     , id = Nothing
     , name = ""
     , published = False
-    , scopes = [ Scope.Generic Scope.Object ]
+    , scopes = [ Sector.Generic Sector.Object ]
     }
 
 
@@ -2297,7 +2297,7 @@ getAssemblyOperations { db } query =
 getAvailableDistributionProcesses : DataContainer db -> Scope -> List Process
 getAvailableDistributionProcesses db scope =
     db.processes
-        |> Scope.anyOf [ scope ]
+        |> Sector.anyOf [ scope ]
         |> Process.listByCategory Category.Distribution
         |> List.filter (.unit >> (==) Process.CubicMeter)
 
@@ -2356,7 +2356,7 @@ getDistributionProcessId { config, db, scope } query =
 
                 Nothing ->
                     config.distribution.defaultProcess
-                        |> Scope.dictGetMaybe scope
+                        |> Sector.dictGetMaybe scope
                         |> Maybe.map .id
 
 
@@ -3458,13 +3458,13 @@ validateAssemblyProcessId : Requirements db -> Process.Id -> Result String Proce
 validateAssemblyProcessId { db, scope } processId =
     case
         db.processes
-            |> Scope.anyOf [ scope ]
+            |> Sector.anyOf [ scope ]
             |> Process.findById processId
     of
         Err _ ->
             Err <|
                 "Aucun procédé d’assemblage scopé "
-                    ++ Scope.toLabel scope
+                    ++ Sector.toLabel scope
                     ++ " avec cet id\u{202F}: "
                     ++ Process.idToString processId
 
@@ -3513,7 +3513,7 @@ validateDistribution { db, scope } maybeProcessId =
                         Err "Le procédé de distribution doit accepter un volume"
 
                     else if not <| List.member scope process.scopes then
-                        Err <| "Le procédé " ++ Process.idToString processId ++ " n'est pas disponible pour le périmètre " ++ Scope.toLabel scope
+                        Err <| "Le procédé " ++ Process.idToString processId ++ " n'est pas disponible pour le périmètre " ++ Sector.toLabel scope
 
                     else
                         Ok (Just processId)
@@ -3526,7 +3526,7 @@ validateDurability : Requirements db -> Maybe Unit.Ratio -> Result String (Maybe
 validateDurability { config, scope } durability =
     case ( config.durability |> Config.scopeEnabled scope, durability ) of
         ( False, Just _ ) ->
-            Err <| "La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel scope
+            Err <| "La durabilité n'est pas activée pour le périmètre " ++ Sector.toLabel scope
 
         _ ->
             Ok durability
@@ -3563,13 +3563,13 @@ validatePackaging requirements (Packaging quantifiedProcess) =
 validateProcessId : Requirements db -> Process.Id -> Result String Process.Id
 validateProcessId { db, scope } processId =
     db.processes
-        |> Scope.anyOf [ scope ]
+        |> Sector.anyOf [ scope ]
         |> Process.findById processId
         |> Result.map .id
         |> Result.mapError
             (always <|
                 "Aucun procédé scopé "
-                    ++ Scope.toLabel scope
+                    ++ Sector.toLabel scope
                     ++ " avec cet id: "
                     ++ Process.idToString processId
             )
@@ -3609,7 +3609,7 @@ validateProduct requirements maybeProductId =
                 |> ProductCategory.findById productId
                 |> Result.andThen
                     (\product ->
-                        if requirements.scope == Scope.Generic product.scope then
+                        if requirements.scope == Sector.Generic product.scope then
                             Ok productId
 
                         else
@@ -3617,7 +3617,7 @@ validateProduct requirements maybeProductId =
                                 "La catégorie de produit "
                                     ++ product.label
                                     ++ " n’est pas disponible pour le périmètre "
-                                    ++ Scope.toLabel requirements.scope
+                                    ++ Sector.toLabel requirements.scope
                     )
                 |> Result.map Just
 

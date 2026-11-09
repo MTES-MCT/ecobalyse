@@ -2,7 +2,7 @@ module Data.CountryTest exposing (..)
 
 import Data.Country as Country
 import Data.Country.Code as CountryCode
-import Data.Sector as Scope
+import Data.Sector as Sector
 import Expect
 import Test exposing (..)
 import TestUtils exposing (expectResultErrorContains, it, suiteWithDb)
@@ -32,15 +32,15 @@ suite =
                 ]
             , describe "validateForScope"
                 [ it "should accept a country available in the scope"
-                    (Country.validateForScope Scope.Textile db.countries CountryCode.france
+                    (Country.validateForScope Sector.Textile db.countries CountryCode.france
                         |> Expect.equal (Ok CountryCode.france)
                     )
                 , it "should reject a country unavailable in the scope"
-                    (Country.validateForScope Scope.Textile db.countries (CountryCode.fromString "RMA")
+                    (Country.validateForScope Sector.Textile db.countries (CountryCode.fromString "RMA")
                         |> expectResultErrorContains "n’est pas utilisable dans un contexte Textile"
                     )
                 , it "should fail when the country code is unknown"
-                    (Country.validateForScope Scope.Textile db.countries (CountryCode.fromString "ZZ")
+                    (Country.validateForScope Sector.Textile db.countries (CountryCode.fromString "ZZ")
                         |> expectResultErrorContains "Code pays invalide"
                     )
                 ]

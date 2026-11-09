@@ -22,7 +22,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Split as Split
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -88,7 +88,7 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
         availableTransformProcesses =
             db.processes
                 |> List.filter .visible
-                |> Scope.anyOf [ scope ]
+                |> Sector.anyOf [ scope ]
                 |> Process.listAvailableMaterialTransforms material
                 |> List.sortBy Process.getDisplayName
                 |> Process.available (Component.elementTransforms ( targetItem, elementIndex ) query.items)
@@ -150,7 +150,7 @@ deleteElementButton config targetElement =
 
 elementAmountInput : Config db msg -> TargetElement -> Process -> Amount -> Html msg
 elementAmountInput config (( ( _, itemIndex ), elementIndex ) as targetElement) process amount =
-    if config.scope == Scope.Textile then
+    if config.scope == Sector.Textile then
         Format.amount process amount
 
     else
@@ -354,7 +354,7 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
 finalElementTransportView : Config db msg -> Bool -> Maybe Country -> Mass -> List (Html msg)
 finalElementTransportView ({ db, query, scope } as config) cooling elementCountry mass =
     db.countries
-        |> Scope.anyOf [ scope ]
+        |> Sector.anyOf [ scope ]
         |> Country.resolveMaybe query.assembly.country
         |> Result.map (elementTransportView config [ class "subdued" ] cooling mass elementCountry)
         |> Result.map List.singleton

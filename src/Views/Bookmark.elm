@@ -10,7 +10,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition exposing (Definition)
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Text as Text
 import Data.Textile.Query as TextileQuery
@@ -65,7 +65,7 @@ view cfg =
             ]
 
         tabs =
-            if Scope.isGeneric cfg.scope then
+            if Sector.isGeneric cfg.scope then
                 baseTabs ++ [ ( ContributeExampleTab, text "Contribuer" ) ]
 
             else
@@ -98,12 +98,12 @@ view cfg =
 
 buildGenericApiQuery : Scope -> Maybe String -> String -> Component.Query -> String
 buildGenericApiQuery scope maybeToken clientUrl query =
-    (clientUrl ++ "/api/" ++ Scope.toString scope ++ "/simulator")
+    (clientUrl ++ "/api/" ++ Sector.toString scope ++ "/simulator")
         |> Text.buildCurlCommand maybeToken
             (query |> Component.encodeQuery |> Encode.encode 0)
 
 
-shareGenericScope : Definition -> Session -> Scope.GenericScope -> ( String, String, String )
+shareGenericScope : Definition -> Session -> Sector.GenericScope -> ( String, String, String )
 shareGenericScope impact session genericScope =
     let
         query =
@@ -115,7 +115,7 @@ shareGenericScope impact session genericScope =
         |> (++) "/"
         |> (++) session.clientUrl
     , query
-        |> buildGenericApiQuery (Scope.Generic genericScope) (Session.getAccessToken session) session.clientUrl
+        |> buildGenericApiQuery (Sector.Generic genericScope) (Session.getAccessToken session) session.clientUrl
     , Component.encodeQuery query
         |> Encode.encode 2
     )
@@ -126,7 +126,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
     let
         ( shareableLink, apiCall, jsonParams ) =
             case scope of
-                Scope.Food ->
+                Sector.Food ->
                     let
                         query =
                             session.queries.food
@@ -142,10 +142,10 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> Encode.encode 2
                     )
 
-                Scope.Generic genericScope ->
+                Sector.Generic genericScope ->
                     shareGenericScope impact session genericScope
 
-                Scope.Textile ->
+                Sector.Textile ->
                     let
                         query =
                             session.queries.textile
@@ -302,13 +302,13 @@ bookmarksView ({ compare, scope, session } as cfg) =
                 (\{ query } ->
                     case query of
                         Bookmark.Food _ ->
-                            scope == Scope.Food
+                            scope == Sector.Food
 
                         Bookmark.Generic genericScope _ ->
-                            scope == Scope.Generic genericScope
+                            scope == Sector.Generic genericScope
 
                         Bookmark.Textile _ ->
-                            scope == Scope.Textile
+                            scope == Sector.Textile
                 )
             |> List.map (bookmarkView cfg)
             |> ul
@@ -415,7 +415,7 @@ contributeExampleTabView ({ scope, session } as config) =
             Session.isAuthenticated session
 
         currentQuery =
-            case Scope.toGenericScope scope of
+            case Sector.toGenericScope scope of
                 Just genericScope ->
                     Session.genericQuery genericScope session
 
@@ -439,7 +439,7 @@ contributeExampleTabView ({ scope, session } as config) =
         [ div [ class "fs-7 text-muted" ]
             [ text <|
                 "Proposez l’ajout de votre simulation à la base de données d’exemples "
-                    ++ Scope.toLabel scope
+                    ++ Sector.toLabel scope
                     ++ " sur Ecobalyse."
             ]
         , input
@@ -489,13 +489,13 @@ contributeExampleTabView ({ scope, session } as config) =
 queryFromScope : Session -> Scope -> Bookmark.Query
 queryFromScope session scope =
     case scope of
-        Scope.Food ->
+        Sector.Food ->
             Bookmark.Food session.queries.food
 
-        Scope.Generic genericScope ->
+        Sector.Generic genericScope ->
             Bookmark.Generic genericScope (Session.genericQuery genericScope session)
 
-        Scope.Textile ->
+        Sector.Textile ->
             Bookmark.Textile session.queries.textile
 
 
@@ -504,13 +504,13 @@ scopedBookmarks session scope =
     session.store.bookmarks
         |> List.filter
             (case scope of
-                Scope.Food ->
+                Sector.Food ->
                     Bookmark.isFood
 
-                Scope.Generic genericScope ->
+                Sector.Generic genericScope ->
                     Bookmark.isGeneric genericScope
 
-                Scope.Textile ->
+                Sector.Textile ->
                     Bookmark.isTextile
             )
         |> Bookmark.sort

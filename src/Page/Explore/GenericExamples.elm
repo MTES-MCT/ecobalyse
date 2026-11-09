@@ -6,7 +6,7 @@ module Page.Explore.GenericExamples exposing (table)
 import Data.Component as Component
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Text as Text
 import Data.Uuid as Uuid
 import Html exposing (..)
@@ -19,11 +19,11 @@ import Views.Icon as Icon
 
 table :
     { maxScore : Float, maxPer100g : Float }
-    -> Scope.GenericScope
+    -> Sector.GenericScope
     -> { detailed : Bool, scope : Scope }
     -> Table ( Example Component.Query, { score : Float, per100g : Float } ) String msg
 table { maxScore, maxPer100g } genericScope { detailed, scope } =
-    { filename = Scope.toString scope ++ "-examples"
+    { filename = Sector.toString scope ++ "-examples"
     , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute = Tuple.first >> .id >> Just >> Dataset.GenericExamples genericScope >> Route.Explore scope
     , toSearchableText = Tuple.first >> Example.toSearchableString >> Text.toSearchable
@@ -35,8 +35,8 @@ table { maxScore, maxPer100g } genericScope { detailed, scope } =
           , toCell = Tuple.first >> .name >> text
           }
         , { label = "Famille"
-          , toValue = Table.StringValue (Tuple.first >> .scope >> Scope.toLabel)
-          , toCell = Tuple.first >> .scope >> Scope.toLabel >> text
+          , toValue = Table.StringValue (Tuple.first >> .scope >> Sector.toLabel)
+          , toCell = Tuple.first >> .scope >> Sector.toLabel >> text
           }
 
         -- FIXME: this column should eventually be replaced with the product category

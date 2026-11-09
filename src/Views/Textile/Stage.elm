@@ -11,7 +11,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process
-import Data.Sector as Scope
+import Data.Sector as Sector
 import Data.Split as Split exposing (Split)
 import Data.Textile.Dyeing as Dyeing exposing (ProcessType)
 import Data.Textile.Fabric as Fabric exposing (Fabric)
@@ -99,7 +99,7 @@ countryField { current, db, updateCountry } =
                     ]
                 , countries = db.countries
                 , onSelect = updateCountry current.label
-                , scope = Scope.Textile
+                , scope = Sector.Textile
                 , selectedCountry = current.country.code
                 }
 
@@ -691,7 +691,7 @@ createElementSelectorConfig cfg materialInput =
     , db =
         { countries =
             cfg.db.countries
-                |> Scope.anyOf [ Scope.Textile ]
+                |> Sector.anyOf [ Sector.Textile ]
                 |> List.sortBy .name
         , definitions = cfg.db.definitions
         , elements = cfg.db.textile.materials
@@ -1021,7 +1021,7 @@ stageView ({ current, showAdvancedFields } as config) html =
                                 |> text
                             , showIf (current.label == Label.Material) <|
                                 Link.smallPillExternal
-                                    [ Route.href (Route.Explore Scope.Textile (Dataset.TextileMaterials Nothing))
+                                    [ Route.href (Route.Explore Sector.Textile (Dataset.TextileMaterials Nothing))
                                     , title "Explorer"
                                     , attribute "aria-label" "Explorer"
                                     ]

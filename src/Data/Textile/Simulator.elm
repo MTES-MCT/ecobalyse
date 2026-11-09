@@ -17,7 +17,7 @@ import Data.Db exposing (Db)
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
-import Data.Sector as Scope
+import Data.Sector as Sector
 import Data.Split as Split
 import Data.Textile.Dyeing as Dyeing
 import Data.Textile.Economics as Economics
@@ -213,7 +213,7 @@ handleTrimsWeight db ({ componentConfig, inputs } as simulator) =
         trimsMass =
             Component.emptyQuery
                 |> Component.setQueryItems inputs.trims
-                |> Component.compute { config = componentConfig, db = db, scope = Scope.Textile }
+                |> Component.compute { config = componentConfig, db = db, scope = Sector.Textile }
                 |> Result.map (.production >> Component.extractMass)
                 |> Result.withDefault Quantity.zero
     in
@@ -755,7 +755,7 @@ computeTrims : Db -> Simulator -> Result String Simulator
 computeTrims db ({ componentConfig, durability, inputs } as simulator) =
     Component.emptyQuery
         |> Component.setQueryItems inputs.trims
-        |> Component.compute { config = componentConfig, db = db, scope = Scope.Textile }
+        |> Component.compute { config = componentConfig, db = db, scope = Sector.Textile }
         -- FIXME: atm we don't include eol impacts, would we ever want that for textile?
         |> Result.map (.production >> Component.extractImpacts)
         |> Result.map

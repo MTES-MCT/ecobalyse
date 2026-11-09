@@ -29,7 +29,7 @@ import Data.Key as Key
 import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Sector as Scope exposing (GenericScope, Scope)
+import Data.Sector as Sector exposing (GenericScope, Scope)
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
 import Data.Unit as Unit
@@ -172,7 +172,7 @@ init genericScope trigram maybeUrlQuery session =
 
         examples =
             session.db.generic.examples
-                |> Example.forScope (Scope.Generic genericScope)
+                |> Example.forScope (Sector.Generic genericScope)
     in
     { activeImpactsTab = ImpactTabs.StagesImpactsTab
     , bookmarkName = initialQuery |> suggestBookmarkName session genericScope examples
@@ -200,7 +200,7 @@ init genericScope trigram maybeUrlQuery session =
             |> Simulator.compute
                 { config = session.componentConfig
                 , db = session.db
-                , scope = Scope.Generic genericScope
+                , scope = Sector.Generic genericScope
                 }
     , genericScope = genericScope
     }
@@ -223,7 +223,7 @@ initFromExample : Session -> GenericScope -> Uuid -> PageUpdate Model Msg
 initFromExample session genericScope uuid =
     let
         scope =
-            Scope.Generic genericScope
+            Sector.Generic genericScope
 
         examples =
             session.db.generic.examples
@@ -284,7 +284,7 @@ initQuery session genericScope =
         in
         if List.isEmpty sessionQuery.items then
             session.componentConfig.defaultExamples
-                |> Scope.dictGet (Scope.Generic genericScope)
+                |> Sector.dictGet (Sector.Generic genericScope)
                 |> Maybe.andThen
                     (\uuid ->
                         session.db.generic.examples
@@ -324,7 +324,7 @@ refreshResults session model =
                 |> Simulator.compute
                     { config = session.componentConfig
                     , db = session.db
-                    , scope = Scope.Generic model.genericScope
+                    , scope = Sector.Generic model.genericScope
                     }
     }
 
@@ -360,7 +360,7 @@ updateQuery : Query -> PageUpdate Model Msg -> PageUpdate Model Msg
 updateQuery query ({ model, session } as pageUpdate) =
     let
         scope =
-            Scope.Generic model.genericScope
+            Sector.Generic model.genericScope
     in
     { pageUpdate
         | model =
@@ -459,7 +459,7 @@ update : Session -> Msg -> Model -> PageUpdate Model Msg
 update ({ navKey } as session) msg model =
     let
         globalScope =
-            Scope.Generic model.genericScope
+            Sector.Generic model.genericScope
 
         query =
             session
@@ -774,7 +774,7 @@ update ({ navKey } as session) msg model =
             { model | bookmarkTab = bookmarkTab }
                 |> createPageUpdate session
                 |> App.withCmds
-                    [ Plausible.TabSelected (Scope.Generic model.genericScope) "Partager"
+                    [ Plausible.TabSelected (Sector.Generic model.genericScope) "Partager"
                         |> Plausible.sendIf session (bookmarkTab == BookmarkView.ShareTab)
                     ]
 
@@ -958,7 +958,7 @@ createExampleContribData model =
             { description = cleanDescription
             , name = cleanName
             , query = model.initialQuery
-            , scope = Scope.Generic model.genericScope
+            , scope = Sector.Generic model.genericScope
             }
 
 
@@ -1007,14 +1007,14 @@ selectExample autocompleteState ({ model } as pageUpdate) =
     pageUpdate
         |> updateQuery exampleQuery
         |> App.apply update (SetModals [])
-        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected (Scope.Generic model.genericScope) ]
+        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected (Sector.Generic model.genericScope) ]
 
 
 selectProductionItem : Query -> Autocomplete Component.ProductionItem -> PageUpdate Model Msg -> PageUpdate Model Msg
 selectProductionItem query autocompleteState ({ model, session } as pageUpdate) =
     let
         plausibleCommand =
-            Plausible.send pageUpdate.session <| Plausible.ComponentAdded (Scope.Generic model.genericScope)
+            Plausible.send pageUpdate.session <| Plausible.ComponentAdded (Sector.Generic model.genericScope)
     in
     case Autocomplete.selectedValue autocompleteState of
         Just (Component.ComponentItem component) ->
@@ -1080,7 +1080,7 @@ selectConsumption requirements query autocompleteState ({ model } as pageUpdate)
             pageUpdate
                 |> updateQuery (query |> Component.addConsumption requirements process)
                 |> App.apply update (SetModals [])
-                |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded (Scope.Generic model.genericScope) ]
+                |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded (Sector.Generic model.genericScope) ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
@@ -1126,7 +1126,7 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
                     pageUpdate
                         |> updateQuery validQuery
                         |> App.apply update (SetModals (List.drop 1 model.modals))
-                        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentUpdated (Scope.Generic model.genericScope) ]
+                        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentUpdated (Sector.Generic model.genericScope) ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
@@ -1328,7 +1328,7 @@ editorConfig : Session -> Model -> ComponentView.Config Db Msg
 editorConfig session ({ genericScope } as model) =
     let
         scope =
-            Scope.Generic genericScope
+            Sector.Generic genericScope
     in
     { componentConfig = session.componentConfig
     , context = Context.Generic
@@ -1378,7 +1378,7 @@ simulatorView : Session -> Model -> Html Msg
 simulatorView ({ componentConfig } as session) ({ genericScope } as model) =
     let
         scope =
-            Scope.Generic genericScope
+            Sector.Generic genericScope
 
         currentQuery =
             session |> Session.genericQuery genericScope
@@ -1568,7 +1568,7 @@ modalView : Session -> Model -> Modal -> Html Msg
 modalView session ({ modals } as model) modal =
     let
         scopeLabels =
-            ComponentView.scopeLabels Context.Generic (Scope.Generic model.genericScope)
+            ComponentView.scopeLabels Context.Generic (Sector.Generic model.genericScope)
     in
     case modal of
         AddProductionItemModal autocompleteState ->

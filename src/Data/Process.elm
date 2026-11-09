@@ -34,7 +34,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process.Category as Category exposing (Category)
 import Data.Process.Metadata as Metadata exposing (Metadata)
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Text as Text
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
@@ -158,7 +158,7 @@ decode impactsDecoder =
         |> Pipe.required "massPerUnit" (Decode.maybe Decode.float)
         |> DU.strictOptional "metadata" Metadata.decode
         |> Pipe.required "qtyVariationRatio" Unit.decodeQuantityVariationRatio
-        |> Pipe.required "scopes" (Decode.list Scope.decode)
+        |> Pipe.required "scopes" (Decode.list Sector.decode)
         |> Pipe.hardcoded ""
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
@@ -184,7 +184,7 @@ encode process =
         , ( "massPerUnit", EncodeExtra.maybe Encode.float process.massPerUnit )
         , ( "metadata", EncodeExtra.maybe Metadata.encode process.metadata )
         , ( "qtyVariationRatio", Unit.encodeQuantityVariationRatio process.qtyVariationRatio )
-        , ( "scopes", process.scopes |> Encode.list Scope.encode )
+        , ( "scopes", process.scopes |> Encode.list Sector.encode )
         , ( "source", Encode.string process.source )
         , ( "unit", process.unit |> unitToString |> Encode.string )
         ]
@@ -289,7 +289,7 @@ listAvailableByCategory : Scope -> Category -> List Process -> List Process
 listAvailableByCategory scope category processes =
     processes
         |> List.filter .visible
-        |> Scope.anyOf [ scope ]
+        |> Sector.anyOf [ scope ]
         |> listByCategory category
         |> List.sortBy getDisplayName
 
@@ -338,7 +338,7 @@ toSearchableString process =
         , getDisplayName process
         , getTechnicalName process
         , process.categories |> List.map Category.toLabel |> String.join " "
-        , process.scopes |> List.map Scope.toString |> String.join " "
+        , process.scopes |> List.map Sector.toString |> String.join " "
         , process.comment
         , process.source
         ]

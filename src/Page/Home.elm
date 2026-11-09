@@ -10,7 +10,7 @@ import App exposing (Msg, PageUpdate)
 import Browser.Navigation as Nav
 import Data.Dataset as Dataset
 import Data.Env as Env
-import Data.Sector as Scope
+import Data.Sector as Sector
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -116,7 +116,7 @@ viewHero { enabledSections } =
                 , { label = "Calculer l’impact d’un objet"
                   , subLabel = Just "Simulateur en construction"
                   , callToAction = False
-                  , link = RouteLink <| Route.GenericSimulatorHome Scope.Object
+                  , link = RouteLink <| Route.GenericSimulatorHome Sector.Object
                   , testId = "object-callout-button"
                   }
                 )
@@ -124,7 +124,7 @@ viewHero { enabledSections } =
                 , { label = "Calculer l’impact d’un véhicule"
                   , subLabel = Just "Simulateur en construction"
                   , callToAction = False
-                  , link = RouteLink <| Route.GenericSimulatorHome Scope.Veli
+                  , link = RouteLink <| Route.GenericSimulatorHome Sector.Veli
                   , testId = "veli-callout-button"
                   }
                 )
@@ -232,7 +232,7 @@ viewTools =
                         [ text "Créer un compte Ecobalyse" ]
                     , button
                         [ class "btn btn-outline-primary"
-                        , onClick <| ProcessLink <| RouteLink <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
+                        , onClick <| ProcessLink <| RouteLink <| Route.Explore Sector.Textile (Dataset.TextileExamples Nothing)
                         ]
                         [ text "Explorer les données" ]
                     ]

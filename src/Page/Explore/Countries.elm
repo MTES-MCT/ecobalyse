@@ -5,7 +5,7 @@ import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Gitbook as Gitbook
 import Data.Process as Process
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Split as Split
 import Data.Text as Text
 import Data.Transport as Transport
@@ -61,7 +61,7 @@ table distances countries { detailed, scope } =
                 , toValue = Table.StringValue <| .heatProcess >> Process.getDisplayName
                 , toCell = .heatProcess >> Process.getDisplayName >> text
                 }
-            , if scope == Scope.Textile then
+            , if scope == Sector.Textile then
                 Just
                     { label = "Taux de pollution aquatique"
                     , toValue = Table.FloatValue (.aquaticPollutionScenario >> Country.getAquaticPollutionRatio >> Split.toPercent)

@@ -5,7 +5,7 @@ module Data.Plausible exposing
     )
 
 import Data.Impact.Definition as Definition exposing (Trigram)
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Json.Encode as Encode
 import Ports
@@ -95,21 +95,21 @@ send session event =
                 track session
                     "bookmark_saved"
                     [ string "feature" "bookmarks"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString scope)
                     ]
 
             ComparatorOpened scope ->
                 track session
                     "comparator_opened"
                     [ string "feature" "comparator"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString scope)
                     ]
 
             ComparisonTypeSelected scope comparisonType ->
                 track session
                     "comparison_type_selected"
                     [ string "feature" "comparator"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString scope)
                     , string "comparison_type" comparisonType
                     ]
 
@@ -117,35 +117,35 @@ send session event =
                 track session
                     "component_added"
                     [ string "feature" "simulator"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString scope)
                     ]
 
             ComponentUpdated scope ->
                 track session
                     "component_updated"
                     [ string "feature" "simulator"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString scope)
                     ]
 
             ConsumptionAdded scope ->
                 track session
                     "consumption_added"
                     [ string "feature" "simulator"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString scope)
                     ]
 
             ExampleSelected scope ->
                 track session
                     "example_selected"
                     [ string "feature" "simulator"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString scope)
                     ]
 
             ImpactSelected scope trigram ->
                 track session
                     "impact_selected"
                     [ string "feature" "simulator"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString scope)
                     , string "trigram" (Definition.toString trigram)
                     ]
 
@@ -158,7 +158,7 @@ send session event =
                 track session
                     "tab_selected"
                     [ string "feature" "share"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString scope)
                     , string "tab" tab
                     ]
 

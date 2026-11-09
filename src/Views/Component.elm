@@ -28,7 +28,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Transport exposing (Transport)
 import Data.Unit as Unit
@@ -138,7 +138,7 @@ scopeLabels context scope =
     case context of
         Context.Generic ->
             case scope of
-                Scope.Generic Scope.Apparel ->
+                Sector.Generic Sector.Apparel ->
                     { add = "Ajouter un composant"
                     , addElement = "Ajouter un matériau"
                     , elementNoun = "Matériau"
@@ -153,7 +153,7 @@ scopeLabels context scope =
                     , select = "Sélectionnez un composant"
                     }
 
-                Scope.Generic Scope.Food2 ->
+                Sector.Generic Sector.Food2 ->
                     { add = "Ajouter un ingrédient"
                     , addElement = "Ajouter un sous-ingrédient"
                     , elementNoun = "Sous-ingrédient"
@@ -301,7 +301,7 @@ lifeCycleView ({ impact, query, scope } as config) lifeCycle =
             , updateItemUnitMass = config.updateItemUnitMass
             }
             lifeCycle.production
-        , if Scope.isGeneric scope && not (List.isEmpty query.items) then
+        , if Sector.isGeneric scope && not (List.isEmpty query.items) then
             div []
                 [ DownArrow.view
                     [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
@@ -934,7 +934,7 @@ endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) li
               else
                 div [ class "card-body d-flex align-items-center justify-content-start gap-2" ]
                     [ Icon.info
-                    , text <| "Fin de vie non disponible pour le périmètre " ++ Scope.toLabel config.scope
+                    , text <| "Fin de vie non disponible pour le périmètre " ++ Sector.toLabel config.scope
                     ]
             ]
         ]
@@ -1030,7 +1030,7 @@ type alias ProductCategorySelector msg =
     { onSelect : Maybe ProductCategory.Id -> msg
     , products : List ProductCategory
     , query : Query
-    , scope : Scope.GenericScope
+    , scope : Sector.GenericScope
     }
 
 

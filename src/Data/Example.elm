@@ -12,7 +12,7 @@ module Data.Example exposing
     )
 
 import Data.Common.DecodeUtils as DU
-import Data.Sector as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Scope)
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -39,7 +39,7 @@ decode decodeQuery =
         |> Pipe.required "query" decodeQuery
         -- By default, if not specified, everything is recyclable
         |> DU.strictOptionalWithDefault "recyclable" Decode.bool True
-        |> Pipe.required "scope" Scope.decode
+        |> Pipe.required "scope" Sector.decode
 
 
 decodeListFromJsonString : Decoder query -> String -> Result String (List (Example query))
@@ -111,5 +111,5 @@ toSearchableString example =
     String.join " "
         [ example.id |> Uuid.toString
         , example.name
-        , example.scope |> Scope.toString
+        , example.scope |> Sector.toString
         ]
