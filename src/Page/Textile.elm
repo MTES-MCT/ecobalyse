@@ -314,119 +314,121 @@ update ({ db, queries, navKey } as session) msg model =
         query =
             queries.textile
     in
-    case ( msg, model.modal ) of
-        ( ConfirmSwitchToRegulatory, _ ) ->
+    case msg of
+        ConfirmSwitchToRegulatory ->
             { model | activeTab = RegulatoryTab }
                 |> createPageUpdate session
                 |> App.apply update (SetModal NoModal)
                 |> updateQuery (Query.regulatory query)
 
-        ( CopyToClipBoard shareableLink, _ ) ->
+        CopyToClipBoard shareableLink ->
             createPageUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
-        ( DeleteBookmark bookmark, _ ) ->
+        DeleteBookmark bookmark ->
             createPageUpdate (session |> Session.deleteBookmark bookmark) model
 
-        ( ExportBookmarks, _ ) ->
+        ExportBookmarks ->
             createPageUpdate session model
                 |> App.withCmds [ Ports.exportBookmarks () ]
 
-        ( ImportBookmarks, _ ) ->
+        ImportBookmarks ->
             createPageUpdate session model
                 |> App.withCmds [ Ports.importBookmarks () ]
 
-        ( NoOp, _ ) ->
+        NoOp ->
             createPageUpdate session model
 
-        ( OpenComparator, _ ) ->
-            { model | modal = ComparatorModal }
-                |> createPageUpdate (session |> Session.checkComparedSimulations)
-                |> App.withCmds
-                    [ Plausible.send session <| Plausible.ComparatorOpened Scope.Textile
-                    , Ports.loadCharts ()
-                    ]
+        OnAutocompleteExample autocompleteMsg ->
+            case model.modal of
+                SelectExampleModal autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modal = SelectExampleModal newAutocompleteState }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteExample autoCompleteCmd ]
 
-        ( OnAutocompleteTrim autocompleteMsg, AddTrimModal autocompleteState ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modal = AddTrimModal newAutocompleteState }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteTrim autoCompleteCmd ]
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteTrim _, _ ) ->
-            createPageUpdate session model
+        OnAutocompleteMaterial autocompleteMsg ->
+            case model.modal of
+                AddMaterialModal maybeOldMaterial autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modal = AddMaterialModal maybeOldMaterial newAutocompleteState }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteMaterial autoCompleteCmd ]
 
-        ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modal = SelectExampleModal newAutocompleteState }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteExample autoCompleteCmd ]
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteExample _, _ ) ->
-            createPageUpdate session model
+        OnAutocompleteProduct autocompleteMsg ->
+            case model.modal of
+                SelectProductModal autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modal = SelectProductModal newAutocompleteState }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteProduct autoCompleteCmd ]
 
-        ( OnAutocompleteProduct autocompleteMsg, SelectProductModal autocompleteState ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modal = SelectProductModal newAutocompleteState }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteProduct autoCompleteCmd ]
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteProduct _, _ ) ->
-            createPageUpdate session model
+        OnAutocompleteSelect ->
+            case model.modal of
+                AddMaterialModal maybeOldMaterial autocompleteState ->
+                    createPageUpdate session model
+                        |> updateMaterial query maybeOldMaterial autocompleteState
 
-        ( OnAutocompleteMaterial autocompleteMsg, AddMaterialModal maybeOldMaterial autocompleteState ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modal = AddMaterialModal maybeOldMaterial newAutocompleteState }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteMaterial autoCompleteCmd ]
+                AddTrimModal autocompleteState ->
+                    createPageUpdate session model
+                        |> selectTrim autocompleteState
 
-        ( OnAutocompleteMaterial _, _ ) ->
-            createPageUpdate session model
+                SelectExampleModal autocompleteState ->
+                    createPageUpdate session model
+                        |> selectExample autocompleteState
 
-        ( OnAutocompleteSelect, AddMaterialModal maybeOldMaterial autocompleteState ) ->
-            createPageUpdate session model
-                |> updateMaterial query maybeOldMaterial autocompleteState
+                SelectProductModal autocompleteState ->
+                    createPageUpdate session model
+                        |> selectProduct autocompleteState
 
-        ( OnAutocompleteSelect, AddTrimModal autocompleteState ) ->
-            createPageUpdate session model
-                |> selectTrim autocompleteState
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteSelect, SelectExampleModal autocompleteState ) ->
-            createPageUpdate session model
-                |> selectExample autocompleteState
+        OnAutocompleteTrim autocompleteMsg ->
+            case model.modal of
+                AddTrimModal autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modal = AddTrimModal newAutocompleteState }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteTrim autoCompleteCmd ]
 
-        ( OnAutocompleteSelect, SelectProductModal autocompleteState ) ->
-            createPageUpdate session model
-                |> selectProduct autocompleteState
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteSelect, _ ) ->
-            createPageUpdate session model
-
-        ( OnDragLeaveBookmark, _ ) ->
+        OnDragLeaveBookmark ->
             { model | bookmarkBeingOvered = Nothing }
                 |> createPageUpdate session
 
-        ( OnDragOverBookmark bookmarkBeingOvered, _ ) ->
+        OnDragOverBookmark bookmarkBeingOvered ->
             { model | bookmarkBeingOvered = Just bookmarkBeingOvered }
                 |> createPageUpdate session
 
-        ( OnDragStartBookmark bookmark, _ ) ->
+        OnDragStartBookmark bookmark ->
             { model | bookmarkBeingDragged = Just bookmark }
                 |> createPageUpdate session
 
-        ( OnDropBookmark target, _ ) ->
+        OnDropBookmark target ->
             case model.bookmarkBeingDragged of
                 Just dragged ->
                     { model | bookmarkBeingDragged = Nothing, bookmarkBeingOvered = Nothing }
@@ -438,19 +440,27 @@ update ({ db, queries, navKey } as session) msg model =
                 Nothing ->
                     createPageUpdate session model
 
-        ( OnStageClick stageId, _ ) ->
+        OnStageClick stageId ->
             createPageUpdate session model
                 |> App.withCmds [ Ports.scrollIntoView <| "#" ++ stageId ]
 
-        ( RemoveMaterial materialId, _ ) ->
+        OpenComparator ->
+            { model | modal = ComparatorModal }
+                |> createPageUpdate (session |> Session.checkComparedSimulations)
+                |> App.withCmds
+                    [ Plausible.send session <| Plausible.ComparatorOpened Scope.Textile
+                    , Ports.loadCharts ()
+                    ]
+
+        RemoveMaterial materialId ->
             createPageUpdate session model
                 |> updateQuery (Query.removeMaterial materialId query)
 
-        ( RemoveTrim itemIndex, _ ) ->
+        RemoveTrim itemIndex ->
             createPageUpdate session model
                 |> updateQuery (query |> Query.updateTrims db.textile.products (LE.removeAt itemIndex))
 
-        ( RenameBookmark, _ ) ->
+        RenameBookmark ->
             case model.bookmarkBeingRenamed of
                 Just bookmark ->
                     { model | bookmarkBeingRenamed = Nothing }
@@ -462,11 +472,11 @@ update ({ db, queries, navKey } as session) msg model =
                 Nothing ->
                     createPageUpdate session model
 
-        ( Reset, _ ) ->
+        Reset ->
             createPageUpdate session model
                 |> updateQuery model.initialQuery
 
-        ( SaveBookmark, _ ) ->
+        SaveBookmark ->
             createPageUpdate session model
                 |> App.withCmds
                     [ Time.now
@@ -477,7 +487,7 @@ update ({ db, queries, navKey } as session) msg model =
                     , Plausible.send session <| Plausible.BookmarkSaved Scope.Textile
                     ]
 
-        ( SaveBookmarkWithTime name foodQuery now, _ ) ->
+        SaveBookmarkWithTime name foodQuery now ->
             createPageUpdate
                 (session
                     |> Session.saveBookmark
@@ -489,17 +499,17 @@ update ({ db, queries, navKey } as session) msg model =
                 )
                 model
 
-        ( SelectAllBookmarks, _ ) ->
+        SelectAllBookmarks ->
             createPageUpdate (Session.selectAllBookmarks session) model
 
-        ( SelectNoBookmarks, _ ) ->
+        SelectNoBookmarks ->
             createPageUpdate (Session.selectNoBookmarks session) model
 
-        ( SetModal modal, _ ) ->
+        SetModal modal ->
             createPageUpdate session { model | modal = modal }
                 |> App.withCmdIf (isAutocompleteModal modal) (AutocompleteSelector.focusInput NoOp)
 
-        ( SwitchBookmarksTab bookmarkTab, _ ) ->
+        SwitchBookmarksTab bookmarkTab ->
             { model | bookmarkTab = bookmarkTab }
                 |> createPageUpdate session
                 |> App.withCmds
@@ -507,7 +517,7 @@ update ({ db, queries, navKey } as session) msg model =
                         |> Plausible.sendIf session (bookmarkTab == BookmarkView.ShareTab)
                     ]
 
-        ( SwitchComparisonType displayChoice, _ ) ->
+        SwitchComparisonType displayChoice ->
             { model | comparisonType = displayChoice }
                 |> createPageUpdate session
                 |> App.withCmds
@@ -516,7 +526,11 @@ update ({ db, queries, navKey } as session) msg model =
                         |> Plausible.send session
                     ]
 
-        ( SwitchImpact (Ok trigram), _ ) ->
+        SwitchImpact (Err error) ->
+            createPageUpdate session model
+                |> App.notifyError "Erreur de sélection d'impact: " error
+
+        SwitchImpact (Ok trigram) ->
             createPageUpdate session model
                 |> App.withCmds
                     [ Just query
@@ -526,11 +540,7 @@ update ({ db, queries, navKey } as session) msg model =
                     , Plausible.send session <| Plausible.ImpactSelected Scope.Textile trigram
                     ]
 
-        ( SwitchImpact (Err error), _ ) ->
-            createPageUpdate session model
-                |> App.notifyError "Erreur de sélection d'impact: " error
-
-        ( SwitchImpactsTab impactsTab, _ ) ->
+        SwitchImpactsTab impactsTab ->
             { model | activeImpactsTab = impactsTab }
                 |> createPageUpdate session
                 |> App.withCmds
@@ -539,7 +549,12 @@ update ({ db, queries, navKey } as session) msg model =
                         |> Plausible.send session
                     ]
 
-        ( SwitchTab RegulatoryTab, _ ) ->
+        SwitchTab ExploratoryTab ->
+            { model | activeTab = ExploratoryTab }
+                |> createPageUpdate session
+                |> App.withCmds [ Plausible.send session <| Plausible.TabSelected Scope.Textile "Exploratory" ]
+
+        SwitchTab RegulatoryTab ->
             createPageUpdate session
                 (if Query.isAdvancedQuery query then
                     { model | modal = ConfirmSwitchToRegulatoryModal }
@@ -549,64 +564,55 @@ update ({ db, queries, navKey } as session) msg model =
                 )
                 |> App.withCmds [ Plausible.send session <| Plausible.TabSelected Scope.Textile "Regulatory" ]
 
-        ( SwitchTab ExploratoryTab, _ ) ->
-            { model | activeTab = ExploratoryTab }
-                |> createPageUpdate session
-                |> App.withCmds [ Plausible.send session <| Plausible.TabSelected Scope.Textile "Exploratory" ]
-
-        ( ToggleComparedSimulation bookmark checked, _ ) ->
+        ToggleComparedSimulation bookmark checked ->
             model
                 |> createPageUpdate (session |> Session.toggleComparedSimulation bookmark checked)
 
-        ( ToggleFading fading, _ ) ->
+        ToggleFading fading ->
             createPageUpdate session model
                 |> updateQuery { query | fading = Just fading }
 
-        ( ToggleStage label, _ ) ->
+        ToggleStage label ->
             createPageUpdate session model
                 |> updateQuery (Query.toggleStage label query)
 
-        ( UpdateAirTransportRatio airTransportRatio, _ ) ->
+        UpdateAirTransportRatio airTransportRatio ->
             createPageUpdate session model
                 |> updateQuery { query | airTransportRatio = airTransportRatio }
 
-        ( UpdateBookmarkName newName, _ ) ->
+        UpdateBookmarkName newName ->
             { model | bookmarkName = newName }
                 |> createPageUpdate session
 
-        ( UpdateBusiness (Ok business), _ ) ->
-            createPageUpdate session model
-                |> updateQuery { query | business = Just business }
-
-        ( UpdateBusiness (Err error), _ ) ->
+        UpdateBusiness (Err error) ->
             createPageUpdate session model
                 |> App.notifyError "Erreur de type d'entreprise" error
 
-        ( UpdateDyeingProcessType dyeingProcessType, _ ) ->
+        UpdateBusiness (Ok business) ->
+            createPageUpdate session model
+                |> updateQuery { query | business = Just business }
+
+        UpdateDyeingProcessType dyeingProcessType ->
             createPageUpdate session model
                 |> updateQuery { query | dyeingProcessType = Just dyeingProcessType }
 
-        ( UpdateFabricProcess fabricProcess, _ ) ->
+        UpdateFabricProcess fabricProcess ->
             createPageUpdate session model
                 |> updateQuery { query | fabricProcess = Just fabricProcess }
 
-        ( UpdatePhysicalDurability physicalDurability, _ ) ->
-            createPageUpdate session model
-                |> updateQuery { query | physicalDurability = physicalDurability }
-
-        ( UpdateMakingComplexity makingComplexity, _ ) ->
+        UpdateMakingComplexity makingComplexity ->
             createPageUpdate session model
                 |> updateQuery { query | makingComplexity = Just makingComplexity }
 
-        ( UpdateMakingWaste makingWaste, _ ) ->
-            createPageUpdate session model
-                |> updateQuery { query | makingWaste = makingWaste }
-
-        ( UpdateMakingDeadStock makingDeadStock, _ ) ->
+        UpdateMakingDeadStock makingDeadStock ->
             createPageUpdate session model
                 |> updateQuery { query | makingDeadStock = makingDeadStock }
 
-        ( UpdateMassInput massInput, _ ) ->
+        UpdateMakingWaste makingWaste ->
+            createPageUpdate session model
+                |> updateQuery { query | makingWaste = makingWaste }
+
+        UpdateMassInput massInput ->
             createPageUpdate session model
                 |> (case massInput |> String.toFloat |> Maybe.map Mass.grams of
                         Just mass ->
@@ -616,39 +622,43 @@ update ({ db, queries, navKey } as session) msg model =
                             identity
                    )
 
-        ( UpdateMaterial oldMaterial newMaterial, _ ) ->
+        UpdateMaterial oldMaterial newMaterial ->
             createPageUpdate session model
                 |> updateQuery (Query.updateMaterial oldMaterial.id newMaterial query)
 
-        ( UpdateMaterialSpinning material spinning, _ ) ->
+        UpdateMaterialSpinning material spinning ->
             createPageUpdate session model
                 |> updateQuery (Query.updateMaterialSpinning material spinning query)
 
-        ( UpdateNumberOfReferences numberOfReferences, _ ) ->
+        UpdateNumberOfReferences numberOfReferences ->
             createPageUpdate session model
                 |> updateQuery { query | numberOfReferences = numberOfReferences }
 
-        ( UpdatePrice price, _ ) ->
+        UpdatePhysicalDurability physicalDurability ->
+            createPageUpdate session model
+                |> updateQuery { query | physicalDurability = physicalDurability }
+
+        UpdatePrice price ->
             createPageUpdate session model
                 |> updateQuery { query | price = price }
 
-        ( UpdatePrinting printing, _ ) ->
+        UpdatePrinting printing ->
             createPageUpdate session model
                 |> updateQuery { query | printing = printing }
 
-        ( UpdateRenamedBookmarkName bookmark name, _ ) ->
+        UpdateRenamedBookmarkName bookmark name ->
             { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
                 |> createPageUpdate session
 
-        ( UpdateStageCountry label code, _ ) ->
+        UpdateStageCountry label code ->
             createPageUpdate session model
                 |> updateQuery (Query.updateStageCountry label code query)
 
-        ( UpdateSurfaceMass surfaceMass, _ ) ->
+        UpdateSurfaceMass surfaceMass ->
             createPageUpdate session model
                 |> updateQuery { query | surfaceMass = surfaceMass }
 
-        ( UpdateTrimQuantity trimIndex quantity, _ ) ->
+        UpdateTrimQuantity trimIndex quantity ->
             createPageUpdate session model
                 |> updateQuery
                     (query
@@ -656,11 +666,11 @@ update ({ db, queries, navKey } as session) msg model =
                             (Component.updateItem trimIndex (\item -> { item | quantity = quantity }))
                     )
 
-        ( UpdateUpcycled upcycled, _ ) ->
+        UpdateUpcycled upcycled ->
             createPageUpdate session model
                 |> updateQuery { query | upcycled = upcycled }
 
-        ( UpdateYarnSize yarnSize, _ ) ->
+        UpdateYarnSize yarnSize ->
             createPageUpdate session model
                 |> updateQuery { query | yarnSize = yarnSize }
 
@@ -689,14 +699,23 @@ isAutocompleteModal modal =
         AddTrimModal _ ->
             True
 
+        ComparatorModal ->
+            False
+
+        ConfirmSwitchToRegulatoryModal ->
+            False
+
+        ExplorerDetailsTab _ ->
+            False
+
+        NoModal ->
+            False
+
         SelectExampleModal _ ->
             True
 
         SelectProductModal _ ->
             True
-
-        _ ->
-            False
 
 
 updateExistingMaterial : Query -> PageUpdate Model Msg -> Inputs.MaterialInput -> Material -> PageUpdate Model Msg
@@ -721,16 +740,20 @@ updateMaterial query maybeOldMaterial autocompleteState pageUpdate =
         maybeSelectedValue =
             Autocomplete.selectedValue autocompleteState
     in
-    Maybe.map2
-        (updateExistingMaterial query pageUpdate)
-        maybeOldMaterial
-        maybeSelectedValue
-        |> Maybe.withDefault
+    case
+        Maybe.map2
+            (updateExistingMaterial query pageUpdate)
+            maybeOldMaterial
+            maybeSelectedValue
+    of
+        Just newPageUpdate ->
+            newPageUpdate
+
+        Nothing ->
             -- Add a new Material
-            (pageUpdate
+            pageUpdate
                 |> App.apply update (SetModal NoModal)
                 |> selectMaterial autocompleteState
-            )
 
 
 selectExample : Autocomplete Query -> PageUpdate Model Msg -> PageUpdate Model Msg
