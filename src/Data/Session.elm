@@ -205,8 +205,8 @@ saveBookmark bookmark =
 
 
 genericQuery : GenericSector -> Session -> Component.Query
-genericQuery genericScope session =
-    case genericScope of
+genericQuery genericSector session =
+    case genericSector of
         Sector.Apparel ->
             session.queries.apparel
 
@@ -226,8 +226,8 @@ updateFoodQuery foodQuery ({ queries } as session) =
 
 
 updateGenericQuery : GenericSector -> Component.Query -> Session -> Session
-updateGenericQuery genericScope query ({ queries } as session) =
-    case genericScope of
+updateGenericQuery genericSector query ({ queries } as session) =
+    case genericSector of
         Sector.Apparel ->
             { session | queries = { queries | apparel = query } }
 

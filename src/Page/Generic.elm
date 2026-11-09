@@ -165,17 +165,17 @@ type Msg
 
 
 init : GenericSector -> Definition.Trigram -> Maybe Query -> Session -> PageUpdate Model Msg
-init genericScope trigram maybeUrlQuery session =
+init genericSector trigram maybeUrlQuery session =
     let
         initialQuery =
-            initQuery session genericScope maybeUrlQuery
+            initQuery session genericSector maybeUrlQuery
 
         examples =
             session.db.generic.examples
-                |> Example.forScope (Sector.Generic genericScope)
+                |> Example.forScope (Sector.Generic genericSector)
     in
     { activeImpactsTab = ImpactTabs.StagesImpactsTab
-    , bookmarkName = initialQuery |> suggestBookmarkName session genericScope examples
+    , bookmarkName = initialQuery |> suggestBookmarkName session genericSector examples
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType =
         if Session.isAuthenticated session then
@@ -200,11 +200,11 @@ init genericScope trigram maybeUrlQuery session =
             |> Simulator.compute
                 { config = session.componentConfig
                 , db = session.db
-                , sector = Sector.Generic genericScope
+                , sector = Sector.Generic genericSector
                 }
-    , genericSector = genericScope
+    , genericSector = genericSector
     }
-        |> createPageUpdate (session |> Session.updateGenericQuery genericScope initialQuery)
+        |> createPageUpdate (session |> Session.updateGenericQuery genericSector initialQuery)
         |> App.withCmds
             (case maybeUrlQuery of
                 -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
@@ -220,10 +220,10 @@ init genericScope trigram maybeUrlQuery session =
 
 
 initFromExample : Session -> GenericSector -> Uuid -> PageUpdate Model Msg
-initFromExample session genericScope uuid =
+initFromExample session genericSector uuid =
     let
         sector =
-            Sector.Generic genericScope
+            Sector.Generic genericSector
 
         examples =
             session.db.generic.examples
@@ -239,7 +239,7 @@ initFromExample session genericScope uuid =
                 |> Result.withDefault Component.emptyQuery
     in
     { activeImpactsTab = ImpactTabs.StagesImpactsTab
-    , bookmarkName = exampleQuery |> suggestBookmarkName session genericScope examples
+    , bookmarkName = exampleQuery |> suggestBookmarkName session genericSector examples
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType = ComparatorView.Subscores
     , contributionDescription = ""
@@ -261,9 +261,9 @@ initFromExample session genericScope uuid =
                 , db = session.db
                 , sector = sector
                 }
-    , genericSector = genericScope
+    , genericSector = genericSector
     }
-        |> createPageUpdate (session |> Session.updateGenericQuery genericScope exampleQuery)
+        |> createPageUpdate (session |> Session.updateGenericQuery genericSector exampleQuery)
         |> App.notifyErrorIf (RE.isErr example) "Exemple introuvable" ("L’exemple de produit " ++ Uuid.toString uuid ++ " n’existe pas.")
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
@@ -276,15 +276,15 @@ initFromExample session genericScope uuid =
 
 -}
 initQuery : Session -> GenericSector -> Maybe Query -> Query
-initQuery session genericScope =
+initQuery session genericSector =
     Maybe.withDefault <|
         let
             sessionQuery =
-                Session.genericQuery genericScope session
+                Session.genericQuery genericSector session
         in
         if List.isEmpty sessionQuery.items then
             session.componentConfig.defaultExamples
-                |> Sector.dictGet (Sector.Generic genericScope)
+                |> Sector.dictGet (Sector.Generic genericSector)
                 |> Maybe.andThen
                     (\uuid ->
                         session.db.generic.examples
@@ -330,12 +330,12 @@ refreshResults session model =
 
 
 suggestBookmarkName : Session -> GenericSector -> List (Example Query) -> Query -> String
-suggestBookmarkName { db, store } genericScope examples query =
+suggestBookmarkName { db, store } genericSector examples query =
     let
         -- Existing user bookmark?
         userBookmark =
             store.bookmarks
-                |> Bookmark.findByGenericQuery genericScope query
+                |> Bookmark.findByGenericQuery genericSector query
 
         -- Matching product example name?
         exampleName =

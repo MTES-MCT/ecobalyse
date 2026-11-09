@@ -161,8 +161,8 @@ scopeLoadData sector =
             , ( "/data/food/examples.json", \data raw -> { raw | foodProductExamples = data } )
             ]
 
-        Sector.Generic genericScope ->
-            scopeGenericLoadData genericScope
+        Sector.Generic genericSector ->
+            scopeGenericLoadData genericSector
 
         Sector.Textile ->
             [ ( "/data/textile/components.json", \data raw -> { raw | textileComponents = data } )
@@ -325,20 +325,20 @@ setRoute url session currentPage ( model, cmds ) =
             FoodBuilder.init session Impact.default Nothing
                 |> toPage model cmds FoodBuilderPage FoodBuilderMsg
 
-        Just (Route.GenericSimulator genericScope trigram maybeQuery) ->
-            GenericSimulator.init genericScope trigram maybeQuery session
+        Just (Route.GenericSimulator genericSector trigram maybeQuery) ->
+            GenericSimulator.init genericSector trigram maybeQuery session
                 |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
 
-        Just (Route.GenericSimulatorExample genericScope uuid) ->
-            GenericSimulator.initFromExample session genericScope uuid
+        Just (Route.GenericSimulatorExample genericSector uuid) ->
+            GenericSimulator.initFromExample session genericSector uuid
                 |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
 
         Just Route.Home ->
             Home.init session
                 |> toPage model cmds HomePage HomeMsg
 
-        Just (Route.GenericSimulatorHome genericScope) ->
-            GenericSimulator.init genericScope Impact.default Nothing session
+        Just (Route.GenericSimulatorHome genericSector) ->
+            GenericSimulator.init genericSector Impact.default Nothing session
                 |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
 
         Just Route.Stats ->

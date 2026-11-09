@@ -145,8 +145,8 @@ scopeComponents json sector =
         Sector.Food ->
             Nothing
 
-        Sector.Generic genericScope ->
-            Just (scopeGenericComponents json genericScope)
+        Sector.Generic genericSector ->
+            Just (scopeGenericComponents json genericSector)
 
         Sector.Textile ->
             Just json.textileComponents
@@ -250,8 +250,8 @@ scopePropGetters sector =
             , .foodProductExamples
             ]
 
-        Sector.Generic genericScope ->
-            scopeGenericPropGetters genericScope
+        Sector.Generic genericSector ->
+            scopeGenericPropGetters genericSector
 
         Sector.Textile ->
             [ .textileComponents

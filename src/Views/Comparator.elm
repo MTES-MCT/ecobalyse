@@ -154,12 +154,12 @@ addToComparison { componentConfig, db } { name, query } =
                         }
                     )
 
-        Bookmark.Generic genericScope genericQuery ->
+        Bookmark.Generic genericSector genericQuery ->
             genericQuery
                 |> GenericSimulator.compute
                     { config = componentConfig
                     , db = db
-                    , sector = Sector.Generic genericScope
+                    , sector = Sector.Generic genericSector
                     }
                 |> Result.map
                     (\lifeCycle ->

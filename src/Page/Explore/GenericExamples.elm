@@ -22,10 +22,10 @@ table :
     -> Sector.GenericSector
     -> { detailed : Bool, sector : Sector }
     -> Table ( Example Component.Query, { score : Float, per100g : Float } ) String msg
-table { maxScore, maxPer100g } genericScope { detailed, sector } =
+table { maxScore, maxPer100g } genericSector { detailed, sector } =
     { filename = Sector.toString sector ++ "-examples"
     , toId = Tuple.first >> .id >> Uuid.toString
-    , toRoute = Tuple.first >> .id >> Just >> Dataset.GenericExamples genericScope >> Route.Explore sector
+    , toRoute = Tuple.first >> .id >> Just >> Dataset.GenericExamples genericSector >> Route.Explore sector
     , toSearchableText = Tuple.first >> Example.toSearchableString >> Text.toSearchable
     , facets = []
     , legend = []
@@ -68,7 +68,7 @@ table { maxScore, maxPer100g } genericScope { detailed, sector } =
                 \( example, _ ) ->
                     a
                         [ class "btn btn-light btn-sm w-100"
-                        , Route.href <| Route.GenericSimulatorExample genericScope example.id
+                        , Route.href <| Route.GenericSimulatorExample genericSector example.id
                         , title <| "Charger " ++ example.name
                         ]
                         [ Icon.search ]

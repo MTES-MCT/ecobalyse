@@ -55,8 +55,8 @@ datasets sector =
             , Processes Sector.Food Nothing
             ]
 
-        Sector.Generic genericScope ->
-            datasetsGeneric genericScope
+        Sector.Generic genericSector ->
+            datasetsGeneric genericSector
 
         Sector.Textile ->
             [ TextileExamples Nothing
@@ -114,8 +114,8 @@ defaultDatasetFor sector =
         Sector.Food ->
             FoodExamples Nothing
 
-        Sector.Generic genericScope ->
-            GenericExamples genericScope Nothing
+        Sector.Generic genericSector ->
+            GenericExamples genericSector Nothing
 
         Sector.Textile ->
             TextileExamples Nothing
@@ -194,8 +194,8 @@ componentDatasetToString sector =
         Sector.Food ->
             "food-components"
 
-        Sector.Generic genericScope ->
-            componentGenericDatasetToString genericScope
+        Sector.Generic genericSector ->
+            componentGenericDatasetToString genericSector
 
         Sector.Textile ->
             "textile-components"
@@ -223,8 +223,8 @@ processesDatasetToString sector =
         Sector.Food ->
             "food-processes"
 
-        Sector.Generic genericScope ->
-            processesDatasetGenericToString genericScope
+        Sector.Generic genericSector ->
+            processesDatasetGenericToString genericSector
 
         Sector.Textile ->
             "processes"
@@ -462,8 +462,8 @@ strings dataset =
         FoodIngredients _ ->
             { label = "Ingrédients", slug = "ingredients" }
 
-        GenericExamples genericScope _ ->
-            { label = "Exemples", slug = Sector.toString (Sector.Generic genericScope) ++ "-examples" }
+        GenericExamples genericSector _ ->
+            { label = "Exemples", slug = Sector.toString (Sector.Generic genericSector) ++ "-examples" }
 
         Impacts _ ->
             { label = "Impacts", slug = "impacts" }
@@ -471,8 +471,8 @@ strings dataset =
         Processes sector _ ->
             { label = "Procédés", slug = Sector.toString sector ++ "-processes" }
 
-        ProductCategory genericScope _ ->
-            { label = "Produits", slug = Sector.toString (Sector.Generic genericScope) ++ "-product-categories" }
+        ProductCategory genericSector _ ->
+            { label = "Produits", slug = Sector.toString (Sector.Generic genericSector) ++ "-product-categories" }
 
         TextileExamples _ ->
             { label = "Exemples", slug = "textile-examples" }

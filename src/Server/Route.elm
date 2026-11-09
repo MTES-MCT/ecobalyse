@@ -97,13 +97,13 @@ decodeGenericQuery processes body =
 
 
 decodeGenericQueryBody : Component.Config -> Db -> GenericSector -> Encode.Value -> Result Validation.Errors Component.Query
-decodeGenericQueryBody config db genericScope body =
+decodeGenericQueryBody config db genericSector body =
     decodeGenericQuery db.processes body
         |> Result.andThen
             (Component.validateQuery
                 { config = config
                 , db = db
-                , sector = Sector.Generic genericScope
+                , sector = Sector.Generic genericSector
                 }
                 >> Result.mapError Validation.fromErrorString
             )
@@ -163,10 +163,10 @@ parser db config body =
             |> Parser.map GenericGetTransformList
         , (s "POST" </> Sector.parseGeneric </> s "simulator")
             |> Parser.map
-                (\genericScope ->
+                (\genericSector ->
                     body
-                        |> decodeGenericQueryBody config db genericScope
-                        |> GenericPostSimulator genericScope
+                        |> decodeGenericQueryBody config db genericSector
+                        |> GenericPostSimulator genericSector
                 )
 
         -- Textile

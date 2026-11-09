@@ -106,8 +106,8 @@ findById id =
 
 
 findByScope : Sector.GenericSector -> List ProductCategory -> List ProductCategory
-findByScope genericScope =
-    List.filter (.sector >> (==) genericScope)
+findByScope genericSector =
+    List.filter (.sector >> (==) genericSector)
 
 
 idFromString : String -> Result String Id

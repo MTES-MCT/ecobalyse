@@ -131,8 +131,8 @@ fromString string =
                 Err _ ->
                     Err <| "Couldn't decode unknown scope " ++ genericScopeString
 
-                Ok genericScope ->
-                    Ok (Generic genericScope)
+                Ok genericSector ->
+                    Ok (Generic genericSector)
 
 
 fromStringGeneric : String -> Result String GenericSector
@@ -179,8 +179,8 @@ parseGeneric =
 toGenericScope : Sector -> Maybe GenericSector
 toGenericScope sector =
     case sector of
-        Generic genericScope ->
-            Just genericScope
+        Generic genericSector ->
+            Just genericSector
 
         _ ->
             Nothing
@@ -192,16 +192,16 @@ toLabel sector =
         Food ->
             "Alimentaire"
 
-        Generic genericScope ->
-            toLabelGeneric genericScope
+        Generic genericSector ->
+            toLabelGeneric genericSector
 
         Textile ->
             "Textile"
 
 
 toLabelGeneric : GenericSector -> String
-toLabelGeneric genericScope =
-    case genericScope of
+toLabelGeneric genericSector =
+    case genericSector of
         Apparel ->
             "Habillement"
 
@@ -221,16 +221,16 @@ toString sector =
         Food ->
             "food"
 
-        Generic genericScope ->
-            toStringGeneric genericScope
+        Generic genericSector ->
+            toStringGeneric genericSector
 
         Textile ->
             "textile"
 
 
 toStringGeneric : GenericSector -> String
-toStringGeneric genericScope =
-    case genericScope of
+toStringGeneric genericSector =
+    case genericSector of
         Apparel ->
             "apparel"
 

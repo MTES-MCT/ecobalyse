@@ -518,10 +518,10 @@ genericExamplesExplorer :
     -> Sector.GenericSector
     -> Maybe Uuid
     -> List (Html Msg)
-genericExamplesExplorer session tableConfig tableState genericScope maybeId =
+genericExamplesExplorer session tableConfig tableState genericSector maybeId =
     let
         sector =
-            Sector.Generic genericScope
+            Sector.Generic genericSector
 
         scoredExamples =
             session.db.generic.examples
@@ -556,7 +556,7 @@ genericExamplesExplorer session tableConfig tableState genericScope maybeId =
             tableConfig
             tableState
             sector
-            (GenericExamples.table max genericScope)
+            (GenericExamples.table max genericSector)
     , case maybeId of
         Just id ->
             detailsModal
@@ -570,7 +570,7 @@ genericExamplesExplorer session tableConfig tableState genericScope maybeId =
                           , per100g = getGenericScorePer100g session sector example
                           }
                         )
-                            |> Table.viewDetails sector (GenericExamples.table max genericScope)
+                            |> Table.viewDetails sector (GenericExamples.table max genericSector)
                 )
 
         Nothing ->
@@ -676,18 +676,18 @@ productCategoriesExplorer :
     -> SortableTable.State
     -> Maybe ProductCategory.Id
     -> List (Html Msg)
-productCategoriesExplorer session genericScope tableConfig tableState maybeId =
+productCategoriesExplorer session genericSector tableConfig tableState maybeId =
     let
         sector =
-            Sector.Generic genericScope
+            Sector.Generic genericSector
     in
     [ session.db.products
-        |> ProductCategory.findByScope genericScope
+        |> ProductCategory.findByScope genericSector
         |> Table.viewList (.id >> ProductCategory.idToString >> OpenDetail)
             tableConfig
             tableState
             sector
-            (ProductCategories.table session genericScope)
+            (ProductCategories.table session genericSector)
     , case maybeId of
         Just id ->
             detailsModal
@@ -696,7 +696,7 @@ productCategoriesExplorer session genericScope tableConfig tableState maybeId =
                         alert error
 
                     Ok product ->
-                        Table.viewDetails sector (ProductCategories.table session genericScope) product
+                        Table.viewDetails sector (ProductCategories.table session genericSector) product
                 )
 
         Nothing ->
@@ -838,8 +838,8 @@ exploreView ({ db } as session) { facetValues, sector, dataset, tableState, sear
         Dataset.FoodIngredients maybeId ->
             foodIngredientsExplorer db tableConfig tableState maybeId
 
-        Dataset.GenericExamples genericScope maybeId ->
-            genericExamplesExplorer session tableConfig tableState genericScope maybeId
+        Dataset.GenericExamples genericSector maybeId ->
+            genericExamplesExplorer session tableConfig tableState genericSector maybeId
 
         Dataset.Impacts maybeTrigram ->
             impactsExplorer db.definitions tableConfig tableState sector maybeTrigram
@@ -847,8 +847,8 @@ exploreView ({ db } as session) { facetValues, sector, dataset, tableState, sear
         Dataset.Processes scope_ maybeId ->
             processesExplorer session scope_ tableConfig tableState maybeId
 
-        Dataset.ProductCategory genericScope maybeId ->
-            productCategoriesExplorer session genericScope tableConfig tableState maybeId
+        Dataset.ProductCategory genericSector maybeId ->
+            productCategoriesExplorer session genericSector tableConfig tableState maybeId
 
         Dataset.TextileExamples maybeId ->
             textileExamplesExplorer session tableConfig tableState maybeId

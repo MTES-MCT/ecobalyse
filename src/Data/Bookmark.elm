@@ -55,8 +55,8 @@ decode =
         |> Decode.map
             (\bookmark ->
                 case ( bookmark.query, bookmark.genericSector ) of
-                    ( Generic _ query, Just genericScope ) ->
-                        { bookmark | query = Generic genericScope query }
+                    ( Generic _ query, Just genericSector ) ->
+                        { bookmark | query = Generic genericSector query }
 
                     _ ->
                         bookmark
@@ -108,8 +108,8 @@ encode v =
 encodeGenericScope : Query -> Maybe Encode.Value
 encodeGenericScope query =
     case query of
-        Generic genericScope _ ->
-            Just (Sector.encodeGeneric genericScope)
+        Generic genericSector _ ->
+            Just (Sector.encodeGeneric genericSector)
 
         _ ->
             Nothing
@@ -145,10 +145,10 @@ isFood { query } =
 
 
 isGeneric : GenericSector -> Bookmark -> Bool
-isGeneric genericScope { query } =
+isGeneric genericSector { query } =
     case query of
         Generic bookmarkScope _ ->
-            bookmarkScope == genericScope
+            bookmarkScope == genericSector
 
         _ ->
             False
@@ -175,8 +175,8 @@ findByFoodQuery foodQuery =
 
 
 findByGenericQuery : GenericSector -> Component.Query -> List Bookmark -> Maybe Bookmark
-findByGenericQuery genericScope =
-    Generic genericScope >> findByQuery
+findByGenericQuery genericSector =
+    Generic genericSector >> findByQuery
 
 
 findByTextileQuery : TextileQuery.Query -> List Bookmark -> Maybe Bookmark
@@ -197,8 +197,8 @@ sector bookmark =
         Food _ ->
             Sector.Food
 
-        Generic genericScope _ ->
-            Sector.Generic genericScope
+        Generic genericSector _ ->
+            Sector.Generic genericSector
 
         Textile _ ->
             Sector.Textile

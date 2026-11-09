@@ -104,18 +104,18 @@ buildGenericApiQuery sector maybeToken clientUrl query =
 
 
 shareGenericScope : Definition -> Session -> Sector.GenericSector -> ( String, String, String )
-shareGenericScope impact session genericScope =
+shareGenericScope impact session genericSector =
     let
         query =
-            Session.genericQuery genericScope session
+            Session.genericQuery genericSector session
     in
     ( Just query
-        |> Route.GenericSimulator genericScope impact.trigram
+        |> Route.GenericSimulator genericSector impact.trigram
         |> Route.toString
         |> (++) "/"
         |> (++) session.clientUrl
     , query
-        |> buildGenericApiQuery (Sector.Generic genericScope) (Session.getAccessToken session) session.clientUrl
+        |> buildGenericApiQuery (Sector.Generic genericSector) (Session.getAccessToken session) session.clientUrl
     , Component.encodeQuery query
         |> Encode.encode 2
     )
@@ -142,8 +142,8 @@ shareTabView { copyToClipBoard, impact, sector, session } =
                         |> Encode.encode 2
                     )
 
-                Sector.Generic genericScope ->
-                    shareGenericScope impact session genericScope
+                Sector.Generic genericSector ->
+                    shareGenericScope impact session genericSector
 
                 Sector.Textile ->
                     let
@@ -304,8 +304,8 @@ bookmarksView ({ compare, sector, session } as cfg) =
                         Bookmark.Food _ ->
                             sector == Sector.Food
 
-                        Bookmark.Generic genericScope _ ->
-                            sector == Sector.Generic genericScope
+                        Bookmark.Generic genericSector _ ->
+                            sector == Sector.Generic genericSector
 
                         Bookmark.Textile _ ->
                             sector == Sector.Textile
@@ -330,9 +330,9 @@ bookmarkView cfg ({ name, query } as bookmark) =
                     Just foodQuery
                         |> Route.FoodBuilder cfg.impact.trigram
 
-                Bookmark.Generic genericScope genericQuery ->
+                Bookmark.Generic genericSector genericQuery ->
                     Just genericQuery
-                        |> Route.GenericSimulator genericScope cfg.impact.trigram
+                        |> Route.GenericSimulator genericSector cfg.impact.trigram
 
                 Bookmark.Textile textileQuery ->
                     Just textileQuery
@@ -416,8 +416,8 @@ contributeExampleTabView ({ sector, session } as config) =
 
         currentQuery =
             case Sector.toGenericScope sector of
-                Just genericScope ->
-                    Session.genericQuery genericScope session
+                Just genericSector ->
+                    Session.genericQuery genericSector session
 
                 Nothing ->
                     Component.emptyQuery
@@ -492,8 +492,8 @@ queryFromScope session sector =
         Sector.Food ->
             Bookmark.Food session.queries.food
 
-        Sector.Generic genericScope ->
-            Bookmark.Generic genericScope (Session.genericQuery genericScope session)
+        Sector.Generic genericSector ->
+            Bookmark.Generic genericSector (Session.genericQuery genericSector session)
 
         Sector.Textile ->
             Bookmark.Textile session.queries.textile
@@ -507,8 +507,8 @@ scopedBookmarks session sector =
                 Sector.Food ->
                     Bookmark.isFood
 
-                Sector.Generic genericScope ->
-                    Bookmark.isGeneric genericScope
+                Sector.Generic genericSector ->
+                    Bookmark.isGeneric genericSector
 
                 Sector.Textile ->
                     Bookmark.isTextile

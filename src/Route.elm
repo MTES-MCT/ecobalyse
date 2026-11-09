@@ -224,27 +224,27 @@ toString route =
                 FoodBuilderHome ->
                     [ "food" ]
 
-                GenericSimulator genericScope trigram (Just query) ->
-                    [ Sector.toString (Sector.Generic genericScope)
+                GenericSimulator genericSector trigram (Just query) ->
+                    [ Sector.toString (Sector.Generic genericSector)
                     , "simulator"
                     , Definition.toString trigram
                     , Component.encodeBase64Query query
                     ]
 
-                GenericSimulator genericScope trigram Nothing ->
-                    [ Sector.toString (Sector.Generic genericScope)
+                GenericSimulator genericSector trigram Nothing ->
+                    [ Sector.toString (Sector.Generic genericSector)
                     , "simulator"
                     , Definition.toString trigram
                     ]
 
-                GenericSimulatorExample genericScope uuid ->
-                    [ Sector.toString (Sector.Generic genericScope)
+                GenericSimulatorExample genericSector uuid ->
+                    [ Sector.toString (Sector.Generic genericSector)
                     , "edit-example"
                     , Uuid.toString uuid
                     ]
 
-                GenericSimulatorHome genericScope ->
-                    [ Sector.toString (Sector.Generic genericScope)
+                GenericSimulatorHome genericSector ->
+                    [ Sector.toString (Sector.Generic genericSector)
                     , "simulator"
                     ]
 

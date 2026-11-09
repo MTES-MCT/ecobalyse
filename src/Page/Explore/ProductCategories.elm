@@ -12,10 +12,10 @@ import Route
 
 
 table : Session -> Sector.GenericSector -> { detailed : Bool, sector : Sector } -> Table ProductCategory String msg
-table { db } genericScope _ =
-    { filename = Sector.toStringGeneric genericScope ++ "-product-categories"
+table { db } genericSector _ =
+    { filename = Sector.toStringGeneric genericSector ++ "-product-categories"
     , toId = .id >> ProductCategory.idToString
-    , toRoute = \{ id } -> Route.Explore (Sector.Generic genericScope) (Dataset.ProductCategory genericScope (Just id))
+    , toRoute = \{ id } -> Route.Explore (Sector.Generic genericSector) (Dataset.ProductCategory genericSector (Just id))
     , toSearchableText = ProductCategory.toSearchableString >> Text.toSearchable
     , facets =
         [ { key = "Assemblage"

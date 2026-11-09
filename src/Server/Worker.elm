@@ -284,12 +284,12 @@ encodeIngredients ingredients =
 
 -}
 genericProcessesResponse : Db -> GenericSector -> List (Process -> Bool) -> JsonResponse
-genericProcessesResponse db genericScope filters =
+genericProcessesResponse db genericSector filters =
     filters
         |> List.foldl List.filter
             (db.processes
                 |> List.filter .visible
-                |> Sector.anyOf [ Sector.Generic genericScope ]
+                |> Sector.anyOf [ Sector.Generic genericSector ]
             )
         |> List.sortBy Process.getDisplayName
         |> Encode.list encodeGenericProcess
@@ -297,9 +297,9 @@ genericProcessesResponse db genericScope filters =
 
 
 toGenericResults : Request -> Db -> GenericSector -> Component.Query -> Component.LifeCycle -> Encode.Value
-toGenericResults request db genericScope query lifeCycle =
+toGenericResults request db genericSector query lifeCycle =
     EU.optionalPropertiesObject
-        ([ ( "webUrl", toGenericWebUrl request genericScope query |> Encode.string |> Just )
+        ([ ( "webUrl", toGenericWebUrl request genericSector query |> Encode.string |> Just )
          , ( "description", Component.queryToString db query |> Result.toMaybe |> Maybe.map Encode.string )
          , ( "query", Component.encodeQuery query |> Just )
          ]
@@ -311,9 +311,9 @@ toGenericResults request db genericScope query lifeCycle =
 
 
 toGenericWebUrl : Request -> GenericSector -> Component.Query -> String
-toGenericWebUrl request genericScope query =
+toGenericWebUrl request genericSector query =
     Just query
-        |> WebRoute.GenericSimulator genericScope Impact.default
+        |> WebRoute.GenericSimulator genericSector Impact.default
         |> WebRoute.toString
         |> (++) (serverRootUrl request)
 
@@ -371,52 +371,52 @@ handleConfiguredRequest db config request =
                 |> Encode.list encodeProcess
                 |> respondWith 200
 
-        Just (Route.GenericGetAssemblyList genericScope) ->
+        Just (Route.GenericGetAssemblyList genericSector) ->
             genericProcessesResponse db
-                genericScope
+                genericSector
                 [ .categories >> List.member ProcessCategory.Assembly ]
 
-        Just (Route.GenericGetCatalogList genericScope) ->
+        Just (Route.GenericGetCatalogList genericSector) ->
             db.components
                 |> List.filter (not << Component.isEmpty)
-                |> List.filter (.sectors >> List.member (Sector.Generic genericScope))
+                |> List.filter (.sectors >> List.member (Sector.Generic genericSector))
                 |> Encode.list encodeComponent
                 |> respondWith 200
 
-        Just (Route.GenericGetCategoryList genericScope) ->
+        Just (Route.GenericGetCategoryList genericSector) ->
             db.products
-                |> ProductCategory.findByScope genericScope
+                |> ProductCategory.findByScope genericSector
                 |> Encode.list ProductCategory.encode
                 |> respondWith 200
 
-        Just (Route.GenericGetConsumptionList genericScope) ->
+        Just (Route.GenericGetConsumptionList genericSector) ->
             genericProcessesResponse db
-                genericScope
+                genericSector
                 [ .categories >> List.member ProcessCategory.Use ]
 
-        Just (Route.GenericGetCountryList genericScope) ->
+        Just (Route.GenericGetCountryList genericSector) ->
             db.countries
-                |> Sector.anyOf [ Sector.Generic genericScope ]
+                |> Sector.anyOf [ Sector.Generic genericSector ]
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
-        Just (Route.GenericGetDistributionList genericScope) ->
+        Just (Route.GenericGetDistributionList genericSector) ->
             genericProcessesResponse db
-                genericScope
+                genericSector
                 [ .categories >> List.member ProcessCategory.Distribution
                 , .unit >> (==) Process.CubicMeter
                 ]
 
-        Just (Route.GenericGetMaterialList genericScope) ->
+        Just (Route.GenericGetMaterialList genericSector) ->
             genericProcessesResponse db
-                genericScope
+                genericSector
                 [ .categories >> List.member ProcessCategory.Material
                 , Process.hasCategory ProcessCategory.Packaging >> not
                 ]
 
-        Just (Route.GenericGetPackagingList genericScope) ->
+        Just (Route.GenericGetPackagingList genericSector) ->
             genericProcessesResponse db
-                genericScope
+                genericSector
                 [ .categories >> List.member ProcessCategory.Packaging ]
 
         Just (Route.GenericGetTransformList _ (Err error)) ->
@@ -424,9 +424,9 @@ handleConfiguredRequest db config request =
                 |> encodeValidationErrors request
                 |> respondWith 400
 
-        Just (Route.GenericGetTransformList genericScope (Ok materialType)) ->
+        Just (Route.GenericGetTransformList genericSector (Ok materialType)) ->
             genericProcessesResponse db
-                genericScope
+                genericSector
                 [ .categories >> List.member ProcessCategory.Transform
                 , Process.getMaterialTypes >> List.member materialType
                 ]
@@ -461,8 +461,8 @@ handleConfiguredRequest db config request =
             encodeValidationErrors request error
                 |> respondWith 400
 
-        Just (Route.GenericPostSimulator genericScope (Ok query)) ->
-            query |> executeGenericQuery (GenericRequirements config db genericScope) request
+        Just (Route.GenericPostSimulator genericSector (Ok query)) ->
+            query |> executeGenericQuery (GenericRequirements config db genericSector) request
 
         Just (Route.GenericPostSimulator _ (Err error)) ->
             encodeValidationErrors request error
