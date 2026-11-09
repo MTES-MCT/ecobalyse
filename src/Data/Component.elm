@@ -2079,8 +2079,7 @@ errors =
     }
 
 
-{-| Expand assembly operations into a list of ExpandedLocalizedProcess localized to the assembly
-country when set
+{-| Map assembly operations to their Process.
 -}
 expandAssembly : DataContainer db -> List Process.Id -> Result String (List Process)
 expandAssembly { countries, processes } operations =
