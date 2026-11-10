@@ -2288,48 +2288,6 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "steel-market-cz",
-    "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. details in documentation",
-    "database": "Ecobalyse_custom_lci",
-    "exchanges": [
-      {
-        "amount": 0.725,
-        "database": "BAFU 2025v2",
-        "name": "Steel, converter, unalloyed, at plant {RER} U"
-      },
-      {
-        "amount": 0.023,
-        "database": "BAFU 2025v2",
-        "name": "Steel, converter, unalloyed, at plant {RER} U"
-      },
-      { "amount": 0.252, "name": "steel, low-alloyed, recycled, RER, CFF" }
-    ],
-    "location": "CZ",
-    "newName": "steel, low-alloyed, market, CZ"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "steel-market-de",
-    "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. details in documentation",
-    "database": "Ecobalyse_custom_lci",
-    "exchanges": [
-      {
-        "amount": 0.652,
-        "database": "BAFU 2025v2",
-        "name": "Steel, converter, unalloyed, at plant {RER} U"
-      },
-      {
-        "amount": 0.018,
-        "database": "BAFU 2025v2",
-        "name": "Steel, converter, unalloyed, at plant {RER} U"
-      },
-      { "amount": 0.33, "name": "steel, low-alloyed, recycled, RER, CFF" }
-    ],
-    "location": "DE",
-    "newName": "steel, low-alloyed, market, DE"
-  },
-  {
-    "activityCreationType": "from_scratch",
     "alias": "steel-recycled-row-cff",
     "comment": "CFF parameters: A=0.2, Q=1",
     "database": "BAFU 2025v2",
@@ -2339,27 +2297,6 @@
     ],
     "location": "RoW",
     "newName": "steel, low-alloyed, recycled, RoW, CFF"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "steel-market-jp",
-    "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. Japan is used as a reference for Out of Europe. Details in documentation",
-    "database": "Ecobalyse_custom_lci",
-    "exchanges": [
-      {
-        "amount": 0.002,
-        "database": "BAFU 2025v2",
-        "name": "Steel, converter, unalloyed, at plant {RER} U"
-      },
-      {
-        "amount": 0.722,
-        "database": "BAFU 2025v2",
-        "name": "Steel, converter, unalloyed, at plant {RER} U"
-      },
-      { "amount": 0.275, "name": "steel, low-alloyed, recycled, RoW, CFF" }
-    ],
-    "location": "RoW",
-    "newName": "steel, low-alloyed, market, JP"
   },
   {
     "activityCreationType": "from_scratch",
