@@ -14839,7 +14839,7 @@
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "3561ace1-f710-50ce-a69c-9cf842e729e4",
-    "impacts": { "ecs": 4.553 },
+    "impacts": { "ecs": 5.193 },
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,

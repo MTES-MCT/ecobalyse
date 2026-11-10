@@ -1202,10 +1202,7 @@
     "database": "BAFU 2025v2",
     "exchanges": [
       { "amount": 0.23, "name": "Heat, from natural gas {CN} U" },
-      {
-        "amount": 0.77,
-        "name": "Heat, hard coal, at cogen, allocation exergy {CN} U"
-      }
+      { "amount": 0.77, "name": "Heat, hard coal, at cogen, allocation exergy {CN} U" }
     ],
     "newName": "heat, industrial, market, RoW"
   },
@@ -2626,47 +2623,21 @@
     "activityCreationType": "from_scratch",
     "alias": "battery-cell-cam-nmc811-rer",
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
-      {
-        "amount": 1.34,
-        "database": "BAFU 2025v2",
-        "name": "Nickel, 99.5%, at plant {GLO} U"
-      },
-      { "amount": 0.168, "database": "BAFU 2025v2", "name": "Cobalt sulfate {GLO} U" },
-      {
-        "amount": 0.163,
-        "database": "BAFU 2025v2",
-        "name": "Manganese, at regional storage {RER} U"
-      },
+      { "amount": 1.34, "name": "Nickel, 99.5%, at plant {GLO} U" },
+      { "amount": 0.168, "name": "Cobalt sulfate {GLO} U" },
+      { "amount": 0.163, "name": "Manganese, at regional storage {RER} U" },
       {
         "amount": 0.89,
-        "database": "BAFU 2025v2",
         "name": "Sodium hydroxide, 50% in H2O, production mix, at plant {RER} U"
       },
-      {
-        "amount": 0.124,
-        "database": "BAFU 2025v2",
-        "name": "Ammonia, liquid, at regional storehouse {RER} U"
-      },
-      {
-        "amount": 0.246,
-        "database": "BAFU 2025v2",
-        "name": "Lithium hydroxide, at plant {GLO} U"
-      },
-      {
-        "amount": 0.007,
-        "database": "BAFU 2025v2",
-        "name": "N-methyl-2-pyrrolidone, at plant {RER} U"
-      },
-      {
-        "amount": 7.48,
-        "database": "BAFU 2025v2",
-        "name": "Electricity, medium voltage, at grid {RER} U"
-      },
+      { "amount": 0.124, "name": "Ammonia, liquid, at regional storehouse {RER} U" },
+      { "amount": 0.246, "name": "Lithium hydroxide, at plant {GLO} U" },
+      { "amount": 0.007, "name": "N-methyl-2-pyrrolidone, at plant {RER} U" },
+      { "amount": 7.48, "name": "Electricity, medium voltage, at grid {RER} U" },
       {
         "amount": 40.392,
-        "database": "BAFU 2025v2",
         "name": "District heat, at consumer, swiss average, allocation exergy {CH} U"
       }
     ],
@@ -2927,7 +2898,8 @@
         "database": "BAFU 2025v2",
         "name": "Electricity, medium voltage, at grid {FR} U"
       },
-      { "amount": 34.3,
+      {
+        "amount": 34.3,
         "database": "BAFU 2025v2",
         "name": "District heat, at consumer, swiss average, allocation exergy {CH} U"
       }
