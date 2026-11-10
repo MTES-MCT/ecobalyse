@@ -7,8 +7,10 @@ description: >-
 
 # Matières manquantes
 
+
+
 {% hint style="info" %}
-Le tableau ci-dessous, s'appuyant sur des travaux subséquants à la publication de la notice réglementaire en vigueur depuis le 1er octobre 2025, est suceptible de différer par rapport aux données de cette même notice.&#x20;
+Le tableau ci-dessous, s'appuyant sur des travaux subséquents à la publication de la notice réglementaire en vigueur depuis le 1er octobre 2025, est susceptible de différer par rapport aux données de cette même notice.&#x20;
 {% endhint %}
 
 <details>
@@ -30,7 +32,7 @@ Choix d’une autre matière en suivant le tableau de correspondance
 
 <figure><img src="../../../.gitbook/assets/image (447).png" alt=""><figcaption></figcaption></figure>
 
-\*Dans le cas où la matière représente plus ou est égale à 20% en masse, le contenu suéprieur à cette limite peut utiliser comme proxy son équivalent en matière vierge.
+\*Dans le cas où la matière représente plus ou est égale à 20% en masse, le contenu supérieur à cette limite peut utiliser comme proxy son équivalent en matière vierge.
 
 _Exemple : un produit 50%coton/50%polyamide recyclé peut être calculé selon la composition :  50%coton/20%polyester recyclé/30%polyamide._
 
