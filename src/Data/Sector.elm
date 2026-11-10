@@ -39,6 +39,7 @@ type Sector
 type GenericSector
     = Apparel
     | Food2
+    | Furniture
     | Object
     | Veli
 
@@ -61,6 +62,7 @@ allGeneric : List GenericSector
 allGeneric =
     [ Apparel
     , Food2
+    , Furniture
     , Object
     , Veli
     ]
@@ -208,6 +210,9 @@ toLabelGeneric genericSector =
         Food2 ->
             "Alimentaire BÉTA"
 
+        Furniture ->
+            "Ameublement"
+
         Object ->
             "Objets"
 
@@ -236,6 +241,9 @@ toStringGeneric genericSector =
 
         Food2 ->
             "food2"
+
+        Furniture ->
+            "furniture"
 
         Object ->
             "object"

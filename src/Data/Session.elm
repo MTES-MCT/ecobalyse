@@ -58,6 +58,7 @@ type alias Queries =
     { apparel : Component.Query
     , food : FoodQuery.Query
     , food2 : Component.Query
+    , furniture : Component.Query
     , object : Component.Query
     , textile : TextileQuery.Query
     , veli : Component.Query
@@ -96,6 +97,7 @@ type alias EnabledSections =
     { apparel : Bool
     , food : Bool
     , food2 : Bool
+    , furniture : Bool
     , objects : Bool
     , textile : Bool
     , veli : Bool
@@ -213,6 +215,9 @@ genericQuery genericSector session =
         Sector.Food2 ->
             session.queries.food2
 
+        Sector.Furniture ->
+            session.queries.furniture
+
         Sector.Object ->
             session.queries.object
 
@@ -233,6 +238,9 @@ updateGenericQuery genericSector query ({ queries } as session) =
 
         Sector.Food2 ->
             { session | queries = { queries | food2 = query } }
+
+        Sector.Furniture ->
+            { session | queries = { queries | furniture = query } }
 
         Sector.Object ->
             { session | queries = { queries | object = query } }

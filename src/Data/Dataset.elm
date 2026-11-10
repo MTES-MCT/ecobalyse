@@ -89,6 +89,14 @@ datasetsGeneric sector =
             , ProductCategory sector Nothing
             ]
 
+        Sector.Furniture ->
+            [ GenericExamples sector Nothing
+            , Impacts Nothing
+            , Countries Nothing
+            , Processes (Sector.Generic sector) Nothing
+            , ProductCategory sector Nothing
+            ]
+
         Sector.Object ->
             [ GenericExamples sector Nothing
             , Components (Sector.Generic sector) Nothing
@@ -210,6 +218,9 @@ componentGenericDatasetToString sector =
         Sector.Food2 ->
             "food2-components"
 
+        Sector.Furniture ->
+            "furniture-components"
+
         Sector.Object ->
             "object-components"
 
@@ -239,6 +250,9 @@ processesDatasetGenericToString sector =
         Sector.Food2 ->
             "food2-processes"
 
+        Sector.Furniture ->
+            "furniture-processes"
+
         Sector.Object ->
             "object-processes"
 
@@ -255,6 +269,9 @@ examplesDatasetToString sector =
         Sector.Food2 ->
             "food2-examples"
 
+        Sector.Furniture ->
+            "furniture-examples"
+
         Sector.Object ->
             "object-examples"
 
@@ -270,6 +287,9 @@ productCategoryDatasetToString sector =
 
         Sector.Food2 ->
             "food2-product-categories"
+
+        Sector.Furniture ->
+            "furniture-product-categories"
 
         Sector.Object ->
             "object-product-categories"
