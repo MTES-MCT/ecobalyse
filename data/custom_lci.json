@@ -1209,7 +1209,6 @@
     "activityCreationType": "from_scratch",
     "alias": "petrol-e85",
     "comment": "under construction - see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "database": "Ecoinvent 3.9.1",
     "exchanges": [
       {
         "amount": 0.366,
@@ -1243,11 +1242,13 @@
       },
       {
         "amount": 0.666,
-        "name": "ethyl tert-butyl ether//[RER] ethyl tert-butyl ether production, from bioethanol"
+        "database": "BAFU 2025v2",
+        "name": "Ethyl tert-butyl ether, from bioethanol, at plant {RER} U"
       },
       {
         "amount": 0.118,
-        "name": "petrol, low-sulfur//[Europe without Switzerland] market for petrol, low-sulfur"
+        "database": "BAFU 2025v2",
+        "name": "Petrol, at regional storage {RER} U"
       }
     ],
     "newName": "petrol, E85"
@@ -1256,11 +1257,11 @@
     "activityCreationType": "from_scratch",
     "alias": "battery-li-ion-glo",
     "comment": "",
-    "database": "Ecoinvent 3.9.1",
+    "database": "BAFU 2025v2",
     "exchanges": [
       {
         "amount": 6.71,
-        "name": "battery, Li-ion, NMC811, rechargeable, prismatic//[GLO] market for battery, Li-ion, NMC811, rechargeable, prismatic"
+        "name": "Battery, Li-ion, NMC111, rechargeable, prismatic {GLO} U"
       }
     ],
     "location": "GLO",
@@ -2293,13 +2294,13 @@
     "exchanges": [
       {
         "amount": 0.725,
-        "database": "Ecoinvent 3.9.1",
-        "name": "steel, unalloyed//[RER] steel production, converter, unalloyed"
+        "database": "BAFU 2025v2",
+        "name": "Steel, converter, unalloyed, at plant {RER} U"
       },
       {
         "amount": 0.023,
-        "database": "Ecoinvent 3.9.1",
-        "name": "steel, unalloyed//[RoW] steel production, converter, unalloyed"
+        "database": "BAFU 2025v2",
+        "name": "Steel, converter, unalloyed, at plant {RER} U"
       },
       { "amount": 0.252, "name": "steel, low-alloyed, recycled, RER, CFF" }
     ],
@@ -2314,13 +2315,13 @@
     "exchanges": [
       {
         "amount": 0.652,
-        "database": "Ecoinvent 3.9.1",
-        "name": "steel, unalloyed//[RER] steel production, converter, unalloyed"
+        "database": "BAFU 2025v2",
+        "name": "Steel, converter, unalloyed, at plant {RER} U"
       },
       {
         "amount": 0.018,
-        "database": "Ecoinvent 3.9.1",
-        "name": "steel, unalloyed//[RoW] steel production, converter, unalloyed"
+        "database": "BAFU 2025v2",
+        "name": "Steel, converter, unalloyed, at plant {RER} U"
       },
       { "amount": 0.33, "name": "steel, low-alloyed, recycled, RER, CFF" }
     ],
@@ -2347,13 +2348,13 @@
     "exchanges": [
       {
         "amount": 0.002,
-        "database": "Ecoinvent 3.9.1",
-        "name": "steel, unalloyed//[RER] steel production, converter, unalloyed"
+        "database": "BAFU 2025v2",
+        "name": "Steel, converter, unalloyed, at plant {RER} U"
       },
       {
         "amount": 0.722,
-        "database": "Ecoinvent 3.9.1",
-        "name": "steel, unalloyed//[RoW] steel production, converter, unalloyed"
+        "database": "BAFU 2025v2",
+        "name": "Steel, converter, unalloyed, at plant {RER} U"
       },
       { "amount": 0.275, "name": "steel, low-alloyed, recycled, RoW, CFF" }
     ],
@@ -2470,11 +2471,11 @@
     "activityCreationType": "from_scratch",
     "alias": "freight-aircraft-longhaul-withlongtails",
     "comment": "modelling of longtails in addition to the ecoinvent process. see https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/modelisation-fret-aerien",
-    "database": "Ecoinvent 3.9.1",
     "exchanges": [
       {
         "amount": 1,
-        "name": "transport, freight, aircraft, long haul//[GLO] market for transport, freight, aircraft, long haul"
+        "database": "BAFU 2025v2",
+        "name": "Transport, aircraft, freight, long-haul {RER} U"
       },
       {
         "amount": 1.05,
@@ -8714,8 +8715,8 @@
     "exchanges": [
       {
         "amount": 1.1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "packaging glass, white//[RER w/o CH+DE] packaging glass production, white"
+        "database": "BAFU 2025v2",
+        "name": "Xx Packaging glass, white, at plant {RER} U"
       },
       {
         "amount": 0.285,
@@ -8734,18 +8735,18 @@
       },
       {
         "amount": 0.07,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {FR} U"
       },
       {
         "amount": -0.07,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste glass//[CH] treatment of waste glass, inert material landfill"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, glass, 0% water, to construction waste landfill {CH} U"
       },
       {
         "amount": -0.16,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste glass//[CH] treatment of waste glass, municipal incineration"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, glass, 0% water, to municipal incineration {CH} U"
       },
       {
         "amount": 0.77,
@@ -8764,14 +8765,10 @@
     "exchanges": [
       {
         "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "steel, unalloyed//[RER] steel production, converter, unalloyed"
+        "database": "BAFU 2025v2",
+        "name": "Steel, converter, unalloyed, at plant {RER} U"
       },
-      {
-        "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "sheet rolling, steel//[RER] sheet rolling, steel"
-      },
+      { "amount": 1, "database": "BAFU 2025v2", "name": "Sheet rolling, steel {RER} U" },
       {
         "amount": 1.34,
         "database": "Agribalyse 3.2",
@@ -8789,18 +8786,18 @@
       },
       {
         "amount": 0.07,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {FR} U"
       },
       {
         "amount": -0.05,
-        "database": "Ecoinvent 3.9.1",
-        "name": "scrap steel//[Europe without Switzerland] treatment of scrap steel, inert material landfill"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, steel, 0% water, to construction waste landfill {CH} U"
       },
       {
         "amount": -0.14,
-        "database": "Ecoinvent 3.9.1",
-        "name": "scrap steel//[CH] treatment of scrap steel, municipal incineration"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, steel, 0% water, to municipal incineration {CH} U"
       },
       {
         "amount": 0.81,
@@ -8819,13 +8816,13 @@
     "exchanges": [
       {
         "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "aluminium, primary, ingot//[IAI Area, EU27 & EFTA] aluminium production, primary, ingot"
+        "database": "BAFU 2025v2",
+        "name": "Aluminium, primary, at plant {RER} U"
       },
       {
         "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "sheet rolling, aluminium//[RER] sheet rolling, aluminium"
+        "database": "BAFU 2025v2",
+        "name": "Sheet rolling, aluminium {RER} U"
       },
       {
         "amount": 1.16,
@@ -8844,18 +8841,18 @@
       },
       {
         "amount": 0.07,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {FR} U"
       },
       {
         "amount": -0.18,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste aluminium//[CH] treatment of waste aluminium, sanitary landfill"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, aluminium, 0% water, to sanitary landfill {CH} U"
       },
       {
         "amount": -0.45,
-        "database": "Ecoinvent 3.9.1",
-        "name": "scrap aluminium//[Europe without Switzerland] treatment of scrap aluminium, municipal incineration"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, aluminium, 0% water, to municipal incineration {CH} U"
       },
       {
         "amount": 0.37,
@@ -8924,14 +8921,10 @@
     "exchanges": [
       {
         "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polyethylene terephthalate, granulate, bottle grade//[RER] polyethylene terephthalate production, granulate, bottle grade"
+        "database": "BAFU 2025v2",
+        "name": "Polyethylene terephthalate, granulate, bottle grade, at plant {RER} U"
       },
-      {
-        "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "injection moulding//[RER] injection moulding"
-      },
+      { "amount": 1, "database": "BAFU 2025v2", "name": "Injection moulding {RER} U" },
       {
         "amount": 1.34,
         "database": "Agribalyse 3.2",
@@ -8949,18 +8942,18 @@
       },
       {
         "amount": 0.07,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {FR} U"
       },
       {
         "amount": -0.13,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, plastics, mixture, 15.3% water, to sanitary landfill {CH} U"
       },
       {
         "amount": -0.31,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, plastics, mixture, 15.3% water, to municipal incineration {CH} U"
       },
       {
         "amount": 0.56,
@@ -8979,14 +8972,10 @@
     "exchanges": [
       {
         "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "polyvinylidenchloride, granulate//[RER] polyvinylidenchloride production, granulate"
+        "database": "BAFU 2025v2",
+        "name": "Polyvinylidenchloride, granulate, at plant {RER} U"
       },
-      {
-        "amount": 1,
-        "database": "Ecoinvent 3.9.1",
-        "name": "injection moulding//[RER] injection moulding"
-      },
+      { "amount": 1, "database": "BAFU 2025v2", "name": "Injection moulding {RER} U" },
       {
         "amount": 1.34,
         "database": "Agribalyse 3.2",
@@ -9004,18 +8993,18 @@
       },
       {
         "amount": 0.07,
-        "database": "Ecoinvent 3.9.1",
-        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+        "database": "BAFU 2025v2",
+        "name": "Electricity, medium voltage, at grid {FR} U"
       },
       {
         "amount": -0.27,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, plastics, mixture, 15.3% water, to sanitary landfill {CH} U"
       },
       {
         "amount": -0.67,
-        "database": "Ecoinvent 3.9.1",
-        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration"
+        "database": "BAFU 2025v2",
+        "name": "Disposal, plastics, mixture, 15.3% water, to municipal incineration {CH} U"
       },
       {
         "amount": 0.06,

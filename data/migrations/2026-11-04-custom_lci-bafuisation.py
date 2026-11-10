@@ -19,6 +19,20 @@ CUSTOM_LCI_FILE = DATA_ROOT_DIR / "custom_lci.json"
 MAPPING_FILE = DATA_ROOT_DIR / "migrations" / "mapping-ei-bafu-v3.csv"
 BAFU_DB_NAME = "BAFU 2025v2"
 ECOINVENT_DB_NAME = "Ecoinvent 3.9.1"
+FORCED_MIGRATION_LIST = [
+    "battery-li-ion-glo",
+    "freight-aircraft-longhaul-withlongtails",
+    "organic-cotton-irrigated",
+    "packaging-material-aluminium",
+    "packaging-material-glass",
+    "packaging-material-pet",
+    "packaging-material-pvc",
+    "packaging-material-steel",
+    "petrol-e85",
+    "steel-market-cz",
+    "steel-market-de",
+    "steel-market-jp",
+]
 
 
 def parse_mappings_file() -> dict[str, str]:
@@ -49,6 +63,18 @@ def get_root_lcis_to_migrate() -> set[str]:
                     to_migrate.add(activity["activityName"])
                 if scopes & SCOPES_TO_MIGRATE and SCOPES_TO_IGNORE.isdisjoint(scopes):
                     to_migrate.add(activity["activityName"])
+    return to_migrate
+
+
+def get_lcis_to_migrate_by_alias(custom_lcis: list[dict]) -> set[str]:
+    to_migrate = set()
+    for lci in custom_lcis:
+        if (
+            lci["alias"] in FORCED_MIGRATION_LIST
+            and lci["activityCreationType"] == "from_scratch"
+        ):
+            print(lci["alias"])
+            to_migrate.add(lci["newName"])
     return to_migrate
 
 
@@ -110,6 +136,9 @@ def migrate_custom_lci(custom_lcis: list[dict], mappings) -> list[dict]:
     # these custom lcis need migration because are referenced in the
     # CUSTOM_LCI_DIR folder, and don’t have one of the ignored scopes
     to_migrate = get_root_lcis_to_migrate()
+    # and we add to the list processes identified manually
+    to_migrate |= get_lcis_to_migrate_by_alias(custom_lcis)
+
     logger.debug(f"custom lcis which need migration directly: {to_migrate}")
 
     # these custom lcis need migration because they are referenced by another
@@ -193,9 +222,19 @@ def clean_dbs(custom_lcis: list[dict]):
     return custom_lcis
 
 
+def list_ei_items(custom_lcis: list[dict]):
+    """Print the custom_lci.json items with an ecoinvent database."""
+    for lci in custom_lcis:
+        dbs = {exc.get("database") for exc in lci.get("exchanges", [])}
+        dbs.add(lci.get("database"))
+        if ECOINVENT_DB_NAME in dbs:
+            logger.info(lci["alias"])
+
+
 def main():
     with open(CUSTOM_LCI_FILE) as fd:
         custom_lcis = json.load(fd)
+        list_ei_items(custom_lcis)
         mappings = parse_mappings_file()
 
         custom_lcis = migrate_custom_lci(custom_lcis, mappings)
