@@ -22,7 +22,6 @@ ECOINVENT_DB_NAME = "Ecoinvent 3.9.1"
 FORCED_MIGRATION_LIST = [
     "battery-li-ion-glo",
     "freight-aircraft-longhaul-withlongtails",
-    "organic-cotton-irrigated",
     "packaging-material-aluminium",
     "packaging-material-glass",
     "packaging-material-pet",
@@ -69,11 +68,7 @@ def get_root_lcis_to_migrate() -> set[str]:
 def get_lcis_to_migrate_by_alias(custom_lcis: list[dict]) -> set[str]:
     to_migrate = set()
     for lci in custom_lcis:
-        if (
-            lci["alias"] in FORCED_MIGRATION_LIST
-            and lci["activityCreationType"] == "from_scratch"
-        ):
-            print(lci["alias"])
+        if lci["alias"] in FORCED_MIGRATION_LIST:
             to_migrate.add(lci["newName"])
     return to_migrate
 
@@ -228,7 +223,7 @@ def list_ei_items(custom_lcis: list[dict]):
         dbs = {exc.get("database") for exc in lci.get("exchanges", [])}
         dbs.add(lci.get("database"))
         if ECOINVENT_DB_NAME in dbs:
-            logger.info(lci["alias"])
+            logger.debug(lci["alias"])
 
 
 def main():
