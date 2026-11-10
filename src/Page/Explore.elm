@@ -234,6 +234,7 @@ sectorsMenuView { enabledSections } model =
           , ( Sector.Textile, True )
           , ( Sector.Generic Sector.Veli, enabledSections.veli )
           , ( Sector.Generic Sector.Apparel, enabledSections.apparel )
+          , ( Sector.Generic Sector.Furniture, enabledSections.furniture )
           ]
             |> List.filter Tuple.second
             |> List.map

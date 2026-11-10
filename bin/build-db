@@ -99,6 +99,16 @@ const elmModuleContents = elmTemplate
   .replace("%food2ComponentsJson%", parseAndValidate(dataDir, "food2/components.json", "id"))
   .replace("%food2ProductCategoriesJson%", parseAndValidate(dataDir, "food2/categories.json", "id"))
   .replace("%food2ExamplesJson%", parseAndValidate(dataDir, "food2/examples.json", "id"))
+  // Furniture JSON data
+  .replace(
+    "%furnitureComponentsJson%",
+    parseAndValidate(dataDir, "furniture/components.json", "id"),
+  )
+  .replace(
+    "%furnitureProductCategoriesJson%",
+    parseAndValidate(dataDir, "furniture/categories.json", "id"),
+  )
+  .replace("%furnitureExamplesJson%", parseAndValidate(dataDir, "furniture/examples.json", "id"))
   // Object JSON data
   .replace("%objectComponentsJson%", parseAndValidate(dataDir, "object/components.json", "id"))
   .replace(
