@@ -116,11 +116,11 @@ def metadata(
 
 
 @app.command()
-def processes(
+def processes_generic(
     scopes: Annotated[
         list[GenericScope] | None,
         typer.Option(
-            help="The generic scope to export. If not specified, exports all scopes."
+            help="The generic scope to export. If not specified, exports all generic scopes."
         ),
     ] = None,
     verbose: bool = typer.Option(False, "--verbose", "-v"),
@@ -160,7 +160,7 @@ def processes(
             f"-> Filtered activities to scopes: {scopes}, {len(activities)} activities remaining for a total of {all_activities_number}"
         )
 
-    # Export all generic processes (object + veli + food2) to processes_generic.json
+    # Export all generic processes to processes_generic.json
     generic_activities = [
         activity for activity in activities if GENERIC_SCOPES & set(activity["scopes"])
     ]
