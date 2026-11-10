@@ -88,11 +88,7 @@ def test_export_processes_generic(
         number_precision=4,
     )
 
-    export.metadata(
-        scopes=[export.MetadataScope.generic],
-        root_dir=TESTS_FIXTURE_DIR,
-        write_taxonomy=False,
-    )
+    export.processes_generic(root_dir=TESTS_FIXTURE_DIR)
 
     with open(tmp_path / settings.processes_generic_impacts_file, "rb") as f:
         json_data = orjson.loads(f.read())

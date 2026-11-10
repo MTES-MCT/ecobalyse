@@ -26,6 +26,9 @@
     "tre": 0.000109398,
     "wtu": 0
   },
+  "metadata": [
+    { "id": "aada43eb-762f-4d4f-abc6-578fb48452e6", "scopes": ["apparel", "textile"] }
+  ],
   "qtyVariationRatio": 1,
   "scopes": ["apparel", "textile"],
   "source": "Ecobalyse_manual_lcia",
