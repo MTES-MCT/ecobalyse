@@ -12,7 +12,7 @@ import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Notification as Notification exposing (Notification)
-import Data.Scope as Scope exposing (GenericScope)
+import Data.Sector as Sector exposing (GenericSector)
 import Data.Session as Session
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -38,7 +38,7 @@ type ActivePage
     | Editorial String
     | Explore
     | Food
-    | Generic GenericScope
+    | Generic GenericSector
     | Home
     | Other
     | Stats
@@ -155,23 +155,23 @@ commonNotices msg activePage =
             text ""
 
 
-commonNoticesForGeneric : GenericScope -> Html msg
+commonNoticesForGeneric : GenericSector -> Html msg
 commonNoticesForGeneric genericPage =
     case genericPage of
-        Scope.Apparel ->
+        Sector.Apparel ->
             Notice.info
                 [ Icon.info
                 , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
                 ]
 
-        Scope.Food2 ->
+        Sector.Food2 ->
             Notice.info
                 [ Icon.info
                 , Markdown.simple [] "**Méthodologie stabilisée. Cette version de la calculette remplacera à terme la version initiale.**"
                 , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/02_alimentaire_general).""" |> Markdown.simple []
                 ]
 
-        Scope.Object ->
+        Sector.Object ->
             Notice.info
                 [ Icon.info
                 , Markdown.simple [] "**Cette version est en cours de développement.**"
@@ -179,7 +179,7 @@ commonNoticesForGeneric genericPage =
                     |> Markdown.simple []
                 ]
 
-        Scope.Veli ->
+        Sector.Veli ->
             Notice.info
                 [ Icon.info
                 , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
@@ -271,14 +271,14 @@ mainMenuLinks enabledSections =
         , addRouteIf enabledSections.food
             (\() -> Internal [ text "Alimentaire" ] Route.FoodBuilderHome Food)
         , addRouteIf enabledSections.food2
-            (\() -> Internal [ text "Alimentaire", sup [] [ text "BÉTA" ] ] (Route.GenericSimulatorHome Scope.Food2) (Generic Scope.Food2))
+            (\() -> Internal [ text "Alimentaire", sup [] [ text "BÉTA" ] ] (Route.GenericSimulatorHome Sector.Food2) (Generic Sector.Food2))
         , addRouteIf enabledSections.objects
-            (\() -> Internal [ text "Objets" ] (Route.GenericSimulatorHome Scope.Object) (Generic Scope.Object))
+            (\() -> Internal [ text "Objets" ] (Route.GenericSimulatorHome Sector.Object) (Generic Sector.Object))
         , addRouteIf enabledSections.veli
-            (\() -> Internal [ text "Véhicules" ] (Route.GenericSimulatorHome Scope.Veli) (Generic Scope.Veli))
+            (\() -> Internal [ text "Véhicules" ] (Route.GenericSimulatorHome Sector.Veli) (Generic Sector.Veli))
         , addRouteIf enabledSections.apparel
-            (\() -> Internal [ text "Habillement" ] (Route.GenericSimulatorHome Scope.Apparel) (Generic Scope.Apparel))
-        , Just <| Internal [ text "Explorateur" ] (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
+            (\() -> Internal [ text "Habillement" ] (Route.GenericSimulatorHome Sector.Apparel) (Generic Sector.Apparel))
+        , Just <| Internal [ text "Explorateur" ] (Route.Explore Sector.Textile (Dataset.TextileExamples Nothing)) Explore
         , Just <| Internal [ text "API" ] Route.Api Api
         , Just <| MailTo "Contact" Env.contactEmail
         ]
@@ -294,7 +294,7 @@ secondaryMenuLinks enabledSections =
         , Just <| External "Code source" Env.githubUrl
         , Just <| External "CGU" Env.cguUrl
         , addRouteIf enabledSections.food2
-            (\() -> Internal [ text "Alimentaire²" ] (Route.GenericSimulatorHome Scope.Food2) (Generic Scope.Food2))
+            (\() -> Internal [ text "Alimentaire²" ] (Route.GenericSimulatorHome Sector.Food2) (Generic Sector.Food2))
         ]
 
 

@@ -84,7 +84,7 @@ module Data.Component exposing
     , getDistributionProcessId
     , getDocLink
     , getEndOfLifeDetailedImpacts
-    , getEndOfLifeScopeCollectionRate
+    , getEndOfLifeSectorCollectionRate
     , getEndOfLifeTotalMass
     , getFinalElementCountry
     , getPackagingProcessId
@@ -153,8 +153,8 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category, MaterialDict)
-import Data.Scope as Scope exposing (Scope)
 import Data.Scoring as Scoring exposing (Scoring)
+import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split exposing (Split)
 import Data.Stages exposing (Stages)
 import Data.Transport as Transport exposing (Transport)
@@ -187,7 +187,7 @@ type alias Component =
     , id : Maybe Id
     , name : String
     , published : Bool
-    , scopes : List Scope
+    , sectors : List Sector
     }
 
 
@@ -458,7 +458,7 @@ type Stage
 type alias Requirements db =
     { config : Config
     , db : DataContainer db
-    , scope : Scope
+    , sector : Sector
     }
 
 
@@ -911,7 +911,7 @@ computeDistributionImpacts ({ config } as requirements) query ({ distribution, p
             Err errorMessage
 
         Err DistributionNothingAvailable ->
-            -- No distribution processes are available for this scope, so no added impacts
+            -- No distribution processes are available for this sector, so no added impacts
             Ok { lifeCycle | distribution = { distribution | volume = finalProductVolume } }
 
         Ok process ->
@@ -1175,7 +1175,7 @@ Fallbacks to default config distances in case a country is not defined.
 Notes:
 
   - this only computes the transport distances, not the impacts (as a transported mass would be required)
-  - the distance to hub computation logic should eventually be backported to non-generic scopes
+  - the distance to hub computation logic should eventually be backported to non-generic sectors
 
 -}
 computeTransportDistance : Requirements db -> Split -> Maybe Country -> Maybe Country -> Result String (Maybe Transport)
@@ -1377,15 +1377,15 @@ decode =
         -- be considered as published
         |> Decode.optional "published" Decode.bool True
         |> Decode.required "scopes"
-            (Decode.list Scope.decode
+            (Decode.list Sector.decode
                 |> Decode.map
-                    (\scopes ->
-                        if List.isEmpty scopes then
-                            -- Always ensure at least one scope is present
-                            [ Scope.Generic Scope.Object ]
+                    (\sectors ->
+                        if List.isEmpty sectors then
+                            -- Always ensure at least one sector is present
+                            [ Sector.Generic Sector.Object ]
 
                         else
-                            scopes
+                            sectors
                     )
             )
 
@@ -1647,7 +1647,7 @@ emptyComponent =
     , id = Nothing
     , name = ""
     , published = False
-    , scopes = [ Scope.Generic Scope.Object ]
+    , sectors = [ Sector.Generic Sector.Object ]
     }
 
 
@@ -2280,10 +2280,10 @@ getAssemblyOperations { db } query =
                 |> Maybe.withDefault []
 
 
-getAvailableDistributionProcesses : DataContainer db -> Scope -> List Process
-getAvailableDistributionProcesses db scope =
+getAvailableDistributionProcesses : DataContainer db -> Sector -> List Process
+getAvailableDistributionProcesses db sector =
     db.processes
-        |> Scope.anyOf [ scope ]
+        |> Sector.anyOf [ sector ]
         |> Process.listByCategory Category.Distribution
         |> List.filter (.unit >> (==) Process.CubicMeter)
 
@@ -2317,11 +2317,11 @@ getConsumptions { db } query =
 
   - from the query itself when set
   - or the one from the product category if not set
-  - or the default one for the scope if product category is not set
+  - or the default one for the sector if product category is not set
 
 -}
 getDistributionProcessId : Requirements db -> Query -> Maybe Process.Id
-getDistributionProcessId { config, db, scope } query =
+getDistributionProcessId { config, db, sector } query =
     case query.distribution of
         Just processId ->
             Just processId
@@ -2342,27 +2342,27 @@ getDistributionProcessId { config, db, scope } query =
 
                 Nothing ->
                     config.distribution.defaultProcess
-                        |> Scope.dictGetMaybe scope
+                        |> Sector.dictGetMaybe sector
                         |> Maybe.map .id
 
 
 {-| Retrieve a documentation link from config, if defined
 Note: proxified from Config for convenience
 -}
-getDocLink : Config.Config -> Scope -> String -> Maybe String
+getDocLink : Config.Config -> Sector -> String -> Maybe String
 getDocLink =
     Config.getDocLink
 
 
 {-| Retrieves a distribution process for a query, using an explicit distribution id
 when provided, falling back to the selected product category default, then to the
-scoped default from config.
+sectored default from config.
 -}
 getDistributionProcess : Requirements db -> Query -> Result DistributionProcessError Process
-getDistributionProcess ({ db, scope } as requirements) query =
+getDistributionProcess ({ db, sector } as requirements) query =
     case getDistributionProcessId requirements query of
         Just processId ->
-            getAvailableDistributionProcesses db scope
+            getAvailableDistributionProcesses db sector
                 |> Process.findById processId
                 |> Result.mapError DistributionGenericError
 
@@ -2389,7 +2389,7 @@ getElementResult ( itemIndex, elementIndex ) productionResults =
 
 
 getEndOfLifeDetailedImpacts : Requirements db -> Bool -> LifeCycle -> DetailedEndOfLifeImpacts
-getEndOfLifeDetailedImpacts { config, scope } recyclable lifeCycle =
+getEndOfLifeDetailedImpacts { config, sector } recyclable lifeCycle =
     let
         productionMass =
             extractMass lifeCycle.production
@@ -2405,7 +2405,7 @@ getEndOfLifeDetailedImpacts { config, scope } recyclable lifeCycle =
                 Mass.inKilograms lifeCycle.productMass / Mass.inKilograms productionMass
 
         collectionRatio =
-            scope |> getEndOfLifeScopeCollectionRate config recyclable
+            sector |> getEndOfLifeSectorCollectionRate config recyclable
 
         nonCollectionRatio =
             Split.complement collectionRatio
@@ -2445,8 +2445,8 @@ getEndOfLifeDetailedImpacts { config, scope } recyclable lifeCycle =
 
 
 getEndOfLifeImpacts : Requirements db -> Bool -> LifeCycle -> Impacts
-getEndOfLifeImpacts ({ config, scope } as requirements) recyclable lifeCycle =
-    if config.endOfLife |> Config.scopeEnabled scope then
+getEndOfLifeImpacts ({ config, sector } as requirements) recyclable lifeCycle =
+    if config.endOfLife |> Config.sectorEnabled sector then
         lifeCycle
             |> getEndOfLifeDetailedImpacts requirements recyclable
             |> AnyDict.map
@@ -2472,11 +2472,11 @@ getEndOfLifeImpacts ({ config, scope } as requirements) recyclable lifeCycle =
         Impact.empty
 
 
-getEndOfLifeScopeCollectionRate : Config -> Bool -> Scope -> Split
-getEndOfLifeScopeCollectionRate { endOfLife } recyclable scope =
+getEndOfLifeSectorCollectionRate : Config -> Bool -> Sector -> Split
+getEndOfLifeSectorCollectionRate { endOfLife } recyclable sector =
     if recyclable then
-        endOfLife.scopeCollectionRates
-            |> AnyDict.get scope
+        endOfLife.sectorCollectionRates
+            |> AnyDict.get sector
             -- Assume every material is fully collected by default
             |> Maybe.withDefault Split.full
 
@@ -3441,16 +3441,16 @@ validateAssemblyProcessesUnit processes =
 
 
 validateAssemblyProcessId : Requirements db -> Process.Id -> Result String Process.Id
-validateAssemblyProcessId { db, scope } processId =
+validateAssemblyProcessId { db, sector } processId =
     case
         db.processes
-            |> Scope.anyOf [ scope ]
+            |> Sector.anyOf [ sector ]
             |> Process.findById processId
     of
         Err _ ->
             Err <|
                 "Aucun procédé d’assemblage scopé "
-                    ++ Scope.toLabel scope
+                    ++ Sector.toLabel sector
                     ++ " avec cet id\u{202F}: "
                     ++ Process.idToString processId
 
@@ -3472,11 +3472,11 @@ validateConsumption requirements useConsumption =
 
 
 validateCountry : Requirements db -> Maybe CountryCode.Code -> Result String (Maybe CountryCode.Code)
-validateCountry { db, scope } maybeCountryCode =
+validateCountry { db, sector } maybeCountryCode =
     case maybeCountryCode of
         Just countryCode ->
             countryCode
-                |> Country.validateForScope scope db.countries
+                |> Country.validateForSector sector db.countries
                 |> Result.map Just
 
         Nothing ->
@@ -3484,7 +3484,7 @@ validateCountry { db, scope } maybeCountryCode =
 
 
 validateDistribution : Requirements db -> Maybe Process.Id -> Result String (Maybe Process.Id)
-validateDistribution { db, scope } maybeProcessId =
+validateDistribution { db, sector } maybeProcessId =
     case maybeProcessId of
         Just processId ->
             case Process.findById processId db.processes of
@@ -3498,8 +3498,8 @@ validateDistribution { db, scope } maybeProcessId =
                     else if process.unit /= Process.CubicMeter then
                         Err "Le procédé de distribution doit accepter un volume"
 
-                    else if not <| List.member scope process.scopes then
-                        Err <| "Le procédé " ++ Process.idToString processId ++ " n'est pas disponible pour le périmètre " ++ Scope.toLabel scope
+                    else if not <| List.member sector process.sectors then
+                        Err <| "Le procédé " ++ Process.idToString processId ++ " n'est pas disponible pour le périmètre " ++ Sector.toLabel sector
 
                     else
                         Ok (Just processId)
@@ -3509,10 +3509,10 @@ validateDistribution { db, scope } maybeProcessId =
 
 
 validateDurability : Requirements db -> Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)
-validateDurability { config, scope } durability =
-    case ( config.durability |> Config.scopeEnabled scope, durability ) of
+validateDurability { config, sector } durability =
+    case ( config.durability |> Config.sectorEnabled sector, durability ) of
         ( False, Just _ ) ->
-            Err <| "La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel scope
+            Err <| "La durabilité n'est pas activée pour le périmètre " ++ Sector.toLabel sector
 
         _ ->
             Ok durability
@@ -3547,15 +3547,15 @@ validatePackaging requirements (Packaging quantifiedProcess) =
 
 
 validateProcessId : Requirements db -> Process.Id -> Result String Process.Id
-validateProcessId { db, scope } processId =
+validateProcessId { db, sector } processId =
     db.processes
-        |> Scope.anyOf [ scope ]
+        |> Sector.anyOf [ sector ]
         |> Process.findById processId
         |> Result.map .id
         |> Result.mapError
             (always <|
                 "Aucun procédé scopé "
-                    ++ Scope.toLabel scope
+                    ++ Sector.toLabel sector
                     ++ " avec cet id: "
                     ++ Process.idToString processId
             )
@@ -3595,7 +3595,7 @@ validateProduct requirements maybeProductId =
                 |> ProductCategory.findById productId
                 |> Result.andThen
                     (\product ->
-                        if requirements.scope == Scope.Generic product.scope then
+                        if requirements.sector == Sector.Generic product.sector then
                             Ok productId
 
                         else
@@ -3603,7 +3603,7 @@ validateProduct requirements maybeProductId =
                                 "La catégorie de produit "
                                     ++ product.label
                                     ++ " n’est pas disponible pour le périmètre "
-                                    ++ Scope.toLabel requirements.scope
+                                    ++ Sector.toLabel requirements.sector
                     )
                 |> Result.map Just
 

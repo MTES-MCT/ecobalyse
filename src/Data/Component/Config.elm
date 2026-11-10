@@ -6,7 +6,7 @@ module Data.Component.Config exposing
     , EndOfLifeStrategy
     , getDocLink
     , parse
-    , scopeEnabled
+    , sectorEnabled
     )
 
 import Data.Common.DecodeUtils as DU
@@ -14,7 +14,7 @@ import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (MaterialDict)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
 import Data.Uuid as Uuid exposing (Uuid)
@@ -25,7 +25,7 @@ import Json.Decode.Pipeline as Decode
 
 
 type alias Config =
-    { defaultExamples : Scope.Dict Uuid
+    { defaultExamples : Sector.Dict Uuid
     , distribution : DistributionConfig
     , docLinks : DocLinksConfig
     , durability : DurabilityConfig
@@ -47,23 +47,23 @@ type alias DataContainer db =
 
 type alias DistributionConfig =
     { country : Country
-    , defaultProcess : Scope.Dict (Maybe Process)
+    , defaultProcess : Sector.Dict (Maybe Process)
     }
 
 
 type alias DocLinksConfig =
     { default : Dict String String
-    , scoped : Scope.Dict (Dict String String)
+    , sectored : Sector.Dict (Dict String String)
     }
 
 
 type alias DurabilityConfig =
-    { enabled : Scope.Dict Bool }
+    { enabled : Sector.Dict Bool }
 
 
 type alias EndOfLifeConfig =
-    { enabled : Scope.Dict Bool
-    , scopeCollectionRates : Scope.Dict Split
+    { enabled : Sector.Dict Bool
+    , sectorCollectionRates : Sector.Dict Split
     , strategies : EndOfLifeStrategiesConfig
     }
 
@@ -110,7 +110,7 @@ type alias UseConfig =
 decode : { db | countries : List Country, processes : List Process } -> Decoder Config
 decode { countries, processes } =
     Decode.succeed Config
-        |> DU.strictOptionalWithDefault "defaultExamples" (Scope.decodeDict Uuid.decoder) (AnyDict.empty Scope.toString)
+        |> DU.strictOptionalWithDefault "defaultExamples" (Sector.decodeDict Uuid.decoder) (AnyDict.empty Sector.toString)
         |> Decode.required "distribution" (decodeDistributionConfig processes countries)
         |> Decode.required "docLinks" decodeDocLinksConfig
         |> Decode.required "durability" decodeDurabilityConfig
@@ -124,27 +124,27 @@ decodeDistributionConfig : List Process -> List Country -> Decoder DistributionC
 decodeDistributionConfig processes countries =
     Decode.succeed DistributionConfig
         |> Decode.required "country" (Country.decodeFromCode countries)
-        |> Decode.required "defaultProcess" (decodeScopedMaybeProcess processes)
+        |> Decode.required "defaultProcess" (decodeSectoredMaybeProcess processes)
 
 
 decodeDocLinksConfig : Decoder DocLinksConfig
 decodeDocLinksConfig =
     Decode.succeed DocLinksConfig
         |> Decode.required "default" (Decode.dict Decode.string)
-        |> Decode.required "scoped" (Scope.decodeDict (Decode.dict Decode.string))
+        |> Decode.required "scoped" (Sector.decodeDict (Decode.dict Decode.string))
 
 
 decodeDurabilityConfig : Decoder DurabilityConfig
 decodeDurabilityConfig =
     Decode.succeed DurabilityConfig
-        |> Decode.required "enabled" (Scope.decodeDict Decode.bool)
+        |> Decode.required "enabled" (Sector.decodeDict Decode.bool)
 
 
 decodeEndOfLifeConfig : List Process -> Decoder EndOfLifeConfig
 decodeEndOfLifeConfig processes =
     Decode.succeed EndOfLifeConfig
-        |> Decode.required "enabled" (Scope.decodeDict Decode.bool)
-        |> Decode.required "scopeCollectionRates" (Scope.decodeDict Split.decodePercent)
+        |> Decode.required "enabled" (Sector.decodeDict Decode.bool)
+        |> Decode.required "scopeCollectionRates" (Sector.decodeDict Split.decodePercent)
         |> Decode.required "strategies" (decodeEndOfLifeStrategiesConfig processes)
 
 
@@ -198,9 +198,9 @@ decodeProductionConfig processes =
         |> Decode.requiredAt [ "defaultProcesses", "heat" ] (Process.decodeFromId processes)
 
 
-decodeScopedMaybeProcess : List Process -> Decoder (Scope.Dict (Maybe Process))
-decodeScopedMaybeProcess processes =
-    Scope.decodeDict (Decode.maybe (Process.decodeFromId processes))
+decodeSectoredMaybeProcess : List Process -> Decoder (Sector.Dict (Maybe Process))
+decodeSectoredMaybeProcess processes =
+    Sector.decodeDict (Decode.maybe (Process.decodeFromId processes))
 
 
 decodeTransportConfig : List Process -> Decoder TransportConfig
@@ -217,9 +217,9 @@ decodeUseConfig processes =
         |> Decode.requiredAt [ "defaultProcesses", "heat" ] (Process.decodeFromId processes)
 
 
-getDocLink : Config -> Scope -> String -> Maybe String
-getDocLink { docLinks } scope key =
-    case docLinks.scoped |> Scope.dictGet scope |> Maybe.andThen (Dict.get key) of
+getDocLink : Config -> Sector -> String -> Maybe String
+getDocLink { docLinks } sector key =
+    case docLinks.sectored |> Sector.dictGet sector |> Maybe.andThen (Dict.get key) of
         Just link ->
             Just link
 
@@ -233,8 +233,8 @@ parse db =
         >> Result.mapError Decode.errorToString
 
 
-scopeEnabled : Scope -> { a | enabled : Scope.Dict Bool } -> Bool
-scopeEnabled scope =
+sectorEnabled : Sector -> { a | enabled : Sector.Dict Bool } -> Bool
+sectorEnabled sector =
     .enabled
-        >> Scope.dictGet scope
+        >> Sector.dictGet sector
         >> Maybe.withDefault False

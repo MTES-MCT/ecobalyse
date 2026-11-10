@@ -14,7 +14,7 @@ import Data.Food.Recipe as Recipe
 import Data.Generic.Simulator as GenericSimulator
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
-import Data.Scope as Scope
+import Data.Sector as Sector
 import Data.Session as Session exposing (Session)
 import Data.Textile.Simulator as TextileSimulator
 import Data.Unit as Unit
@@ -154,12 +154,12 @@ addToComparison { componentConfig, db } { name, query } =
                         }
                     )
 
-        Bookmark.Generic genericScope genericQuery ->
+        Bookmark.Generic genericSector genericQuery ->
             genericQuery
                 |> GenericSimulator.compute
                     { config = componentConfig
                     , db = db
-                    , scope = Scope.Generic genericScope
+                    , sector = Sector.Generic genericSector
                     }
                 |> Result.map
                     (\lifeCycle ->
