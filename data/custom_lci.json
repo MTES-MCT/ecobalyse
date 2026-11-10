@@ -1197,28 +1197,14 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "heat-europe",
-    "comment": "44% natural gas and 56% other, see detail here: https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/energies-des-etapes-de-transformation",
-    "database": "BAFU 2025v2",
-    "exchanges": [
-      { "amount": 0.44, "name": "Heat, from natural gas {ENTSO-E} U" },
-      {
-        "amount": 0.56,
-        "name": "Heat, hard coal, at cogen, allocation exergy {ENTSO-E} U"
-      }
-    ],
-    "newName": "heat, industrial, market, RER"
-  },
-  {
-    "activityCreationType": "from_scratch",
     "alias": "heat-world",
     "comment": "23% natural gas and 77% other, see detail here: https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/energies-des-etapes-de-transformation",
     "database": "BAFU 2025v2",
     "exchanges": [
-      { "amount": 0.23, "name": "Heat, from natural gas {ENTSO-E} U" },
+      { "amount": 0.23, "name": "Heat, from natural gas {CN} U" },
       {
         "amount": 0.77,
-        "name": "Heat, hard coal, at cogen, allocation exergy {ENTSO-E} U"
+        "name": "Heat, hard coal, at cogen, allocation exergy {CN} U"
       }
     ],
     "newName": "heat, industrial, market, RoW"
@@ -2680,8 +2666,8 @@
       },
       {
         "amount": 40.392,
-        "database": "Ecobalyse_custom_lci",
-        "name": "heat, industrial, market, RER"
+        "database": "BAFU 2025v2",
+        "name": "District heat, at consumer, swiss average, allocation exergy {CH} U"
       }
     ],
     "location": "CN",
@@ -2941,7 +2927,10 @@
         "database": "BAFU 2025v2",
         "name": "Electricity, medium voltage, at grid {FR} U"
       },
-      { "amount": 34.3, "name": "heat, industrial, market, RER" }
+      { "amount": 34.3,
+        "database": "BAFU 2025v2",
+        "name": "District heat, at consumer, swiss average, allocation exergy {CH} U"
+      }
     ],
     "location": "FR",
     "newName": "Battery cell production, NMC811, FR"
@@ -9555,8 +9544,8 @@
       },
       {
         "amount": 0.0343,
-        "database": "Ecobalyse_custom_lci",
-        "name": "heat, industrial, market, RER"
+        "database": "BAFU 2025v2",
+        "name": "District heat, at consumer, swiss average, allocation exergy {CH} U"
       }
     ],
     "location": "RER",
@@ -9621,8 +9610,8 @@
       },
       {
         "amount": 0.011,
-        "database": "Ecobalyse_custom_lci",
-        "name": "heat, industrial, market, RER"
+        "database": "BAFU 2025v2",
+        "name": "District heat, at consumer, swiss average, allocation exergy {CH} U"
       }
     ],
     "location": "CN",
@@ -9676,8 +9665,8 @@
       },
       {
         "amount": 0.024,
-        "database": "Ecobalyse_custom_lci",
-        "name": "heat, industrial, market, RER"
+        "database": "BAFU 2025v2",
+        "name": "District heat, at consumer, swiss average, allocation exergy {CH} U"
       }
     ],
     "location": "CN",
