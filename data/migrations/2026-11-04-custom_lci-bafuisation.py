@@ -92,12 +92,12 @@ def get_recursive_lcis_to_migrate(
     for lci in custom_lcis:
         if lci["newName"] in to_migrate:
             if lci["activityCreationType"] == "from_existing":
-                if lci["database"] != BAFU_DB_NAME:
+                if lci.get("database") != BAFU_DB_NAME:
                     assert False, f"Can’t migrate {lci['alias']}"
                 continue
             assert lci["activityCreationType"] == "from_scratch"
 
-            root_db = lci["database"]
+            root_db = lci.get("database")
             for exc in lci["exchanges"]:
                 if exc.get("database", root_db) == "Ecobalyse_custom_lci":
                     to_migrate |= get_recursive_lcis_to_migrate(
@@ -123,13 +123,13 @@ def migrate_custom_lci(custom_lcis: list[dict], mappings) -> list[dict]:
             if lci["activityCreationType"] == "from_existing":
                 # `from_existing` processes should already have been migrated
                 # if we find a non-BAFU one, it’s an error
-                if lci["database"] != BAFU_DB_NAME:
+                if lci.get("database") != BAFU_DB_NAME:
                     logger.error(
                         f"Can’t migrate `from_existing` process {lci['newName']}"
                     )
                     assert False
                 continue
-            root_db = lci["database"]
+            root_db = lci.get("database")
             exchanges = lci["exchanges"]
             for exc in exchanges:
                 # if the DB is not specified, we take the root db
@@ -153,17 +153,15 @@ def clean_dbs(custom_lcis: list[dict]):
     # `"database"` can be specified either at the root of a custom_lci,
     # or for each exchange. Now that we have migrated some EI processes,
     # let’s do some cleanup.
-    # Note : that could be generalized, but we only want to change BAFU
+    # Note: that could be generalized, but we only want to change BAFU
     # inconsistencies right now. The rest will be the job of
     # https://github.com/MTES-MCT/ecobalyse/pull/2973
 
     # Pass 1 : if all exchange DBs are BAFU, set the root DB to BAFU
     for lci in custom_lcis:
-        root_db = lci["database"]
+        root_db = lci.get("database")
         exchanges = lci.get("exchanges", [])
-        dbs = set()
-        for exc in exchanges:
-            dbs.add(exc.get("database"))
+        dbs = {exc.get("database") for exc in exchanges}
         if len(dbs) == 1 and next(iter(dbs)) == BAFU_DB_NAME:
             # all exchange dbs are identical, overwrite the root one
             lci["database"] = BAFU_DB_NAME
@@ -171,13 +169,26 @@ def clean_dbs(custom_lcis: list[dict]):
     # Pass 2: if the root DB is BAFU, remove DB specification from exchanges
     # where it’s BAFU too
     for lci in custom_lcis:
-        root_db = lci["database"]
+        root_db = lci.get("database")
         if root_db == BAFU_DB_NAME:
             exchanges = lci.get("exchanges", [])
             for exc in exchanges:
                 if exc.get("database") == BAFU_DB_NAME:
                     del exc["database"]
             lci["exchanges"] = exchanges
+
+    # Pass 3: if the root DB is EcoInvent and all of the children exchanges
+    # specify a different DB, remove the root DB specification
+    for lci in custom_lcis:
+        root_db = lci.get("database")
+        if (
+            lci["activityCreationType"] == "from_scratch"
+            and root_db == ECOINVENT_DB_NAME
+        ):
+            exchanges = lci.get("exchanges", [])
+            dbs = {exc.get("database") for exc in exchanges}
+            if ECOINVENT_DB_NAME not in dbs and None not in dbs:
+                del lci["database"]
 
     return custom_lcis
 
