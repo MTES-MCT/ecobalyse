@@ -1,11 +1,11 @@
-# Ajouter un scope générique
+# Ajouter un secteur générique
 
 Ce guide technique décrit, dans l'ordre, les étapes pour ajouter une nouvelle verticale au moteur générique et ouvrir une PR prête à être mergée et déployable en production.
 
-> 💡 Dans ce document et dans la documentation du projet Ecobalyse, les termes *périmètre*, *domaine métier*, *verticale* et *scope* désignent tous le même concept : un domaine spécifique d'activités humaines pour lequel une calculette et le moteur de calcul générique sous-jacent sont spécifiquement configurés et des données mises à disposition en conséquence. **Dans ce guide, nous emploierons le terme *scope*** qui est le terme à privilégier lors d'échanges techniques sur le sujet.
-> ⚠️ Ce guide ne couvre ni la création de données métiers (ICV, procédés, composants, catégories, exemples, etc.) ni les subtilités de configuration spécifiques au scope ; il se concentre sur le **minimum technique** à opérer pour qu'un nouveau scope soit *techniquement déployable* en production.
+> 💡 Dans ce document et dans la documentation du projet Ecobalyse, les termes *secteur*, *sector*, *scope*, *périmètre*, *domaine métier* et *verticale* désignent tous le même concept : un domaine spécifique d'activités humaines pour lequel une calculette et le moteur de calcul générique sous-jacent sont spécifiquement configurés et des données mises à disposition en conséquence. **Dans ce guide, nous emploierons le terme *secteur*** qui est le terme à privilégier lors d'échanges techniques sur le sujet.
+> ⚠️ Ce guide ne couvre ni la création de données métiers (ICV, procédés, composants, catégories, exemples, etc.) ni les subtilités de configuration spécifiques au secteur ; il se concentre sur le **minimum technique** à opérer pour qu'un nouveau secteur soit *techniquement déployable* en production.
 
-Nous prendrons pour exemple l'ajout d'un nouveau scope **Flowers**, qui sera matérialisé de la façon suivante :
+Nous prendrons pour exemple l'ajout d'un nouveau secteur **Flowers**, qui sera matérialisé de la façon suivante :
 
 - Libellé en français : `Fleurs`
 - Identifiant technique : `flowers`
@@ -16,13 +16,13 @@ Nous prendrons pour exemple l'ajout d'un nouveau scope **Flowers**, qui sera mat
 
 ## Architecture historique et généricité
 
-`Textile` puis `Food` (ou *food1*), scopes historiques, ont permis les premières implémentations de calculettes dont ont découlé les choix techniques socles du moteur générique. Ils disposent chacun d'un moteur de calcul, d'un module de page Elm et de points d'entrée d'API spécifiques ; `Textile` et `Food` ne sont donc pas *génériques*, tandis que `Food2`, `Object` et `Veli` le sont.
+`Textile` puis `Food` (ou *food1*), secteurs historiques, ont permis les premières implémentations de calculettes dont ont découlé les choix techniques socles du moteur générique. Ils disposent chacun d'un moteur de calcul, d'un module de page Elm et de points d'entrée d'API spécifiques ; `Textile` et `Food` ne sont donc pas *génériques*, tandis que `Food2`, `Object` et `Veli` le sont.
 
-C'est sur le modèle de ces derniers que de nouveaux scopes doivent être conçus et introduits dans la base de code, afin de s'appuyer sur le jeu de fonctionnalités transverses qu'offre désormais la plateforme. Pas de module `Page/Flowers.elm` ni de routes d'API spécifiques à un scope particulier, notamment.
+C'est sur le modèle de ces derniers que de nouveaux secteurs doivent être conçus et introduits dans la base de code, afin de s'appuyer sur le jeu de fonctionnalités transverses qu'offre désormais la plateforme. Pas de module `Page/Flowers.elm` ni de routes d'API spécifiques à un sector particulier, notamment.
 
 ## Séquence de mise à jour
 
-Voici la séquence type qu'il convient de suivre pour ajouter un nouveau scope Ecobalyse à la base de code ; chaque étape est détaillée dans la suite du guide.
+Voici la séquence type qu'il convient de suivre pour ajouter un nouveau secteur Ecobalyse à la base de code ; chaque étape est détaillée dans la suite du guide.
 
 1. Ajouter un nouveau constructeur `Flowers`
 2. Suivre et corriger les erreurs de compilation Elm suite à son introduction
@@ -33,10 +33,10 @@ Voici la séquence type qu'il convient de suivre pour ajouter un nouveau scope E
 
 ## 1. Ajouter le nouveau constructeur de type Elm
 
-Dans le module [`Data.Scope`](../src/Data/Scope.elm), on ajoute le constructeur `Flowers` correspondant à notre nouvelle verticale *Fleurs* au type `GenericScope` :
+Dans le module [`Data.Sector`](../src/Data/Sector.elm), on ajoute le constructeur `Flowers` correspondant à notre nouvelle verticale *Fleurs* au type `GenericSector` :
 
 ```elm
-type GenericScope
+type GenericSector
     = Flowers -- <-- on ajoute le nouveau constructeur ici
     | Food2
     | Object
@@ -47,12 +47,12 @@ type GenericScope
 
 > 💡 On note que les constructeurs doivent toujours être ordonnés alphabétiquement (une règle `elm-review` s'en assure dans la CI)
 
-Le compilateur nous indique immédiatement de gérer les nouvelles branches introduites par l'ajout de cette nouvelle entrée, typiquement dans des fonctions Elm comme `toLabelGeneric` et `toStringGeneric` du même fichier. Il s'agit là de fournir la représentation textuelle du scope dans certains contextes. Par exemple, le compilateur affiche ce message pour la fonction `toLabelGeneric` :
+Le compilateur nous indique immédiatement de gérer les nouvelles branches introduites par l'ajout de cette nouvelle entrée, typiquement dans des fonctions Elm comme `toLabelGeneric` et `toStringGeneric` du même fichier. Il s'agit là de fournir la représentation textuelle du secteur dans certains contextes. Par exemple, le compilateur affiche ce message pour la fonction `toLabelGeneric` :
 
 ```
--- MISSING PATTERNS ----------------------------------------- src/Data/Scope.elm
+-- MISSING PATTERNS ---------------------------------------- src/Data/Sector.elm
 
-198|#>#    case genericScope of
+198|#>#    case genericSector of
 199|#>#        Food2 ->
 200|#>#            "Alimentaire BÉTA"
 201|#>#
@@ -69,12 +69,12 @@ Missing possibilities include:
 I would have to crash if I saw one of those. Add branches for them!
 ```
 
-Il nous faut donc rajouter la branche manquante traitant `Flowers`. Pour rappel, si l'identifiant textuel de notre scope `Flowers` est `flowers`, son libellé d'affichage dans l'interface en français est `Fleurs` :
+Il nous faut donc rajouter la branche manquante traitant `Flowers`. Pour rappel, si l'identifiant textuel de notre secteur `Flowers` est `flowers`, son libellé d'affichage dans l'interface en français est `Fleurs` :
 
 ```elm
-toLabelGeneric : GenericScope -> String
-toLabelGeneric genericScope =
-    case genericScope of
+toLabelGeneric : GenericSector -> String
+toLabelGeneric genericSector =
+    case genericSector of
         -- la nouvelle branche est ajoutée ici (notez l'ordre alphabétique)
         Flowers ->
             "Fleurs"
@@ -86,12 +86,12 @@ toLabelGeneric genericScope =
 
 ## 2. Cas exhaustifs
 
-### Liste exhaustive des scopes génériques
+### Liste exhaustive des secteurs génériques
 
-Toujours dans le module [`Data.Scope`](../src/Data/Scope.elm), compléter `allGeneric` avec `Flowers`, dans l'ordre alphabétique :
+Toujours dans le module [`Data.Sector`](../src/Data/Sector.elm), compléter `allGeneric` avec `Flowers`, dans l'ordre alphabétique :
 
 ```elm
-allGeneric : List GenericScope
+allGeneric : List GenericSector
 allGeneric =
     [ Flowers
     , Food2
@@ -123,16 +123,16 @@ Le compilateur signalera également tous les enregistrements `Queries` à compl�
 On continue de suivre pas à pas les messages du compilateur, en mettant à jour les branches des fonctions le nécessitant, comme la fonction `genericQuery` :
 
 ```elm
-    case genericScope of
-        Scope.Flowers ->
+    case genericSector of
+        Sector.Flowers ->
             session.queries.flowers
 ```
 
 ou `updateGenericQuery` :
 
 ```elm
-    case genericScope of
-        Scope.Flowers ->
+    case genericSector of
+        Sector.Flowers ->
             { session | queries = { queries | flowers = query } }
 ```
 
@@ -140,20 +140,20 @@ ou `updateGenericQuery` :
 
 Le type `Dataset` du module [`Data.Dataset`](../src/Data/Dataset.elm) décrit le type de données de l'[Explorateur](/#/explore/food2).
 
-Ajouter les jeux de données de `datasetsGeneric` pour `Scope.Flowers`. Par exemple pour :
+Ajouter les jeux de données de `datasetsGeneric` pour `Sector.Flowers`. Par exemple pour :
 
 ```elm
-    Scope.Flowers ->
-        [ GenericExamples scope Nothing
-        , Components (Scope.Generic scope) Nothing
+    Sector.Flowers ->
+        [ GenericExamples sector Nothing
+        , Components (Sector.Generic sector) Nothing
         , Countries Nothing
-        , Processes (Scope.Generic scope) Nothing
+        , Processes (Sector.Generic sector) Nothing
         , Impacts Nothing
-        , ProductCategory scope Nothing
+        , ProductCategory sector Nothing
         ]
 ```
 
-Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau scope `flowers` dans les fonctions suivantes :
+Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau secteur `flowers` dans les fonctions suivantes :
 - `componentGenericDatasetToString`
 - `processesDatasetGenericToString`
 - `examplesDatasetToString`
@@ -161,10 +161,10 @@ Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau 
 
 ### Éléments de vue génériques
 
-Dans le module [`Views.Page`](../src/Views/Page.elm), la fonction `commonNoticesForGeneric` permet d'afficher un bandeau informatif dans l'entête de la page d'une calculette ; on peut décider d'en ajouter un spécifique à notre nouveau scope :
+Dans le module [`Views.Page`](../src/Views/Page.elm), la fonction `commonNoticesForGeneric` permet d'afficher un bandeau informatif dans l'entête de la page d'une calculette ; on peut décider d'en ajouter un spécifique à notre nouveau secteur :
 
 ```elm
-    Scope.Flowers ->
+    Sector.Flowers ->
         Notice.info
             [ Icon.info
             , Markdown.simple [] "**Cette verticale sent particulièrement bon.**"
@@ -184,16 +184,16 @@ type alias Properties a =
     , food2Components : a
 ```
 
-ce qui permet d'implémenter les fonctions `scopeToComponent`, `scopeToExamples`, et `scopePropGetters` que le compilateur vous demandera de compléter.
+ce qui permet d'implémenter les fonctions `sectorToComponent`, `sectorToExamples`, et `sectorPropGetters` que le compilateur vous demandera de compléter.
 
 > 🚨 Ordonner les noms des propriétés par ordre alphabétique, ça n'est pas que cosmétique : les constructeurs de type Elm sont des fonctions qui prennent leurs arguments dans un ordre déterministe !
 
 #### Main
 
-Compléter la fonction `loadDataForScope` du module [`Main`](../src/Main.elm) en ajoutant les trois URLs des fichiers JSON correspondant à charger :
+Compléter la fonction `loadDataForSector` du module [`Main`](../src/Main.elm) en ajoutant les trois URLs des fichiers JSON correspondant à charger :
 
 ```elm
-    Scope.Generic Scope.Flowers ->
+    Sector.Generic Sector.Flowers ->
         [ ( "/data/flowers/components.json", \data raw -> { raw | flowersComponents = data } )
         , ( "/data/flowers/categories.json", \data raw -> { raw | flowersProductCategories = data } )
         , ( "/data/flowers/examples.json", \data raw -> { raw | flowersExamples = data } )
@@ -204,18 +204,18 @@ Compléter la fonction `loadDataForScope` du module [`Main`](../src/Main.elm) en
 
 Le compilateur Elm est un outil précieux mais certains fichiers compilent encore si on oublie d'opérer certaines modifications manuellement, et ce à deux niveaux principalement :
 
-- les sources de données à charger pour le nouveau scope (composants, catégories de produits et exemples)
+- les sources de données à charger pour le nouveau secteur (composants, catégories de produits et exemples)
 - les menus de navigation et certains affichages dans l'interface utilisateur
 
 Les URL d'accès à la calculatrice seront donc préfixées par `flowers`, comme `#/flowers/simulator`.
 
 ### Chargement des données
 
-Chaque scope générique requiert trois fichiers de données JSON, qui seront mappés dans une structure de données dédiée en mémoire vive :
+Chaque secteur générique requiert trois fichiers de données JSON, qui seront mappés dans une structure de données dédiée en mémoire vive :
 
-- Les composants disponibles pour ce scope, qui seront lus depuis `public/data/flowers/components.json`
-- Les catégories de produit disponibles pour ce scope, qui seront lues depuis `public/data/flowers/categories.json`
-- Les exemples de simulation préenregistrés pour ce scope, qui seront lus depuis `public/data/flowers/examples.json`
+- Les composants disponibles pour ce secteur, qui seront lus depuis `public/data/flowers/components.json`
+- Les catégories de produit disponibles pour ce secteur, qui seront lues depuis `public/data/flowers/categories.json`
+- Les exemples de simulation préenregistrés pour ce secteur, qui seront lus depuis `public/data/flowers/examples.json`
 
 On peut déjà créer les fichiers de composants et de catégories en les laissant intentionnellement vides dans un premier temps :
 
@@ -375,22 +375,22 @@ Dans la fonction `mainMenuLinks` du module [`Views.Page`](../src/Views/Page.elm)
 
 ```elm
     , addRouteIf enabledSections.flowers
-        (\() -> Internal [ text "Fleurs" ] (Route.GenericSimulatorHome Scope.Flowers) (Generic Scope.Flowers))
+        (\() -> Internal [ text "Fleurs" ] (Route.GenericSimulatorHome Sector.Flowers) (Generic Sector.Flowers))
 ```
 
 > 💡 Un bouton d'appel sur la page d'accueil est totalement optionnel. S'il est ajouté, le filtrer dans [`Page.Home`](../src/Page/Home.elm) avec le même flag.
 
-Les libellés et terminologies spécifiques à un scope pour affichage dans l'UI (*"ingrédient"*, *"matériau"*, etc.) se modifient dans la fonction `scopeLabels` du module [`Views.Component`](../src/Views/Component.elm).
+Les libellés et terminologies spécifiques à un secteur pour affichage dans l'UI (*"ingrédient"*, *"matériau"*, etc.) se modifient dans la fonction `sectorLabels` du module [`Views.Component`](../src/Views/Component.elm).
 
 ### Explorateur
 
-La fonction `scopesMenuView` du module [`Page.Explore`](../src/Page/Explore.elm) doit également être mise à jour pour activer la nouvelle entrée `Fleurs` dans le sélecteur de verticale :
+La fonction `sectorMenuView` du module [`Page.Explore`](../src/Page/Explore.elm) doit également être mise à jour pour activer la nouvelle entrée `Fleurs` dans le sélecteur de verticale :
 
 ```elm
-        , [ ( Scope.Food, enabledSections.food )
-          , ( Scope.Generic Scope.Flowers, enabledSections.flowers )
-          , ( Scope.Generic Scope.Food2, enabledSections.food2 )
-          , ( Scope.Generic Scope.Object, enabledSections.objects )
+        , [ ( Sector.Food, enabledSections.food )
+          , ( Sector.Generic Sector.Flowers, enabledSections.flowers )
+          , ( Sector.Generic Sector.Food2, enabledSections.food2 )
+          , ( Sector.Generic Sector.Object, enabledSections.objects )
 ```
 
 ## 4. Configuration, attribution des pays
@@ -399,18 +399,18 @@ La fonction `scopesMenuView` du module [`Page.Explore`](../src/Page/Explore.elm)
 
 Dans [`public/data/components/config.json`](../public/data/components/config.json), ajouter la clé `flowers` nécessaire aux sections du type [`Data.Component.Config`](../src/Data/Component/Config.elm) :
 
-- `defaultExamples` : UUID d'un exemple du scope
+- `defaultExamples` : UUID d'un exemple du secteur
 - `durability.enabled` : activation du module durabilité
 - `endOfLife.enabled` : activation de l'étape de fin de vie
 - `endOfLife.scopeCollectionRates` : définition des taux de collecte pour recyclage (si la fin de vie est activée)
-- `distribution.defaultProcess` : procédé de distribution par défaut, seulement si le nouveau scope en dispose
+- `distribution.defaultProcess` : procédé de distribution par défaut, seulement si le nouveau secteur en dispose
 - `docLinks.scoped` : surcharges éventuelles des liens par défaut vers la [documentation GitBook](https://fabrique-numerique.gitbook.io/ecobalyse)
 
-> 💡 Les stratégies de fin de vie (`endOfLife.strategies`) sont partagées ; on ne les duplique pas par scope.
+> 💡 Les stratégies de fin de vie (`endOfLife.strategies`) sont partagées ; on ne les duplique pas par secteur.
 
-### Pays accessibles au nouveau scope
+### Pays accessibles au nouveau secteur
 
-Pour rendre des pays accessibles au nouveau scope, il convient de les étiqueter dans le fichier [`public/data/countries.json`](../public/data/countries.json) :
+Pour rendre des pays accessibles au nouveau secteur, il convient de les étiqueter dans le fichier [`public/data/countries.json`](../public/data/countries.json) :
 
 ```json
   {
@@ -422,20 +422,20 @@ Pour rendre des pays accessibles au nouveau scope, il convient de les étiqueter
   },
 ```
 
-> 💡 Si des procédés doivent être scopés `"flowers"`, il sera nécessaire au préalable d'autoriser l'identifiant dans l'enum `Scope` et l'ensemble `GENERIC_SCOPES` du module Python [`data/models/process.py`](../data/models/process.py), ainsi que dans l'enum `scopes` de [`schemas/lci-schema.json`](../schemas/lci-schema.json).
+> 💡 Si des procédés doivent être scopés `"flowers"`, il sera nécessaire au préalable d'autoriser l'identifiant dans l'enum `Sector` et l'ensemble `GENERIC_SCOPES` du module Python [`data/models/process.py`](../data/models/process.py), ainsi que dans l'enum `scopes` de [`schemas/lci-schema.json`](../schemas/lci-schema.json).
 
 > 💡 Pour le tri des exemples génériques, on peut également ajouter `"flowers"` au tuple `SCOPES` dans le module Python [`bin/sort_generic_examples.py`](../bin/sort_generic_examples.py).
 
 ## 5. JavaScript et variables d'environnement
 
-Le même flag `ENABLE_FLOWERS_SECTION` pilote le menu et la visibilité du scope au niveau de l'API. Seule la chaîne exacte `"True"` l'active. `False`, `true`, `1` ou une variable absente sont inopérants.
+Le même flag `ENABLE_FLOWERS_SECTION` pilote le menu et la visibilité du secteur au niveau de l'API. Seule la chaîne exacte `"True"` l'active. `False`, `true`, `1` ou une variable absente sont inopérants.
 
 ### Registre API
 
-Dans [`lib/scopes.js`](../lib/scopes.js), `GENERIC_SCOPE_CONFIG` expose le registre de l'API générique :
+Dans [`lib/sectors.js`](../lib/sectors.js), `GENERIC_SECTOR_CONFIG` expose le registre de l'API générique :
 
 ```js
-const GENERIC_SCOPE_CONFIG = {
+const GENERIC_SECTOR_CONFIG = {
   flowers: { env: "ENABLE_FLOWERS_SECTION", label: "Fleurs" },
   food2: { env: "ENABLE_FOOD2_SECTION", label: "Alimentaire BÉTA" },
   object: { env: "ENABLE_OBJECTS_SECTION", label: "Objets" },
@@ -443,9 +443,9 @@ const GENERIC_SCOPE_CONFIG = {
 };
 ```
 
-Le point d'entrée `GET /api/generic/scopes` ainsi que le contrôle d'accès des URL `/{scope}/*` s'en servent. Un scope absent de ce registre répond comme s'il n'existait pas.
+Le point d'entrée `GET /api/generic/scopes` ainsi que le contrôle d'accès des URL `/{sector}/*` s'en servent. Un secteur absent de ce registre répond comme s'il n'existait pas.
 
-> ℹ️ À terme, un fichier JSON centralisé de configuration prendra certainement le relais pour définir les propriétés d'un scope
+> ℹ️ À terme, un fichier JSON centralisé de configuration prendra certainement le relais pour définir les propriétés d'un secteur
 
 ### Documentation des variables
 
@@ -453,7 +453,7 @@ Ajouter `ENABLE_FLOWERS_SECTION` à [`.env.sample`](../.env.sample) et à la lis
 
 ### Review apps et CI
 
-Activer le flag également là où les autres scopes génériques le sont déjà :
+Activer le flag également là où les autres secteurs génériques le sont déjà :
 
 - [`scalingo.json`](../scalingo.json)
 - [`.github/workflows/node.js.yml`](../.github/workflows/node.js.yml)
@@ -465,6 +465,6 @@ Activer le flag également là où les autres scopes génériques le sont déjà
 
 1. Ouvrir la pull request sans positionner `ENABLE_FLOWERS_SECTION` sur la production. L'absence de variable est traitée comme désactivé. De son côté, le fichier [`scalingo.json`](../scalingo.json) activera le flag sur la review app Scalingo.
 2. Une fois la PR recettée et validée, on peut la merger. À ce stade, la production n'affiche pas le menu et répond HTTP 403 sur `/api/flowers/*`
-3. Quand le scope doit devenir public : positionner `ENABLE_FLOWERS_SECTION=True` sur l'application Scalingo de production, puis redéployer pour que Parcel recompile le frontend en conséquence.
+3. Quand le secteur doit devenir public : positionner `ENABLE_FLOWERS_SECTION=True` sur l'application Scalingo de production, puis redéployer pour que Parcel recompile le frontend en conséquence.
 
-> 💡 Si le scope doit être visible dès le premier déploiement en production, positionner `ENABLE_FLOWERS_SECTION=True` sur l'app Scalingo `ecobalyse` de production au préalable.
+> 💡 Si le secteur doit être visible dès le premier déploiement en production, positionner `ENABLE_FLOWERS_SECTION=True` sur l'app Scalingo `ecobalyse` de production au préalable.

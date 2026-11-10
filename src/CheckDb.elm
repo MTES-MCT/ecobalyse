@@ -8,7 +8,7 @@ import Data.Db exposing (Db)
 import Data.Example as Example exposing (Example)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Scope as Scope
+import Data.Sector as Sector
 import Data.Uuid as Uuid
 import Dict exposing (Dict)
 import Dict.Any as AnyDict
@@ -76,27 +76,27 @@ checkComponentConfig db jsonConfig =
 
 
 {-| Validates that default example UUIDs in config point to existing examples
-with matching scopes.
+with matching sectors.
 -}
 checkDefaultExamples : Db -> ComponentConfig.Config -> List Error
 checkDefaultExamples db config =
     config.defaultExamples
         |> AnyDict.toList
         |> List.concatMap
-            (\( scope, uuid ) ->
+            (\( sector, uuid ) ->
                 case db.generic.examples |> Example.findByUuid uuid of
                     Err err ->
                         [ err ]
 
                     Ok example ->
-                        if example.scope == scope then
+                        if example.sector == sector then
                             []
 
                         else
                             [ "Default example"
                                 ++ Uuid.toString uuid
-                                ++ " doesn't belong to the scope "
-                                ++ Scope.toString scope
+                                ++ " doesn't belong to the sector "
+                                ++ Sector.toString sector
                             ]
             )
 
@@ -124,7 +124,7 @@ checkComponentItemId knownComponentStringIds item =
 checkComponentsProcessIds : Set String -> Db -> List Error
 checkComponentsProcessIds knownProcessStringIds db =
     db.components
-        |> List.filter (.scopes >> List.any Scope.isGeneric)
+        |> List.filter (.sectors >> List.any Sector.isGeneric)
         |> List.concatMap
             (\component ->
                 component.elements
@@ -136,16 +136,16 @@ checkComponentsProcessIds knownProcessStringIds db =
             )
 
 
-{-| Ensures a component-referenced process is allowed for the component scope.
+{-| Ensures a component-referenced process is allowed for the component sector.
 -}
-checkComponentProcessScope :
+checkComponentProcessSector :
     Dict String Process
     -> Component
     -> Example query
     -> String
     -> Process.Id
     -> List Error
-checkComponentProcessScope processes component example fieldName processId =
+checkComponentProcessSector processes component example fieldName processId =
     let
         processIdString =
             Process.idToString processId
@@ -153,17 +153,17 @@ checkComponentProcessScope processes component example fieldName processId =
     case processes |> Dict.get processIdString of
         Just process ->
             let
-                missingScopes =
-                    component.scopes
-                        |> List.filter (\scope -> List.member scope process.scopes |> not)
+                missingSectors =
+                    component.sectors
+                        |> List.filter (\sector -> List.member sector process.sectors |> not)
             in
-            if List.isEmpty missingScopes then
+            if List.isEmpty missingSectors then
                 []
 
             else
                 formatError
                     [ "Process " ++ processLabel process
-                    , "is not scoped for " ++ backtick (missingScopes |> List.map Scope.toString |> String.join ", ")
+                    , "is not sectored for " ++ backtick (missingSectors |> List.map Sector.toString |> String.join ", ")
                     , "but is referenced in " ++ backtick fieldName
                     , "by component " ++ componentLabel component
                     , "used by example " ++ exampleLabel example
@@ -173,35 +173,35 @@ checkComponentProcessScope processes component example fieldName processId =
             []
 
 
-{-| Validates example/component scope compatibility and nested process scopes.
+{-| Validates example/component sector compatibility and nested process sectors.
 -}
-checkComponentScopeMismatch : Dict String Process -> Example query -> Component -> List Error
-checkComponentScopeMismatch processes example component =
+checkComponentSectorMismatch : Dict String Process -> Example query -> Component -> List Error
+checkComponentSectorMismatch processes example component =
     let
-        scopeMismatchErrors =
-            if List.member example.scope component.scopes then
+        sectorMismatchErrors =
+            if List.member example.sector component.sectors then
                 []
 
             else
                 formatError
                     [ "Example " ++ exampleLabel example
                     , "references component " ++ componentLabel component
-                    , "but scopes are incompatible"
+                    , "but sectors are incompatible"
                     ]
 
-        processScopeErrors =
+        processSectorErrors =
             component.elements
                 |> List.concatMap
                     (\{ material, transforms } ->
                         []
-                            |> (++) (material.id |> checkComponentProcessScope processes component example "element.material")
-                            |> (++) (transforms |> List.map .id |> List.concatMap (checkComponentProcessScope processes component example "element.transforms"))
+                            |> (++) (material.id |> checkComponentProcessSector processes component example "element.material")
+                            |> (++) (transforms |> List.map .id |> List.concatMap (checkComponentProcessSector processes component example "element.transforms"))
                     )
     in
-    scopeMismatchErrors ++ processScopeErrors
+    sectorMismatchErrors ++ processSectorErrors
 
 
-{-| Checks that an Example consumptions are linked to existing scope-compatible processes.
+{-| Checks that an Example consumptions are linked to existing sector-compatible processes.
 -}
 checkExampleConsumption : Dict String Process -> Example query -> Consumption -> List Error
 checkExampleConsumption processes example consumption =
@@ -211,7 +211,7 @@ checkExampleConsumption processes example consumption =
     in
     case processes |> Dict.get processIdString of
         Just process ->
-            if List.member example.scope process.scopes then
+            if List.member example.sector process.sectors then
                 case Consumption.validate (Dict.values processes) consumption of
                     Err error ->
                         formatError
@@ -226,7 +226,7 @@ checkExampleConsumption processes example consumption =
                 formatError
                     [ "Example " ++ exampleLabel example
                     , "references process " ++ processLabel process
-                    , "in consumptions but isn't scoped for " ++ backtick (Scope.toString example.scope)
+                    , "in consumptions but isn't sectored for " ++ backtick (Sector.toString example.sector)
                     ]
 
         Nothing ->
@@ -236,14 +236,14 @@ checkExampleConsumption processes example consumption =
                 ]
 
 
-{-| Resolves a component Item from within an Example query and validates its scope.
+{-| Resolves a component Item from within an Example query and validates its sector.
 -}
 checkExampleComponentItem : Dict String Process -> Dict String Component -> Example query -> Component.Item -> List Error
 checkExampleComponentItem processes components example =
     .id
         >> Maybe.map Component.idToString
         >> Maybe.andThen (\id -> Dict.get id components)
-        >> Maybe.map (checkComponentScopeMismatch processes example)
+        >> Maybe.map (checkComponentSectorMismatch processes example)
         >> Maybe.withDefault []
 
 
@@ -252,7 +252,7 @@ checkExampleComponentItem processes components example =
 checkExamplesComponentIds : Set String -> Db -> List Error
 checkExamplesComponentIds knownComponentStringIds db =
     db.generic.examples
-        |> List.filter (.scope >> Scope.isGeneric)
+        |> List.filter (.sector >> Sector.isGeneric)
         |> List.concatMap
             (\example ->
                 example.query.items
@@ -267,10 +267,10 @@ checkExamplesComponentIds knownComponentStringIds db =
             )
 
 
-{-| Runs scope checks between examples, their components, and referenced processes.
+{-| Runs sector checks between examples, their components, and referenced processes.
 -}
-checkExamplesScope : Db -> List Error
-checkExamplesScope db =
+checkExamplesSector : Db -> List Error
+checkExamplesSector db =
     let
         ( processesMap, componentsMap ) =
             ( processById db.processes
@@ -278,7 +278,7 @@ checkExamplesScope db =
             )
     in
     db.generic.examples
-        |> List.filter (.scope >> Scope.isGeneric)
+        |> List.filter (.sector >> Sector.isGeneric)
         |> List.concatMap
             (\example ->
                 List.concat
@@ -291,7 +291,7 @@ checkExamplesScope db =
             )
 
 
-{-| Checks that a product category assembly process exists, is scoped, is an assembly process, and is in kg.
+{-| Checks that a product category assembly process exists, is sectored, is an assembly process, and is in kg.
 -}
 checkProductCategoryAssembly : Dict String Process -> ProductCategory -> Process.Id -> List Error
 checkProductCategoryAssembly processes product processId =
@@ -301,11 +301,11 @@ checkProductCategoryAssembly processes product processId =
     in
     case processes |> Dict.get processIdString of
         Just process ->
-            if process.scopes |> List.member (Scope.Generic product.scope) |> not then
+            if process.sectors |> List.member (Sector.Generic product.sector) |> not then
                 formatError
                     [ "Product category " ++ productCategoryLabel product
                     , "references process " ++ processLabel process
-                    , "in assembly but isn't scoped for " ++ backtick (Scope.toStringGeneric product.scope)
+                    , "in assembly but isn't sectored for " ++ backtick (Sector.toStringGeneric product.sector)
                     ]
 
             else if not (List.member ProcessCategory.Assembly process.categories) then
@@ -344,7 +344,7 @@ checkProductCategoryAssemblies db =
             )
 
 
-{-| Checks that a product category consumption references an existing, scope-compatible process.
+{-| Checks that a product category consumption references an existing, sector-compatible process.
 Amount is required unless the process is product-mass-dependent, and forbidden otherwise.
 -}
 checkProductCategoryConsumption : Dict String Process -> ProductCategory -> Consumption -> List Error
@@ -355,11 +355,11 @@ checkProductCategoryConsumption processes product consumption =
     in
     case processes |> Dict.get processIdString of
         Just process ->
-            if process.scopes |> List.member (Scope.Generic product.scope) |> not then
+            if process.sectors |> List.member (Sector.Generic product.sector) |> not then
                 formatError
                     [ "Product category " ++ productCategoryLabel product
                     , "references process " ++ processLabel process
-                    , "in consumptions but isn't scoped for " ++ backtick (Scope.toStringGeneric product.scope)
+                    , "in consumptions but isn't sectored for " ++ backtick (Sector.toStringGeneric product.sector)
                     ]
 
             else
@@ -435,7 +435,7 @@ checkStaticDatabase dbName config dbResult =
                 |> addGroupedErrors (section "Components processes checks") (checkComponentsProcessIds knownProcessStringIds db)
                 |> addGroupedErrors (section "Product category assembly checks") (checkProductCategoryAssemblies db)
                 |> addGroupedErrors (section "Product category consumptions checks") (checkProductCategoryConsumptions db)
-                |> addGroupedErrors (section "Scoping checks") (checkExamplesScope db)
+                |> addGroupedErrors (section "Scoping checks") (checkExamplesSector db)
                 |> addGroupedErrors (section "Component config checks") (checkComponentConfig db config)
 
 
@@ -480,7 +480,7 @@ componentLabel : Component -> String
 componentLabel component =
     quote component.name
         ++ " ("
-        ++ backtick (component.scopes |> List.map Scope.toString |> String.join ", ")
+        ++ backtick (component.sectors |> List.map Sector.toString |> String.join ", ")
         ++ ", "
         ++ (component.id
                 |> Maybe.map Component.idToString
@@ -505,7 +505,7 @@ exampleLabel : Example query -> String
 exampleLabel example =
     quote example.name
         ++ " ("
-        ++ backtick (Scope.toString example.scope)
+        ++ backtick (Sector.toString example.sector)
         ++ ", "
         ++ Uuid.toString example.id
         ++ ")"
@@ -567,7 +567,7 @@ productCategoryLabel : ProductCategory -> String
 productCategoryLabel product =
     quote product.label
         ++ " ("
-        ++ backtick (Scope.toStringGeneric product.scope)
+        ++ backtick (Sector.toStringGeneric product.sector)
         ++ ", "
         ++ ProductCategory.idToString product.id
         ++ ")"

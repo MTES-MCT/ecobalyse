@@ -1,6 +1,5 @@
 module ReviewConfig exposing (config)
 
-import CognitiveComplexity
 import NoDebug.TodoOrToString
 import NoExposingEverything
 import NoImportingEverything
@@ -20,12 +19,8 @@ import Simplify
 
 config : List Rule
 config =
-    [ -- CognitiveComplexity
-      CognitiveComplexity.rule 25
-        |> Rule.ignoreErrorsForDirectories [ "tests/" ]
-
-    -- NoDebug
-    , NoDebug.TodoOrToString.rule
+    [ -- NoDebug
+      NoDebug.TodoOrToString.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
 
     -- Common

@@ -21,7 +21,7 @@ type alias Config query msg =
     , routes :
         { explore : Route
         , load : Uuid -> Route
-        , scopeHome : Route
+        , sectorHome : Route
         }
     }
 

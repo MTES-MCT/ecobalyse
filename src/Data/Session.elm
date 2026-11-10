@@ -42,7 +42,7 @@ import Data.Component as Component
 import Data.Component.Config as ComponentConfig
 import Data.Db as Db exposing (Db)
 import Data.Food.Query as FoodQuery
-import Data.Scope as Scope exposing (GenericScope)
+import Data.Sector as Sector exposing (GenericSector)
 import Data.Textile.Query as TextileQuery
 import Data.User as User
 import Json.Decode as Decode exposing (Decoder)
@@ -204,19 +204,19 @@ saveBookmark bookmark =
 -- Queries
 
 
-genericQuery : GenericScope -> Session -> Component.Query
-genericQuery genericScope session =
-    case genericScope of
-        Scope.Apparel ->
+genericQuery : GenericSector -> Session -> Component.Query
+genericQuery genericSector session =
+    case genericSector of
+        Sector.Apparel ->
             session.queries.apparel
 
-        Scope.Food2 ->
+        Sector.Food2 ->
             session.queries.food2
 
-        Scope.Object ->
+        Sector.Object ->
             session.queries.object
 
-        Scope.Veli ->
+        Sector.Veli ->
             session.queries.veli
 
 
@@ -225,19 +225,19 @@ updateFoodQuery foodQuery ({ queries } as session) =
     { session | queries = { queries | food = foodQuery } }
 
 
-updateGenericQuery : GenericScope -> Component.Query -> Session -> Session
-updateGenericQuery genericScope query ({ queries } as session) =
-    case genericScope of
-        Scope.Apparel ->
+updateGenericQuery : GenericSector -> Component.Query -> Session -> Session
+updateGenericQuery genericSector query ({ queries } as session) =
+    case genericSector of
+        Sector.Apparel ->
             { session | queries = { queries | apparel = query } }
 
-        Scope.Food2 ->
+        Sector.Food2 ->
             { session | queries = { queries | food2 = query } }
 
-        Scope.Object ->
+        Sector.Object ->
             { session | queries = { queries | object = query } }
 
-        Scope.Veli ->
+        Sector.Veli ->
             { session | queries = { queries | veli = query } }
 
 

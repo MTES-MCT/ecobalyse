@@ -4,7 +4,7 @@ import Data.Component as Component
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Process as Process
-import Data.Scope exposing (Scope)
+import Data.Sector exposing (Sector)
 import Data.Session exposing (Session)
 import Data.Split as Split
 import Data.Text as Text
@@ -29,11 +29,11 @@ withTitle str =
     span [ title str ] [ text str ]
 
 
-table : Session -> { detailed : Bool, scope : Scope } -> Table Product String msg
-table { db } { detailed, scope } =
+table : Session -> { detailed : Bool, sector : Sector } -> Table Product String msg
+table { db } { detailed, sector } =
     { filename = "products"
     , toId = .id >> Product.idToString
-    , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope
+    , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore sector
     , toSearchableText = Product.toSearchableString >> Text.toSearchable
     , facets =
         [ Table.Facet "Confection (complexité)" (.making >> .complexity >> MakingComplexity.toLabel >> List.singleton)

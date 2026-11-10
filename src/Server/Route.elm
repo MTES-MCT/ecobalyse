@@ -12,7 +12,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Scope as Scope exposing (GenericScope)
+import Data.Sector as Sector exposing (GenericSector)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Validation as TextileValidation
 import Data.Validation as Validation
@@ -46,17 +46,17 @@ type Route
       --
       -- Generic Routes
       --   GET
-    | GenericGetAssemblyList GenericScope
-    | GenericGetCatalogList GenericScope
-    | GenericGetCategoryList GenericScope
-    | GenericGetConsumptionList GenericScope
-    | GenericGetCountryList GenericScope
-    | GenericGetDistributionList GenericScope
-    | GenericGetMaterialList GenericScope
-    | GenericGetPackagingList GenericScope
-    | GenericGetTransformList GenericScope (Result String ProcessCategory.Material)
+    | GenericGetAssemblyList GenericSector
+    | GenericGetCatalogList GenericSector
+    | GenericGetCategoryList GenericSector
+    | GenericGetConsumptionList GenericSector
+    | GenericGetCountryList GenericSector
+    | GenericGetDistributionList GenericSector
+    | GenericGetMaterialList GenericSector
+    | GenericGetPackagingList GenericSector
+    | GenericGetTransformList GenericSector (Result String ProcessCategory.Material)
       --   POST
-    | GenericPostSimulator GenericScope (Result Validation.Errors Component.Query)
+    | GenericPostSimulator GenericSector (Result Validation.Errors Component.Query)
       --
       -- Textile Routes
       --   GET
@@ -96,14 +96,14 @@ decodeGenericQuery processes body =
             |> Result.mapError Validation.fromDecodingError
 
 
-decodeGenericQueryBody : Component.Config -> Db -> GenericScope -> Encode.Value -> Result Validation.Errors Component.Query
-decodeGenericQueryBody config db genericScope body =
+decodeGenericQueryBody : Component.Config -> Db -> GenericSector -> Encode.Value -> Result Validation.Errors Component.Query
+decodeGenericQueryBody config db genericSector body =
     decodeGenericQuery db.processes body
         |> Result.andThen
             (Component.validateQuery
                 { config = config
                 , db = db
-                , scope = Scope.Generic genericScope
+                , sector = Sector.Generic genericSector
                 }
                 >> Result.mapError Validation.fromErrorString
             )
@@ -126,12 +126,12 @@ endpoint db config { body, method, url } =
         |> Maybe.andThen (Parser.parse (parser db config body))
 
 
-genericGet : List String -> (GenericScope -> Route) -> Parser (Route -> a) a
+genericGet : List String -> (GenericSector -> Route) -> Parser (Route -> a) a
 genericGet path toRoute =
     path
         |> List.foldl
             (\segment parser_ -> parser_ </> s segment)
-            (s "GET" </> Scope.parseGeneric)
+            (s "GET" </> Sector.parseGeneric)
         |> Parser.map toRoute
 
 
@@ -159,14 +159,14 @@ parser db config body =
         , genericGet [ "processes", "distribution" ] GenericGetDistributionList
         , genericGet [ "processes", "material" ] GenericGetMaterialList
         , genericGet [ "processes", "packaging" ] GenericGetPackagingList
-        , (s "GET" </> Scope.parseGeneric </> s "processes" </> s "transform" </> ProcessCategory.parseMaterialType)
+        , (s "GET" </> Sector.parseGeneric </> s "processes" </> s "transform" </> ProcessCategory.parseMaterialType)
             |> Parser.map GenericGetTransformList
-        , (s "POST" </> Scope.parseGeneric </> s "simulator")
+        , (s "POST" </> Sector.parseGeneric </> s "simulator")
             |> Parser.map
-                (\genericScope ->
+                (\genericSector ->
                     body
-                        |> decodeGenericQueryBody config db genericScope
-                        |> GenericPostSimulator genericScope
+                        |> decodeGenericQueryBody config db genericSector
+                        |> GenericPostSimulator genericSector
                 )
 
         -- Textile

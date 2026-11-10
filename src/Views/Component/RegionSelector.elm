@@ -5,7 +5,7 @@ module Views.Component.RegionSelector exposing
 
 import Data.Country exposing (Country)
 import Data.Country.Code as CountryCode
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -20,7 +20,7 @@ type alias Config msg =
     , emptyLabel : String
     , hideLabel : Bool
     , label : Maybe String
-    , scope : Scope
+    , sector : Sector
     , select : Maybe CountryCode.Code -> msg
     , selected : Maybe CountryCode.Code
     , showCode : Bool
@@ -40,7 +40,7 @@ optionLabel showCode name maybeCode =
 selectElement : Config msg -> Html msg
 selectElement config =
     config.countries
-        |> Scope.anyOf [ config.scope ]
+        |> Sector.anyOf [ config.sector ]
         |> List.sortBy .name
         |> List.map (\{ code, name } -> ( name, Just code ))
         |> (::) ( config.emptyLabel, Nothing )
