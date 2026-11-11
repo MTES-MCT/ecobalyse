@@ -85,6 +85,7 @@ food2ExamplesJson : String
 food2ExamplesJson =
    """%food2ExamplesJson%"""
 
+
 furnitureComponentsJson : String
 furnitureComponentsJson =
    """%furnitureComponentsJson%"""
@@ -98,6 +99,7 @@ furnitureProductCategoriesJson =
 furnitureExamplesJson : String
 furnitureExamplesJson =
    """%furnitureExamplesJson%"""
+
 
 impactsJson : String
 impactsJson =
