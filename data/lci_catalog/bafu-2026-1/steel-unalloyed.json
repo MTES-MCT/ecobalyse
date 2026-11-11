@@ -12,17 +12,17 @@
       "alias": "steel",
       "displayName": "Acier non allié, vierge, Europe",
       "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     },
     {
       "alias": "steel-unalloyed",
       "displayName": "Acier non allié, vierge, hors Europe",
       "id": "ac028973-5dfa-47bc-868c-e49be116f53e",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["object", "veli"],
+  "scopes": ["furniture", "object", "veli"],
   "source": "BAFU 2025v2",
   "unit": "kg"
 }

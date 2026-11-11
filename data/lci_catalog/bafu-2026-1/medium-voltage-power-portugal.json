@@ -8,10 +8,13 @@
   "heatMJ": 0,
   "id": "c16db557-907d-5146-a65c-0ef4a2098f99",
   "metadata": [
-    { "id": "15cd9062-bbb2-4b5b-b688-f872864d860e", "scopes": ["object", "veli"] }
+    {
+      "id": "15cd9062-bbb2-4b5b-b688-f872864d860e",
+      "scopes": ["furniture", "object", "veli"]
+    }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["object", "veli"],
+  "scopes": ["furniture", "object", "veli"],
   "source": "BAFU 2025v2",
   "unit": "kWh"
 }

@@ -14,18 +14,18 @@
       "displayName": "Bois d'oeuvre (Feuillus / Hêtre) forêt diversifiée",
       "forestManagement": "diversifiedForest",
       "id": "d738711a-c339-4e9e-8d63-b202f6b5c131",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     },
     {
       "alias": "beech-hardwood-certified-diversified-forest",
       "displayName": "Bois d'oeuvre (Feuillus / Hêtre) forêt diversifiée certifiée",
       "forestManagement": "certifiedDiversifiedForest",
       "id": "a638fe22-3050-4fc2-817d-0fb3be0730ad",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["object", "veli"],
+  "scopes": ["furniture", "object", "veli"],
   "source": "BAFU 2025v2",
   "unit": "m3"
 }

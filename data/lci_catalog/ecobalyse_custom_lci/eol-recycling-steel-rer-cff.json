@@ -7,10 +7,13 @@
   "heatMJ": 0,
   "id": "e2afffb3-ce82-4446-97cf-35c98c3a153f",
   "metadata": [
-    { "id": "51801e91-d907-4297-9a4c-5691bbbb665b", "scopes": ["object", "veli"] }
+    {
+      "id": "51801e91-d907-4297-9a4c-5691bbbb665b",
+      "scopes": ["furniture", "object", "veli"]
+    }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["object", "veli"],
+  "scopes": ["furniture", "object", "veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

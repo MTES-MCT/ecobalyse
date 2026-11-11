@@ -20,7 +20,7 @@
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["apparel", "object", "textile"],
+  "scopes": ["apparel", "furniture", "object", "textile"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }
