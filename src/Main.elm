@@ -188,8 +188,8 @@ sectorGenericLoadData sector =
             ]
 
         Sector.Furniture ->
-            [ ( "/data/furniture/components.json", \data raw -> { raw | furnitureComponents = data } )
-            , ( "/data/furniture/categories.json", \data raw -> { raw | furnitureProductCategories = data } )
+            [ ( "/data/furniture/categories.json", \data raw -> { raw | furnitureProductCategories = data } )
+            , ( "/data/furniture/components.json", \data raw -> { raw | furnitureComponents = data } )
             , ( "/data/furniture/examples.json", \data raw -> { raw | furnitureExamples = data } )
             ]
 
