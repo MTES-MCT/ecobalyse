@@ -171,6 +171,12 @@ commonNoticesForGeneric genericPage =
                 , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/02_alimentaire_general).""" |> Markdown.simple []
                 ]
 
+        Sector.Furniture ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
+                ]
+
         Sector.Object ->
             Notice.info
                 [ Icon.info
@@ -278,6 +284,8 @@ mainMenuLinks enabledSections =
             (\() -> Internal [ text "Véhicules" ] (Route.GenericSimulatorHome Sector.Veli) (Generic Sector.Veli))
         , addRouteIf enabledSections.apparel
             (\() -> Internal [ text "Habillement" ] (Route.GenericSimulatorHome Sector.Apparel) (Generic Sector.Apparel))
+        , addRouteIf enabledSections.furniture
+            (\() -> Internal [ text "Ameublement" ] (Route.GenericSimulatorHome Sector.Furniture) (Generic Sector.Furniture))
         , Just <| Internal [ text "Explorateur" ] (Route.Explore Sector.Textile (Dataset.TextileExamples Nothing)) Explore
         , Just <| Internal [ text "API" ] Route.Api Api
         , Just <| MailTo "Contact" Env.contactEmail

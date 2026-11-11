@@ -27,10 +27,13 @@
     "wtu": 0
   },
   "metadata": [
-    { "id": "baf8cc1a-767e-452d-b86e-e9399a99cb55", "scopes": ["object", "veli"] }
+    {
+      "id": "baf8cc1a-767e-452d-b86e-e9399a99cb55",
+      "scopes": ["furniture", "object", "veli"]
+    }
   ],
   "qtyVariationRatio": 0.5,
-  "scopes": ["object", "veli"],
+  "scopes": ["furniture", "object", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "m3"
 }

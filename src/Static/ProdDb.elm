@@ -14,7 +14,7 @@ this function is for the API Server (tests load Static.TestDb instead)
 dbFromJsonStrings : String -> Result String Db
 dbFromJsonStrings processesJson =
     Db.buildFromStrings
-        { apparelComponents = ProdJson.rawJsonComponents.apparelComponents
+        { apparelComponents = ProdJson.apparelComponentsJson
         , apparelExamples = ProdJson.apparelExamplesJson
         , apparelProductCategories = ProdJson.apparelProductCategoriesJson
         , countries = ProdJson.countriesJson
@@ -24,6 +24,9 @@ dbFromJsonStrings processesJson =
         , food2ProductCategories = ProdJson.food2ProductCategoriesJson
         , foodIngredients = ProdJson.foodIngredientsJson
         , foodProductExamples = ProdJson.foodProductExamplesJson
+        , furnitureComponents = ProdJson.furnitureComponentsJson
+        , furnitureExamples = ProdJson.furnitureExamplesJson
+        , furnitureProductCategories = ProdJson.furnitureProductCategoriesJson
         , objectComponents = ProdJson.rawJsonComponents.objectComponents
         , objectExamples = ProdJson.objectExamplesJson
         , objectProductCategories = ProdJson.objectProductCategoriesJson

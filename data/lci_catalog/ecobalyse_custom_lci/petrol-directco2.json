@@ -7,10 +7,10 @@
   "heatMJ": 0,
   "id": "7844afd0-0c0a-4cc3-a2bb-91e60127bbeb",
   "metadata": [
-    { "id": "eeb57cd3-9ff6-48e0-a27d-199543fdc5ba", "scopes": ["object"] }
+    { "id": "eeb57cd3-9ff6-48e0-a27d-199543fdc5ba", "scopes": ["furniture", "object"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["object"],
+  "scopes": ["furniture", "object"],
   "source": "Ecobalyse_custom_lci",
   "unit": "L"
 }

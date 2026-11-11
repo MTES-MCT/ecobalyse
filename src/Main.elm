@@ -187,6 +187,12 @@ sectorGenericLoadData sector =
             , ( "/data/food2/examples.json", \data raw -> { raw | food2Examples = data } )
             ]
 
+        Sector.Furniture ->
+            [ ( "/data/furniture/categories.json", \data raw -> { raw | furnitureProductCategories = data } )
+            , ( "/data/furniture/components.json", \data raw -> { raw | furnitureComponents = data } )
+            , ( "/data/furniture/examples.json", \data raw -> { raw | furnitureExamples = data } )
+            ]
+
         Sector.Object ->
             [ ( "/data/object/categories.json", \data raw -> { raw | objectProductCategories = data } )
             , ( "/data/object/components.json", \data raw -> { raw | objectComponents = data } )
@@ -217,6 +223,7 @@ setupSession { flags, navKey } dbLoadingState db componentRawConfig componentCon
             { apparel = Component.emptyQuery
             , food = FoodQuery.empty
             , food2 = Component.emptyQuery
+            , furniture = Component.emptyQuery
             , object = Component.emptyQuery
             , textile =
                 db.textile.examples

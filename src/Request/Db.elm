@@ -69,6 +69,9 @@ initLoadingState =
     , food2ProductCategories = RemoteData.NotAsked
     , foodIngredients = RemoteData.NotAsked
     , foodProductExamples = RemoteData.NotAsked
+    , furnitureComponents = RemoteData.NotAsked
+    , furnitureExamples = RemoteData.NotAsked
+    , furnitureProductCategories = RemoteData.NotAsked
     , objectComponents = RemoteData.NotAsked
     , objectExamples = RemoteData.NotAsked
     , objectProductCategories = RemoteData.NotAsked
@@ -97,6 +100,9 @@ resolve data =
         |> RemoteData.andMap data.food2ProductCategories
         |> RemoteData.andMap data.foodIngredients
         |> RemoteData.andMap data.foodProductExamples
+        |> RemoteData.andMap data.furnitureComponents
+        |> RemoteData.andMap data.furnitureExamples
+        |> RemoteData.andMap data.furnitureProductCategories
         |> RemoteData.andMap data.objectComponents
         |> RemoteData.andMap data.objectExamples
         |> RemoteData.andMap data.objectProductCategories

@@ -25,18 +25,18 @@
       "categories": ["material", "material_type:pp"],
       "displayName": "Plastique PP, granulé",
       "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     },
     {
       "alias": "plastic-pellets-various",
       "categories": ["material", "material_type:pp"],
       "displayName": "Plastique divers, granulé",
       "id": "c5295f47-0307-48a6-8552-3705063af767",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["apparel", "textile", "object", "veli"],
+  "scopes": ["apparel", "textile", "furniture", "object", "veli"],
   "source": "BAFU 2025v2",
   "unit": "kg"
 }

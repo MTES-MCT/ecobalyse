@@ -27,10 +27,10 @@
     "wtu": 0
   },
   "metadata": [
-    { "id": "5502669e-d936-46c8-8caa-61bb3fa7e470", "scopes": ["object"] }
+    { "id": "5502669e-d936-46c8-8caa-61bb3fa7e470", "scopes": ["furniture", "object"] }
   ],
   "qtyVariationRatio": 0.88,
-  "scopes": ["apparel", "object", "textile"],
+  "scopes": ["apparel", "furniture", "object", "textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }
