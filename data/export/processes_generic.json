@@ -31712,7 +31712,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -31732,7 +31732,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -31772,7 +31772,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object"],
+    "scopes": ["furniture", "object"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -31792,7 +31792,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -31812,7 +31812,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "m2",
     "visible": true
@@ -31832,7 +31832,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -31852,7 +31852,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["apparel", "object"],
+    "scopes": ["apparel", "furniture", "object"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -31872,7 +31872,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -31892,7 +31892,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -31912,7 +31912,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -31932,7 +31932,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -31952,7 +31952,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -31972,7 +31972,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -31992,7 +31992,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -32024,7 +32024,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -32044,7 +32044,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -32064,7 +32064,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -32091,7 +32091,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -32120,7 +32120,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -32147,7 +32147,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -32167,7 +32167,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -32187,7 +32187,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -32207,7 +32207,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -32227,7 +32227,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -32247,7 +32247,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -32267,7 +32267,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -32287,7 +32287,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["apparel", "object", "food2", "veli"],
+    "scopes": ["apparel", "furniture", "object", "food2", "veli"],
     "source": "BAFU 2025v2",
     "unit": "MJ",
     "visible": true
@@ -32307,7 +32307,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["veli", "object"],
+    "scopes": ["veli", "furniture", "object"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -32327,7 +32327,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["veli", "food2", "object"],
+    "scopes": ["veli", "food2", "furniture", "object"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32347,7 +32347,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["furniture", "object", "food2"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32367,7 +32367,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32407,7 +32407,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["furniture", "object", "food2"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32427,7 +32427,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["furniture", "object", "food2"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32447,7 +32447,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32507,7 +32507,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["furniture", "object", "food2"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32527,7 +32527,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32547,7 +32547,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["furniture", "object", "food2"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32567,7 +32567,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["furniture", "object", "food2"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32667,7 +32667,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32687,7 +32687,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32707,7 +32707,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32727,7 +32727,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["furniture", "object", "food2"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32747,7 +32747,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2", "veli"],
+    "scopes": ["furniture", "object", "food2", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32767,7 +32767,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object"],
+    "scopes": ["furniture", "object"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32787,7 +32787,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object"],
+    "scopes": ["furniture", "object"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32827,7 +32827,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["furniture", "object", "food2"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32847,7 +32847,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["furniture", "object", "food2"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32867,7 +32867,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["furniture", "object", "food2"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32887,7 +32887,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["furniture", "object", "food2"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32927,7 +32927,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32947,7 +32947,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32987,7 +32987,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -33007,7 +33007,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["veli", "object"],
+    "scopes": ["veli", "furniture", "object"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33027,7 +33027,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33054,7 +33054,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.94,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33074,7 +33074,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33141,7 +33141,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.994,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33221,7 +33221,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33281,7 +33281,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object"],
+    "scopes": ["furniture", "object"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33301,7 +33301,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object"],
+    "scopes": ["furniture", "object"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33321,7 +33321,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object"],
+    "scopes": ["furniture", "object"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33341,7 +33341,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33361,7 +33361,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33381,7 +33381,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["apparel", "object"],
+    "scopes": ["apparel", "furniture", "object"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33401,7 +33401,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33461,7 +33461,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33481,7 +33481,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33501,7 +33501,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33541,7 +33541,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33561,7 +33561,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33581,7 +33581,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "m2",
     "visible": true
@@ -33601,7 +33601,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "m2",
     "visible": true
@@ -33625,7 +33625,7 @@
       "forestManagement": "certifiedDiversifiedForest"
     },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "m3",
     "visible": true
@@ -33649,7 +33649,7 @@
       "forestManagement": "diversifiedForest"
     },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "m3",
     "visible": true
@@ -33673,7 +33673,7 @@
       "forestManagement": "certifiedDiversifiedForest"
     },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "m3",
     "visible": true
@@ -33697,7 +33697,7 @@
       "forestManagement": "diversifiedForest"
     },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "m3",
     "visible": true
@@ -33721,7 +33721,7 @@
       "forestManagement": "certifiedSustainableManagement"
     },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "m3",
     "visible": true
@@ -33745,7 +33745,7 @@
       "forestManagement": "intensivePlantation"
     },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "m3",
     "visible": true
@@ -33769,7 +33769,7 @@
       "forestManagement": "sustainableManagement"
     },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "m3",
     "visible": true
@@ -33793,7 +33793,7 @@
       "forestManagement": "certifiedSustainableManagement"
     },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "m3",
     "visible": true
@@ -33817,7 +33817,7 @@
       "forestManagement": "intensivePlantation"
     },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "m3",
     "visible": true
@@ -33841,7 +33841,7 @@
       "forestManagement": "sustainableManagement"
     },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "m3",
     "visible": true
@@ -33861,7 +33861,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33881,7 +33881,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33921,7 +33921,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -33941,7 +33941,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["furniture", "object", "food2"],
     "source": "BAFU 2025v2",
     "unit": "t⋅km",
     "visible": true
@@ -33961,7 +33961,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "t⋅km",
     "visible": true
@@ -33981,7 +33981,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["furniture", "object", "food2"],
     "source": "BAFU 2025v2",
     "unit": "t⋅km",
     "visible": true
@@ -34001,7 +34001,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
@@ -34061,7 +34061,7 @@
     "massPerUnit": 0.001,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object"],
+    "scopes": ["furniture", "object"],
     "source": "Ecobalyse_custom_lci",
     "unit": "item",
     "visible": true
@@ -34188,7 +34188,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -34823,7 +34823,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["veli", "object"],
+    "scopes": ["veli", "furniture", "object"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -35794,7 +35794,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": "FR" },
     "qtyVariationRatio": 1.0,
-    "scopes": ["food2", "object", "veli"],
+    "scopes": ["food2", "furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -38508,7 +38508,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -39806,7 +39806,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": "FR" },
     "qtyVariationRatio": 1.0,
-    "scopes": ["food2", "object", "veli"],
+    "scopes": ["food2", "furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -39826,7 +39826,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": "FR" },
     "qtyVariationRatio": 1.0,
-    "scopes": ["food2", "object", "veli"],
+    "scopes": ["food2", "furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -39846,7 +39846,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -39886,7 +39886,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": "FR" },
     "qtyVariationRatio": 1.0,
-    "scopes": ["food2", "object", "veli"],
+    "scopes": ["food2", "furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -39906,7 +39906,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": "FR" },
     "qtyVariationRatio": 1.0,
-    "scopes": ["food2", "object", "veli"],
+    "scopes": ["food2", "furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -39926,7 +39926,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -39966,7 +39966,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": "FR" },
     "qtyVariationRatio": 1.0,
-    "scopes": ["food2", "object", "veli"],
+    "scopes": ["food2", "furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -40749,7 +40749,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object"],
+    "scopes": ["furniture", "object"],
     "source": "Ecobalyse_custom_lci",
     "unit": "L",
     "visible": true
@@ -40789,7 +40789,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object"],
+    "scopes": ["furniture", "object"],
     "source": "Ecobalyse_custom_lci",
     "unit": "L",
     "visible": true
@@ -41289,7 +41289,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -42824,7 +42824,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["veli", "object"],
+    "scopes": ["veli", "furniture", "object"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43318,7 +43318,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": "FR" },
     "qtyVariationRatio": 1.0,
-    "scopes": ["food2", "object", "veli"],
+    "scopes": ["food2", "furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43338,7 +43338,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43358,7 +43358,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43378,7 +43378,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43398,7 +43398,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43418,7 +43418,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43438,7 +43438,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43458,7 +43458,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43498,7 +43498,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43518,7 +43518,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["furniture", "object", "food2"],
     "source": "Ecobalyse_custom_lci",
     "unit": "MJ",
     "visible": true
@@ -43592,7 +43592,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43618,7 +43618,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43638,7 +43638,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43658,7 +43658,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43678,7 +43678,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43698,7 +43698,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43718,7 +43718,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43738,7 +43738,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43758,7 +43758,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43778,7 +43778,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43798,7 +43798,7 @@
     "massPerUnit": 565.0,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "m3",
     "visible": true
@@ -43818,7 +43818,7 @@
     "massPerUnit": 565.0,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "m3",
     "visible": true
@@ -43838,7 +43838,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -43878,7 +43878,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["veli", "object"],
+    "scopes": ["veli", "furniture", "object"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -44003,7 +44003,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -44283,7 +44283,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object"],
+    "scopes": ["furniture", "object"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -44443,7 +44443,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -44483,7 +44483,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.5,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -44503,7 +44503,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.97,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -44523,7 +44523,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.88,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -44543,7 +44543,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.88,
-    "scopes": ["object"],
+    "scopes": ["furniture", "object"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -44683,7 +44683,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -44703,7 +44703,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -44723,7 +44723,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -44743,7 +44743,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -44763,7 +44763,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -44823,7 +44823,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "m3",
     "visible": true
@@ -44843,7 +44843,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.45,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "m3",
     "visible": true
@@ -44863,7 +44863,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.56,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "m3",
     "visible": true
@@ -44883,7 +44883,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.5,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "m3",
     "visible": true
@@ -44903,7 +44903,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.62,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "m3",
     "visible": true
@@ -44923,7 +44923,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.5,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "m3",
     "visible": true
@@ -45003,7 +45003,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.5,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "m3",
     "visible": true
@@ -45023,7 +45023,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.5,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "m3",
     "visible": true
@@ -45143,7 +45143,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object"],
+    "scopes": ["furniture", "object"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -45163,7 +45163,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object"],
+    "scopes": ["furniture", "object"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -45187,7 +45187,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.9375,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -45232,7 +45232,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -45412,7 +45412,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.96,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -45432,7 +45432,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.962,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -45457,7 +45457,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 0.7,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -45757,7 +45757,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["apparel", "object"],
+    "scopes": ["apparel", "furniture", "object"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
     "visible": true
@@ -59383,7 +59383,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["apparel", "object"],
+    "scopes": ["apparel", "furniture", "object"],
     "source": "Woolmark",
     "unit": "kg",
     "visible": true

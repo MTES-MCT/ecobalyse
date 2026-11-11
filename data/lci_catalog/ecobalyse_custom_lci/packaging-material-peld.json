@@ -7,10 +7,10 @@
   "metadata": [
     {
       "id": "ea5ac009-651b-4228-a655-9e903cf0b09a",
-      "scopes": ["food2", "object", "veli"]
+      "scopes": ["food2", "furniture", "object", "veli"]
     }
   ],
-  "scopes": ["food", "food2", "object", "veli"],
+  "scopes": ["food", "food2", "furniture", "object", "veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }
