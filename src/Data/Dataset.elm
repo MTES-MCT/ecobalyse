@@ -91,6 +91,7 @@ datasetsGeneric sector =
 
         Sector.Furniture ->
             [ GenericExamples sector Nothing
+            , Components (Sector.Generic sector) Nothing
             , Impacts Nothing
             , Countries Nothing
             , Processes (Sector.Generic sector) Nothing
