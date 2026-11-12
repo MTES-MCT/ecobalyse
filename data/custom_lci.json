@@ -2496,7 +2496,7 @@
       { "amount": 0.234, "name": "Lithium carbonate, at plant {GLO} U" },
       { "amount": 0.489, "name": "Iron ore, 65% Fe, at beneficiation {GLO} U" },
       {
-        "amount": 0.837,
+        "amount": 0.15,
         "name": "Diammonium phosphate, as N, at regional storehouse {RER} U"
       },
       { "amount": 0.007, "name": "N-methyl-2-pyrrolidone, at plant {RER} U" },
@@ -3052,19 +3052,6 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "battery-cell-recycling-average",
-    "comment": "For 1kg battery cell, 50%LFP 50%NMC811. Based on Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries, with 50% Li recycling (hydrometallurgical), according to EU-2023/1542 2027 target",
-    "database": "Ecobalyse_custom_lci",
-    "exchanges": [
-      { "amount": 0.34, "name": "Battery cell EoL recycling, LFP, CFF" },
-      { "amount": 0.33, "name": "Battery cell EoL recycling, NMC811, CFF" },
-      { "amount": 0.33, "name": "Battery cell EoL recycling, NMC622, CFF" }
-    ],
-    "location": "RER",
-    "newName": "Battery cell EoL recycling, average, CFF"
-  },
-  {
-    "activityCreationType": "from_scratch",
     "alias": "battery-recycling-alkaline",
     "comment": "For 1kg battery. Based on Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries, with 50% Li recycling (hydrometallurgical), according to EU-2023/1542 2027 target",
     "exchanges": [
@@ -3197,7 +3184,7 @@
       },
       {
         "amount": 0.8,
-        "name": "Corrugated board base paper, semichemical fluting, at plant {RER} U"
+        "name": "xx Recycling cardboard {RER} U"
       }
     ],
     "location": "RER",
@@ -3242,7 +3229,7 @@
     "database": "BAFU 2025v2",
     "exchanges": [
       { "amount": -0.45, "name": "Polyethylene, HDPE, granulate, at plant {RER} U" },
-      { "amount": 0.5, "name": "Polyethylene, HDPE, granulate, at plant {RER} U" }
+      { "amount": 0.5, "name": "Xx Recycling PE {RER} U" }
     ],
     "location": "RER",
     "newName": "plastics EoL recycling, RER, CFF"
