@@ -3182,10 +3182,7 @@
         "amount": -0.8,
         "name": "Corrugated board base paper, semichemical fluting, at plant {RER} U"
       },
-      {
-        "amount": 0.8,
-        "name": "xx Recycling cardboard {RER} U"
-      }
+      { "amount": 0.8, "name": "Xx Recycling cardboard {RER} U" }
     ],
     "location": "RER",
     "newName": "cardboard EoL recycling, RER, CFF"
