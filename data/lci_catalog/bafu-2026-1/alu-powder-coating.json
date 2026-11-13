@@ -1,7 +1,7 @@
 {
   "activityName": "Powder coating, aluminium sheet {RER} U",
   "activityNameEI": "powder coat, aluminium sheet//[RER] powder coating, aluminium sheet",
-  "categories": ["material", "material_type:aluminium"],
+  "categories": ["transformation", "material_type:aluminium"],
   "comment": "",
   "displayName": "Thermolaquage aluminium",
   "elecKwh": 0.0,

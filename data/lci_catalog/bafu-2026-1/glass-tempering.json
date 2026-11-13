@@ -1,0 +1,16 @@
+{
+  "activityName": "Tempering, flat glass {RER} U",
+  "categories": ["transformation", "material_type:glass"],
+  "comment": "",
+  "displayName": "Trempe du verre plat",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "3cc535e8-07b5-40b4-8b21-77be9ea4cf91",
+  "metadata": [
+    { "id": "27a35f6d-acfa-4a44-8d96-2bc8f4658033", "scopes": ["object", "veli"] }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["object", "veli"],
+  "source": "BAFU 2025v2",
+  "unit": "kg"
+}
