@@ -7,7 +7,8 @@
     "exchanges": [
       { "amount": 0.911, "name": "Aluminium, primary, at plant {RER} U" },
       {
-        "amount": 0.089, "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
+        "amount": 0.089,
+        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
       }
     ],
     "location": "FR",
@@ -2399,9 +2400,7 @@
     "database": "BAFU 2025v2",
     "exchanges": [
       { "amount": 0.8, "name": "Aluminium, primary, at plant {RER} U" },
-      {
-        "amount": 0.2, "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
-      }
+      { "amount": 0.2, "name": "Aluminium, secondary, from old scrap, at plant {RER} U" }
     ],
     "location": "RER",
     "newName": "aluminium ingot, recycled, RER, CFF"
@@ -3055,9 +3054,7 @@
     "database": "BAFU 2025v2",
     "exchanges": [
       { "amount": -0.8, "name": "Aluminium, primary, at plant {RER} U" },
-      {
-        "amount": 0.8, "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
-      }
+      { "amount": 0.8, "name": "Aluminium, secondary, from old scrap, at plant {RER} U" }
     ],
     "location": "RER",
     "newName": "aluminium EoL recycling, RER, CFF"
