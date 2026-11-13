@@ -2091,16 +2091,17 @@
   },
   {
     "category": "Pneu",
+    "durability": 0.75,
     "id": "fc3bf2f9-7a94-4f4f-8100-8f286aea3a70",
-    "name": "Pneu de voiture",
+    "name": "Pneu de voiture, 30 000 km",
     "query": {
-      "assembly": { "country": "REO" },
+      "assembly": { "country": "FR" },
       "components": [
         {
           "elements": [
             {
               "amount": 8,
-              "material": { "country": "REO", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
             }
           ],
           "name": "Pneu",
@@ -2113,18 +2114,46 @@
   },
   {
     "category": "Pneu",
+    "durability": 1.5,
     "id": "fc3bf2f9-7a94-4f4f-8100-8f286aea3a71",
-    "name": "Pneu de voiture",
+    "name": "Pneu de voiture, 60 000 km",
     "query": {
       "assembly": { "country": "FR" },
       "components": [
         {
           "elements": [
-            { "amount": 0.8, "material": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
+            {
+              "amount": 8,
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
+            }
+          ],
+          "name": "Pneu",
+          "quantity": 1
+        }
+      ],
+      "recyclable": true
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "Pneu",
+    "id": "fc3bf2f9-7a94-4f4f-8100-8f286aea3a72",
+    "name": "Pneu et chambre à air de vélo",
+    "query": {
+      "assembly": { "country": "FR" },
+      "components": [
+        {
+          "elements": [
+            {
+              "amount": 0.8,
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
+            },
             {
               "amount": 0.2,
-              "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
-              "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
+              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
+              "transforms": [
+                { "country": "RAS", "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
+              ]
             }
           ],
           "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
@@ -2139,7 +2168,7 @@
   {
     "category": "Batterie",
     "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767a",
-    "name": "Batterie de 52kWh, NMC811, fabrication France",
+    "name": "Batterie de 52kWh, NMC811, France",
     "query": {
       "assembly": { "country": "FR" },
       "components": [
@@ -2196,12 +2225,14 @@
           "quantity": 1
         }
       ],
+      "durability": 0.56,
       "recyclable": true
     },
     "scope": "veli"
   },
   {
     "category": "Batterie",
+    "durability": 0.56,
     "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767b",
     "name": "Batterie de 1.2kWh, NMC811, Chine",
     "query": {
