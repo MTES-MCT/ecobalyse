@@ -2091,7 +2091,7 @@
   },
   {
     "category": "Pneu",
-    "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767a",
+    "id": "fc3bf2f9-7a94-4f4f-8100-8f286aea3a70",
     "name": "Pneu de voiture",
     "query": {
       "assembly": { "country": "REO" },
@@ -2113,7 +2113,7 @@
   },
   {
     "category": "Pneu",
-    "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767b",
+    "id": "fc3bf2f9-7a94-4f4f-8100-8f286aea3a71",
     "name": "Pneu de voiture",
     "query": {
       "assembly": { "country": "FR" },
@@ -2138,7 +2138,7 @@
   },
   {
     "category": "Batterie",
-    "id": "gd52aec7-d0e7-4533-bcd7-7a750bca46d1",
+    "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767a",
     "name": "Batterie de 52kWh, NMC811, fabrication France",
     "query": {
       "assembly": { "country": "FR" },
@@ -2202,7 +2202,7 @@
   },
   {
     "category": "Batterie",
-    "id": "gd52aec7-d0e7-4533-bcd7-7a750bca46d2",
+    "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767b",
     "name": "Batterie de 1.2kWh, NMC811, Chine",
     "query": {
       "assembly": { "country": "CN" },
