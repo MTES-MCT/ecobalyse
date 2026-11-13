@@ -22,7 +22,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -59,7 +59,7 @@ type alias Config db msg =
     , query : Query
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
-    , scope : Scope
+    , sector : Sector
     , updateElementAmount : TargetElement -> FloatInput.State -> msg
     , updateElementMaterialCountry : TargetElement -> Maybe CountryCode.Code -> msg
     , updateElementTransformCountry : TargetElement -> Index -> Maybe CountryCode.Code -> msg
@@ -73,7 +73,7 @@ addElementButton config targetItem =
         [ type_ "button"
         , class "btn btn-primary"
         , class "d-flex justify-content-center align-items-center gap-1"
-        , createElementMaterialAutocomplete config.db config.scope
+        , createElementMaterialAutocomplete config.db config.sector
             |> config.openSelectProcessModal Category.Material targetItem Nothing
             |> onClick
         ]
@@ -83,12 +83,12 @@ addElementButton config targetItem =
 
 
 addElementTransformButton : Config db msg -> Process -> TargetElement -> Html msg
-addElementTransformButton { db, openSelectProcessModal, query, scope } material ( targetItem, elementIndex ) =
+addElementTransformButton { db, openSelectProcessModal, query, sector } material ( targetItem, elementIndex ) =
     let
         availableTransformProcesses =
             db.processes
                 |> List.filter .visible
-                |> Scope.anyOf [ scope ]
+                |> Sector.anyOf [ sector ]
                 |> Process.listAvailableMaterialTransforms material
                 |> List.sortBy Process.getDisplayName
                 |> Process.available (Component.elementTransforms ( targetItem, elementIndex ) query.items)
@@ -111,10 +111,10 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
         ]
 
 
-createElementMaterialAutocomplete : Component.DataContainer db -> Scope -> Autocomplete Process
-createElementMaterialAutocomplete db scope =
+createElementMaterialAutocomplete : Component.DataContainer db -> Sector -> Autocomplete Process
+createElementMaterialAutocomplete db sector =
     db.processes
-        |> Process.listAvailableByCategory scope Category.Material
+        |> Process.listAvailableByCategory sector Category.Material
         -- Exclude packaging materials as they're available in a dedicated section
         |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
         |> AutocompleteSelector.init Process.getDisplayName
@@ -150,7 +150,7 @@ deleteElementButton config targetElement =
 
 elementAmountInput : Config db msg -> TargetElement -> Process -> Amount -> Html msg
 elementAmountInput config (( ( _, itemIndex ), elementIndex ) as targetElement) process amount =
-    if config.scope == Scope.Textile then
+    if config.sector == Sector.Textile then
         Format.amount process amount
 
     else
@@ -352,9 +352,9 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
 {-| Render transports from the last transform step of an element to the assembly or distribution stage
 -}
 finalElementTransportView : Config db msg -> Bool -> Maybe Country -> Mass -> List (Html msg)
-finalElementTransportView ({ db, query, scope } as config) cooling elementCountry mass =
+finalElementTransportView ({ db, query, sector } as config) cooling elementCountry mass =
     db.countries
-        |> Scope.anyOf [ scope ]
+        |> Sector.anyOf [ sector ]
         |> Country.resolveMaybe query.assembly.country
         |> Result.map (elementTransportView config [ class "subdued" ] cooling mass elementCountry)
         |> Result.map List.singleton
@@ -514,7 +514,7 @@ materialCompositionRows config targetElement materialResults material =
                             , emptyLabel = "---"
                             , hideLabel = True
                             , label = Just "Région"
-                            , scope = config.scope
+                            , sector = config.sector
                             , select = config.updateElementMaterialCountry targetElement
                             , selected = material.country |> Maybe.map .code
                             , showCode = True
@@ -559,7 +559,7 @@ modifyMaterialButton config ( targetItem, elementIndex ) =
         , class "btn btn-sm btn-outline-primary text-nowrap"
         , attribute "aria-label" "Changer de matière première"
         , config.db.processes
-            |> Process.listAvailableByCategory config.scope Category.Material
+            |> Process.listAvailableByCategory config.sector Category.Material
             |> AutocompleteSelector.init Process.getDisplayName
             |> config.openSelectProcessModal Category.Material targetItem (Just elementIndex)
             |> onClick
@@ -652,7 +652,7 @@ transformProcessRows config cooling targetElement transformsResults transforms =
                                         , emptyLabel = "---"
                                         , hideLabel = True
                                         , label = Just "Région"
-                                        , scope = config.scope
+                                        , sector = config.sector
                                         , select = config.updateElementTransformCountry targetElement transformIndex
                                         , selected = transform.country |> Maybe.map .code
                                         , showCode = True
@@ -675,7 +675,7 @@ requirementsFromConfig : Config db msg -> Component.Requirements db
 requirementsFromConfig config =
     { config = config.componentConfig
     , db = config.db
-    , scope = config.scope
+    , sector = config.sector
     }
 
 

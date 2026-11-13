@@ -5,7 +5,7 @@ module Data.Plausible exposing
     )
 
 import Data.Impact.Definition as Definition exposing (Trigram)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Session as Session exposing (Session)
 import Json.Encode as Encode
 import Ports
@@ -27,25 +27,25 @@ type Event
     | -- `auth_signup`: (Auth) A signup form was submitted successfully
       AuthSignup
     | -- `bookmark_saved`: (Bookmarks) A simulation was saved as a bookmark
-      BookmarkSaved Scope
+      BookmarkSaved Sector
     | -- `comparator_opened`: (Comparator) The comparison modal was opened
-      ComparatorOpened Scope
+      ComparatorOpened Sector
     | -- `comparison_type_selected`: (Comparator) A tab was selected; can be "Impacts", "Étapes", "Sous-scores" or "Total"
-      ComparisonTypeSelected Scope String
+      ComparisonTypeSelected Sector String
     | -- `component_added` (Generic simulator) A production item was added (existing component or raw material)
-      ComponentAdded Scope
+      ComponentAdded Sector
     | -- `component_updated` (Generic simulator) A production item's quantity, name or elements list was updated
-      ComponentUpdated Scope
+      ComponentUpdated Sector
     | -- `consumption_added` (Generic simulator) A new consumption was added at the use stage
-      ConsumptionAdded Scope
+      ConsumptionAdded Sector
     | -- `example_selected`: (Simulator) An example simulation was loaded into the simulator
-      ExampleSelected Scope
+      ExampleSelected Sector
     | -- `impact_selected`: (Simulator) The current impact indicator changed (eg. `ecs` -> `acd`)
-      ImpactSelected Scope Trigram
+      ImpactSelected Sector Trigram
     | -- `pageview`: (Navigation) Triggered every time the URL changes
       PageViewed Url
     | -- `tab_selected`: (Simulator) A tab was selected, eg. "Partager", "Impacts", "Étapes", "Sous-scores" etc.
-      TabSelected Scope String
+      TabSelected Sector String
 
 
 type alias Key =
@@ -91,61 +91,61 @@ send session event =
                     "auth_signup"
                     [ string "feature" "auth" ]
 
-            BookmarkSaved scope ->
+            BookmarkSaved sector ->
                 track session
                     "bookmark_saved"
                     [ string "feature" "bookmarks"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString sector)
                     ]
 
-            ComparatorOpened scope ->
+            ComparatorOpened sector ->
                 track session
                     "comparator_opened"
                     [ string "feature" "comparator"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString sector)
                     ]
 
-            ComparisonTypeSelected scope comparisonType ->
+            ComparisonTypeSelected sector comparisonType ->
                 track session
                     "comparison_type_selected"
                     [ string "feature" "comparator"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString sector)
                     , string "comparison_type" comparisonType
                     ]
 
-            ComponentAdded scope ->
+            ComponentAdded sector ->
                 track session
                     "component_added"
                     [ string "feature" "simulator"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString sector)
                     ]
 
-            ComponentUpdated scope ->
+            ComponentUpdated sector ->
                 track session
                     "component_updated"
                     [ string "feature" "simulator"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString sector)
                     ]
 
-            ConsumptionAdded scope ->
+            ConsumptionAdded sector ->
                 track session
                     "consumption_added"
                     [ string "feature" "simulator"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString sector)
                     ]
 
-            ExampleSelected scope ->
+            ExampleSelected sector ->
                 track session
                     "example_selected"
                     [ string "feature" "simulator"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString sector)
                     ]
 
-            ImpactSelected scope trigram ->
+            ImpactSelected sector trigram ->
                 track session
                     "impact_selected"
                     [ string "feature" "simulator"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString sector)
                     , string "trigram" (Definition.toString trigram)
                     ]
 
@@ -154,11 +154,11 @@ send session event =
                     "pageview"
                     [ string "url" (safeUrl url) ]
 
-            TabSelected scope tab ->
+            TabSelected sector tab ->
                 track session
                     "tab_selected"
                     [ string "feature" "share"
-                    , string "scope" (Scope.toString scope)
+                    , string "scope" (Sector.toString sector)
                     , string "tab" tab
                     ]
 

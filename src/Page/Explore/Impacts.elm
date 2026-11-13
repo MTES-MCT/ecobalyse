@@ -2,7 +2,7 @@ module Page.Explore.Impacts exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
-import Data.Scope exposing (Scope)
+import Data.Sector exposing (Sector)
 import Data.Split as Split
 import Data.Text as Text
 import Data.Unit as Unit
@@ -14,11 +14,11 @@ import Views.Format as Format
 import Views.Markdown as Markdown
 
 
-table : { detailed : Bool, scope : Scope } -> Table Definition String msg
-table { detailed, scope } =
+table : { detailed : Bool, sector : Sector } -> Table Definition String msg
+table { detailed, sector } =
     { filename = "impacts"
     , toId = .trigram >> Definition.toString
-    , toRoute = .trigram >> Just >> Dataset.Impacts >> Route.Explore scope
+    , toRoute = .trigram >> Just >> Dataset.Impacts >> Route.Explore sector
     , toSearchableText = Definition.toSearchableString >> Text.toSearchable
     , facets =
         [ Table.Facet "Unité" (.unit >> List.singleton)

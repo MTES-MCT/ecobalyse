@@ -13,7 +13,7 @@ import Browser.Navigation as Nav
 import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
 import Data.Env as Env
 import Data.Plausible as Plausible
-import Data.Scope as Scope
+import Data.Sector as Sector
 import Data.Session as Session exposing (Session)
 import Data.User as User exposing (AccessTokenData, FormErrors, ProfileForm, SignupForm, User)
 import Dict
@@ -841,9 +841,9 @@ viewApiTokens session apiTokens =
 viewGenericApiBetaAccess : Session -> Html Msg
 viewGenericApiBetaAccess session =
     let
-        genericScopesLabel =
-            Scope.allGeneric
-                |> List.map (Scope.Generic >> Scope.toLabel)
+        genericSectorsLabel =
+            Sector.allGeneric
+                |> List.map (Sector.Generic >> Sector.toLabel)
                 |> String.join ", "
     in
     if
@@ -856,7 +856,7 @@ viewGenericApiBetaAccess session =
             , span []
                 [ text "Votre compte dispose d’un accès bêta à "
                 , a [ Route.href Route.Api ] [ text "l’API générique" ]
-                , text <| " (" ++ genericScopesLabel ++ ")."
+                , text <| " (" ++ genericSectorsLabel ++ ")."
                 ]
             ]
 

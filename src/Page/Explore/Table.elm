@@ -13,7 +13,7 @@ module Page.Explore.Table exposing
 
 import Csv.Encode exposing (Csv)
 import Data.Env as Env
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Text as Text
 import Dict exposing (Dict)
 import Html exposing (..)
@@ -77,14 +77,14 @@ type alias Config data msg =
 
 
 viewDetails :
-    Scope
-    -> ({ detailed : Bool, scope : Scope } -> Table data comparable msg)
+    Sector
+    -> ({ detailed : Bool, sector : Sector } -> Table data comparable msg)
     -> data
     -> Html msg
-viewDetails scope createTable item =
+viewDetails sector createTable item =
     let
         { legend, columns } =
-            createTable { detailed = True, scope = scope }
+            createTable { detailed = True, sector = sector }
     in
     div []
         [ div [ class "text-muted fs-7" ] legend
@@ -106,14 +106,14 @@ viewList :
     (data -> msg)
     -> Config data msg
     -> SortableTable.State
-    -> Scope
-    -> ({ detailed : Bool, scope : Scope } -> Table data comparable msg)
+    -> Sector
+    -> ({ detailed : Bool, sector : Sector } -> Table data comparable msg)
     -> List data
     -> Html msg
-viewList dataToMsg defaultConfig tableState scope createTable items =
+viewList dataToMsg defaultConfig tableState sector createTable items =
     let
         ({ filename, toId, toSearchableText, facets, columns, legend } as table) =
-            createTable { detailed = False, scope = scope }
+            createTable { detailed = False, sector = sector }
 
         { customizations } =
             defaultConfig
@@ -172,7 +172,7 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
             List.length resultItems
 
         csv =
-            { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
+            { filename = "ecobalyse-" ++ Sector.toString sector ++ "-" ++ filename ++ ".csv"
             , content = resultItems |> toCSV table
             }
 
@@ -185,7 +185,7 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
             , close = Nothing
             , content =
                 [ text <| "Aucun enregistrement disponible pour le secteur "
-                , strong [] [ text <| Scope.toLabel scope ]
+                , strong [] [ text <| Sector.toLabel sector ]
                 ]
             , level = Alert.Info
             , title = Nothing

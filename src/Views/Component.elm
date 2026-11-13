@@ -3,7 +3,7 @@ module Views.Component exposing
     , editorView
     , itemEditorView
     , productCategorySelectorView
-    , scopeLabels
+    , sectorLabels
     )
 
 import Autocomplete exposing (Autocomplete)
@@ -28,7 +28,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split exposing (Split)
 import Data.Transport exposing (Transport)
 import Data.Unit as Unit
@@ -80,7 +80,7 @@ type alias Config db msg =
     , removeElementTransform : TargetElement -> Index -> msg
     , removeItem : Index -> msg
     , removePackaging : Index -> msg
-    , scope : Scope
+    , sector : Sector
     , setDetailed : List Index -> msg
     , toggleTransportByAir : Split -> msg
     , toggleTransportCooling : Bool -> msg
@@ -108,7 +108,7 @@ requirementsFromConfig : Config db msg -> Requirements db
 requirementsFromConfig config =
     { config = config.componentConfig
     , db = config.db
-    , scope = config.scope
+    , sector = config.sector
     }
 
 
@@ -128,17 +128,17 @@ type alias Labels =
     }
 
 
-{-| Scoped label.
+{-| Sectored label.
 
 FIXME: we should make these configurable in components/config.json
 
 -}
-scopeLabels : Context -> Scope -> Labels
-scopeLabels context scope =
+sectorLabels : Context -> Sector -> Labels
+sectorLabels context sector =
     case context of
         Context.Generic ->
-            case scope of
-                Scope.Generic Scope.Apparel ->
+            case sector of
+                Sector.Generic Sector.Apparel ->
                     { add = "Ajouter un composant"
                     , addElement = "Ajouter un matériau"
                     , elementNoun = "Matériau"
@@ -153,7 +153,7 @@ scopeLabels context scope =
                     , select = "Sélectionnez un composant"
                     }
 
-                Scope.Generic Scope.Food2 ->
+                Sector.Generic Sector.Food2 ->
                     { add = "Ajouter un ingrédient"
                     , addElement = "Ajouter un sous-ingrédient"
                     , elementNoun = "Sous-ingrédient"
@@ -205,7 +205,7 @@ addPackagingButton ({ query } as config) =
     let
         availablePackagingProcesses =
             config.db.processes
-                |> Process.listAvailableByCategory config.scope Category.Packaging
+                |> Process.listAvailableByCategory config.sector Category.Packaging
                 |> List.filter
                     (\{ id } ->
                         query.packagings
@@ -272,7 +272,7 @@ editorView config =
 
 
 lifeCycleView : Config db msg -> LifeCycle -> Html msg
-lifeCycleView ({ impact, query, scope } as config) lifeCycle =
+lifeCycleView ({ impact, query, sector } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
         [ ProductionTable.view
             { context = config.context
@@ -294,14 +294,14 @@ lifeCycleView ({ impact, query, scope } as config) lifeCycle =
             , openSelectProductionItem = config.openSelectProductionItem
             , query = config.query
             , removeItem = config.removeItem
-            , scope = config.scope
+            , sector = config.sector
             , setDetailed = config.setDetailed
             , unitMassLocked = config.unitMassLocked
             , updateItemQuantity = config.updateItemQuantity
             , updateItemUnitMass = config.updateItemUnitMass
             }
             lifeCycle.production
-        , if Scope.isGeneric scope && not (List.isEmpty query.items) then
+        , if Sector.isGeneric sector && not (List.isEmpty query.items) then
             div []
                 [ DownArrow.view
                     [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
@@ -332,8 +332,8 @@ lifeCycleView ({ impact, query, scope } as config) lifeCycle =
 
 
 documentationLink : Config db msg -> String -> Html msg
-documentationLink { componentConfig, scope } section =
-    case Component.getDocLink componentConfig scope section of
+documentationLink { componentConfig, sector } section =
+    case Component.getDocLink componentConfig sector section of
         Just docUrl ->
             Button.docsPillLink
                 [ class "bg-secondary"
@@ -349,8 +349,8 @@ documentationLink { componentConfig, scope } section =
 
 
 smallDocumentationLink : Config db msg -> String -> Html msg
-smallDocumentationLink { componentConfig, scope } section =
-    case Component.getDocLink componentConfig scope section of
+smallDocumentationLink { componentConfig, sector } section =
+    case Component.getDocLink componentConfig sector section of
         Just docUrl ->
             Button.smallPillLink
                 [ class "text-muted"
@@ -490,17 +490,17 @@ genericContextStagesView config lifeCycle =
 
 
 transportToDistributionView : Config db msg -> Mass -> Transport -> Html msg
-transportToDistributionView ({ componentConfig, impact, scope } as config) mass transport =
+transportToDistributionView ({ componentConfig, impact, sector } as config) mass transport =
     let
-        -- if no plane transport process is available in current scope, disable
+        -- if no plane transport process is available in current sector, disable
         airTransportAvailable =
-            componentConfig.transports.modeProcesses.plane.scopes
-                |> List.member scope
+            componentConfig.transports.modeProcesses.plane.sectors
+                |> List.member sector
 
         -- transport cooling is only available when both boat and lorry cooled transport
-        -- processes are available in current scope
+        -- processes are available in current sector
         transportCoolingAvailable =
-            List.all (\{ scopes } -> List.member scope scopes)
+            List.all (\{ sectors } -> List.member sector sectors)
                 [ componentConfig.transports.modeProcesses.boatCooling
                 , componentConfig.transports.modeProcesses.lorryCooling
                 ]
@@ -606,7 +606,7 @@ itemEditorView config targetItem =
                 , query = config.query
                 , removeElement = config.removeElement
                 , removeElementTransform = config.removeElementTransform
-                , scope = config.scope
+                , sector = config.sector
                 , updateElementAmount = config.updateElementAmount
                 , updateElementMaterialCountry = config.updateElementMaterialCountry
                 , updateElementTransformCountry = config.updateElementTransformCountry
@@ -616,7 +616,7 @@ itemEditorView config targetItem =
 
 
 assemblyView : Config db msg -> LifeCycle -> Html msg
-assemblyView ({ db, impact, query, scope } as config) lifeCycle =
+assemblyView ({ db, impact, query, sector } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
             [ h2 [ class "h5 mb-0" ]
@@ -640,7 +640,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                     , emptyLabel = "Inconnu"
                     , hideLabel = True
                     , label = Nothing
-                    , scope = scope
+                    , sector = sector
                     , select = config.updateAssemblyCountry
                     , selected = query.assembly.country
                     , showCode = False
@@ -649,7 +649,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
             , case
                 query
                     |> Component.getAssemblyOperations (requirementsFromConfig config)
-                    |> Component.expandAssembly db query.assembly.country
+                    |> Component.expandAssembly db.processes
               of
                 Err error ->
                     div [ class "px-3 pb-3" ] [ error |> Alert.simpleError (Just "Erreur") ]
@@ -672,7 +672,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                             , tbody []
                                 (expandedOperations
                                     |> List.indexedMap
-                                        (\index { process } ->
+                                        (\index process ->
                                             let
                                                 operationResult =
                                                     lifeCycle.assembly
@@ -719,7 +719,7 @@ addAssemblyOperationButton ({ openSelectAssemblyOperationModal, query } as confi
     let
         availableProcesses =
             config.db.processes
-                |> Process.listAvailableByCategory config.scope Category.Assembly
+                |> Process.listAvailableByCategory config.sector Category.Assembly
                 |> List.filter
                     (\{ id } ->
                         -- prevent adding the same operation twice
@@ -746,7 +746,7 @@ addAssemblyOperationButton ({ openSelectAssemblyOperationModal, query } as confi
 
 
 distributionView : Config db msg -> LifeCycle -> Html msg
-distributionView ({ componentConfig, db, impact, query, scope, updateDistribution } as config) lifeCycle =
+distributionView ({ componentConfig, db, impact, query, sector, updateDistribution } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
             [ h2 [ class "h5 mb-0" ]
@@ -767,7 +767,7 @@ distributionView ({ componentConfig, db, impact, query, scope, updateDistributio
                 ]
                 |> Just
           , -- only render distribution process selector if any is available
-            case Component.getAvailableDistributionProcesses db scope of
+            case Component.getAvailableDistributionProcesses db sector of
                 [] ->
                     Nothing
 
@@ -776,7 +776,7 @@ distributionView ({ componentConfig, db, impact, query, scope, updateDistributio
                         distribution =
                             query
                                 |> Component.getDistributionProcessId
-                                    { config = componentConfig, db = db, scope = scope }
+                                    { config = componentConfig, db = db, sector = sector }
                     in
                     distributionProcesses
                         |> List.map
@@ -834,7 +834,7 @@ addConsumptionButton ({ openSelectConsumptionModal, query } as config) =
     let
         availableProcesses =
             config.db.processes
-                |> Process.listAvailableByCategory config.scope Category.Use
+                |> Process.listAvailableByCategory config.sector Category.Use
                 |> List.filter
                     (\{ id } ->
                         query
@@ -862,7 +862,7 @@ addConsumptionButton ({ openSelectConsumptionModal, query } as config) =
 
 
 endOfLifeView : Config db msg -> LifeCycle -> Html msg
-endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) lifeCycle =
+endOfLifeView ({ componentConfig, query, sector, updateRecyclable } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
             [ div [ class "IngredientPlaneOrBoatSelector" ]
@@ -904,7 +904,7 @@ endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) li
             , documentationLink config "eol"
             ]
         , div [ class "card-body table-responsive p-0" ]
-            [ if config.componentConfig.endOfLife |> Config.scopeEnabled scope then
+            [ if config.componentConfig.endOfLife |> Config.sectorEnabled sector then
                 div []
                     [ table [ class "table mb-0 fs-7" ]
                         [ thead []
@@ -920,7 +920,7 @@ endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) li
                         , Component.getEndOfLifeDetailedImpacts
                             { config = componentConfig
                             , db = config.db
-                            , scope = config.scope
+                            , sector = config.sector
                             }
                             query.recyclable
                             lifeCycle
@@ -934,17 +934,17 @@ endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) li
               else
                 div [ class "card-body d-flex align-items-center justify-content-start gap-2" ]
                     [ Icon.info
-                    , text <| "Fin de vie non disponible pour le périmètre " ++ Scope.toLabel config.scope
+                    , text <| "Fin de vie non disponible pour le périmètre " ++ Sector.toLabel config.sector
                     ]
             ]
         ]
 
 
 endOfLifeMaterialRow : Config db msg -> ( Category.Material, EndOfLifeMaterialImpacts ) -> List (Html msg)
-endOfLifeMaterialRow ({ componentConfig, query, scope } as config) ( materialType, { collected, nonCollected } ) =
+endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialType, { collected, nonCollected } ) =
     let
         collectionShare =
-            scope |> Component.getEndOfLifeScopeCollectionRate componentConfig query.recyclable
+            sector |> Component.getEndOfLifeSectorCollectionRate componentConfig query.recyclable
 
         nonCollectionShare =
             Split.complement collectionShare
@@ -1030,19 +1030,19 @@ type alias ProductCategorySelector msg =
     { onSelect : Maybe ProductCategory.Id -> msg
     , products : List ProductCategory
     , query : Query
-    , scope : Scope.GenericScope
+    , sector : Sector.GenericSector
     }
 
 
 productCategorySelectorView : ProductCategorySelector msg -> Html msg
-productCategorySelectorView { onSelect, products, query, scope } =
+productCategorySelectorView { onSelect, products, query, sector } =
     let
-        scopedProducts =
+        sectoredProducts =
             products
-                |> ProductCategory.findByScope scope
+                |> ProductCategory.findBySector sector
                 |> List.sortBy .label
     in
-    if List.isEmpty scopedProducts || List.isEmpty query.items then
+    if List.isEmpty sectoredProducts || List.isEmpty query.items then
         text ""
 
     else
@@ -1075,6 +1075,6 @@ productCategorySelectorView { onSelect, products, query, scope } =
                                 ]
                                 [ text product.label ]
                         )
-                        scopedProducts
+                        sectoredProducts
                 )
             ]

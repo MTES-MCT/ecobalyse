@@ -21,7 +21,7 @@ import Data.Component as Component
 import Data.Db exposing (Db)
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
-import Data.Scope as Scope exposing (GenericScope, Scope)
+import Data.Sector as Sector exposing (GenericSector, Sector)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
@@ -33,7 +33,7 @@ import Time exposing (Posix)
 
 type alias Bookmark =
     { created : Posix
-    , genericScope : Maybe GenericScope
+    , genericSector : Maybe GenericSector
     , name : String
     , query : Query
     }
@@ -41,7 +41,7 @@ type alias Bookmark =
 
 type Query
     = Food FoodQuery.Query
-    | Generic GenericScope Component.Query
+    | Generic GenericSector Component.Query
     | Textile TextileQuery.Query
 
 
@@ -49,14 +49,14 @@ decode : Decoder Bookmark
 decode =
     Decode.succeed Bookmark
         |> JDP.required "created" (Decode.map Time.millisToPosix Decode.int)
-        |> DU.strictOptionalWithDefault "subScope" (Decode.maybe Scope.decodeGeneric) Nothing
+        |> DU.strictOptionalWithDefault "subScope" (Decode.maybe Sector.decodeGeneric) Nothing
         |> JDP.required "name" Decode.string
         |> JDP.required "query" decodeQuery
         |> Decode.map
             (\bookmark ->
-                case ( bookmark.query, bookmark.genericScope ) of
-                    ( Generic _ query, Just genericScope ) ->
-                        { bookmark | query = Generic genericScope query }
+                case ( bookmark.query, bookmark.genericSector ) of
+                    ( Generic _ query, Just genericSector ) ->
+                        { bookmark | query = Generic genericSector query }
 
                     _ ->
                         bookmark
@@ -90,7 +90,7 @@ decodeQuery : Decoder Query
 decodeQuery =
     Decode.oneOf
         [ Decode.map Food FoodQuery.decode
-        , Decode.map (Generic Scope.Object) (Component.decodeQuery [])
+        , Decode.map (Generic Sector.Object) (Component.decodeQuery [])
         , Decode.map Textile TextileQuery.decode
         ]
 
@@ -101,15 +101,15 @@ encode v =
         [ ( "created", v.created |> Time.posixToMillis |> Encode.int |> Just )
         , ( "name", Encode.string v.name |> Just )
         , ( "query", encodeQuery v.query |> Just )
-        , ( "subScope", encodeGenericScope v.query )
+        , ( "subScope", encodeGenericSector v.query )
         ]
 
 
-encodeGenericScope : Query -> Maybe Encode.Value
-encodeGenericScope query =
+encodeGenericSector : Query -> Maybe Encode.Value
+encodeGenericSector query =
     case query of
-        Generic genericScope _ ->
-            Just (Scope.encodeGeneric genericScope)
+        Generic genericSector _ ->
+            Just (Sector.encodeGeneric genericSector)
 
         _ ->
             Nothing
@@ -126,7 +126,7 @@ encodeQuery v =
         Food query ->
             FoodQuery.encode query
 
-        -- Note: generic scope is encoded at the parent bookmark record level
+        -- Note: generic sector is encoded at the parent bookmark record level
         Generic _ query ->
             Component.encodeQuery query
 
@@ -144,11 +144,11 @@ isFood { query } =
             False
 
 
-isGeneric : GenericScope -> Bookmark -> Bool
-isGeneric genericScope { query } =
+isGeneric : GenericSector -> Bookmark -> Bool
+isGeneric genericSector { query } =
     case query of
-        Generic bookmarkScope _ ->
-            bookmarkScope == genericScope
+        Generic bookmarkSector _ ->
+            bookmarkSector == genericSector
 
         _ ->
             False
@@ -174,9 +174,9 @@ findByFoodQuery foodQuery =
     findByQuery (Food foodQuery)
 
 
-findByGenericQuery : GenericScope -> Component.Query -> List Bookmark -> Maybe Bookmark
-findByGenericQuery genericScope =
-    Generic genericScope >> findByQuery
+findByGenericQuery : GenericSector -> Component.Query -> List Bookmark -> Maybe Bookmark
+findByGenericQuery genericSector =
+    Generic genericSector >> findByQuery
 
 
 findByTextileQuery : TextileQuery.Query -> List Bookmark -> Maybe Bookmark
@@ -191,17 +191,17 @@ replace bookmark =
         (always bookmark)
 
 
-scope : Bookmark -> Scope
-scope bookmark =
+sector : Bookmark -> Sector
+sector bookmark =
     case bookmark.query of
         Food _ ->
-            Scope.Food
+            Sector.Food
 
-        Generic genericScope _ ->
-            Scope.Generic genericScope
+        Generic genericSector _ ->
+            Sector.Generic genericSector
 
         Textile _ ->
-            Scope.Textile
+            Sector.Textile
 
 
 sort : List Bookmark -> List Bookmark
@@ -211,7 +211,7 @@ sort =
 
 toId : Bookmark -> String
 toId bookmark =
-    Scope.toString (scope bookmark) ++ ":" ++ bookmark.name
+    Sector.toString (sector bookmark) ++ ":" ++ bookmark.name
 
 
 toQueryDescription : Db -> Bookmark -> String

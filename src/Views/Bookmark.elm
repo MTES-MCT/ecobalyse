@@ -10,7 +10,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition exposing (Definition)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Session as Session exposing (Session)
 import Data.Text as Text
 import Data.Textile.Query as TextileQuery
@@ -40,7 +40,7 @@ type alias ManagerConfig msg =
     , noOp : msg
     , rename : msg
     , save : msg
-    , scope : Scope
+    , sector : Sector
     , session : Session
     , switchTab : ActiveTab -> msg
     , update : String -> msg
@@ -65,7 +65,7 @@ view cfg =
             ]
 
         tabs =
-            if Scope.isGeneric cfg.scope then
+            if Sector.isGeneric cfg.sector then
                 baseTabs ++ [ ( ContributeExampleTab, text "Contribuer" ) ]
 
             else
@@ -96,37 +96,37 @@ view cfg =
         }
 
 
-buildGenericApiQuery : Scope -> Maybe String -> String -> Component.Query -> String
-buildGenericApiQuery scope maybeToken clientUrl query =
-    (clientUrl ++ "/api/" ++ Scope.toString scope ++ "/simulator")
+buildGenericApiQuery : Sector -> Maybe String -> String -> Component.Query -> String
+buildGenericApiQuery sector maybeToken clientUrl query =
+    (clientUrl ++ "/api/" ++ Sector.toString sector ++ "/simulator")
         |> Text.buildCurlCommand maybeToken
             (query |> Component.encodeQuery |> Encode.encode 0)
 
 
-shareGenericScope : Definition -> Session -> Scope.GenericScope -> ( String, String, String )
-shareGenericScope impact session genericScope =
+shareGenericSector : Definition -> Session -> Sector.GenericSector -> ( String, String, String )
+shareGenericSector impact session genericSector =
     let
         query =
-            Session.genericQuery genericScope session
+            Session.genericQuery genericSector session
     in
     ( Just query
-        |> Route.GenericSimulator genericScope impact.trigram
+        |> Route.GenericSimulator genericSector impact.trigram
         |> Route.toString
         |> (++) "/"
         |> (++) session.clientUrl
     , query
-        |> buildGenericApiQuery (Scope.Generic genericScope) (Session.getAccessToken session) session.clientUrl
+        |> buildGenericApiQuery (Sector.Generic genericSector) (Session.getAccessToken session) session.clientUrl
     , Component.encodeQuery query
         |> Encode.encode 2
     )
 
 
 shareTabView : ManagerConfig msg -> Html msg
-shareTabView { copyToClipBoard, impact, scope, session } =
+shareTabView { copyToClipBoard, impact, sector, session } =
     let
         ( shareableLink, apiCall, jsonParams ) =
-            case scope of
-                Scope.Food ->
+            case sector of
+                Sector.Food ->
                     let
                         query =
                             session.queries.food
@@ -142,10 +142,10 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> Encode.encode 2
                     )
 
-                Scope.Generic genericScope ->
-                    shareGenericScope impact session genericScope
+                Sector.Generic genericSector ->
+                    shareGenericSector impact session genericSector
 
-                Scope.Textile ->
+                Sector.Textile ->
                     let
                         query =
                             session.queries.textile
@@ -214,12 +214,12 @@ managerView : ManagerConfig msg -> Html msg
 managerView cfg =
     let
         bookmarks =
-            scopedBookmarks cfg.session cfg.scope
+            sectoredBookmarks cfg.session cfg.sector
 
         ( queryExists, nameExists ) =
             ( bookmarks
                 |> List.map .query
-                |> List.member (queryFromScope cfg.session cfg.scope)
+                |> List.member (queryFromSector cfg.session cfg.sector)
             , bookmarks
                 |> List.map .name
                 |> List.member cfg.bookmarkName
@@ -265,10 +265,10 @@ managerView cfg =
 
 
 bookmarksView : ManagerConfig msg -> Html msg
-bookmarksView ({ compare, scope, session } as cfg) =
+bookmarksView ({ compare, sector, session } as cfg) =
     let
         bookmarks =
-            scopedBookmarks session scope
+            sectoredBookmarks session sector
     in
     div []
         [ div [ class "card-header border-top rounded-0 d-flex justify-content-between align-items-center gap-1" ]
@@ -302,13 +302,13 @@ bookmarksView ({ compare, scope, session } as cfg) =
                 (\{ query } ->
                     case query of
                         Bookmark.Food _ ->
-                            scope == Scope.Food
+                            sector == Sector.Food
 
-                        Bookmark.Generic genericScope _ ->
-                            scope == Scope.Generic genericScope
+                        Bookmark.Generic genericSector _ ->
+                            sector == Sector.Generic genericSector
 
                         Bookmark.Textile _ ->
-                            scope == Scope.Textile
+                            sector == Sector.Textile
                 )
             |> List.map (bookmarkView cfg)
             |> ul
@@ -322,7 +322,7 @@ bookmarkView : ManagerConfig msg -> Bookmark -> Html msg
 bookmarkView cfg ({ name, query } as bookmark) =
     let
         currentQuery =
-            queryFromScope cfg.session cfg.scope
+            queryFromSector cfg.session cfg.sector
 
         bookmarkRoute =
             case query of
@@ -330,9 +330,9 @@ bookmarkView cfg ({ name, query } as bookmark) =
                     Just foodQuery
                         |> Route.FoodBuilder cfg.impact.trigram
 
-                Bookmark.Generic genericScope genericQuery ->
+                Bookmark.Generic genericSector genericQuery ->
                     Just genericQuery
-                        |> Route.GenericSimulator genericScope cfg.impact.trigram
+                        |> Route.GenericSimulator genericSector cfg.impact.trigram
 
                 Bookmark.Textile textileQuery ->
                     Just textileQuery
@@ -409,15 +409,15 @@ bookmarkView cfg ({ name, query } as bookmark) =
 
 
 contributeExampleTabView : ManagerConfig msg -> Html msg
-contributeExampleTabView ({ scope, session } as config) =
+contributeExampleTabView ({ sector, session } as config) =
     let
         isAuthenticated =
             Session.isAuthenticated session
 
         currentQuery =
-            case Scope.toGenericScope scope of
-                Just genericScope ->
-                    Session.genericQuery genericScope session
+            case Sector.toGenericSector sector of
+                Just genericSector ->
+                    Session.genericQuery genericSector session
 
                 Nothing ->
                     Component.emptyQuery
@@ -439,7 +439,7 @@ contributeExampleTabView ({ scope, session } as config) =
         [ div [ class "fs-7 text-muted" ]
             [ text <|
                 "Proposez l’ajout de votre simulation à la base de données d’exemples "
-                    ++ Scope.toLabel scope
+                    ++ Sector.toLabel sector
                     ++ " sur Ecobalyse."
             ]
         , input
@@ -486,31 +486,31 @@ contributeExampleTabView ({ scope, session } as config) =
         ]
 
 
-queryFromScope : Session -> Scope -> Bookmark.Query
-queryFromScope session scope =
-    case scope of
-        Scope.Food ->
+queryFromSector : Session -> Sector -> Bookmark.Query
+queryFromSector session sector =
+    case sector of
+        Sector.Food ->
             Bookmark.Food session.queries.food
 
-        Scope.Generic genericScope ->
-            Bookmark.Generic genericScope (Session.genericQuery genericScope session)
+        Sector.Generic genericSector ->
+            Bookmark.Generic genericSector (Session.genericQuery genericSector session)
 
-        Scope.Textile ->
+        Sector.Textile ->
             Bookmark.Textile session.queries.textile
 
 
-scopedBookmarks : Session -> Scope -> List Bookmark
-scopedBookmarks session scope =
+sectoredBookmarks : Session -> Sector -> List Bookmark
+sectoredBookmarks session sector =
     session.store.bookmarks
         |> List.filter
-            (case scope of
-                Scope.Food ->
+            (case sector of
+                Sector.Food ->
                     Bookmark.isFood
 
-                Scope.Generic genericScope ->
-                    Bookmark.isGeneric genericScope
+                Sector.Generic genericSector ->
+                    Bookmark.isGeneric genericSector
 
-                Scope.Textile ->
+                Sector.Textile ->
                     Bookmark.isTextile
             )
         |> Bookmark.sort

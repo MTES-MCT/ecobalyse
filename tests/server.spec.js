@@ -725,7 +725,7 @@ describe("API", () => {
         process.env.ENABLE_VELI_SECTION = previous.veli;
       });
 
-      it("should list enabled generic scopes", async () => {
+      it("should list enabled generic sectors", async () => {
         process.env.ENABLE_FOOD2_SECTION = "True";
         process.env.ENABLE_OBJECTS_SECTION = "False";
         process.env.ENABLE_VELI_SECTION = "True";
@@ -742,7 +742,7 @@ describe("API", () => {
         ]);
       });
 
-      it("should reject a disabled generic scope with 403", async () => {
+      it("should reject a disabled generic sector with 403", async () => {
         process.env.ENABLE_FOOD2_SECTION = "False";
 
         const response = await request(app)
@@ -1056,31 +1056,31 @@ describe("API", () => {
       });
     });
 
-    for (const scope of ["food2", "object", "veli"]) {
-      describe(`/${scope}/simulator`, () => {
+    for (const sector of ["food2", "object", "veli"]) {
+      describe(`/${sector}/simulator`, () => {
         it("should accept an empty query", async () => {
-          const response = await makePostRequest(`/api/${scope}/simulator`, {});
+          const response = await makePostRequest(`/api/${sector}/simulator`, {});
           expect(response.body.error).toBeUndefined();
           expectStatus(response, 200);
           expect(response.body.impacts).toBeDefined();
         });
 
         it("should accept an empty components list", async () => {
-          const response = await makePostRequest(`/api/${scope}/simulator`, { components: [] });
+          const response = await makePostRequest(`/api/${sector}/simulator`, { components: [] });
           expect(response.body.error).toBeUndefined();
           expectStatus(response, 200);
           expect(response.body.impacts).toBeDefined();
         });
 
-        const examples = require(`${fixtureDataDir}/${scope}/examples.json`);
+        const examples = require(`${fixtureDataDir}/${sector}/examples.json`);
 
         for (const { name, query } of examples) {
           it(name, async () => {
-            const response = await makePostRequest(`/api/${scope}/simulator`, query);
+            const response = await makePostRequest(`/api/${sector}/simulator`, query);
             expect(response.body.error).toBeUndefined();
             expectStatus(response, 200);
             expect(response.body.impacts).toBeDefined();
-            expect(response.body.webUrl).toContain(`/${scope}/simulator/`);
+            expect(response.body.webUrl).toContain(`/${sector}/simulator/`);
           });
         }
       });

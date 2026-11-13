@@ -28,7 +28,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Process as Process exposing (Process)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Session exposing (Session)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as Product exposing (Product)
@@ -64,7 +64,7 @@ import Views.Modal as ModalView
 type alias Model =
     { dataset : Dataset
     , facetValues : Table.Facets
-    , scope : Scope
+    , sector : Sector
     , search : String
     , tableState : SortableTable.State
     }
@@ -74,14 +74,14 @@ type Msg
     = CloseModal
     | DownloadCsv String Csv
     | OpenDetail String
-    | ScopeChange Scope
+    | SectorChange Sector
     | SetTableState SortableTable.State
     | ToggleFacetValue String String Bool
     | UpdateSearch String
 
 
-init : Scope -> Dataset -> Session -> PageUpdate Model Msg
-init scope dataset session =
+init : Sector -> Dataset -> Session -> PageUpdate Model Msg
+init sector dataset session =
     let
         initialSort =
             case dataset of
@@ -121,7 +121,7 @@ init scope dataset session =
     createPageUpdate session
         { dataset = dataset
         , facetValues = Dict.empty
-        , scope = scope
+        , sector = sector
         , search = ""
         , tableState = SortableTable.initialSort initialSort
         }
@@ -140,12 +140,12 @@ update session msg model =
         OpenDetail id ->
             createPageUpdate session { model | dataset = model.dataset |> Dataset.setIdFromString id }
 
-        ScopeChange scope ->
-            { model | facetValues = Dict.empty, scope = scope }
+        SectorChange sector ->
+            { model | facetValues = Dict.empty, sector = sector }
                 |> createPageUpdate session
                 |> App.withCmds
                     [ (case model.dataset of
-                        -- Try selecting the most appropriate tab when switching scope.
+                        -- Try selecting the most appropriate tab when switching sector.
                         Dataset.Countries _ ->
                             Dataset.Countries Nothing
 
@@ -153,20 +153,20 @@ update session msg model =
                             Dataset.Impacts Nothing
 
                         Dataset.Processes _ _ ->
-                            Dataset.Processes scope Nothing
+                            Dataset.Processes sector Nothing
 
                         Dataset.ProductCategory _ _ ->
-                            case Scope.toGenericScope scope of
-                                Just newGenericScope ->
-                                    Dataset.ProductCategory newGenericScope Nothing
+                            case Sector.toGenericSector sector of
+                                Just newGenericSector ->
+                                    Dataset.ProductCategory newGenericSector Nothing
 
                                 Nothing ->
-                                    Dataset.defaultDatasetFor scope
+                                    Dataset.defaultDatasetFor sector
 
                         _ ->
-                            Dataset.defaultDatasetFor scope
+                            Dataset.defaultDatasetFor sector
                       )
-                        |> Route.Explore scope
+                        |> Route.Explore sector
                         |> Route.toString
                         |> Nav.pushUrl session.navKey
                     ]
@@ -207,14 +207,14 @@ createPageUpdate session model =
 
 
 datasetsMenuView : Model -> Html Msg
-datasetsMenuView { scope, dataset } =
-    Dataset.datasets scope
+datasetsMenuView { sector, dataset } =
+    Dataset.datasets sector
         |> List.map
             (\ds ->
                 a
                     [ class "TabsTab nav-link"
                     , classList [ ( "active", Dataset.same ds dataset ) ]
-                    , Route.href (Route.Explore scope ds)
+                    , Route.href (Route.Explore sector ds)
                     ]
                     [ text (Dataset.label ds) ]
             )
@@ -223,35 +223,35 @@ datasetsMenuView { scope, dataset } =
             ]
 
 
-scopesMenuView : Session -> Model -> Html Msg
-scopesMenuView { enabledSections } model =
+sectorsMenuView : Session -> Model -> Html Msg
+sectorsMenuView { enabledSections } model =
     div [ class "d-flex align-items-center gap-3" ]
-        [ label [ class "fw-bold d-none d-sm-block", for "scope-selector" ]
+        [ label [ class "fw-bold d-none d-sm-block", for "sector-selector" ]
             [ text "Secteur" ]
-        , [ ( Scope.Food, enabledSections.food )
-          , ( Scope.Generic Scope.Food2, enabledSections.food2 )
-          , ( Scope.Generic Scope.Object, enabledSections.objects )
-          , ( Scope.Textile, True )
-          , ( Scope.Generic Scope.Veli, enabledSections.veli )
-          , ( Scope.Generic Scope.Apparel, enabledSections.apparel )
+        , [ ( Sector.Food, enabledSections.food )
+          , ( Sector.Generic Sector.Food2, enabledSections.food2 )
+          , ( Sector.Generic Sector.Object, enabledSections.objects )
+          , ( Sector.Textile, True )
+          , ( Sector.Generic Sector.Veli, enabledSections.veli )
+          , ( Sector.Generic Sector.Apparel, enabledSections.apparel )
           ]
             |> List.filter Tuple.second
             |> List.map
-                (\( scope, _ ) ->
+                (\( sector, _ ) ->
                     option
-                        [ selected <| model.scope == scope
-                        , value <| Scope.toString scope
+                        [ selected <| model.sector == sector
+                        , value <| Sector.toString sector
                         ]
-                        [ text <| Scope.toLabel scope ]
+                        [ text <| Sector.toLabel sector ]
                 )
             |> select
                 [ class "form-select"
-                , id "scope-selector"
+                , id "sector-selector"
                 , onInput
-                    (Scope.fromString
+                    (Sector.fromString
                         >> Result.toMaybe
-                        >> Maybe.withDefault Scope.Textile
-                        >> ScopeChange
+                        >> Maybe.withDefault Sector.Textile
+                        >> SectorChange
                     )
                 ]
         ]
@@ -287,16 +287,16 @@ countriesExplorer :
     Db
     -> Table.Config Country Msg
     -> SortableTable.State
-    -> Scope
+    -> Sector
     -> Maybe CountryCode.Code
     -> List (Html Msg)
-countriesExplorer { distances, countries } tableConfig tableState scope maybeCode =
+countriesExplorer { distances, countries } tableConfig tableState sector maybeCode =
     [ countries
-        |> List.filter (.scopes >> List.member scope)
+        |> List.filter (.sectors >> List.member sector)
         |> Table.viewList (.code >> CountryCode.toString >> OpenDetail)
             tableConfig
             tableState
-            scope
+            sector
             (ExploreCountries.table distances countries)
     , case maybeCode of
         Just code ->
@@ -307,7 +307,7 @@ countriesExplorer { distances, countries } tableConfig tableState scope maybeCod
 
                     Ok country ->
                         country
-                            |> Table.viewDetails scope (ExploreCountries.table distances countries)
+                            |> Table.viewDetails sector (ExploreCountries.table distances countries)
                 )
 
         Nothing ->
@@ -319,20 +319,20 @@ impactsExplorer :
     Definitions
     -> Table.Config Definition Msg
     -> SortableTable.State
-    -> Scope
+    -> Sector
     -> Maybe Definition.Trigram
     -> List (Html Msg)
-impactsExplorer definitions tableConfig tableState scope maybeTrigram =
+impactsExplorer definitions tableConfig tableState sector maybeTrigram =
     [ Definition.toList definitions
         |> List.sortBy (.trigram >> Definition.toString)
         |> Table.viewList (.trigram >> Definition.toString >> OpenDetail)
             tableConfig
             tableState
-            scope
+            sector
             ExploreImpacts.table
     , maybeTrigram
         |> Maybe.map (\trigram -> Definition.get trigram definitions)
-        |> Maybe.map (Table.viewDetails scope ExploreImpacts.table)
+        |> Maybe.map (Table.viewDetails sector ExploreImpacts.table)
         |> Maybe.map detailsModal
         |> Maybe.withDefault (text "")
     ]
@@ -377,7 +377,7 @@ foodExamplesExplorer db tableConfig tableState maybeId =
         |> Table.viewList (Tuple.first >> .id >> Data.Uuid.toString >> OpenDetail)
             tableConfig
             tableState
-            Scope.Food
+            Sector.Food
             (FoodExamples.table max)
     , case maybeId of
         Just id ->
@@ -387,7 +387,7 @@ foodExamplesExplorer db tableConfig tableState maybeId =
                         alert error
 
                     Ok example ->
-                        Table.viewDetails Scope.Food
+                        Table.viewDetails Sector.Food
                             (FoodExamples.table max)
                             ( example
                             , { score = getFoodScore db example
@@ -413,7 +413,7 @@ foodIngredientsExplorer { food } tableConfig tableState maybeId =
         |> Table.viewList (.id >> Ingredient.idToString >> OpenDetail)
             tableConfig
             tableState
-            Scope.Food
+            Sector.Food
             FoodIngredients.table
     , case maybeId of
         Just id ->
@@ -433,39 +433,39 @@ foodIngredientsExplorer { food } tableConfig tableState maybeId =
 
 foodIngredientDetails : Ingredient -> Html msg
 foodIngredientDetails =
-    Table.viewDetails Scope.Food FoodIngredients.table
+    Table.viewDetails Sector.Food FoodIngredients.table
 
 
 processesExplorer :
     Session
-    -> Scope
+    -> Sector
     -> Table.Config Process Msg
     -> SortableTable.State
     -> Maybe Process.Id
     -> List (Html Msg)
-processesExplorer session scope tableConfig tableState maybeId =
+processesExplorer session sector tableConfig tableState maybeId =
     let
-        scopedProcesses =
+        sectoredProcesses =
             session.db.processes
-                |> Scope.anyOf [ scope ]
+                |> Sector.anyOf [ sector ]
     in
-    [ scopedProcesses
+    [ sectoredProcesses
         |> List.sortBy Process.getDisplayName
         |> Table.viewList (.id >> Process.idToString >> OpenDetail)
             tableConfig
             tableState
-            scope
+            sector
             (Processes.table session)
     , case maybeId of
         Just id ->
             detailsModal
-                (case Process.findById id scopedProcesses of
+                (case Process.findById id sectoredProcesses of
                     Err error ->
                         alert error
 
                     Ok process ->
                         process
-                            |> Table.viewDetails scope (Processes.table session)
+                            |> Table.viewDetails sector (Processes.table session)
                 )
 
         Nothing ->
@@ -475,35 +475,35 @@ processesExplorer session scope tableConfig tableState maybeId =
 
 componentsExplorer :
     Session
-    -> Scope
+    -> Sector
     -> Table.Config Component Msg
     -> SortableTable.State
     -> Maybe Component.Id
     -> List (Html Msg)
-componentsExplorer session scope tableConfig tableState maybeId =
+componentsExplorer session sector tableConfig tableState maybeId =
     let
-        scopedComponents =
-            session.db.components |> List.filter (.scopes >> List.member scope)
+        sectoredComponents =
+            session.db.components |> List.filter (.sectors >> List.member sector)
     in
-    [ scopedComponents
+    [ sectoredComponents
         |> List.sortBy .name
         |> Table.viewList
             -- @FIXME: the need for a Maybe.withDefault here looks bad
             (.id >> Maybe.map Component.idToString >> Maybe.withDefault "" >> OpenDetail)
             tableConfig
             tableState
-            scope
+            sector
             (Components.table session)
     , case maybeId of
         Just id ->
             detailsModal
-                (case Component.findById id scopedComponents of
+                (case Component.findById id sectoredComponents of
                     Err error ->
                         alert error
 
                     Ok component ->
                         component
-                            |> Table.viewDetails scope (Components.table session)
+                            |> Table.viewDetails sector (Components.table session)
                 )
 
         Nothing ->
@@ -515,22 +515,22 @@ genericExamplesExplorer :
     Session
     -> Table.Config ( Example Component.Query, { score : Float, per100g : Float } ) Msg
     -> SortableTable.State
-    -> Scope.GenericScope
+    -> Sector.GenericSector
     -> Maybe Uuid
     -> List (Html Msg)
-genericExamplesExplorer session tableConfig tableState genericScope maybeId =
+genericExamplesExplorer session tableConfig tableState genericSector maybeId =
     let
-        scope =
-            Scope.Generic genericScope
+        sector =
+            Sector.Generic genericSector
 
         scoredExamples =
             session.db.generic.examples
-                |> List.filter (\example -> example.scope == scope)
+                |> List.filter (\example -> example.sector == sector)
                 |> List.map
                     (\example ->
                         ( example
-                        , { score = getGenericScore session scope example
-                          , per100g = getGenericScorePer100g session scope example
+                        , { score = getGenericScore session sector example
+                          , per100g = getGenericScorePer100g session sector example
                           }
                         )
                     )
@@ -555,8 +555,8 @@ genericExamplesExplorer session tableConfig tableState genericScope maybeId =
         |> Table.viewList (Tuple.first >> .id >> Data.Uuid.toString >> OpenDetail)
             tableConfig
             tableState
-            scope
-            (GenericExamples.table max genericScope)
+            sector
+            (GenericExamples.table max genericSector)
     , case maybeId of
         Just id ->
             detailsModal
@@ -566,11 +566,11 @@ genericExamplesExplorer session tableConfig tableState genericScope maybeId =
 
                     Ok example ->
                         ( example
-                        , { score = getGenericScore session scope example
-                          , per100g = getGenericScorePer100g session scope example
+                        , { score = getGenericScore session sector example
+                          , per100g = getGenericScorePer100g session sector example
                           }
                         )
-                            |> Table.viewDetails scope (GenericExamples.table max genericScope)
+                            |> Table.viewDetails sector (GenericExamples.table max genericSector)
                 )
 
         Nothing ->
@@ -616,7 +616,7 @@ textileExamplesExplorer session tableConfig tableState maybeId =
         |> Table.viewList (Tuple.first >> .id >> Data.Uuid.toString >> OpenDetail)
             tableConfig
             tableState
-            Scope.Textile
+            Sector.Textile
             (TextileExamples.table session max)
     , case maybeId of
         Just id ->
@@ -626,7 +626,7 @@ textileExamplesExplorer session tableConfig tableState maybeId =
                         alert error
 
                     Ok example ->
-                        Table.viewDetails Scope.Textile
+                        Table.viewDetails Sector.Textile
                             (TextileExamples.table session max)
                             ( example
                             , { score = getTextileScore session example
@@ -651,7 +651,7 @@ textileProductsExplorer session tableConfig tableState maybeId =
         |> Table.viewList (.id >> Product.idToString >> OpenDetail)
             tableConfig
             tableState
-            Scope.Textile
+            Sector.Textile
             (TextileProducts.table session)
     , case maybeId of
         Just id ->
@@ -661,7 +661,7 @@ textileProductsExplorer session tableConfig tableState maybeId =
                         alert error
 
                     Ok product ->
-                        Table.viewDetails Scope.Textile (TextileProducts.table session) product
+                        Table.viewDetails Sector.Textile (TextileProducts.table session) product
                 )
 
         Nothing ->
@@ -671,23 +671,23 @@ textileProductsExplorer session tableConfig tableState maybeId =
 
 productCategoriesExplorer :
     Session
-    -> Scope.GenericScope
+    -> Sector.GenericSector
     -> Table.Config ProductCategory Msg
     -> SortableTable.State
     -> Maybe ProductCategory.Id
     -> List (Html Msg)
-productCategoriesExplorer session genericScope tableConfig tableState maybeId =
+productCategoriesExplorer session genericSector tableConfig tableState maybeId =
     let
-        scope =
-            Scope.Generic genericScope
+        sector =
+            Sector.Generic genericSector
     in
     [ session.db.products
-        |> ProductCategory.findByScope genericScope
+        |> ProductCategory.findBySector genericSector
         |> Table.viewList (.id >> ProductCategory.idToString >> OpenDetail)
             tableConfig
             tableState
-            scope
-            (ProductCategories.table session genericScope)
+            sector
+            (ProductCategories.table session genericSector)
     , case maybeId of
         Just id ->
             detailsModal
@@ -696,7 +696,7 @@ productCategoriesExplorer session genericScope tableConfig tableState maybeId =
                         alert error
 
                     Ok product ->
-                        Table.viewDetails scope (ProductCategories.table session genericScope) product
+                        Table.viewDetails sector (ProductCategories.table session genericSector) product
                 )
 
         Nothing ->
@@ -712,7 +712,7 @@ textileMaterialsExplorer :
     -> List (Html Msg)
 textileMaterialsExplorer db tableConfig tableState maybeId =
     [ db.textile.materials
-        |> Table.viewList (.id >> Material.idToString >> OpenDetail) tableConfig tableState Scope.Textile (TextileMaterials.table db)
+        |> Table.viewList (.id >> Material.idToString >> OpenDetail) tableConfig tableState Sector.Textile (TextileMaterials.table db)
     , case maybeId of
         Just id ->
             detailsModal
@@ -731,7 +731,7 @@ textileMaterialsExplorer db tableConfig tableState maybeId =
 
 textileMaterialDetails : Db -> Material -> Html msg
 textileMaterialDetails db =
-    Table.viewDetails Scope.Textile (TextileMaterials.table db)
+    Table.viewDetails Sector.Textile (TextileMaterials.table db)
 
 
 getFoodScore : Db -> Example FoodQuery.Query -> Float
@@ -760,10 +760,10 @@ getFoodScorePer100g db =
         >> Result.withDefault 0
 
 
-getGenericScore : Session -> Scope -> Example Component.Query -> Float
-getGenericScore { componentConfig, db } scope { query } =
+getGenericScore : Session -> Sector -> Example Component.Query -> Float
+getGenericScore { componentConfig, db } sector { query } =
     query
-        |> GenericSimulator.compute { config = componentConfig, db = db, scope = scope }
+        |> GenericSimulator.compute { config = componentConfig, db = db, sector = sector }
         |> Result.map
             (Component.sumLifeCycleImpacts
                 >> Impact.getImpact Definition.Ecs
@@ -772,10 +772,10 @@ getGenericScore { componentConfig, db } scope { query } =
         |> Result.withDefault 0
 
 
-getGenericScorePer100g : Session -> Scope -> Example Component.Query -> Float
-getGenericScorePer100g { componentConfig, db } scope { query } =
+getGenericScorePer100g : Session -> Sector -> Example Component.Query -> Float
+getGenericScorePer100g { componentConfig, db } sector { query } =
     query
-        |> GenericSimulator.compute { config = componentConfig, db = db, scope = scope }
+        |> GenericSimulator.compute { config = componentConfig, db = db, sector = sector }
         |> Result.map
             (\lifeCycle ->
                 lifeCycle
@@ -809,7 +809,7 @@ getTextileScorePer100g { componentConfig, db } { query } =
 
 
 exploreView : Session -> Model -> List (Html Msg)
-exploreView ({ db } as session) { facetValues, scope, dataset, tableState, search } =
+exploreView ({ db } as session) { facetValues, sector, dataset, tableState, search } =
     let
         tableConfig =
             { toId = always "" -- Placeholder
@@ -826,11 +826,11 @@ exploreView ({ db } as session) { facetValues, scope, dataset, tableState, searc
             }
     in
     case dataset of
-        Dataset.Components scope_ maybeId ->
-            componentsExplorer session scope_ tableConfig tableState maybeId
+        Dataset.Components sector_ maybeId ->
+            componentsExplorer session sector_ tableConfig tableState maybeId
 
         Dataset.Countries maybeCode ->
-            countriesExplorer db tableConfig tableState scope maybeCode
+            countriesExplorer db tableConfig tableState sector maybeCode
 
         Dataset.FoodExamples maybeId ->
             foodExamplesExplorer db tableConfig tableState maybeId
@@ -838,17 +838,17 @@ exploreView ({ db } as session) { facetValues, scope, dataset, tableState, searc
         Dataset.FoodIngredients maybeId ->
             foodIngredientsExplorer db tableConfig tableState maybeId
 
-        Dataset.GenericExamples genericScope maybeId ->
-            genericExamplesExplorer session tableConfig tableState genericScope maybeId
+        Dataset.GenericExamples genericSector maybeId ->
+            genericExamplesExplorer session tableConfig tableState genericSector maybeId
 
         Dataset.Impacts maybeTrigram ->
-            impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
+            impactsExplorer db.definitions tableConfig tableState sector maybeTrigram
 
-        Dataset.Processes scope_ maybeId ->
-            processesExplorer session scope_ tableConfig tableState maybeId
+        Dataset.Processes sector_ maybeId ->
+            processesExplorer session sector_ tableConfig tableState maybeId
 
-        Dataset.ProductCategory genericScope maybeId ->
-            productCategoriesExplorer session genericScope tableConfig tableState maybeId
+        Dataset.ProductCategory genericSector maybeId ->
+            productCategoriesExplorer session genericSector tableConfig tableState maybeId
 
         Dataset.TextileExamples maybeId ->
             textileExamplesExplorer session tableConfig tableState maybeId
@@ -882,7 +882,7 @@ view session model =
     , [ Container.centered [ class "pb-3" ]
             [ div [ class "row d-flex align-item-end" ]
                 [ div [ class "col-sm-8 mb-1" ] [ h1 [] [ text "Explorateur" ] ]
-                , div [ class "col-sm-4 mt-2" ] [ scopesMenuView session model ]
+                , div [ class "col-sm-4 mt-2" ] [ sectorsMenuView session model ]
                 ]
             , div [ class "row d-flex align-items-end mt-1 mx-0 g-0" ]
                 [ div [ class "col-12 col-xl-3 col-xxl-4 border-bottom" ]

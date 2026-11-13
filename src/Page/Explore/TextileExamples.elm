@@ -3,7 +3,7 @@ module Page.Explore.TextileExamples exposing (table)
 import Data.Component as Component
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
-import Data.Scope exposing (Scope)
+import Data.Sector exposing (Sector)
 import Data.Session exposing (Session)
 import Data.Text as Text
 import Data.Textile.Product as Product
@@ -21,12 +21,12 @@ import Views.Icon as Icon
 table :
     Session
     -> { maxScore : Float, maxPer100g : Float }
-    -> { detailed : Bool, scope : Scope }
+    -> { detailed : Bool, sector : Sector }
     -> Table ( Example Query, { score : Float, per100g : Float } ) String msg
-table { db } { maxScore, maxPer100g } { detailed, scope } =
+table { db } { maxScore, maxPer100g } { detailed, sector } =
     { filename = "examples"
     , toId = Tuple.first >> .id >> Uuid.toString
-    , toRoute = Tuple.first >> .id >> Just >> Dataset.TextileExamples >> Route.Explore scope
+    , toRoute = Tuple.first >> .id >> Just >> Dataset.TextileExamples >> Route.Explore sector
     , toSearchableText = Tuple.first >> Example.toSearchableString >> Text.toSearchable
     , facets =
         [ Table.Facet "Catégorie" (Tuple.first >> .category >> List.singleton)

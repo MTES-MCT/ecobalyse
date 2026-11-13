@@ -275,7 +275,7 @@ compute ({ food } as db) =
 
 {-| Converts food well-known transport processes to generic transport configuration format.
 
-TODO: migrate food to use the new format entirely, so we have a single place to configure them for all scopes
+TODO: migrate food to use the new format entirely, so we have a single place to configure them for all sectors
 
 -}
 convertWellKnownToTransportModes : WellKnown -> Transport.ModeProcesses

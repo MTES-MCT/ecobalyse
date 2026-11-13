@@ -9,13 +9,13 @@ module Data.Country exposing
     , isEuropeOrTurkey
     , resolveMaybe
     , toSearchableString
-    , validateForScope
+    , validateForSector
     )
 
 import Data.Common.DecodeUtils as DU
 import Data.Country.Code as CountryCode exposing (Code)
 import Data.Process as Process exposing (Process)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split exposing (Split)
 import Data.Zone as Zone exposing (Zone)
 import Json.Decode as Decode exposing (Decoder)
@@ -40,7 +40,7 @@ type alias Country =
     , electricityProcess : Process
     , heatProcess : Process
     , name : String
-    , scopes : List Scope
+    , sectors : List Sector
     , zone : Zone
     }
 
@@ -61,7 +61,7 @@ decode processes =
         |> Pipe.required "electricityProcessId" (Process.decodeFromId processes)
         |> Pipe.required "heatProcessId" (Process.decodeFromId processes)
         |> Pipe.required "name" Decode.string
-        |> Pipe.optional "scopes" (Decode.list Scope.decode) [ Scope.Food, Scope.Textile ]
+        |> Pipe.optional "scopes" (Decode.list Sector.decode) [ Sector.Food, Sector.Textile ]
         |> Pipe.required "zone" Zone.decode
 
 
@@ -89,7 +89,7 @@ encode v =
         , ( "electricityProcessId", v.electricityProcess.id |> Process.idToString |> Encode.string )
         , ( "heatProcessId", v.heatProcess.id |> Process.idToString |> Encode.string )
         , ( "name", Encode.string v.name )
-        , ( "scopes", v.scopes |> Encode.list Scope.encode )
+        , ( "scopes", v.sectors |> Encode.list Sector.encode )
         ]
 
 
@@ -165,25 +165,25 @@ toSearchableString country =
         , country.name
         , country.electricityProcess |> Process.getDisplayName
         , country.heatProcess |> Process.getDisplayName
-        , country.scopes |> List.map Scope.toLabel |> String.join " "
+        , country.sectors |> List.map Sector.toLabel |> String.join " "
         , country.zone |> Zone.toLabel
         ]
 
 
-validateForScope : Scope -> List Country -> Code -> Result String Code
-validateForScope scope countries countryCode =
+validateForSector : Sector -> List Country -> Code -> Result String Code
+validateForSector sector countries countryCode =
     countries
         |> findByCode countryCode
         |> Result.andThen
-            (\{ code, scopes } ->
-                if List.member scope scopes then
+            (\{ code, sectors } ->
+                if List.member sector sectors then
                     Ok code
 
                 else
                     "Le code pays "
                         ++ CountryCode.toString countryCode
                         ++ " n’est pas utilisable dans un contexte "
-                        ++ Scope.toLabel scope
+                        ++ Sector.toLabel sector
                         ++ "."
                         |> Err
             )
