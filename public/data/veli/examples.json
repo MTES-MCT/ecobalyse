@@ -691,8 +691,7 @@
         { "id": "658611b7-4b76-4f1d-aed7-55ec11f299e3", "quantity": 1 },
         { "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a", "quantity": 1 },
         { "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85", "quantity": 1 }
-      ],
-      "product": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60"
+      ]
     },
     "scope": "veli"
   },
@@ -2086,32 +2085,26 @@
         },
         { "country": "RAS", "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a", "quantity": 1 },
         { "country": "RAS", "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85", "quantity": 1 }
-      ],
-      "product": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60"
+      ]
     },
     "scope": "veli"
   },
   {
-    "category": "Autres",
+    "category": "Pneu",
     "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767a",
     "name": "Pneu de voiture",
     "query": {
-      "assembly": {
-        "country": "REO"
-      },
+      "assembly": { "country": "REO" },
       "components": [
         {
-          "quantity": 1,
-          "name": "Pneu",
           "elements": [
             {
               "amount": 8,
-              "material": {
-                "country": "REO",
-                "id": "5f837a69-839d-4a49-9a30-19e1501ad51e"
-              }
+              "material": { "country": "REO", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
             }
-          ]
+          ],
+          "name": "Pneu",
+          "quantity": 1
         }
       ],
       "recyclable": true
@@ -2119,31 +2112,152 @@
     "scope": "veli"
   },
   {
-    "category": "Autres",
+    "category": "Pneu",
     "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767b",
     "name": "Pneu de voiture",
     "query": {
-      "assembly": {
-        "country": "FR"
-      },  
+      "assembly": { "country": "FR" },
       "components": [
         {
-          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
-          "quantity": 1,
-          "name": "Pneu + chambre velo",
           "elements": [
-            {
-              "amount": 0.8,
-              "material": "5f837a69-839d-4a49-9a30-19e1501ad51e"
-            },
+            { "amount": 0.8, "material": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
             {
               "amount": 0.2,
               "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
-              "transforms": [
-                "4a08bcab-5c25-4dec-961a-0f7208f40084"
-              ]
+              "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
             }
-          ]
+          ],
+          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+          "name": "Pneu + chambre velo",
+          "quantity": 1
+        }
+      ],
+      "recyclable": true
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "Batterie",
+    "id": "gd52aec7-d0e7-4533-bcd7-7a750bca46d1",
+    "name": "Batterie de 52kWh, NMC811, fabrication France",
+    "query": {
+      "assembly": { "country": "FR" },
+      "components": [
+        {
+          "elements": [
+            {
+              "amount": 154,
+              "material": { "country": "FR", "id": "a1f6f8a2-5398-4b32-a3d6-fc0d88ca7a28" },
+              "transforms": [
+                { "country": "FR", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9" }
+              ]
+            },
+            {
+              "amount": 32,
+              "material": { "country": "FR", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
+              ]
+            },
+            {
+              "amount": 3.6,
+              "material": { "country": "FR", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
+              "transforms": [
+                { "country": "FR", "id": "d077f06e-4ae9-48b7-8019-64523e577b95" }
+              ]
+            },
+            {
+              "amount": 53,
+              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" }
+              ]
+            },
+            {
+              "amount": 20,
+              "material": { "country": "FR", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "country": "FR", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
+              ]
+            },
+            {
+              "amount": 20,
+              "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 4.7,
+              "material": { "country": "FR", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+            }
+          ],
+          "name": "Batterie Li-ion 52kWh, NMC811, France",
+          "quantity": 1
+        }
+      ],
+      "recyclable": true
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "Batterie",
+    "id": "gd52aec7-d0e7-4533-bcd7-7a750bca46d2",
+    "name": "Batterie de 1.2kWh, NMC811, Chine",
+    "query": {
+      "assembly": { "country": "CN" },
+      "components": [
+        {
+          "elements": [
+            {
+              "amount": 3.57,
+              "material": { "country": "CN", "id": "402dc798-bcd8-47be-803a-2a93c5db1040" },
+              "transforms": [
+                { "country": "CN", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9" }
+              ]
+            },
+            {
+              "amount": 1.5,
+              "material": { "country": "CN", "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af" },
+              "transforms": [
+                { "country": "CN", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
+              ]
+            },
+            {
+              "amount": 0.3,
+              "material": { "country": "CN", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
+              "transforms": [
+                { "country": "CN", "id": "d077f06e-4ae9-48b7-8019-64523e577b95" }
+              ]
+            },
+            {
+              "amount": 1.9,
+              "material": { "country": "CN", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "CN", "id": "ea284007-49a8-4be1-95fc-452ea180285a" }
+              ]
+            },
+            {
+              "amount": 0.8,
+              "material": { "country": "CN", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "country": "CN", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
+              ]
+            },
+            {
+              "amount": 0.9,
+              "material": { "country": "CN", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "CN", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 0.6,
+              "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+            }
+          ],
+          "name": "Batterie Li-ion 1.2kWh, NMC811, Chine",
+          "quantity": 1
         }
       ],
       "recyclable": true
