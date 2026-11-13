@@ -1,7 +1,7 @@
 {
   "activityName": "Powder coating, steel {RER} U",
   "activityNameEI": "powder coat, steel//[RER] powder coating, steel",
-  "categories": ["material", "material_type:ferrous_metals"],
+  "categories": ["transformation", "material_type:ferrous_metals"],
   "comment": "",
   "displayName": "Thermolaquage acier",
   "elecKwh": 0.0,
