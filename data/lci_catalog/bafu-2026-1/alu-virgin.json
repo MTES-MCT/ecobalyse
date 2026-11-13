@@ -1,8 +1,8 @@
 {
-  "activityName": "aluminium ingot, virgin, market, FR",
+  "activityName": "Aluminium, primary, at plant {RER} U",
   "categories": ["material", "material_type:aluminium"],
   "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
-  "displayName": "Aluminium vierge, lingot, mix marché, Europe",
+  "displayName": "Aluminium vierge, lingot",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "26635537-8b40-51d3-bbc9-a3987a0f4835",
@@ -11,6 +11,6 @@
   ],
   "qtyVariationRatio": 1,
   "scopes": ["object", "veli"],
-  "source": "Ecobalyse_custom_lci",
+  "source": "BAFU 2025v2",
   "unit": "kg"
 }
