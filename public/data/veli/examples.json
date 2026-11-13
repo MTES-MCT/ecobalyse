@@ -2090,5 +2090,64 @@
       "product": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60"
     },
     "scope": "veli"
+  },
+  {
+    "category": "Autres",
+    "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767a",
+    "name": "Pneu de voiture",
+    "query": {
+      "assembly": {
+        "country": "REO"
+      },
+      "components": [
+        {
+          "quantity": 1,
+          "name": "Pneu",
+          "elements": [
+            {
+              "amount": 8,
+              "material": {
+                "country": "REO",
+                "id": "5f837a69-839d-4a49-9a30-19e1501ad51e"
+              }
+            }
+          ]
+        }
+      ],
+      "recyclable": true
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "Autres",
+    "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767b",
+    "name": "Pneu de voiture",
+    "query": {
+      "assembly": {
+        "country": "FR"
+      },  
+      "components": [
+        {
+          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+          "quantity": 1,
+          "name": "Pneu + chambre velo",
+          "elements": [
+            {
+              "amount": 0.8,
+              "material": "5f837a69-839d-4a49-9a30-19e1501ad51e"
+            },
+            {
+              "amount": 0.2,
+              "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
+              "transforms": [
+                "4a08bcab-5c25-4dec-961a-0f7208f40084"
+              ]
+            }
+          ]
+        }
+      ],
+      "recyclable": true
+    },
+    "scope": "veli"
   }
 ]
