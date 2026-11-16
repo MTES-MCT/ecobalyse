@@ -71,50 +71,13 @@ datasets sector =
 
 datasetsGeneric : Sector.GenericSector -> List Dataset
 datasetsGeneric sector =
-    case sector of
-        Sector.Apparel ->
-            [ GenericExamples sector Nothing
-            , Components (Sector.Generic sector) Nothing
-            , Countries Nothing
-            , Processes (Sector.Generic sector) Nothing
-            , Impacts Nothing
-            , ProductCategory sector Nothing
-            ]
-
-        Sector.Food2 ->
-            [ GenericExamples sector Nothing
-            , Impacts Nothing
-            , Countries Nothing
-            , Processes (Sector.Generic sector) Nothing
-            , ProductCategory sector Nothing
-            ]
-
-        Sector.Furniture ->
-            [ GenericExamples sector Nothing
-            , Components (Sector.Generic sector) Nothing
-            , Impacts Nothing
-            , Countries Nothing
-            , Processes (Sector.Generic sector) Nothing
-            , ProductCategory sector Nothing
-            ]
-
-        Sector.Object ->
-            [ GenericExamples sector Nothing
-            , Components (Sector.Generic sector) Nothing
-            , Countries Nothing
-            , Processes (Sector.Generic sector) Nothing
-            , Impacts Nothing
-            , ProductCategory sector Nothing
-            ]
-
-        Sector.Veli ->
-            [ GenericExamples sector Nothing
-            , Components (Sector.Generic sector) Nothing
-            , Countries Nothing
-            , Impacts Nothing
-            , Processes (Sector.Generic sector) Nothing
-            , ProductCategory sector Nothing
-            ]
+    [ GenericExamples sector Nothing
+    , Components (Sector.Generic sector) Nothing
+    , Countries Nothing
+    , Processes (Sector.Generic sector) Nothing
+    , Impacts Nothing
+    , ProductCategory sector Nothing
+    ]
 
 
 defaultDatasetFor : Sector -> Dataset
