@@ -1,9 +1,9 @@
 {
   "activityName": "Epoxy resin, liquid, at plant {RER} U",
   "activityNameEI": "epoxy resin, liquid//[RER] epoxy resin production, liquid",
-  "categories": ["material", "material_type:wood"],
+  "categories": ["material", "material_type:wood", "material_type:composites"],
   "comment": "",
-  "displayName": "Revêtement bois (résine epoxy)",
+  "displayName": "Résine epoxy",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "67c54f19-a6d0-5739-825e-a335ea66d0a8",

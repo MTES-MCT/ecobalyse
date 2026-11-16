@@ -1,0 +1,39 @@
+{
+  "categories": ["transformation", "material_type:composites"],
+  "comment": "",
+  "displayName": "Bleed-out résine en cuisson",
+  "elecKwh": 0.0,
+  "heatMJ": 0.0,
+  "id": "3cd6a70f-c0c6-4c89-8b8b-e1d2faa2b48e",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "16c6b066-2a17-4ef9-8e25-42ac8723a08e",
+      "scopes": ["furniture", "object", "veli"]
+    }
+  ],
+  "qtyVariationRatio": 0.75,
+  "scopes": ["furniture", "object", "veli"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}
