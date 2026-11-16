@@ -3,6 +3,7 @@ const request = require("supertest");
 const fixtureDataDir = `${__dirname}/../tests/fixtures`;
 const app = require("../server");
 const textileExamples = require(`${fixtureDataDir}/textile/examples.json`);
+const sectors = require("../lib/sectors");
 
 const e2eOutput = { food: [], textile: [] };
 
@@ -1057,7 +1058,7 @@ describe("API", () => {
       });
     });
 
-    for (const sector of ["food2", "object", "veli"]) {
+    for (const sector of sectors.GENERIC_SECTORS) {
       describe(`/${sector}/simulator`, () => {
         it("should accept an empty query", async () => {
           const response = await makePostRequest(`/api/${sector}/simulator`, {});
