@@ -9,16 +9,12 @@
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Electricity, medium voltage, aluminium industry, at grid {GLO} U"
-          },
+          "from": { "name": "Electricity, medium voltage, aluminium industry, at grid {GLO} U" },
           "to": { "name": "Electricity, medium voltage, at grid {CN} U" }
         }
       ],
       "upstreamPath": [
-        {
-          "name": "Aluminium, primary, liquid, at plant {RER} U"
-        }
+        { "name": "Aluminium, primary, liquid, at plant {RER} U" }
       ]
     }
   },
@@ -32,16 +28,12 @@
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Electricity, medium voltage, aluminium industry, at grid {GLO} U"
-          },
+          "from": { "name": "Electricity, medium voltage, aluminium industry, at grid {GLO} U" },
           "to": { "name": "Electricity, medium voltage, at grid {RER} U" }
         }
       ],
       "upstreamPath": [
-        {
-          "name": "Aluminium, primary, liquid, at plant {RER} U"
-        }
+        { "name": "Aluminium, primary, liquid, at plant {RER} U" }
       ]
     }
   },
@@ -51,12 +43,8 @@
     "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. France is used as a reference for Europe. Details in documentation",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      { "amount": 0.56,
-        "name": "aluminium ingot, virgin, RER" },
-      {
-        "amount": 0.44,
-        "name": "aluminium ingot, recycled, RER, CFF"
-      }
+      { "amount": 0.56, "name": "aluminium ingot, virgin, RER" },
+      { "amount": 0.44, "name": "aluminium ingot, recycled, RER, CFF" }
     ],
     "location": "RER",
     "newName": "aluminium ingot, market, RER"
@@ -2335,10 +2323,7 @@
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
       { "amount": 0.81, "name": "aluminium ingot, virgin, RoW" },
-      {
-        "amount": 0.19,
-        "name": "aluminium ingot, recycled, RoW, CFF"
-      }
+      { "amount": 0.19, "name": "aluminium ingot, recycled, RoW, CFF" }
     ],
     "location": "RoW",
     "newName": "aluminium ingot, market, RoW"
@@ -2400,7 +2385,11 @@
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
       { "amount": 0.8, "name": "aluminium ingot, virgin, RER" },
-      { "amount": 0.2, "database": "BAFU 2025v2", "name": "Aluminium, secondary, from old scrap, at plant {RER} U" }
+      {
+        "amount": 0.2,
+        "database": "BAFU 2025v2",
+        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
+      }
     ],
     "location": "RER",
     "newName": "aluminium ingot, recycled, RER, CFF"
@@ -2412,7 +2401,11 @@
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
       { "amount": 0.8, "name": "aluminium ingot, virgin, RoW" },
-      { "amount": 0.2, "database": "BAFU 2025v2", "name": "Aluminium, secondary, from old scrap, at plant {RER} U" }
+      {
+        "amount": 0.2,
+        "database": "BAFU 2025v2",
+        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
+      }
     ],
     "location": "RER",
     "newName": "aluminium ingot, recycled, RER, CFF"
