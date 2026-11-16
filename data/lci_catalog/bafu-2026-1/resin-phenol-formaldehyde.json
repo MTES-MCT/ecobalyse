@@ -8,10 +8,13 @@
   "heatMJ": 0,
   "id": "4e95ba82-1de2-52e4-b259-ec0a8654edc9",
   "metadata": [
-    { "id": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d", "scopes": ["object", "veli"] }
+    {
+      "id": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d",
+      "scopes": ["furniture", "object", "veli"]
+    }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["object", "veli"],
+  "scopes": ["furniture", "object", "veli"],
   "source": "BAFU 2025v2",
   "unit": "kg"
 }

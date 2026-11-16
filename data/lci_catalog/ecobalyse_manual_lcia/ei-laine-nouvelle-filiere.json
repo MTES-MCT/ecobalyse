@@ -36,11 +36,11 @@
       "name": "Laine nouvelle filière",
       "origin": "NaturalFromAnimal",
       "primary": true,
-      "scopes": ["apparel", "object", "textile"]
+      "scopes": ["apparel", "furniture", "object", "textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["apparel", "object", "textile"],
+  "scopes": ["apparel", "furniture", "object", "textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

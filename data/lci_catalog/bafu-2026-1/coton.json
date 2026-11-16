@@ -17,11 +17,11 @@
       "name": "Coton",
       "origin": "NaturalFromVegetal",
       "primary": true,
-      "scopes": ["apparel", "object", "textile"]
+      "scopes": ["apparel", "furniture", "object", "textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["apparel", "textile", "object"],
+  "scopes": ["apparel", "textile", "furniture", "object"],
   "source": "BAFU 2025v2",
   "unit": "kg"
 }

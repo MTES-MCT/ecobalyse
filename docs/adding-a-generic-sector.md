@@ -190,7 +190,7 @@ ce qui permet d'implémenter les fonctions `sectorToComponent`, `sectorToExample
 
 #### Main
 
-Compléter la fonction `loadDataForSector` du module [`Main`](../src/Main.elm) en ajoutant les trois URLs des fichiers JSON correspondant à charger :
+Compléter la fonction `sectorGenericLoadData` du module [`Main`](../src/Main.elm) en ajoutant les trois URLs des fichiers JSON correspondant à charger :
 
 ```elm
     Sector.Generic Sector.Flowers ->
@@ -249,7 +249,7 @@ Si vous décidez d'ajouter des catégories ou des composants à ce stade, vérif
 
 #### Request.Db
 
-Dans le module [`Request.Db`](../src/Request/Db.elm), initialiser l'état de chargement des trois fichiers et les enchaîner dans `resolve` **dans le même ordre** :
+Dans le module [`Request.Db`](../src/Request/Db.elm), initialiser l'état de chargement des trois fichiers dans `initLoadingState` et les enchaîner dans `resolve` **dans le même ordre** :
 
 ```elm
     , flowersComponents = RemoteData.NotAsked
@@ -384,7 +384,7 @@ Les libellés et terminologies spécifiques à un secteur pour affichage dans l'
 
 ### Explorateur
 
-La fonction `sectorMenuView` du module [`Page.Explore`](../src/Page/Explore.elm) doit également être mise à jour pour activer la nouvelle entrée `Fleurs` dans le sélecteur de verticale :
+La fonction `sectorsMenuView` du module [`Page.Explore`](../src/Page/Explore.elm) doit également être mise à jour pour activer la nouvelle entrée `Fleurs` dans le sélecteur de verticale :
 
 ```elm
         , [ ( Sector.Food, enabledSections.food )

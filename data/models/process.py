@@ -14,6 +14,7 @@ class Scope(str, Enum):
     apparel = "apparel"
     food = "food"
     food2 = "food2"
+    furniture = "furniture"
     object = "object"
     textile = "textile"
     veli = "veli"
@@ -22,6 +23,7 @@ class Scope(str, Enum):
 class GenericScope(str, Enum):
     apparel = "apparel"
     food2 = "food2"
+    furniture = "furniture"
     object = "object"
     veli = "veli"
 

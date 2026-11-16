@@ -9,11 +9,11 @@
   "metadata": [
     {
       "id": "27adfc6e-bbf2-4d94-bea4-a5e0ad1fe074",
-      "scopes": ["apparel", "object", "food2", "veli"]
+      "scopes": ["apparel", "furniture", "object", "food2", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["apparel", "food2", "object", "textile", "veli"],
+  "scopes": ["apparel", "food2", "furniture", "object", "textile", "veli"],
   "source": "BAFU 2025v2",
   "unit": "MJ"
 }
