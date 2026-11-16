@@ -1,17 +1,20 @@
 {
-  "activityName": "Powder coating, steel {RER} U",
-  "activityNameEI": "powder coat, steel//[RER] powder coating, steel",
+  "activityName": "powder coating, steel, adapted from BAFU",
   "categories": ["transformation", "material_type:ferrous_metals"],
   "comment": "",
   "displayName": "Thermolaquage acier",
-  "elecKwh": 0.0,
-  "heatMJ": 0,
+  "elecKwh": 0.24,
+  "heatMJ": 6.4,
   "id": "bef7a8c2-24f1-596c-b0c8-2759eef42e05",
   "metadata": [
+<<<<<<< HEAD:data/lci_catalog/bafu-2026-1/steel-powder-coating.json
     {
       "id": "a8a6df0f-483f-4690-b21f-01a0b6993637",
       "scopes": ["furniture", "object", "veli"]
     }
+=======
+    { "id": "a8a6df0f-483f-4690-b21f-01a0b6993637", "scopes": ["furniture", "object", "veli"] }
+>>>>>>> ebb50688 (add powder coating and furniture scope):data/lci_catalog/ecobalyse_custom_lci/coating-powder-steel.json
   ],
   "qtyVariationRatio": 1,
   "scopes": ["furniture", "object", "veli"],

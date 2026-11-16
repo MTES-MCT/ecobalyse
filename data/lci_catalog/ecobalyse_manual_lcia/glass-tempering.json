@@ -27,10 +27,10 @@
     "wtu": 0
   },
   "metadata": [
-    { "id": "27a35f6d-acfa-4a44-8d96-2bc8f4658033", "scopes": ["object", "veli"] }
+    { "id": "27a35f6d-acfa-4a44-8d96-2bc8f4658033", "scopes": ["furniture", "object", "veli"] }
   ],
   "qtyVariationRatio": 0.89,
-  "scopes": ["object", "veli"],
+  "scopes": ["furniture", "object", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }
