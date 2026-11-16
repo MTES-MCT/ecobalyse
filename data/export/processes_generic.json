@@ -31752,7 +31752,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["furniture", "object", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kg",
     "visible": true
