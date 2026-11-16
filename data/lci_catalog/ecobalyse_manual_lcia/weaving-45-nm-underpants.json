@@ -1,0 +1,15 @@
+{
+  "categories": ["transformation"],
+  "comment": "Tissage exprimé par kg de fil entrant (perte au tissage de 6,25 %, qtyVariationRatio 0,9375). Électricité calculée avec la formule Ecobalyse du tissage (Formula.weavingImpacts), ramenée à la masse entrante. Calcul pour 1 kg de tissu sorti : duitage = 45 × 1000 / 2 / 1,08 = 20 833 duites/m ; électricité = 0,0003145 × 20 833 = 6,552 kWh/kg sorti. Ramené à 1 kg entrant : 6,552 × 0,9375 = 6,142 kWh/kg entrant.",
+  "displayName": "Tissage pour caleçon (45Nm)",
+  "elecKwh": 6.142,
+  "heatMJ": 0,
+  "id": "c826abc3-22fb-4b4a-a683-d2f6dec8e0e8",
+  "metadata": [
+    { "id": "82d72712-c959-4cd7-8e1f-96d2c4e0199c", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 0.9375,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}
