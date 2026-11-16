@@ -181,7 +181,7 @@ La lingerie présente des difficultés de modélisation spécifiques : un soutie
 | **Statut**             | 🔴 Arbitrage en attente — clarification des orientations européennes nécessaire |
 | **Échéance envisagée** | Proposition méthodologique premier semestre 2027 _(sous réserve)_               |
 
-**Enjeu** L'objectif est de mieux prendre en compte la résistance physique et la robustesse des produits textiles dans le temps. Plusieurs référentiels sont étudiés : PEFCR, norme NF G30-113-1, autres méthodes pertinentes.
+**Enjeu** L'objectif est de prendre en compte la résistance physique des produits textiles dans le temps. Plusieurs référentiels sont étudiés : PEFCR, norme NF G30-113-1, autres méthodes pertinentes.
 
 **Orientation envisagée** _(non validée)_
 
@@ -189,7 +189,7 @@ La lingerie présente des difficultés de modélisation spécifiques : un soutie
 * En l'absence de données renseignées, un coefficient défavorable serait appliqué (valeur évoquée : **0,67 pour les grandes entreprises**, avec des exceptions envisagées pour les TPE/PME).
 * **Ces modalités restent à confirmer et ne sont pas définitivement arbitrées.**
 
-**Point de vigilance** L'enjeu principal est d'éviter de créer une méthode française en doublon avec les travaux européens (ESPR notamment). Des discussions sont engagées avec les interlocuteurs européens. Les échanges prévus doivent permettre de préciser les orientations.
+**Point de vigilance** L'enjeu principal est d'éviter de créer une méthode française en doublon avec les travaux européens (ESPR notamment). Nous sommes actuellement en l'attente du rapport d'impact assessment mené sur la durabilité par le JRC, qui devrait être publié début 2027.
 
 **Prochaines étapes** _(une fois les orientations européennes clarifiées)_
 
