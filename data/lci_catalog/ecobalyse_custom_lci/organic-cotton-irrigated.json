@@ -16,7 +16,7 @@
       "name": "Coton biologique",
       "origin": "NaturalFromVegetal",
       "primary": true,
-      "scopes": ["apparel", "textile"]
+      "scopes": ["apparel", "furniture", "object", "textile"]
     }
   ],
   "qtyVariationRatio": 1,

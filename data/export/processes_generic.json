@@ -43478,7 +43478,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["apparel"],
+    "scopes": ["apparel", "furniture", "object"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
