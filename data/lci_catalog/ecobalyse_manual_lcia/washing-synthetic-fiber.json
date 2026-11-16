@@ -27,10 +27,13 @@
     "wtu": 0
   },
   "metadata": [
-    { "id": "b9db938c-725f-4c14-a313-d73a8aa7391f", "scopes": ["object", "veli"] }
+    {
+      "id": "b9db938c-725f-4c14-a313-d73a8aa7391f",
+      "scopes": ["furniture", "object", "veli"]
+    }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["apparel", "object", "textile", "veli"],
+  "scopes": ["apparel", "furniture", "object", "textile", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

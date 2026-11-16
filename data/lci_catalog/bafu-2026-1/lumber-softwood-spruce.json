@@ -14,25 +14,25 @@
       "displayName": "Bois d'oeuvre (Résineux / Epicea) plantation intensive",
       "forestManagement": "intensivePlantation",
       "id": "53e21f32-88b5-4fb5-96ec-724276519a85",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     },
     {
       "alias": "spruce-softwood-sustainable-management",
       "displayName": "Bois d'oeuvre (Résineux / Epicea) gestion durable",
       "forestManagement": "sustainableManagement",
       "id": "db2d4e64-d79d-417c-abe5-7f6c14b974b5",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     },
     {
       "alias": "spruce-softwood-certified-sustainable-management",
       "displayName": "Bois d'oeuvre (Résineux / Epicea) gestion durable certifiée",
       "forestManagement": "certifiedSustainableManagement",
       "id": "e851186c-ee0c-4de2-b96e-49bc2409184c",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["object", "veli"],
+  "scopes": ["furniture", "object", "veli"],
   "source": "BAFU 2025v2",
   "unit": "m3"
 }

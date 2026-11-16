@@ -13,9 +13,17 @@ const {
 describe("lib.sectors", () => {
   describe("ALL_SECTORS", () => {
     test("should list legacy and generic sectors", () => {
-      expect(ALL_SECTORS).toEqual(["apparel", "food", "food2", "object", "textile", "veli"]);
+      expect(ALL_SECTORS).toEqual([
+        "apparel",
+        "food",
+        "food2",
+        "furniture",
+        "object",
+        "textile",
+        "veli",
+      ]);
       expect(LEGACY_SECTORS).toEqual(["food", "textile"]);
-      expect(GENERIC_SECTORS).toEqual(["apparel", "food2", "object", "veli"]);
+      expect(GENERIC_SECTORS).toEqual(["apparel", "food2", "furniture", "object", "veli"]);
     });
   });
 
@@ -36,6 +44,7 @@ describe("lib.sectors", () => {
   describe("parseGenericSectorFromUrl", () => {
     test.each([
       ["/apparel/countries", "apparel"],
+      ["/furniture/countries", "furniture"],
       ["/food2/countries", "food2"],
       ["/object/simulator", "object"],
       ["/veli/processes/assembly", "veli"],

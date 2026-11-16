@@ -71,41 +71,13 @@ datasets sector =
 
 datasetsGeneric : Sector.GenericSector -> List Dataset
 datasetsGeneric sector =
-    case sector of
-        Sector.Apparel ->
-            [ GenericExamples sector Nothing
-            , Components (Sector.Generic sector) Nothing
-            , Countries Nothing
-            , Processes (Sector.Generic sector) Nothing
-            , Impacts Nothing
-            , ProductCategory sector Nothing
-            ]
-
-        Sector.Food2 ->
-            [ GenericExamples sector Nothing
-            , Impacts Nothing
-            , Countries Nothing
-            , Processes (Sector.Generic sector) Nothing
-            , ProductCategory sector Nothing
-            ]
-
-        Sector.Object ->
-            [ GenericExamples sector Nothing
-            , Components (Sector.Generic sector) Nothing
-            , Countries Nothing
-            , Processes (Sector.Generic sector) Nothing
-            , Impacts Nothing
-            , ProductCategory sector Nothing
-            ]
-
-        Sector.Veli ->
-            [ GenericExamples sector Nothing
-            , Components (Sector.Generic sector) Nothing
-            , Countries Nothing
-            , Impacts Nothing
-            , Processes (Sector.Generic sector) Nothing
-            , ProductCategory sector Nothing
-            ]
+    [ GenericExamples sector Nothing
+    , Components (Sector.Generic sector) Nothing
+    , Countries Nothing
+    , Processes (Sector.Generic sector) Nothing
+    , Impacts Nothing
+    , ProductCategory sector Nothing
+    ]
 
 
 defaultDatasetFor : Sector -> Dataset
@@ -210,6 +182,9 @@ componentGenericDatasetToString sector =
         Sector.Food2 ->
             "food2-components"
 
+        Sector.Furniture ->
+            "furniture-components"
+
         Sector.Object ->
             "object-components"
 
@@ -239,6 +214,9 @@ processesDatasetGenericToString sector =
         Sector.Food2 ->
             "food2-processes"
 
+        Sector.Furniture ->
+            "furniture-processes"
+
         Sector.Object ->
             "object-processes"
 
@@ -255,6 +233,9 @@ examplesDatasetToString sector =
         Sector.Food2 ->
             "food2-examples"
 
+        Sector.Furniture ->
+            "furniture-examples"
+
         Sector.Object ->
             "object-examples"
 
@@ -270,6 +251,9 @@ productCategoryDatasetToString sector =
 
         Sector.Food2 ->
             "food2-product-categories"
+
+        Sector.Furniture ->
+            "furniture-product-categories"
 
         Sector.Object ->
             "object-product-categories"

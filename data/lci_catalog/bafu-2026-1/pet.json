@@ -18,18 +18,18 @@
       "name": "Polyester",
       "origin": "Synthetic",
       "primary": true,
-      "scopes": ["apparel", "object", "textile"]
+      "scopes": ["apparel", "furniture", "object", "textile"]
     },
     {
       "alias": "plastic-pellets-pet",
       "categories": ["material", "material_type:pet"],
       "displayName": "Plastique PET, granulés",
       "id": "0e4122f6-f1ce-4d80-afbb-5e366402d8e6",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["apparel", "textile", "object", "veli"],
+  "scopes": ["apparel", "textile", "furniture", "object", "veli"],
   "source": "BAFU 2025v2",
   "unit": "kg"
 }

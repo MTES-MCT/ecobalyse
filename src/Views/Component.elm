@@ -168,6 +168,21 @@ sectorLabels context sector =
                     , select = "Sélectionnez un ingrédient"
                     }
 
+                Sector.Generic Sector.Furniture ->
+                    { add = "Ajouter un matériau"
+                    , addElement = "Ajouter un sous-matériau"
+                    , elementNoun = "Sous-matériau"
+                    , elementNounPlural = "Sous-matériaux"
+                    , empty = "Aucun matériau"
+                    , itemLabelCaption = "Libellé du matériau"
+                    , itemName = "Nom du matériau"
+                    , noun = "Matériau"
+                    , nounPlural = "Matériaux"
+                    , productionHeading = "Production des matériaux"
+                    , search = "tapez ici le nom du matériau pour le rechercher"
+                    , select = "Sélectionnez un matériau"
+                    }
+
                 _ ->
                     { add = "Ajouter un matériau"
                     , addElement = "Ajouter un sous-matériau"

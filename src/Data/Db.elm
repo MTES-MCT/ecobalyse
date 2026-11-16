@@ -48,6 +48,9 @@ type alias Properties a =
     , food2ProductCategories : a
     , foodIngredients : a
     , foodProductExamples : a
+    , furnitureComponents : a
+    , furnitureExamples : a
+    , furnitureProductCategories : a
     , objectComponents : a
     , objectExamples : a
     , objectProductCategories : a
@@ -161,6 +164,9 @@ sectorGenericComponents json sector =
         Sector.Food2 ->
             json.food2Components
 
+        Sector.Furniture ->
+            json.furnitureComponents
+
         Sector.Object ->
             json.objectComponents
 
@@ -177,6 +183,9 @@ sectorGenericExamples json sector =
         Sector.Food2 ->
             json.food2Examples
 
+        Sector.Furniture ->
+            json.furnitureExamples
+
         Sector.Object ->
             json.objectExamples
 
@@ -192,6 +201,9 @@ sectorGenericProductCategories json sector =
 
         Sector.Food2 ->
             json.food2ProductCategories
+
+        Sector.Furniture ->
+            json.furnitureProductCategories
 
         Sector.Object ->
             json.objectProductCategories
@@ -213,6 +225,9 @@ buildFromStrings strings =
         , food2ProductCategories = rawJsonString strings.food2ProductCategories
         , foodIngredients = rawJsonString strings.foodIngredients
         , foodProductExamples = rawJsonString strings.foodProductExamples
+        , furnitureComponents = rawJsonString strings.furnitureComponents
+        , furnitureExamples = rawJsonString strings.furnitureExamples
+        , furnitureProductCategories = rawJsonString strings.furnitureProductCategories
         , objectComponents = rawJsonString strings.objectComponents
         , objectExamples = rawJsonString strings.objectExamples
         , objectProductCategories = rawJsonString strings.objectProductCategories
@@ -274,6 +289,12 @@ sectorGenericPropGetters sector =
             [ .food2ProductCategories
             , .food2Components
             , .food2Examples
+            ]
+
+        Sector.Furniture ->
+            [ .furnitureProductCategories
+            , .furnitureComponents
+            , .furnitureExamples
             ]
 
         Sector.Object ->
