@@ -14,7 +14,7 @@ import Data.Impact as Impact
 import Data.Key as Key
 import Data.Notification as Notification exposing (Notification)
 import Data.Plausible as Plausible
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
@@ -144,7 +144,7 @@ loadData sessionConfig =
      , ( "/data/transports.json", \data raw -> { raw | transports = data } )
      , ( "/data/processes.json", \data raw -> { raw | processes = data } )
      ]
-        ++ List.concatMap scopeLoadData Scope.all
+        ++ List.concatMap sectorLoadData Sector.all
     )
         |> List.map
             (\( path, onLoaded ) ->
@@ -153,18 +153,18 @@ loadData sessionConfig =
         |> Cmd.batch
 
 
-scopeLoadData : Scope -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
-scopeLoadData scope =
-    case scope of
-        Scope.Food ->
+sectorLoadData : Sector -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
+sectorLoadData sector =
+    case sector of
+        Sector.Food ->
             [ ( "/data/food/ingredients.json", \data raw -> { raw | foodIngredients = data } )
             , ( "/data/food/examples.json", \data raw -> { raw | foodProductExamples = data } )
             ]
 
-        Scope.Generic genericScope ->
-            scopeGenericLoadData genericScope
+        Sector.Generic genericSector ->
+            sectorGenericLoadData genericSector
 
-        Scope.Textile ->
+        Sector.Textile ->
             [ ( "/data/textile/components.json", \data raw -> { raw | textileComponents = data } )
             , ( "/data/textile/examples.json", \data raw -> { raw | textileProductExamples = data } )
             , ( "/data/textile/materials.json", \data raw -> { raw | textileMaterials = data } )
@@ -172,28 +172,28 @@ scopeLoadData scope =
             ]
 
 
-scopeGenericLoadData : Scope.GenericScope -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
-scopeGenericLoadData scope =
-    case scope of
-        Scope.Apparel ->
+sectorGenericLoadData : Sector.GenericSector -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
+sectorGenericLoadData sector =
+    case sector of
+        Sector.Apparel ->
             [ ( "/data/apparel/categories.json", \data raw -> { raw | apparelProductCategories = data } )
             , ( "/data/apparel/components.json", \data raw -> { raw | apparelComponents = data } )
             , ( "/data/apparel/examples.json", \data raw -> { raw | apparelExamples = data } )
             ]
 
-        Scope.Food2 ->
+        Sector.Food2 ->
             [ ( "/data/food2/components.json", \data raw -> { raw | food2Components = data } )
             , ( "/data/food2/categories.json", \data raw -> { raw | food2ProductCategories = data } )
             , ( "/data/food2/examples.json", \data raw -> { raw | food2Examples = data } )
             ]
 
-        Scope.Object ->
+        Sector.Object ->
             [ ( "/data/object/categories.json", \data raw -> { raw | objectProductCategories = data } )
             , ( "/data/object/components.json", \data raw -> { raw | objectComponents = data } )
             , ( "/data/object/examples.json", \data raw -> { raw | objectExamples = data } )
             ]
 
-        Scope.Veli ->
+        Sector.Veli ->
             [ ( "/data/veli/categories.json", \data raw -> { raw | veliProductCategories = data } )
             , ( "/data/veli/components.json", \data raw -> { raw | veliComponents = data } )
             , ( "/data/veli/examples.json", \data raw -> { raw | veliExamples = data } )
@@ -309,8 +309,8 @@ setRoute url session currentPage ( model, cmds ) =
             Editorial.init slug session
                 |> toPage model cmds EditorialPage EditorialMsg
 
-        Just (Route.Explore scope dataset) ->
-            Explore.init scope dataset session
+        Just (Route.Explore sector dataset) ->
+            Explore.init sector dataset session
                 |> toPage model cmds ExplorePage ExploreMsg
 
         Just (Route.FoodBuilder trigram maybeQuery) ->
@@ -325,20 +325,20 @@ setRoute url session currentPage ( model, cmds ) =
             FoodBuilder.init session Impact.default Nothing
                 |> toPage model cmds FoodBuilderPage FoodBuilderMsg
 
-        Just (Route.GenericSimulator genericScope trigram maybeQuery) ->
-            GenericSimulator.init genericScope trigram maybeQuery session
+        Just (Route.GenericSimulator genericSector trigram maybeQuery) ->
+            GenericSimulator.init genericSector trigram maybeQuery session
                 |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
 
-        Just (Route.GenericSimulatorExample genericScope uuid) ->
-            GenericSimulator.initFromExample session genericScope uuid
+        Just (Route.GenericSimulatorExample genericSector uuid) ->
+            GenericSimulator.initFromExample session genericSector uuid
                 |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
 
         Just Route.Home ->
             Home.init session
                 |> toPage model cmds HomePage HomeMsg
 
-        Just (Route.GenericSimulatorHome genericScope) ->
-            GenericSimulator.init genericScope Impact.default Nothing session
+        Just (Route.GenericSimulatorHome genericSector) ->
+            GenericSimulator.init genericSector Impact.default Nothing session
                 |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
 
         Just Route.Stats ->
@@ -885,7 +885,7 @@ view { dbLoadingState, feedbackModalOpen, flags, mobileNavigationOpened, state, 
                 GenericSimulatorPage simulatorModel ->
                     GenericSimulator.view session simulatorModel
                         |> mapMsg GenericSimulatorMsg
-                        |> frame (Page.Generic simulatorModel.genericScope)
+                        |> frame (Page.Generic simulatorModel.genericSector)
 
                 HomePage _ ->
                     Home.view session

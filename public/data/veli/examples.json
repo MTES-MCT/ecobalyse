@@ -2091,7 +2091,6 @@
   },
   {
     "category": "Pneu",
-    "durability": 0.75,
     "id": "fc3bf2f9-7a94-4f4f-8100-8f286aea3a70",
     "name": "Pneu de voiture, 30 000 km",
     "query": {
@@ -2108,13 +2107,13 @@
           "quantity": 1
         }
       ],
+      "durability": 0.75,
       "recyclable": true
     },
     "scope": "veli"
   },
   {
     "category": "Pneu",
-    "durability": 1.5,
     "id": "fc3bf2f9-7a94-4f4f-8100-8f286aea3a71",
     "name": "Pneu de voiture, 60 000 km",
     "query": {
@@ -2131,6 +2130,7 @@
           "quantity": 1
         }
       ],
+      "durability": 1.5,
       "recyclable": true
     },
     "scope": "veli"
@@ -2232,7 +2232,6 @@
   },
   {
     "category": "Batterie",
-    "durability": 0.56,
     "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767b",
     "name": "Batterie de 1.2kWh, NMC811, Chine",
     "query": {
@@ -2291,6 +2290,7 @@
           "quantity": 1
         }
       ],
+      "durability": 0.56,
       "recyclable": true
     },
     "scope": "veli"

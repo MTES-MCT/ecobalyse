@@ -6,7 +6,7 @@ module Data.Component.ProductCategory exposing
     , encode
     , encodeId
     , findById
-    , findByScope
+    , findBySector
     , idFromString
     , idToString
     , toSearchableString
@@ -16,7 +16,7 @@ import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Component.Consumption as Consumption exposing (Consumption)
 import Data.Process as Process
-import Data.Scope as Scope
+import Data.Sector as Sector
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -38,7 +38,7 @@ type alias ProductCategory =
     , distribution : Maybe Process.Id
     , id : Id
     , label : String
-    , scope : Scope.GenericScope
+    , sector : Sector.GenericSector
     }
 
 
@@ -51,7 +51,7 @@ decode =
         |> DU.strictOptional "distribution" Process.decodeId
         |> Pipe.required "id" decodeId
         |> Pipe.required "label" Decode.string
-        |> Pipe.required "scope" Scope.decodeGeneric
+        |> Pipe.required "scope" Sector.decodeGeneric
 
 
 decodeId : Decoder Id
@@ -105,9 +105,9 @@ findById id =
         >> Result.fromMaybe ("Catégorie de produit introuvable id=" ++ idToString id ++ ".")
 
 
-findByScope : Scope.GenericScope -> List ProductCategory -> List ProductCategory
-findByScope genericScope =
-    List.filter (.scope >> (==) genericScope)
+findBySector : Sector.GenericSector -> List ProductCategory -> List ProductCategory
+findBySector genericSector =
+    List.filter (.sector >> (==) genericSector)
 
 
 idFromString : String -> Result String Id
@@ -125,5 +125,5 @@ toSearchableString product =
     String.join " "
         [ idToString product.id
         , product.label
-        , Scope.toStringGeneric product.scope
+        , Sector.toStringGeneric product.sector
         ]

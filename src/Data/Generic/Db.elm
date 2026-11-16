@@ -3,7 +3,7 @@ module Data.Generic.Db exposing
     , buildFromJson
     )
 
-{-| Note: The generic database holds examples all generic scopes
+{-| Note: The generic database holds examples all generic sectors
 -}
 
 import Data.Component as Component

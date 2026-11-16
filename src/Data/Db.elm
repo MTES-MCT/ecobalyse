@@ -17,7 +17,7 @@ import Data.Generic.Db as GenericDb
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport exposing (Distances)
 import Json.Decode as Decode
@@ -80,8 +80,8 @@ build json =
             (\processes ->
                 Ok Db
                     |> RE.andMap
-                        (Scope.all
-                            |> List.filterMap (scopeComponents json)
+                        (Sector.all
+                            |> List.filterMap (sectorComponents json)
                             |> List.map (extractJsonString >> Component.decodeListFromJsonString)
                             |> RE.combine
                             -- A missing country inherits the process default origin. Resolve it once here at build
@@ -112,17 +112,17 @@ build json =
                                 (extractJsonString json.foodIngredients)
                         )
                     |> RE.andMap
-                        (Scope.allGeneric
-                            |> List.map (\scope -> extractJsonString (scopeGenericExamples json scope))
+                        (Sector.allGeneric
+                            |> List.map (\sector -> extractJsonString (sectorGenericExamples json sector))
                             |> GenericDb.buildFromJson processes
                         )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap
-                        (Scope.allGeneric
+                        (Sector.allGeneric
                             |> List.map
-                                (\scope ->
-                                    scope
-                                        |> scopeGenericProductCategories json
+                                (\sector ->
+                                    sector
+                                        |> sectorGenericProductCategories json
                                         |> extractJsonString
                                         |> ProductCategory.decodeListFromJsonString
                                 )
@@ -139,64 +139,64 @@ build json =
             )
 
 
-scopeComponents : RawJsonStrings -> Scope -> Maybe RawJsonString
-scopeComponents json scope =
-    case scope of
-        Scope.Food ->
+sectorComponents : RawJsonStrings -> Sector -> Maybe RawJsonString
+sectorComponents json sector =
+    case sector of
+        Sector.Food ->
             Nothing
 
-        Scope.Generic genericScope ->
-            Just (scopeGenericComponents json genericScope)
+        Sector.Generic genericSector ->
+            Just (sectorGenericComponents json genericSector)
 
-        Scope.Textile ->
+        Sector.Textile ->
             Just json.textileComponents
 
 
-scopeGenericComponents : RawJsonStrings -> Scope.GenericScope -> RawJsonString
-scopeGenericComponents json scope =
-    case scope of
-        Scope.Apparel ->
+sectorGenericComponents : RawJsonStrings -> Sector.GenericSector -> RawJsonString
+sectorGenericComponents json sector =
+    case sector of
+        Sector.Apparel ->
             json.apparelComponents
 
-        Scope.Food2 ->
+        Sector.Food2 ->
             json.food2Components
 
-        Scope.Object ->
+        Sector.Object ->
             json.objectComponents
 
-        Scope.Veli ->
+        Sector.Veli ->
             json.veliComponents
 
 
-scopeGenericExamples : RawJsonStrings -> Scope.GenericScope -> RawJsonString
-scopeGenericExamples json scope =
-    case scope of
-        Scope.Apparel ->
+sectorGenericExamples : RawJsonStrings -> Sector.GenericSector -> RawJsonString
+sectorGenericExamples json sector =
+    case sector of
+        Sector.Apparel ->
             json.apparelExamples
 
-        Scope.Food2 ->
+        Sector.Food2 ->
             json.food2Examples
 
-        Scope.Object ->
+        Sector.Object ->
             json.objectExamples
 
-        Scope.Veli ->
+        Sector.Veli ->
             json.veliExamples
 
 
-scopeGenericProductCategories : RawJsonStrings -> Scope.GenericScope -> RawJsonString
-scopeGenericProductCategories json scope =
-    case scope of
-        Scope.Apparel ->
+sectorGenericProductCategories : RawJsonStrings -> Sector.GenericSector -> RawJsonString
+sectorGenericProductCategories json sector =
+    case sector of
+        Sector.Apparel ->
             json.apparelProductCategories
 
-        Scope.Food2 ->
+        Sector.Food2 ->
             json.food2ProductCategories
 
-        Scope.Object ->
+        Sector.Object ->
             json.objectProductCategories
 
-        Scope.Veli ->
+        Sector.Veli ->
             json.veliProductCategories
 
 
@@ -239,21 +239,21 @@ propGetters =
         :: .definitions
         :: .transports
         :: .processes
-        :: List.concatMap scopePropGetters Scope.all
+        :: List.concatMap sectorPropGetters Sector.all
 
 
-scopePropGetters : Scope -> List (Properties a -> a)
-scopePropGetters scope =
-    case scope of
-        Scope.Food ->
+sectorPropGetters : Sector -> List (Properties a -> a)
+sectorPropGetters sector =
+    case sector of
+        Sector.Food ->
             [ .foodIngredients
             , .foodProductExamples
             ]
 
-        Scope.Generic genericScope ->
-            scopeGenericPropGetters genericScope
+        Sector.Generic genericSector ->
+            sectorGenericPropGetters genericSector
 
-        Scope.Textile ->
+        Sector.Textile ->
             [ .textileComponents
             , .textileMaterials
             , .textileProductExamples
@@ -261,28 +261,28 @@ scopePropGetters scope =
             ]
 
 
-scopeGenericPropGetters : Scope.GenericScope -> List (Properties a -> a)
-scopeGenericPropGetters scope =
-    case scope of
-        Scope.Apparel ->
+sectorGenericPropGetters : Sector.GenericSector -> List (Properties a -> a)
+sectorGenericPropGetters sector =
+    case sector of
+        Sector.Apparel ->
             [ .apparelProductCategories
             , .apparelComponents
             , .apparelExamples
             ]
 
-        Scope.Food2 ->
+        Sector.Food2 ->
             [ .food2ProductCategories
             , .food2Components
             , .food2Examples
             ]
 
-        Scope.Object ->
+        Sector.Object ->
             [ .objectProductCategories
             , .objectComponents
             , .objectExamples
             ]
 
-        Scope.Veli ->
+        Sector.Veli ->
             [ .veliProductCategories
             , .veliComponents
             , .veliExamples
