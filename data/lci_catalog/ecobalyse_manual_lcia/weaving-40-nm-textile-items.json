@@ -5,6 +5,27 @@
   "elecKwh": 5.46,
   "heatMJ": 0,
   "id": "90c1ab60-2b34-4e7b-81c2-5b249b64495e",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
   "metadata": [
     { "id": "2b723ebf-81c6-4708-94e1-8a9be379e8a3", "scopes": ["apparel"] }
   ],

@@ -1,0 +1,36 @@
+{
+  "categories": ["transformation"],
+  "comment": "Tricotage exprimé par kg de fil entrant (perte au tricotage moyen de 5,45%)",
+  "displayName": "Tricotage moyen (mis de métiers) pour maillot de bain, pull, slip et t-shirt",
+  "elecKwh": 2.2692,
+  "heatMJ": 0,
+  "id": "6f30a493-2019-44f7-8093-7fe2ab3dbda3",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "e4b1a5cc-a17f-4e28-aad9-3b37b7cff70f", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 0.9455,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}
