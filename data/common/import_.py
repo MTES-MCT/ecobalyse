@@ -221,7 +221,7 @@ def add_activity_from_scratch(activity_data, dbname):
 
     for exchange_item in activity_data["exchanges"]:
         amount = exchange_item["amount"]
-        activity_add = search_activity(exchange_item, activity_data["database"])
+        activity_add = search_activity(exchange_item, activity_data.get("database"))
         new_exchange(activity_from_scratch, activity_add, amount)
 
     activity_from_scratch.save()
@@ -308,7 +308,7 @@ def add_activity_from_existing(activity_data, created_activities_db):
     Example : ingredient flour-organic is not in agribalyse so it is created at this step. It's a
     variant of activity flour
     """
-    default_db = activity_data["database"]
+    default_db = activity_data.get("database")
     # Example : the flour-conventional
     # existingActivity is now an object: {"name": "...", "database": "..."}
     existing_activity = search_activity(activity_data["existingActivity"], default_db)
