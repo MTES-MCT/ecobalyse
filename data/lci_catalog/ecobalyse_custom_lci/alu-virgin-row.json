@@ -7,7 +7,10 @@
   "heatMJ": 0,
   "id": "af11c1de-a71d-47f1-acb2-dced07d64e20",
   "metadata": [
-    { "id": "58030a01-e69f-43df-a8da-f950b29d7388", "scopes": ["furniture", "object", "veli"] }
+    {
+      "id": "58030a01-e69f-43df-a8da-f950b29d7388",
+      "scopes": ["furniture", "object", "veli"]
+    }
   ],
   "qtyVariationRatio": 1,
   "scopes": ["furniture", "object", "veli"],

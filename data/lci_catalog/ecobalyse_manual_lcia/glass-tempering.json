@@ -27,7 +27,10 @@
     "wtu": 0
   },
   "metadata": [
-    { "id": "27a35f6d-acfa-4a44-8d96-2bc8f4658033", "scopes": ["furniture", "object", "veli"] }
+    {
+      "id": "27a35f6d-acfa-4a44-8d96-2bc8f4658033",
+      "scopes": ["furniture", "object", "veli"]
+    }
   ],
   "qtyVariationRatio": 0.89,
   "scopes": ["furniture", "object", "veli"],
