@@ -1,6 +1,6 @@
 // @ts-check
 import { test, expect } from "@playwright/test";
-import { waitForAppReady } from "./lib";
+import { openSectorMenu, waitForAppReady } from "./lib";
 
 test.describe("homepage", () => {
   test("has expected title", async ({ page }) => {
@@ -13,7 +13,8 @@ test.describe("homepage", () => {
     await page.goto("/");
     await waitForAppReady(page);
 
-    await page.getByLabel("Menu principal").getByRole("link", { name: "Textile" }).click();
+    const sectorMenu = await openSectorMenu(page);
+    await sectorMenu.getByRole("link", { name: "Habillement", exact: true }).click();
     await expect(page).toHaveURL(/textile\/simulator/);
 
     await expect(page.getByTestId("score-card")).toBeVisible();

@@ -134,6 +134,8 @@ input[type="number"].no-arrows {
   }
 }
 
+
+
 // Bootstrap component/helper overrides, to match DSFR design guidelines
 .badge {
   background-color: #fafafa;
@@ -157,6 +159,26 @@ input[type="number"].no-arrows {
     background-color: #feebd0;
     color: $warning;
   }
+}
+
+.bg {
+  &-blurry {
+    backdrop-filter: blur(10px);
+  }
+
+  &-light-hover {
+    &:hover {
+      background-color: #f6f6f6;
+    }
+  }
+
+  &-opacity-95 {
+    background-color: rgba($white, 0.95);
+  }
+}
+
+.border-left-primary {
+  border-left: 2px solid $primary;
 }
 
 .btn {
@@ -589,6 +611,18 @@ q {
   }
   &-66 {
     width: 66.666666%;
+  }
+}
+
+.z-index {
+  &-fixed {
+    z-index: $zindex-fixed;
+  }
+  &-sticky {
+    z-index: $zindex-sticky;
+  }
+  &-sticky-plus-1 {
+    z-index: $zindex-sticky + 1;
   }
 }
 
@@ -1078,7 +1112,8 @@ q {
     @media screen and (width < $viewport-sm) {
       width: 100%;
     }
-    a.nav-link {
+    a.nav-link,
+    button.nav-link {
       font-size: 14px;
       padding: 1rem;
       cursor: pointer;
@@ -1088,6 +1123,13 @@ q {
       &.active {
         box-shadow: inset 0 -2px 0 0 $primary;
       }
+    }
+
+    button.nav-link {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      font-family: inherit;
     }
   }
 

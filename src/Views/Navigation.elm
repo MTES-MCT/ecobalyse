@@ -25,3 +25,4 @@ type MenuLink msg
     = External String String
     | Internal (List (Html msg)) Route.Route ActivePage
     | MailTo String String
+    | SectorMenu

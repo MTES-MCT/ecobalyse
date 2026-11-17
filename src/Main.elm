@@ -88,6 +88,7 @@ type alias Model =
 
     -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
     , navKey : Nav.Key
+    , sectorMenuOpen : Bool
     , state : State
     , tray : Toast.Tray Notification
     , url : Url
@@ -107,6 +108,8 @@ type Msg
     | GenericSimulatorMsg GenericSimulator.Msg
     | HomeMsg Home.Msg
     | RawDataReceived SessionConfig (WebData RawJsonString -> LoadingState -> LoadingState) (WebData RawJsonString)
+    | SectorMenuClose
+    | SectorMenuToggle
     | StatsMsg Stats.Msg
     | StoreChanged String
     | TextileSimulatorMsg TextileSimulator.Msg
@@ -123,6 +126,7 @@ init flags requestedUrl navKey =
       , flags = flags
       , mobileMenuOpen = False
       , navKey = navKey
+      , sectorMenuOpen = False
       , state = Initializing
       , tray = Toast.tray
       , url = requestedUrl
@@ -575,6 +579,12 @@ updateLoaded session page msg model =
         RawDataReceived _ _ _ ->
             ( model, Cmd.none )
 
+        SectorMenuClose ->
+            ( { model | sectorMenuOpen = False }, Cmd.none )
+
+        SectorMenuToggle ->
+            ( { model | sectorMenuOpen = not model.sectorMenuOpen }, Cmd.none )
+
         -- Stats
         StatsMsg statsMsg ->
             case page of
@@ -615,7 +625,7 @@ updateLoaded session page msg model =
 
         -- Url
         UrlChanged url ->
-            ( { model | mobileMenuOpen = False, url = url }, Cmd.none )
+            ( { model | mobileMenuOpen = False, sectorMenuOpen = False, url = url }, Cmd.none )
                 |> setRoute url session page
                 |> Tuple.mapSecond (\cmd -> Cmd.batch [ cmd, Plausible.send session <| Plausible.PageViewed url ])
 
@@ -769,11 +779,16 @@ trackUsage shouldTrack ( model, cmds ) =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions { feedbackModalOpen, state } =
+subscriptions { feedbackModalOpen, sectorMenuOpen, state } =
     Sub.batch
         [ Ports.storeChanged StoreChanged
         , if feedbackModalOpen then
             Browser.Events.onKeyDown (Key.escape CloseFeedbackModal)
+
+          else
+            Sub.none
+        , if sectorMenuOpen then
+            Browser.Events.onKeyDown (Key.escape SectorMenuClose)
 
           else
             Sub.none
@@ -806,7 +821,7 @@ subscriptions { feedbackModalOpen, state } =
 
 
 view : Model -> Document Msg
-view { dbLoadingState, feedbackModalOpen, flags, mobileMenuOpen, state, tray } =
+view { dbLoadingState, feedbackModalOpen, flags, mobileMenuOpen, sectorMenuOpen, state, tray } =
     let
         defaultPageConfig =
             { activePage = Navigation.Other
@@ -819,6 +834,9 @@ view { dbLoadingState, feedbackModalOpen, flags, mobileMenuOpen, state, tray } =
             , isSuperuser = False
             , mobileNavigationOpened = mobileMenuOpen
             , notifications = []
+            , sectorMenuClose = SectorMenuClose
+            , sectorMenuOpened = sectorMenuOpen
+            , sectorMenuToggle = SectorMenuToggle
             , termsAccepted = False
             , toMsg = AppMsg
             , tray = tray
