@@ -1,0 +1,37 @@
+{
+  "categories": ["material", "aquaticPollutionDependent"],
+  "comment": "Procédé unique d'impression pigmentaire fusionnant deux anciens procédés. Impacts : ceux du procédé « Impression (pigmentaire) » (inventaire enrichi, substances chimiques), seuls les indicateurs d'écotoxicité et de toxicité (etf-c, htc-c, htn-c) étant non nuls, repris tels quels dans les impacts détaillés ; ecs = 2026,1557 µPt/m2 (recalculé depuis les indicateurs : somme de impact / normalisation × pondération × 10^6). Électricité et chaleur : celles du procédé « Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées » (Base Impacts 2.01) : 1,2667 kWh/m2 et 7,25 MJ/m2. Les impacts détaillés du procédé base impact sont ignorés. Les données d'inventaires enrichis sont disponibles dans la documentation Ecobalyse. Anciens identifiants : 97c209ec-7782-5a29-8c47-af7f17c82d11 (inventaire enrichi), 9418bfb4-34e5-5bba-920f-b50e2feff1bd (base impact).",
+  "displayName": "Impression pigmentaire",
+  "elecKwh": 1.2667,
+  "heatMJ": 7.25,
+  "id": "a16c7250-8470-4167-bc79-33f7feb5d400",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "ecs": 2026.1557,
+    "etf": 0,
+    "etf-c": 944,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 1.11e-11,
+    "htn": 0,
+    "htn-c": 2.03e-08,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "c9bfec38-f3a9-455a-82f6-55e2e064afa8", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 1.0,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "m2"
+}
