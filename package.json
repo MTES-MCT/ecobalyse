@@ -57,7 +57,7 @@
     "start:maildev": "maildev --hide-extensions STARTTLS --smtp 1025 --web 1081",
     "start:parcel": "parcel serve index.html --no-cache",
     "start:public": "cpx \"public/**/*\" dist --watch --no-initial -i .DS_Store",
-    "start:dev": "bin/check-db.sh && npm run build:init && npm run server:compile && concurrently -k -n \"parcel,public,maildev,server,backend\" -c \"green,magenta,cyan,yellow\" \"npm run start:parcel\" \"npm run start:public\" \"npm run start:maildev\" \"npm run server:watch\" \"npm run start:backend:dev\"",
+    "start:dev": "bin/check-db.sh && npm run build:init && npm run server:compile && concurrently -k -n \"parcel,public,maildev,server,backend\" -c \"green,magenta,cyan,yellow,blue\" \"npm run start:parcel\" \"npm run start:public\" \"npm run start:maildev\" \"npm run server:watch\" \"npm run start:backend:dev\"",
     "start": "PARCEL_ELM_NO_DEBUG=1 npm run start:dev",
     "test:backend": "concurrently -k -s first -n \"maildev,test\" \"npm run start:maildev\" \"while ! lsof -i:1025; do sleep 1; done && uv run pytest\"",
     "test:client": "npm run db:build:test && npx elm-test",
