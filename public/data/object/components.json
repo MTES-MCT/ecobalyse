@@ -1384,12 +1384,12 @@
       {
         "amount": 0.6,
         "material": "9e71da1a-8e74-462f-becc-cd6f0bbfcccc",
-        "transforms": ["21cef26e-97ee-4707-b316-ac5d7d03d2bd", "9cc381b3-c031-4196-bee8-3be129dfd323"]
+        "transforms": ["21cef26e-97ee-4707-b316-ac5d7d03d2bd","9cc381b3-c031-4196-bee8-3be129dfd323"]
       },
       {
         "amount": 0.4,
         "material": "0245b5e0-e2e4-4bf3-b63f-cb32e93886ba",
-        "transforms": ["9cc381b3-c031-4196-bee8-3be129dfd323"]
+        "transforms": ["16c6b066-2a17-4ef9-8e25-42ac8723a08e","9cc381b3-c031-4196-bee8-3be129dfd323"]
       }
     ],
     "id": "82f868be-ac18-4d96-b6bb-6bed7a65e737",
