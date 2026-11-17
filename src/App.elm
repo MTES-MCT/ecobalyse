@@ -35,7 +35,6 @@ type Msg
     | OpenMobileNavigation
     | ReloadPage
     | ResetSessionStore
-    | SwitchVersion String
     | ToastMsg Toast.Msg
 
 

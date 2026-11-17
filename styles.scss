@@ -134,6 +134,8 @@ input[type="number"].no-arrows {
   }
 }
 
+
+
 // Bootstrap component/helper overrides, to match DSFR design guidelines
 .badge {
   background-color: #fafafa;
@@ -156,6 +158,44 @@ input[type="number"].no-arrows {
   &-warning {
     background-color: #feebd0;
     color: $warning;
+  }
+}
+
+.bg {
+  &-blurry {
+    backdrop-filter: blur(10px);
+  }
+
+  &-light-hover {
+    &:hover {
+      background-color: #f6f6f6;
+    }
+  }
+
+  &-opacity-95 {
+    background-color: rgba($white, 0.95);
+  }
+}
+
+.border-left-primary {
+  border-left: 2px solid $primary;
+}
+
+.chevron {
+  border-color: currentColor;
+  border-style: solid;
+  border-width: 0 1.5px 1.5px 0;
+  display: inline-block;
+  flex-shrink: 0;
+  height: 0.45em;
+  width: 0.45em;
+
+  &-down {
+    transform: translateY(-0.15em) rotate(45deg);
+  }
+
+  &-up {
+    transform: translateY(0.1em) rotate(-135deg);
   }
 }
 
@@ -589,6 +629,18 @@ q {
   }
   &-66 {
     width: 66.666666%;
+  }
+}
+
+.z-index {
+  &-fixed {
+    z-index: $zindex-fixed;
+  }
+  &-sticky {
+    z-index: $zindex-sticky;
+  }
+  &-sticky-plus-1 {
+    z-index: $zindex-sticky + 1;
   }
 }
 
@@ -1078,7 +1130,8 @@ q {
     @media screen and (width < $viewport-sm) {
       width: 100%;
     }
-    a.nav-link {
+    a.nav-link,
+    button.nav-link {
       font-size: 14px;
       padding: 1rem;
       cursor: pointer;
@@ -1087,6 +1140,20 @@ q {
       }
       &.active {
         box-shadow: inset 0 -2px 0 0 $primary;
+      }
+    }
+
+    button.nav-link {
+      appearance: none;
+      background-color: transparent;
+      border: 0;
+      font-family: inherit;
+
+      &.sector-menu-open {
+        background-color: #e3e3fd;
+        &:hover {
+          background-color: #c1c1fb;
+        }
       }
     }
   }
@@ -1285,6 +1352,24 @@ q {
       width: 102px;
       min-width: 102px;
       max-width: 102px;
+    }
+  }
+}
+
+.MobileNavigation {
+  .nav-link {
+    color: $body-color;
+
+    &:hover,
+    &:focus {
+      color: $body-color;
+    }
+
+    &.active {
+      background-color: transparent;
+      box-shadow: inset 2px 0 0 $primary;
+      color: $primary;
+      font-weight: 700;
     }
   }
 }
