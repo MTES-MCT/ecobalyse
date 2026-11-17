@@ -39,18 +39,6 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "alu-market-rer",
-    "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. France is used as a reference for Europe. Details in documentation",
-    "database": "Ecobalyse_custom_lci",
-    "exchanges": [
-      { "amount": 0.56, "name": "aluminium ingot, virgin, RER" },
-      { "amount": 0.44, "name": "aluminium ingot, recycled, RER, CFF" }
-    ],
-    "location": "RER",
-    "newName": "aluminium ingot, market, RER"
-  },
-  {
-    "activityCreationType": "from_scratch",
     "alias": "cow-milk-organic-national-average",
     "comment": "",
     "database": "Agribalyse 3.2",
@@ -1227,7 +1215,7 @@
       { "name": "Heat, natural gas, at industrial furnace 1MW {CH} U" }
     ],
     "exchanges": [],
-    "existingActivity": { "name": "Powder coating, aluminium {RER} U" },
+    "existingActivity": { "name": "Powder coating, aluminium sheet {RER} U" },
     "newName": "powder coat, aluminium, without energy, per m2, RER"
   },
   {
@@ -1239,6 +1227,34 @@
       { "amount": 0.185, "name": "powder coat, aluminium, without energy, per m2, RER" }
     ],
     "newName": "powder coating, aluminium, adapted from BAFU"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "alu-recycled-rer-cff",
+    "comment": "CFF parameters: A=0.2, Q=1",
+    "database": "Ecobalyse_custom_lci",
+    "exchanges": [
+      { "amount": 0.8, "name": "aluminium ingot, virgin, RER" },
+      {
+        "amount": 0.2,
+        "database": "BAFU 2025v2",
+        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
+      }
+    ],
+    "location": "RER",
+    "newName": "aluminium ingot, recycled, RER, CFF"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "alu-market-rer",
+    "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. France is used as a reference for Europe. Details in documentation",
+    "database": "Ecobalyse_custom_lci",
+    "exchanges": [
+      { "amount": 0.56, "name": "aluminium ingot, virgin, RER" },
+      { "amount": 0.44, "name": "aluminium ingot, recycled, RER, CFF" }
+    ],
+    "location": "RER",
+    "newName": "aluminium ingot, market, RER"
   },
   {
     "activityCreationType": "from_scratch",
@@ -2364,6 +2380,22 @@
   },
   {
     "activityCreationType": "from_scratch",
+    "alias": "alu-recycled-row-cff",
+    "comment": "CFF parameters: A=0.2, Q=1",
+    "database": "Ecobalyse_custom_lci",
+    "exchanges": [
+      { "amount": 0.8, "name": "aluminium ingot, virgin, RoW" },
+      {
+        "amount": 0.2,
+        "database": "BAFU 2025v2",
+        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
+      }
+    ],
+    "location": "RER",
+    "newName": "aluminium ingot, recycled, RoW, CFF"
+  },
+  {
+    "activityCreationType": "from_scratch",
     "alias": "alu-market-row",
     "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. Details in documentation",
     "database": "Ecobalyse_custom_lci",
@@ -2423,38 +2455,6 @@
     ],
     "location": "GLO",
     "newName": "market for transport, freight, aircraft, long haul, with longtails, GLO"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "alu-recycled-rer-cff",
-    "comment": "CFF parameters: A=0.2, Q=1",
-    "database": "Ecobalyse_custom_lci",
-    "exchanges": [
-      { "amount": 0.8, "name": "aluminium ingot, virgin, RER" },
-      {
-        "amount": 0.2,
-        "database": "BAFU 2025v2",
-        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
-      }
-    ],
-    "location": "RER",
-    "newName": "aluminium ingot, recycled, RER, CFF"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "alu-recycled-row-cff",
-    "comment": "CFF parameters: A=0.2, Q=1",
-    "database": "Ecobalyse_custom_lci",
-    "exchanges": [
-      { "amount": 0.8, "name": "aluminium ingot, virgin, RoW" },
-      {
-        "amount": 0.2,
-        "database": "BAFU 2025v2",
-        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
-      }
-    ],
-    "location": "RER",
-    "newName": "aluminium ingot, recycled, RoW, CFF"
   },
   {
     "activityCreationType": "from_scratch",

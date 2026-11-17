@@ -14,6 +14,6 @@
   ],
   "qtyVariationRatio": 1,
   "scopes": ["furniture", "object", "veli"],
-  "source": "BAFU 2025v2",
+  "source": "Ecobalyse_custom_lci",
   "unit": "m2"
 }
