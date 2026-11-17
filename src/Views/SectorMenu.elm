@@ -81,8 +81,8 @@ button { activePage, opened, toggle } =
     Html.button
         ([ type_ "button"
          , id "sector-menu-button"
-         , class "nav-link"
-         , classList [ ( "active", opened || simulatorPage ) ]
+         , class "nav-link d-inline-flex align-items-center gap-2"
+         , classList [ ( "active", simulatorPage ), ( "sector-menu-open", opened ) ]
          , attribute "aria-controls" "sector-menu"
          , attribute "aria-expanded"
             (if opened then
@@ -101,7 +101,17 @@ button { activePage, opened, toggle } =
                     []
                )
         )
-        [ text "Simulateurs" ]
+        [ text "Simulateurs", chevron opened ]
+
+
+chevron : Bool -> Html msg
+chevron opened =
+    span
+        [ attribute "aria-hidden" "true"
+        , class "chevron"
+        , classList [ ( "chevron-up", opened ), ( "chevron-down", not opened ) ]
+        ]
+        []
 
 
 domains : Session.EnabledSections -> List (Domain msg)
@@ -162,8 +172,8 @@ domains enabledSections =
             )
 
 
-entryLink : Bool -> ActivePage -> Entry msg -> Html msg
-entryLink desktop activePage { badge, link } =
+entryLink : ActivePage -> Entry msg -> Html msg
+entryLink activePage { badge, link } =
     let
         withBadge content =
             content ++ badgeView badge
@@ -171,12 +181,12 @@ entryLink desktop activePage { badge, link } =
     case link of
         External label url ->
             withBadge [ text label ]
-                |> Link.external (linkAttributes desktop False ++ [ href url ])
+                |> Link.external (linkAttributes False ++ [ href url ])
 
         Internal content route page ->
             withBadge content
                 |> Link.internal
-                    (linkAttributes desktop (page == activePage)
+                    (linkAttributes (page == activePage)
                         ++ (Route.href route
                                 :: (if page == activePage then
                                         [ attribute "aria-current" "page" ]
@@ -199,16 +209,17 @@ entryLink desktop activePage { badge, link } =
 group : Bool -> ActivePage -> Domain msg -> List (Html msg)
 group desktop activePage { entries, label } =
     [ div
-        [ class <|
+        [ class "fw-bold text-body"
+        , class <|
             if desktop then
-                "fw-bold border-bottom px-3 py-2"
+                "border-bottom px-3 py-2"
 
             else
-                "text-uppercase text-muted small fw-bold px-3 pt-3 pb-1 mb-0"
+                "px-3 pt-3 pb-1 mb-0"
         ]
         [ text label ]
     , entries
-        |> List.map (\entry -> li [] [ entryLink desktop activePage entry ])
+        |> List.map (\entry -> li [] [ entryLink activePage entry ])
         |> ul [ class "list-unstyled mb-0" ]
     ]
 
@@ -229,28 +240,20 @@ isSimulatorPage activePage =
             False
 
 
-linkAttributes : Bool -> Bool -> List (Attribute msg)
-linkAttributes desktop isActive =
-    [ class <|
-        if desktop then
-            "d-inline-flex align-items-center gap-2 px-3 py-2"
-
-        else
-            "nav-link d-flex align-items-center gap-2"
-    , class "bg-light-hover text-decoration-none w-100"
+linkAttributes : Bool -> List (Attribute msg)
+linkAttributes isActive =
+    [ class "bg-light-hover d-flex align-items-center gap-2 px-3 py-2 text-decoration-none w-100"
     , classList
-        [ ( "active", isActive )
-        , ( "border-left-primary", isActive )
-        , ( "text-body", desktop && not isActive )
-        , ( "link-primary", desktop && isActive )
+        [ ( "active link-primary border-left-primary", isActive )
+        , ( "text-body", not isActive )
         ]
     ]
 
 
 mobile : Config msg -> Html msg
 mobile { activePage, enabledSections } =
-    div []
-        [ div [ class "fw-bold px-3 pt-2 pb-1" ] [ text "Simulateurs" ]
+    div [ class "border-top border-bottom my-2 py-2" ]
+        [ div [ class "fw-bold text-body px-3 pt-2 pb-1" ] [ text "Simulateurs" ]
         , domains enabledSections
             |> List.concatMap (group False activePage)
             |> div []

@@ -703,7 +703,7 @@ mobileNavigationView ({ toMsg } as config) =
             , div [ class "offcanvas-body" ]
                 [ mobileNavigation config
                     |> List.map (viewNavigationElement InMobileMenu config)
-                    |> div [ class "nav nav-pills flex-column" ]
+                    |> div [ class "MobileNavigation nav nav-pills flex-column" ]
                 , h4 [ class "h6 mt-3" ] [ text "Versions" ]
                 , versionLink config.currentVersion
                 ]
