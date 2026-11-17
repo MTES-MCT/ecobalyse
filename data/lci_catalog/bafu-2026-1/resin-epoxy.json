@@ -3,13 +3,14 @@
   "activityNameEI": "epoxy resin, liquid//[RER] epoxy resin production, liquid",
   "categories": ["material"],
   "comment": "",
+  "displayName": "Résine epoxy, liquide",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "67c54f19-a6d0-5739-825e-a335ea66d0a8",
   "metadata": [
     {
-      "categories": ["material", "material_type:composites"],
-      "displayName": "Résine epoxy, pour bois",
+      "categories": ["material", "material_type:wood"],
+      "displayName": "Résine epoxy, revêtement pour bois",
       "id": "7b03ba64-20f1-4dd6-8ebb-0f2aa5ae7fe1",
       "scopes": ["furniture", "object", "veli"]
     },
