@@ -1,6 +1,5 @@
 module Views.Page exposing
-    ( ActivePage(..)
-    , Config
+    ( Config
     , errored
     , frame
     , loading
@@ -28,27 +27,9 @@ import Views.Feedback as FeedbackView
 import Views.Icon as Icon
 import Views.Link as Link
 import Views.Markdown as Markdown
+import Views.Navigation exposing (ActivePage(..), MenuLink(..))
 import Views.Notice as Notice
 import Views.Spinner as Spinner
-
-
-type ActivePage
-    = Api
-    | Auth
-    | Editorial String
-    | Explore
-    | Food
-    | Generic GenericSector
-    | Home
-    | Other
-    | Stats
-    | TextileSimulator
-
-
-type MenuLink msg
-    = External String String
-    | Internal (List (Html msg)) Route.Route ActivePage
-    | MailTo String String
 
 
 type alias Config msg =

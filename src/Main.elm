@@ -38,6 +38,7 @@ import Request.Version as Version exposing (VersionData)
 import Route
 import Toast
 import Url exposing (Url)
+import Views.Navigation as Navigation
 import Views.Page as Page
 
 
@@ -808,7 +809,7 @@ view : Model -> Document Msg
 view { dbLoadingState, feedbackModalOpen, flags, mobileNavigationOpened, state, tray } =
     let
         defaultPageConfig =
-            { activePage = Page.Other
+            { activePage = Navigation.Other
             , clientUrl = flags.clientUrl
             , closeFeedbackModal = CloseFeedbackModal
             , currentVersion = Version.Unknown
@@ -858,55 +859,55 @@ view { dbLoadingState, feedbackModalOpen, flags, mobileNavigationOpened, state, 
                 ApiPage _ ->
                     Api.view session
                         |> mapMsg ApiMsg
-                        |> frame Page.Api
+                        |> frame Navigation.Api
 
                 AuthPage authModel ->
                     Auth.view session authModel
                         |> mapMsg AuthMsg
-                        |> frame Page.Auth
+                        |> frame Navigation.Auth
 
                 EditorialPage editorialModel ->
                     Editorial.view editorialModel
                         |> mapMsg EditorialMsg
-                        |> frame (Page.Editorial editorialModel.slug)
+                        |> frame (Navigation.Editorial editorialModel.slug)
 
                 ExplorePage examplesModel ->
                     Explore.view session examplesModel
                         |> mapMsg ExploreMsg
-                        |> frame Page.Explore
+                        |> frame Navigation.Explore
 
                 FoodBuilderPage foodModel ->
                     FoodBuilder.view session foodModel
                         |> mapMsg FoodBuilderMsg
-                        |> frame Page.Food
+                        |> frame Navigation.Food
 
                 GenericSimulatorPage simulatorModel ->
                     GenericSimulator.view session simulatorModel
                         |> mapMsg GenericSimulatorMsg
-                        |> frame (Page.Generic simulatorModel.genericSector)
+                        |> frame (Navigation.Generic simulatorModel.genericSector)
 
                 HomePage _ ->
                     Home.view session
                         |> mapMsg HomeMsg
-                        |> frame Page.Home
+                        |> frame Navigation.Home
 
                 LoadingPage ->
                     ( "Chargement…", [ Page.loading Nothing ] )
-                        |> frame Page.Other
+                        |> frame Navigation.Other
 
                 NotFoundPage ->
                     ( "404", [ Page.notFound ] )
-                        |> frame Page.Other
+                        |> frame Navigation.Other
 
                 StatsPage statsModel ->
                     Stats.view session statsModel
                         |> mapMsg StatsMsg
-                        |> frame Page.Stats
+                        |> frame Navigation.Stats
 
                 TextileSimulatorPage simulatorModel ->
                     TextileSimulator.view session simulatorModel
                         |> mapMsg TextileSimulatorMsg
-                        |> frame Page.TextileSimulator
+                        |> frame Navigation.TextileSimulator
 
 
 main : Program Flags Model Msg
