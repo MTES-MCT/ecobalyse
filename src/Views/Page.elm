@@ -487,12 +487,6 @@ pageHeader ({ activePage, toMsg } as config) =
                     , text "Ecobalyse"
                     ]
                 ]
-            , select
-                [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
-                , attribute "data-testid" "version-selector"
-                , onInput <| toMsg << App.SwitchVersion
-                ]
-                [ option [ selected True ] [ text "Version courante" ], option [ value "v7.0.0" ] [ text "Version stable textile" ] ]
             , div [ class "HeaderAuthLink flex-fill" ]
                 [ a
                     [ class "d-none d-sm-block flex-fill text-end"
@@ -698,12 +692,6 @@ mobileNavigation ({ activePage, toMsg } as config) =
                     |> div [ class "nav nav-pills flex-column" ]
                 , h4 [ class "h6 mt-3" ] [ text "Versions" ]
                 , versionLink config.currentVersion
-                , a
-                    [ class "nav-link"
-                    , href <| Env.stableTextileVersionPath
-                    , onClick (toMsg <| App.LoadUrl <| Env.stableTextileVersionPath)
-                    ]
-                    [ text "Version stable textile" ]
                 ]
             ]
         , div [ class "offcanvas-backdrop fade show" ] []

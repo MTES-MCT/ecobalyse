@@ -690,15 +690,6 @@ updateGlobalApp session page msg model =
                 |> App.toCmd AppMsg
             )
 
-        App.SwitchVersion version ->
-            ( model
-            , Nav.load <|
-                "/versions/"
-                    ++ version
-                    ++ "/#"
-                    ++ Maybe.withDefault "" model.url.fragment
-            )
-
         -- Toast notifications
         App.ToastMsg toastMsg ->
             let
