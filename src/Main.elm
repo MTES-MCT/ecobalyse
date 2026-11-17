@@ -84,7 +84,7 @@ type alias Model =
     { dbLoadingState : LoadingState
     , feedbackModalOpen : Bool
     , flags : Flags
-    , mobileNavigationOpened : Bool
+    , mobileMenuOpen : Bool
 
     -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
     , navKey : Nav.Key
@@ -121,7 +121,7 @@ init flags requestedUrl navKey =
     ( { dbLoadingState = RequestDb.initLoadingState
       , feedbackModalOpen = False
       , flags = flags
-      , mobileNavigationOpened = False
+      , mobileMenuOpen = False
       , navKey = navKey
       , state = Initializing
       , tray = Toast.tray
@@ -615,7 +615,7 @@ updateLoaded session page msg model =
 
         -- Url
         UrlChanged url ->
-            ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
+            ( { model | mobileMenuOpen = False, url = url }, Cmd.none )
                 |> setRoute url session page
                 |> Tuple.mapSecond (\cmd -> Cmd.batch [ cmd, Plausible.send session <| Plausible.PageViewed url ])
 
@@ -656,7 +656,7 @@ updateGlobalApp session page msg model =
             ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
         App.CloseMobileNavigation ->
-            ( { model | mobileNavigationOpened = False }, Cmd.none )
+            ( { model | mobileMenuOpen = False }, Cmd.none )
 
         App.CloseNotification notification ->
             ( { model
@@ -671,7 +671,7 @@ updateGlobalApp session page msg model =
             ( model, Nav.load url )
 
         App.OpenMobileNavigation ->
-            ( { model | mobileNavigationOpened = True }, Cmd.none )
+            ( { model | mobileMenuOpen = True }, Cmd.none )
 
         App.ReloadPage ->
             ( model, Nav.reloadAndSkipCache )
@@ -806,7 +806,7 @@ subscriptions { feedbackModalOpen, state } =
 
 
 view : Model -> Document Msg
-view { dbLoadingState, feedbackModalOpen, flags, mobileNavigationOpened, state, tray } =
+view { dbLoadingState, feedbackModalOpen, flags, mobileMenuOpen, state, tray } =
     let
         defaultPageConfig =
             { activePage = Navigation.Other
@@ -817,7 +817,7 @@ view { dbLoadingState, feedbackModalOpen, flags, mobileNavigationOpened, state, 
             , feedbackModalOpen = feedbackModalOpen
             , isAuthenticated = False
             , isSuperuser = False
-            , mobileNavigationOpened = mobileNavigationOpened
+            , mobileNavigationOpened = mobileMenuOpen
             , notifications = []
             , termsAccepted = False
             , toMsg = AppMsg
