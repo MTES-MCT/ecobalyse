@@ -27,9 +27,8 @@ import Views.Feedback as FeedbackView
 import Views.Icon as Icon
 import Views.Link as Link
 import Views.Markdown as Markdown
-import Views.Navigation exposing (ActivePage(..), MenuLink(..))
+import Views.Navigation as Navigation exposing (ActivePage(..), MenuLink(..))
 import Views.Notice as Notice
-import Views.SectorMenu as SectorMenu
 import Views.Spinner as Spinner
 
 
@@ -75,7 +74,7 @@ getPageBody ({ activePage, sectorMenuOpened } as config) content =
         ]
     , pageHeader config
     , if sectorMenuOpened then
-        SectorMenu.backdrop config.sectorMenuClose
+        Navigation.backdrop config.sectorMenuClose
 
       else
         text ""
@@ -442,7 +441,7 @@ versionLink version =
             text ""
 
 
-sectorMenuConfig : Config msg -> SectorMenu.Config msg
+sectorMenuConfig : Config msg -> Navigation.Config msg
 sectorMenuConfig { activePage, enabledSections, sectorMenuClose, sectorMenuOpened, sectorMenuToggle } =
     { activePage = activePage
     , close = sectorMenuClose
@@ -515,7 +514,7 @@ pageHeader ({ activePage, sectorMenuOpened, toMsg } as config) =
                     ]
                 ]
             , if config.sectorMenuOpened then
-                SectorMenu.view (sectorMenuConfig config)
+                Navigation.sectorMenuPanel (sectorMenuConfig config)
 
               else
                 text ""
@@ -550,10 +549,10 @@ viewNavigationElement placement ({ activePage } as config) link =
         SectorMenu ->
             case placement of
                 InHeader ->
-                    SectorMenu.button (sectorMenuConfig config)
+                    Navigation.desktopSectorMenu (sectorMenuConfig config)
 
                 InMobileMenu ->
-                    SectorMenu.mobile (sectorMenuConfig config)
+                    Navigation.mobileSectorMenu (sectorMenuConfig config)
 
 
 notificationListView : Config msg -> Html msg
