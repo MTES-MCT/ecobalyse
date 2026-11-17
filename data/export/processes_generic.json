@@ -43680,7 +43680,7 @@
     "qtyVariationRatio": 1.0,
     "scopes": ["furniture", "object", "veli"],
     "source": "Ecobalyse_custom_lci",
-    "unit": "m2",
+    "unit": "kg",
     "visible": true
   },
   {
