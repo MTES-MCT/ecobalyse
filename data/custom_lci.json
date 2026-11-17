@@ -1,18 +1,53 @@
 [
   {
-    "activityCreationType": "from_scratch",
-    "alias": "alu-market-fr",
-    "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. France is used as a reference for Europe. Details in documentation",
+    "activityCreationType": "from_existing",
+    "alias": "alu-virgin-row",
+    "comment": "",
     "database": "BAFU 2025v2",
+    "existingActivity": { "name": "Aluminium, primary, at plant {RER} U" },
+    "newName": "aluminium ingot, virgin, RoW",
+    "replacementPlan": {
+      "replace": [
+        {
+          "from": { "name": "Electricity, medium voltage, aluminium industry, at grid {GLO} U" },
+          "to": { "name": "Electricity, medium voltage, at grid {CN} U" }
+        }
+      ],
+      "upstreamPath": [
+        { "name": "Aluminium, primary, liquid, at plant {RER} U" }
+      ]
+    }
+  },
+  {
+    "activityCreationType": "from_existing",
+    "alias": "alu-virgin-rer",
+    "comment": "",
+    "database": "BAFU 2025v2",
+    "existingActivity": { "name": "Aluminium, primary, at plant {RER} U" },
+    "newName": "aluminium ingot, virgin, RER",
+    "replacementPlan": {
+      "replace": [
+        {
+          "from": { "name": "Electricity, medium voltage, aluminium industry, at grid {GLO} U" },
+          "to": { "name": "Electricity, medium voltage, at grid {RER} U" }
+        }
+      ],
+      "upstreamPath": [
+        { "name": "Aluminium, primary, liquid, at plant {RER} U" }
+      ]
+    }
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "alu-market-rer",
+    "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. France is used as a reference for Europe. Details in documentation",
+    "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      { "amount": 0.911, "name": "Aluminium, primary, at plant {RER} U" },
-      {
-        "amount": 0.089,
-        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
-      }
+      { "amount": 0.56, "name": "aluminium ingot, virgin, RER" },
+      { "amount": 0.44, "name": "aluminium ingot, recycled, RER, CFF" }
     ],
-    "location": "FR",
-    "newName": "aluminium ingot, market, FR"
+    "location": "RER",
+    "newName": "aluminium ingot, market, RER"
   },
   {
     "activityCreationType": "from_scratch",
@@ -1172,7 +1207,7 @@
       {
         "amount": 0.56,
         "database": "Ecobalyse_custom_lci",
-        "name": "aluminium ingot, market, FR"
+        "name": "aluminium ingot, market, RER"
       }
     ],
     "newName": "Aluminium+LDPE panel, RER"
@@ -2283,65 +2318,15 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "alu-market-virgin-kr",
-    "comment": "based on share of recycled material and net importations. South Korea is used as a reference for Out of Europe and India. Details in documentation",
-    "database": "BAFU 2025v2",
-    "exchanges": [
-      { "amount": 0.36, "name": "Aluminium, primary, at plant {RER} U" },
-      { "amount": 0.006, "name": "Aluminium, primary, at plant {RER} U" },
-      { "amount": 0.211, "name": "Aluminium, primary, at plant {RER} U" },
-      { "amount": 0.002, "name": "Aluminium, primary, at plant {RER} U" },
-      { "amount": 0.421, "name": "Aluminium, primary, at plant {RER} U" }
-    ],
-    "location": "KR",
-    "newName": "aluminium ingot, virgin, market, KR"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "alu-market-kr",
-    "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. South Korea is used as a reference for Out of Europe and China. Details in documentation",
-    "database": "Ecobalyse_custom_lci",
-    "exchanges": [
-      { "amount": 0.529, "name": "aluminium ingot, virgin, market, KR" },
-      {
-        "amount": 0.377,
-        "database": "BAFU 2025v2",
-        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
-      },
-      { "amount": 0.094, "name": "aluminium ingot, virgin, market, KR" }
-    ],
-    "location": "KR",
-    "newName": "aluminium ingot, market, KR"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "alu-market-virgin-cn",
-    "comment": "Based on share of production and net importations. Details in documentation",
-    "database": "BAFU 2025v2",
-    "exchanges": [
-      { "amount": 0.01, "name": "Aluminium, primary, at plant {RER} U" },
-      { "amount": 0.002, "name": "Aluminium, primary, at plant {RER} U" },
-      { "amount": 0.987, "name": "Aluminium, primary, at plant {RER} U" }
-    ],
-    "location": "CN",
-    "newName": "aluminium ingot, virgin, market, CN"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "alu-market-cn",
+    "alias": "alu-market-row",
     "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. Details in documentation",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      { "amount": 0.806, "name": "aluminium ingot, virgin, market, CN" },
-      {
-        "amount": 0.155,
-        "database": "BAFU 2025v2",
-        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
-      },
-      { "amount": 0.039, "name": "aluminium ingot, virgin, market, CN" }
+      { "amount": 0.81, "name": "aluminium ingot, virgin, RoW" },
+      { "amount": 0.19, "name": "aluminium ingot, recycled, RoW, CFF" }
     ],
-    "location": "CN",
-    "newName": "aluminium ingot, market, CN"
+    "location": "RoW",
+    "newName": "aluminium ingot, market, RoW"
   },
   {
     "activityCreationType": "from_scratch",
@@ -2397,10 +2382,30 @@
     "activityCreationType": "from_scratch",
     "alias": "alu-recycled-rer-cff",
     "comment": "CFF parameters: A=0.2, Q=1",
-    "database": "BAFU 2025v2",
+    "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      { "amount": 0.8, "name": "Aluminium, primary, at plant {RER} U" },
-      { "amount": 0.2, "name": "Aluminium, secondary, from old scrap, at plant {RER} U" }
+      { "amount": 0.8, "name": "aluminium ingot, virgin, RER" },
+      {
+        "amount": 0.2,
+        "database": "BAFU 2025v2",
+        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
+      }
+    ],
+    "location": "RER",
+    "newName": "aluminium ingot, recycled, RER, CFF"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "alu-recycled-row-cff",
+    "comment": "CFF parameters: A=0.2, Q=1",
+    "database": "Ecobalyse_custom_lci",
+    "exchanges": [
+      { "amount": 0.8, "name": "aluminium ingot, virgin, RoW" },
+      {
+        "amount": 0.2,
+        "database": "BAFU 2025v2",
+        "name": "Aluminium, secondary, from old scrap, at plant {RER} U"
+      }
     ],
     "location": "RER",
     "newName": "aluminium ingot, recycled, RER, CFF"
@@ -2593,7 +2598,7 @@
         "database": "BAFU 2025v2",
         "name": "Copper collector foil production, for Li-ion battery {GLO} U"
       },
-      { "amount": 0.021, "name": "aluminium ingot, market, CN" },
+      { "amount": 0.021, "name": "aluminium ingot, market, RoW" },
       {
         "amount": 0.021,
         "database": "BAFU 2025v2",
@@ -2642,7 +2647,7 @@
         "database": "BAFU 2025v2",
         "name": "Copper collector foil production, for Li-ion battery {GLO} U"
       },
-      { "amount": 0.021, "name": "aluminium ingot, market, CN" },
+      { "amount": 0.021, "name": "aluminium ingot, market, RoW" },
       {
         "amount": 0.021,
         "database": "BAFU 2025v2",
@@ -2691,7 +2696,7 @@
         "database": "BAFU 2025v2",
         "name": "Copper collector foil production, for Li-ion battery {GLO} U"
       },
-      { "amount": 0.022, "name": "aluminium ingot, market, CN" },
+      { "amount": 0.022, "name": "aluminium ingot, market, RoW" },
       {
         "amount": 0.019,
         "database": "BAFU 2025v2",
@@ -2740,7 +2745,7 @@
         "database": "BAFU 2025v2",
         "name": "Copper collector foil production, for Li-ion battery {GLO} U"
       },
-      { "amount": 0.022, "name": "aluminium ingot, market, FR" },
+      { "amount": 0.022, "name": "aluminium ingot, market, RER" },
       {
         "amount": 0.019,
         "database": "BAFU 2025v2",
@@ -9256,7 +9261,7 @@
         "database": "BAFU 2025v2",
         "name": "Copper collector foil production, for Li-ion battery {GLO} U"
       },
-      { "amount": 0.022, "name": "aluminium ingot, market, CN" },
+      { "amount": 0.022, "name": "aluminium ingot, market, RoW" },
       {
         "amount": 0.018,
         "database": "BAFU 2025v2",

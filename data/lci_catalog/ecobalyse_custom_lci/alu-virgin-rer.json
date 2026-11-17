@@ -1,8 +1,8 @@
 {
-  "activityName": "Aluminium, primary, at plant {RER} U",
+  "activityName": "aluminium ingot, virgin, RER",
   "categories": ["material", "material_type:aluminium"],
-  "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
-  "displayName": "Aluminium vierge, lingot",
+  "comment": "Aluminium electricity mix is replaced by RER electricity mix in the BAFU:20XY database",
+  "displayName": "Aluminium vierge, lingot, Europe",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "26635537-8b40-51d3-bbc9-a3987a0f4835",
@@ -13,7 +13,7 @@
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["furniture", "object", "veli"],
-  "source": "BAFU 2025v2",
+  "scopes": ["object", "veli"],
+  "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }
