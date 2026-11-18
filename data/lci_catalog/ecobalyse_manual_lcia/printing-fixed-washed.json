@@ -1,0 +1,37 @@
+{
+  "categories": ["material", "aquaticPollutionDependent"],
+  "comment": "Procédé unique d'impression fixé-lavé fusionnant deux anciens procédés. Impacts : ceux du procédé « Impression fixé-lavé (colorants) » (inventaire enrichi, substances chimiques), seuls les indicateurs d'écotoxicité et de toxicité (etf-c, htc-c, htn-c) étant non nuls, repris tels quels dans les impacts détaillés ; ecs = 787,711 µPt/m2 (recalculé depuis les indicateurs : somme de impact / normalisation × pondération × 10^6). Électricité et chaleur : celles du procédé « Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées » (Base Impacts 2.01) : 1,45 kWh/m2 et 8,72 MJ/m2. Les impacts détaillés du procédé base impact sont ignorés. Les données d'inventaires enrichis sont disponibles dans la documentation Ecobalyse. Anciens identifiants : cfdc5e31-25fc-56ff-9a54-04670ecad301 (inventaire enrichi), 5c21e378-b941-57f7-98c9-67345847dbda (base impact).",
+  "displayName": "Impression fixé-lavé",
+  "elecKwh": 1.45,
+  "heatMJ": 8.72,
+  "id": "4c94732d-c323-4979-b3b6-55140e3c26f5",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "ecs": 787.711,
+    "etf": 0,
+    "etf-c": 367,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 2.77e-12,
+    "htn": 0,
+    "htn-c": 3.27e-09,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "7b0fd242-4f33-46b7-9490-cca62d8da3dc", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 1.0,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "m2"
+}
