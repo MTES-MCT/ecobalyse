@@ -678,7 +678,15 @@ assemblyView ({ db, impact, query, sector } as config) lifeCycle =
                             [ thead []
                                 [ tr [ class "fs-7 text-muted bg-light" ]
                                     [ th [ class "bg-light ps-3 align-middle", Attr.scope "col" ] [ text "Opération" ]
-                                    , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Pertes" ]
+                                    , th [ class "bg-light align-middle text-end", Attr.scope "col" ]
+                                        [ span
+                                            [ class "d-inline-flex align-items-center gap-1 cursor-help"
+                                            , title "Les pertes à l'assemblage sont incluses dans vos matériaux, hors accessoires."
+                                            ]
+                                            [ text "Pertes"
+                                            , Icon.info
+                                            ]
+                                        ]
                                     , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Masse" ]
                                     , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Impact" ]
                                     , th [ class "bg-light align-middle", Attr.scope "col" ] []

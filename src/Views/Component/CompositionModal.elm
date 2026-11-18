@@ -24,6 +24,7 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -111,6 +112,45 @@ addElementTransformButton { db, openSelectProcessModal, query, sector } material
         ]
 
 
+assemblyLossProcessRows : Mass -> List Process -> List (Html msg)
+assemblyLossProcessRows enteringMass operations =
+    case operations of
+        [] ->
+            []
+
+        operation :: nextOperations ->
+            ProcessRow.view [ class "fs-7" ]
+                { emptyProcessRow
+                    | amount = Format.kg enteringMass
+                    , label = text ("Assemblage\u{00A0}: " ++ Process.getDisplayName operation)
+                    , waste = Format.qtyVariationRatioAsWastePercent operation.qtyVariationRatio
+                }
+                :: assemblyLossProcessRows
+                    (enteringMass |> Unit.applyQtyVariationRatioToMass operation.qtyVariationRatio)
+                    nextOperations
+
+
+assemblyLossRows : Config db msg -> Mass -> List (Html msg)
+assemblyLossRows config elementMass =
+    case
+        config.query
+            |> Component.getAssemblyOperations (requirementsFromConfig config)
+            |> Component.expandAssembly config.db.processes
+    of
+        Err error ->
+            [ Alert.simpleError (Just "Erreur") <|
+                ("Erreur de calcul des pertes à l’assemblage\u{00A0}: " ++ error)
+            ]
+
+        Ok operations ->
+            if List.isEmpty operations then
+                []
+
+            else
+                compositionSectionHeading "Autres pertes" Nothing
+                    :: assemblyLossProcessRows elementMass operations
+
+
 createElementMaterialAutocomplete : Component.DataContainer db -> Sector -> Autocomplete Process
 createElementMaterialAutocomplete db sector =
     db.processes
@@ -166,7 +206,7 @@ elementAmountInput config (( ( _, itemIndex ), elementIndex ) as targetElement) 
                 }
 
 
-{-| Renders a single item element's composition rows (header, summary, raw material, transforms, transport)
+{-| Renders a single item element's composition rows (header, summary, raw material, transforms, transport, assembly losses)
 -}
 elementCompositionRows : Config db msg -> TargetElement -> ExpandedElement -> Results -> Results -> List (Html msg)
 elementCompositionRows config targetElement ({ amount, material, transforms } as expandedElement) itemResults elementResults =
@@ -264,6 +304,7 @@ elementCompositionRows config targetElement ({ amount, material, transforms } as
                 (Just <| addElementTransformButton config material.process targetElement)
                 :: transformRows
            )
+        ++ assemblyLossRows config elementMass
 
 
 elementHeader : Config db msg -> TargetElement -> Html msg
