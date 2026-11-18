@@ -836,17 +836,23 @@ componentFromCustom maybeComponent maybeCustom =
 -}
 compute : Requirements db -> Query -> Result String LifeCycle
 compute requirements query =
-    query.items
-        |> List.map (computeItemResults requirements query.transportOptions)
-        |> RE.combine
-        |> Result.map (List.foldr addResults emptyResults)
-        |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
-        |> Result.andThen (computeAssemblyImpacts requirements query)
-        |> Result.andThen (computePackagingImpacts requirements query)
-        |> Result.andThen (computeDistributionImpacts requirements query)
-        |> Result.map (computeEndOfLifeResults requirements query)
-        |> Result.andThen (computeTransports requirements query)
-        |> Result.andThen (computeUseImpacts requirements query)
+    getAssemblyOperations requirements query
+        |> expandAssembly requirements.db.processes
+        |> Result.map (List.map .qtyVariationRatio)
+        |> Result.andThen
+            (\assemblyQtyVariationRatios ->
+                query.items
+                    |> List.map (computeItemResults requirements query.transportOptions assemblyQtyVariationRatios)
+                    |> RE.combine
+                    |> Result.map (List.foldr addResults emptyResults)
+                    |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
+                    |> Result.andThen (computeAssemblyImpacts requirements query)
+                    |> Result.andThen (computePackagingImpacts requirements query)
+                    |> Result.andThen (computeDistributionImpacts requirements query)
+                    |> Result.map (computeEndOfLifeResults requirements query)
+                    |> Result.andThen (computeTransports requirements query)
+                    |> Result.andThen (computeUseImpacts requirements query)
+            )
 
 
 {-| Compute assembly stage impacts
@@ -981,8 +987,8 @@ computeImpacts requirements transportOptions =
         >> Result.map (List.foldr addResults emptyResults)
 
 
-computeItemResults : Requirements db -> TransportOptions -> Item -> Result String Results
-computeItemResults requirements transportOptions { custom, id, quantity, unitMass } =
+computeItemResults : Requirements db -> TransportOptions -> List QuantityVariationRatio -> Item -> Result String Results
+computeItemResults requirements transportOptions assemblyQtyVariationRatios { custom, id, quantity, unitMass } =
     let
         component_ =
             case id of
@@ -998,6 +1004,17 @@ computeItemResults requirements transportOptions { custom, id, quantity, unitMas
                 custom
                     |> customElements component
                     |> scaleElementsToUnitMass requirements.db unitMass
+                    -- amount input is the *finished* product amount; assembly losses increase
+                    -- what must be produced *before* that step, the same way transform losses do
+                    |> Result.andThen
+                        (List.map
+                            (\element ->
+                                element.amount
+                                    |> computeInitialAmount assemblyQtyVariationRatios
+                                    |> Result.map (\amount -> { element | amount = amount })
+                            )
+                            >> RE.combine
+                        )
                     |> Result.andThen
                         (List.map (computeElementResults requirements transportOptions)
                             >> RE.combine

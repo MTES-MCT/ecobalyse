@@ -169,7 +169,7 @@ elementAmountInput config (( ( _, itemIndex ), elementIndex ) as targetElement) 
 {-| Renders a single item element's composition rows (header, summary, raw material, transforms, transport)
 -}
 elementCompositionRows : Config db msg -> TargetElement -> ExpandedElement -> Results -> Results -> List (Html msg)
-elementCompositionRows config targetElement ({ material, transforms } as expandedElement) itemResults elementResults =
+elementCompositionRows config targetElement ({ amount, material, transforms } as expandedElement) itemResults elementResults =
     let
         elementCooling =
             Process.isTransportedCooled material.process
@@ -206,7 +206,7 @@ elementCompositionRows config targetElement ({ material, transforms } as expande
             ProcessRow.view [ class "fs-7" ]
                 { emptyProcessRow
                     | amount =
-                        Component.extractAmount elementResults
+                        amount
                             |> elementAmountInput config targetElement material.process
                     , impact =
                         if transportImpacts == Impact.empty then
