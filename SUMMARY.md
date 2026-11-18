@@ -256,6 +256,7 @@
 
 ## 🪑 Ameublement
 
+* [🧭 Espace de concertation](ameublement/espace-de-concertation.md)
 * [Cycle de vie](ameublement/cycle-de-vie/README.md)
   * [Etape 1 : Fabrication des composants](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/README.md)
     * [🪵 Composants en bois](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/composants-en-bois.md)
