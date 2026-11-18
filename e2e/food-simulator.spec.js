@@ -1,10 +1,11 @@
 import { test, expect } from "@playwright/test";
-import { waitForAppReady } from "./lib";
+import { openSectorMenu, waitForAppReady } from "./lib";
 
 test("Food simulator", async ({ page }) => {
   await page.goto("/");
   await waitForAppReady(page);
-  await page.getByLabel("Menu principal").locator('a[href="#/food"]').click();
+  const sectorMenu = await openSectorMenu(page);
+  await sectorMenu.locator('a[href="#/food"]').click();
   await expect(page).toHaveURL(/#\/food$/);
 
   await page.getByRole("button", { name: "Exemples" }).click();

@@ -38,6 +38,7 @@ import Request.Version as Version exposing (VersionData)
 import Route
 import Toast
 import Url exposing (Url)
+import Views.Navigation as Navigation
 import Views.Page as Page
 
 
@@ -83,10 +84,11 @@ type alias Model =
     { dbLoadingState : LoadingState
     , feedbackModalOpen : Bool
     , flags : Flags
-    , mobileNavigationOpened : Bool
+    , mobileMenuOpen : Bool
 
     -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
     , navKey : Nav.Key
+    , sectorMenuOpen : Bool
     , state : State
     , tray : Toast.Tray Notification
     , url : Url
@@ -106,6 +108,8 @@ type Msg
     | GenericSimulatorMsg GenericSimulator.Msg
     | HomeMsg Home.Msg
     | RawDataReceived SessionConfig (WebData RawJsonString -> LoadingState -> LoadingState) (WebData RawJsonString)
+    | SectorMenuClose
+    | SectorMenuToggle
     | StatsMsg Stats.Msg
     | StoreChanged String
     | TextileSimulatorMsg TextileSimulator.Msg
@@ -120,8 +124,9 @@ init flags requestedUrl navKey =
     ( { dbLoadingState = RequestDb.initLoadingState
       , feedbackModalOpen = False
       , flags = flags
-      , mobileNavigationOpened = False
+      , mobileMenuOpen = False
       , navKey = navKey
+      , sectorMenuOpen = False
       , state = Initializing
       , tray = Toast.tray
       , url = requestedUrl
@@ -574,6 +579,12 @@ updateLoaded session page msg model =
         RawDataReceived _ _ _ ->
             ( model, Cmd.none )
 
+        SectorMenuClose ->
+            ( { model | sectorMenuOpen = False }, Cmd.none )
+
+        SectorMenuToggle ->
+            ( { model | sectorMenuOpen = not model.sectorMenuOpen }, Cmd.none )
+
         -- Stats
         StatsMsg statsMsg ->
             case page of
@@ -614,7 +625,7 @@ updateLoaded session page msg model =
 
         -- Url
         UrlChanged url ->
-            ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
+            ( { model | mobileMenuOpen = False, sectorMenuOpen = False, url = url }, Cmd.none )
                 |> setRoute url session page
                 |> Tuple.mapSecond (\cmd -> Cmd.batch [ cmd, Plausible.send session <| Plausible.PageViewed url ])
 
@@ -655,7 +666,7 @@ updateGlobalApp session page msg model =
             ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
         App.CloseMobileNavigation ->
-            ( { model | mobileNavigationOpened = False }, Cmd.none )
+            ( { model | mobileMenuOpen = False }, Cmd.none )
 
         App.CloseNotification notification ->
             ( { model
@@ -670,7 +681,7 @@ updateGlobalApp session page msg model =
             ( model, Nav.load url )
 
         App.OpenMobileNavigation ->
-            ( { model | mobileNavigationOpened = True }, Cmd.none )
+            ( { model | mobileMenuOpen = True }, Cmd.none )
 
         App.ReloadPage ->
             ( model, Nav.reloadAndSkipCache )
@@ -688,15 +699,6 @@ updateGlobalApp session page msg model =
             , Notification.info "La session a été réinitialisée."
                 |> App.AddToast
                 |> App.toCmd AppMsg
-            )
-
-        App.SwitchVersion version ->
-            ( model
-            , Nav.load <|
-                "/versions/"
-                    ++ version
-                    ++ "/#"
-                    ++ Maybe.withDefault "" model.url.fragment
             )
 
         -- Toast notifications
@@ -777,11 +779,16 @@ trackUsage shouldTrack ( model, cmds ) =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions { feedbackModalOpen, state } =
+subscriptions { feedbackModalOpen, sectorMenuOpen, state } =
     Sub.batch
         [ Ports.storeChanged StoreChanged
         , if feedbackModalOpen then
             Browser.Events.onKeyDown (Key.escape CloseFeedbackModal)
+
+          else
+            Sub.none
+        , if sectorMenuOpen then
+            Browser.Events.onKeyDown (Key.escape SectorMenuClose)
 
           else
             Sub.none
@@ -814,10 +821,10 @@ subscriptions { feedbackModalOpen, state } =
 
 
 view : Model -> Document Msg
-view { dbLoadingState, feedbackModalOpen, flags, mobileNavigationOpened, state, tray } =
+view { dbLoadingState, feedbackModalOpen, flags, mobileMenuOpen, sectorMenuOpen, state, tray } =
     let
         defaultPageConfig =
-            { activePage = Page.Other
+            { activePage = Navigation.Other
             , clientUrl = flags.clientUrl
             , closeFeedbackModal = CloseFeedbackModal
             , currentVersion = Version.Unknown
@@ -825,8 +832,11 @@ view { dbLoadingState, feedbackModalOpen, flags, mobileNavigationOpened, state, 
             , feedbackModalOpen = feedbackModalOpen
             , isAuthenticated = False
             , isSuperuser = False
-            , mobileNavigationOpened = mobileNavigationOpened
+            , mobileNavigationOpened = mobileMenuOpen
             , notifications = []
+            , sectorMenuClose = SectorMenuClose
+            , sectorMenuOpened = sectorMenuOpen
+            , sectorMenuToggle = SectorMenuToggle
             , termsAccepted = False
             , toMsg = AppMsg
             , tray = tray
@@ -867,55 +877,55 @@ view { dbLoadingState, feedbackModalOpen, flags, mobileNavigationOpened, state, 
                 ApiPage _ ->
                     Api.view session
                         |> mapMsg ApiMsg
-                        |> frame Page.Api
+                        |> frame Navigation.Api
 
                 AuthPage authModel ->
                     Auth.view session authModel
                         |> mapMsg AuthMsg
-                        |> frame Page.Auth
+                        |> frame Navigation.Auth
 
                 EditorialPage editorialModel ->
                     Editorial.view editorialModel
                         |> mapMsg EditorialMsg
-                        |> frame (Page.Editorial editorialModel.slug)
+                        |> frame (Navigation.Editorial editorialModel.slug)
 
                 ExplorePage examplesModel ->
                     Explore.view session examplesModel
                         |> mapMsg ExploreMsg
-                        |> frame Page.Explore
+                        |> frame Navigation.Explore
 
                 FoodBuilderPage foodModel ->
                     FoodBuilder.view session foodModel
                         |> mapMsg FoodBuilderMsg
-                        |> frame Page.Food
+                        |> frame Navigation.Food
 
                 GenericSimulatorPage simulatorModel ->
                     GenericSimulator.view session simulatorModel
                         |> mapMsg GenericSimulatorMsg
-                        |> frame (Page.Generic simulatorModel.genericSector)
+                        |> frame (Navigation.Generic simulatorModel.genericSector)
 
                 HomePage _ ->
                     Home.view session
                         |> mapMsg HomeMsg
-                        |> frame Page.Home
+                        |> frame Navigation.Home
 
                 LoadingPage ->
                     ( "Chargement…", [ Page.loading Nothing ] )
-                        |> frame Page.Other
+                        |> frame Navigation.Other
 
                 NotFoundPage ->
                     ( "404", [ Page.notFound ] )
-                        |> frame Page.Other
+                        |> frame Navigation.Other
 
                 StatsPage statsModel ->
                     Stats.view session statsModel
                         |> mapMsg StatsMsg
-                        |> frame Page.Stats
+                        |> frame Navigation.Stats
 
                 TextileSimulatorPage simulatorModel ->
                     TextileSimulator.view session simulatorModel
                         |> mapMsg TextileSimulatorMsg
-                        |> frame Page.TextileSimulator
+                        |> frame Navigation.TextileSimulator
 
 
 main : Program Flags Model Msg

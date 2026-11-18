@@ -56,7 +56,7 @@ config =
     , NoUnused.CustomTypeConstructorArgs.rule
         |> Rule.ignoreErrorsForFiles
             [ "src/Server/Route.elm"
-            , "src/Views/Page.elm"
+            , "src/Views/Navigation.elm"
             ]
     , NoUnused.Dependencies.rule
     , NoUnused.Exports.rule

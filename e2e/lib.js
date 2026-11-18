@@ -112,6 +112,12 @@ export async function waitFor(conditionFn, pollInterval = 50, timeoutAfter) {
   }
 }
 
+export async function openSectorMenu(page) {
+  await page.getByRole("button", { name: "Simulateurs" }).click();
+  // menu panel is a sibling of the main nav, not a child of it
+  return page.locator("#sector-menu");
+}
+
 export async function waitForAppReady(page) {
   // Note: initial app data loading may be super slow in CI infrastructure
   await expect(page).not.toHaveTitle(/Chargement des données/, { timeout: 20_000 });
