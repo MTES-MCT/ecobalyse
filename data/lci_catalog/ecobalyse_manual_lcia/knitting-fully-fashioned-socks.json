@@ -1,0 +1,40 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:synthetic_fibers",
+    "material_type:organic_fibers"
+  ],
+  "comment": "Tricotage exprimé par kg de fil entrant (perte au tricotage fully/fashioned de 0,5%)",
+  "displayName": "Tricotage fully/fashioned pour les chaussettes (35Nm, 250g/m2, 41fils)",
+  "elecKwh": 1.6915,
+  "heatMJ": 0,
+  "id": "cdfab104-a1a7-4c24-80d9-3a8f244740cf",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "269ca9b7-a8f2-4d85-bbe4-36ff166a9a50", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 0.995,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}
