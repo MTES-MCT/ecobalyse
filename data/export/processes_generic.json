@@ -42812,7 +42812,7 @@
   {
     "activityName": "Tire",
     "alias": null,
-    "categories": ["material", "material_type:rubber"],
+    "categories": ["material", "material_type:rubber", "use"],
     "comment": "",
     "displayName": "Pneu",
     "elecKwh": 0,
@@ -42824,7 +42824,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["veli", "furniture", "object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
