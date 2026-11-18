@@ -1,11 +1,10 @@
 {
-  "activityName": "Powder coating, aluminium sheet {RER} U",
-  "activityNameEI": "powder coat, aluminium sheet//[RER] powder coating, aluminium sheet",
-  "categories": ["material", "material_type:aluminium"],
+  "activityName": "powder coating, aluminium, adapted from BAFU",
+  "categories": ["transformation", "material_type:aluminium"],
   "comment": "",
   "displayName": "Thermolaquage aluminium",
-  "elecKwh": 0.0,
-  "heatMJ": 0,
+  "elecKwh": 0.24,
+  "heatMJ": 4.5,
   "id": "ea561247-4f9f-5faf-94c9-0b66d34b2544",
   "metadata": [
     {
@@ -15,6 +14,6 @@
   ],
   "qtyVariationRatio": 1,
   "scopes": ["furniture", "object", "veli"],
-  "source": "BAFU 2025v2",
-  "unit": "m2"
+  "source": "Ecobalyse_custom_lci",
+  "unit": "kg"
 }
