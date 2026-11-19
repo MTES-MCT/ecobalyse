@@ -18,8 +18,8 @@ import Data.Component as Component
 import Data.Component.Amount exposing (Amount)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
-import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
+import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Sector as Sector exposing (Sector)
@@ -239,7 +239,7 @@ elementCompositionRows config targetElement ({ amount, material, transforms } as
             stageItems
                 |> List.filter (Component.extractStage >> (==) (Just Component.TransportStage))
                 |> List.map Component.extractImpacts
-                |> Impact.sumImpacts
+                |> Impacts.sumImpacts
 
         totalImpact =
             impactPill config <| Component.getTotalImpacts elementResults
@@ -251,7 +251,7 @@ elementCompositionRows config targetElement ({ amount, material, transforms } as
                         amount
                             |> elementAmountInput config targetElement material.process
                     , impact =
-                        if transportImpacts == Impact.empty then
+                        if transportImpacts == Impacts.empty then
                             totalImpact
 
                         else

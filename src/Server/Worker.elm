@@ -18,8 +18,8 @@ import Data.Food.Origin as Origin
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
 import Data.Generic.Simulator as GenericSimulator
-import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Impacts as Impacts
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Sector as Sector exposing (GenericSector)
@@ -137,7 +137,7 @@ toAllImpactsSimple : Request -> WellKnown -> Simulator -> Encode.Value
 toAllImpactsSimple request wellKnown { impacts, inputs } =
     Encode.object
         [ ( "webUrl", inputs |> toTextileWebUrl request Nothing |> Encode.string )
-        , ( "impacts", Impact.encode impacts )
+        , ( "impacts", Impacts.encode impacts )
         , ( "description", inputs |> Inputs.toString wellKnown |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> TextileQuery.encode )
         ]
@@ -154,7 +154,7 @@ toFoodWebUrl request trigram foodQuery =
 toTextileWebUrl : Request -> Maybe Definition.Trigram -> Inputs.Inputs -> String
 toTextileWebUrl request maybeTrigram textileQuery =
     Just (Inputs.toQuery textileQuery)
-        |> WebRoute.TextileSimulator (Maybe.withDefault Impact.default maybeTrigram)
+        |> WebRoute.TextileSimulator (Maybe.withDefault Impacts.default maybeTrigram)
         |> WebRoute.toString
         |> (++) (serverRootUrl request)
 
@@ -168,7 +168,7 @@ toSingleImpactSimple : Request -> WellKnown -> Definition.Trigram -> Simulator -
 toSingleImpactSimple request wellKnown trigram { impacts, inputs } =
     Encode.object
         [ ( "webUrl", toTextileWebUrl request (Just trigram) inputs |> Encode.string )
-        , ( "impacts", Impact.encodeSingleImpact impacts trigram )
+        , ( "impacts", Impacts.encodeSingleImpact impacts trigram )
         , ( "description", inputs |> Inputs.toString wellKnown |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> TextileQuery.encode )
         ]
@@ -177,7 +177,7 @@ toSingleImpactSimple request wellKnown trigram { impacts, inputs } =
 toFoodResults : Request -> FoodQuery.Query -> Recipe.Results -> Encode.Value
 toFoodResults request query results =
     Encode.object
-        [ ( "webUrl", query |> toFoodWebUrl request Impact.default |> Encode.string )
+        [ ( "webUrl", query |> toFoodWebUrl request Impacts.default |> Encode.string )
         , ( "results", Recipe.encodeResults results )
         , ( "description", Encode.string "TODO" )
         , ( "query", FoodQuery.encode query )
@@ -313,7 +313,7 @@ toGenericResults request db genericSector query lifeCycle =
 toGenericWebUrl : Request -> GenericSector -> Component.Query -> String
 toGenericWebUrl request genericSector query =
     Just query
-        |> WebRoute.GenericSimulator genericSector Impact.default
+        |> WebRoute.GenericSimulator genericSector Impacts.default
         |> WebRoute.toString
         |> (++) (serverRootUrl request)
 

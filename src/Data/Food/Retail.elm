@@ -17,7 +17,7 @@ module Data.Food.Retail exposing
 -}
 
 import Data.Food.WellKnown exposing (WellKnown)
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -163,7 +163,7 @@ decode =
 waterImpact : Float -> Volume -> Process -> Impacts
 waterImpact waterNeeds volume =
     .impacts
-        >> Impact.mapImpacts
+        >> Impacts.mapImpacts
             (\_ impact ->
                 impact
                     |> Unit.impactToFloat
@@ -175,7 +175,7 @@ waterImpact waterNeeds volume =
 elecImpact : Quantity Float (Rate Joules CubicMeters) -> Volume -> Process -> Impacts
 elecImpact elecNeeds volume =
     .impacts
-        >> Impact.mapImpacts
+        >> Impacts.mapImpacts
             (\_ impact ->
                 impact
                     |> Unit.impactToFloat
@@ -186,7 +186,7 @@ elecImpact elecNeeds volume =
 
 distributionTransport : Distribution -> Bool -> Transport
 distributionTransport (Distribution _ needs) needsCooling =
-    Transport.default Impact.empty
+    Transport.default Impacts.empty
         |> Transport.addRoadWithCooling needs.transport needsCooling
 
 
@@ -196,4 +196,4 @@ computeImpacts volume (Distribution _ needs) wellknown =
     , elecImpact needs.cooling volume wellknown.lowVoltageElectricity
     , elecImpact needs.energy volume wellknown.lowVoltageElectricity
     ]
-        |> Impact.sumImpacts
+        |> Impacts.sumImpacts

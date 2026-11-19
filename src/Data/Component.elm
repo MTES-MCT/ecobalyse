@@ -150,8 +150,8 @@ import Data.Component.Consumption as Consumption exposing (Consumption)
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
-import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
+import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category, MaterialDict)
 import Data.Scoring as Scoring exposing (Scoring)
@@ -563,7 +563,7 @@ addResults (Results results) (Results acc) =
     Results
         { acc
             | complementsImpacts = Complement.sumComplementsResultsImpacts [ results.complementsImpacts, acc.complementsImpacts ]
-            , impacts = Impact.sumImpacts [ results.impacts, acc.impacts ]
+            , impacts = Impacts.sumImpacts [ results.impacts, acc.impacts ]
             , items = Results results :: acc.items
             , mass = Quantity.sum [ results.mass, acc.mass ]
             , stage = Nothing
@@ -614,7 +614,7 @@ applyComplementsResultsImpacts amount impacts =
             (\complement ->
                 impacts
                     |> Complement.applyComplementsToImpacts complement
-                    |> Impact.multiplyBy (Amount.toFloat amount)
+                    |> Impacts.multiplyBy (Amount.toFloat amount)
             )
         )
 
@@ -662,7 +662,7 @@ applyDurabilityToComplements maybeDurability complements =
     case maybeDurability of
         Just durability ->
             complements
-                |> Complement.mapComplements (Maybe.map (Impact.divideBy (Unit.ratioToFloat durability)))
+                |> Complement.mapComplements (Maybe.map (Impacts.divideBy (Unit.ratioToFloat durability)))
 
         Nothing ->
             complements
@@ -682,7 +682,7 @@ applyDurabilityToImpacts : Maybe Unit.Ratio -> Impacts -> Impacts
 applyDurabilityToImpacts maybeDurability impacts =
     case maybeDurability of
         Just durability ->
-            impacts |> Impact.divideBy (Unit.ratioToFloat durability)
+            impacts |> Impacts.divideBy (Unit.ratioToFloat durability)
 
         Nothing ->
             impacts
@@ -695,12 +695,12 @@ applyProcessStep stage process { elec, heat } (Results { amount, label, impacts,
     let
         stepImpacts =
             [ process.impacts
-            , elec.impacts |> Impact.multiplyBy (Energy.inKilowattHours process.elec)
-            , heat.impacts |> Impact.multiplyBy (Energy.inMegajoules process.heat)
+            , elec.impacts |> Impacts.multiplyBy (Energy.inKilowattHours process.elec)
+            , heat.impacts |> Impacts.multiplyBy (Energy.inMegajoules process.heat)
             ]
-                |> Impact.sumImpacts
+                |> Impacts.sumImpacts
                 -- Note: impacts are always computed from input amount
-                |> Impact.multiplyBy (Amount.toFloat amount)
+                |> Impacts.multiplyBy (Amount.toFloat amount)
 
         outputAmount =
             amount |> Amount.multiplyBy (Unit.qtyVariationRatioToFloat process.qtyVariationRatio)
@@ -711,7 +711,7 @@ applyProcessStep stage process { elec, heat } (Results { amount, label, impacts,
     Results
         { amount = outputAmount
         , complementsImpacts = complementsImpacts
-        , impacts = Impact.sumImpacts [ stepImpacts, impacts ]
+        , impacts = Impacts.sumImpacts [ stepImpacts, impacts ]
         , items =
             items
                 ++ [ Results
@@ -774,7 +774,7 @@ applyTransportedMassImpacts requirements transportOptions mass maybeFrom maybeTo
             (\transport ->
                 Results
                     { results
-                        | impacts = Impact.sumImpacts [ results.impacts, transport.impacts ]
+                        | impacts = Impacts.sumImpacts [ results.impacts, transport.impacts ]
                         , items =
                             results.items
                                 ++ [ Results
@@ -809,7 +809,7 @@ assemblyResultsFromMass mass =
     Results
         { amount = mass |> Mass.inKilograms |> Amount.fromFloat
         , complementsImpacts = Complement.emptyComplementsResultsImpacts
-        , impacts = Impact.empty
+        , impacts = Impacts.empty
         , items = []
         , label = Just "Assembly"
         , mass = mass
@@ -822,7 +822,7 @@ assemblyResultsFromMass mass =
 complementPoints : ComplementsResultsImpacts -> Unit.Impact
 complementPoints =
     Complement.mergeComplementsResultsImpacts
-        >> Impact.getImpact Definition.Ecs
+        >> Impacts.getImpact Definition.Ecs
 
 
 {-| Create a component from a custom definition
@@ -939,7 +939,7 @@ computeDistributionImpacts ({ config } as requirements) query ({ distribution, p
                         { impacts =
                             process
                                 |> Process.impactsPerUnit config.distribution.country
-                                |> Impact.multiplyBy (Volume.inCubicMeters finalProductVolume)
+                                |> Impacts.multiplyBy (Volume.inCubicMeters finalProductVolume)
                         , process = Just process
                         , volume = finalProductVolume
                         }
@@ -1044,7 +1044,7 @@ computeItemResults requirements transportOptions assemblyQtyVariationRatios { cu
                     , impacts =
                         impacts
                             |> List.repeat (quantityToInt quantity)
-                            |> Impact.sumImpacts
+                            |> Impacts.sumImpacts
                     , items = items
                     , label =
                         case custom |> Maybe.andThen .name of
@@ -1072,12 +1072,12 @@ computeMaterialResults amount process =
         impacts =
             -- Note: materials impacts embed energy ones
             process.impacts
-                |> Impact.multiplyBy (Amount.toFloat amount)
+                |> Impacts.multiplyBy (Amount.toFloat amount)
 
         complementImpacts =
             process.metadata
                 |> Maybe.andThen .complements
-                |> Maybe.map (applyComplementsResultsImpacts amount Impact.empty)
+                |> Maybe.map (applyComplementsResultsImpacts amount Impacts.empty)
                 |> Maybe.withDefault Complement.emptyComplementsResultsImpacts
 
         mass =
@@ -1134,7 +1134,7 @@ computePackagingImpacts { db } { packagings } lifeCycle =
                             |> List.map
                                 (\{ amount, process } ->
                                     process.impacts
-                                        |> Impact.multiplyBy (Amount.toFloat amount)
+                                        |> Impacts.multiplyBy (Amount.toFloat amount)
                                 )
                 }
             )
@@ -1150,11 +1150,11 @@ computeScoring definitions lifeCycle =
               -- here to stay compatible with the current implementations for Ecosystemic Services
             , extractComplementsImpacts lifeCycle.production
                 |> Complement.mergeComplementsResultsImpacts
-                |> Impact.getImpact Definition.Ecs
+                |> Impacts.getImpact Definition.Ecs
             )
     in
     totalImpacts
-        |> Impact.divideBy (Mass.inKilograms totalMass)
+        |> Impacts.divideBy (Mass.inKilograms totalMass)
         |> Scoring.compute definitions complementImpacts
 
 
@@ -1163,13 +1163,13 @@ computeShareImpacts mass { process, split } =
     process
         |> Maybe.map
             (.impacts
-                >> Impact.multiplyBy
+                >> Impacts.multiplyBy
                     (split
                         |> Split.applyToQuantity mass
                         |> Mass.inKilograms
                     )
             )
-        |> Maybe.withDefault Impact.empty
+        |> Maybe.withDefault Impacts.empty
 
 
 {-| This function is used to configure default distances according to desired options, most notably
@@ -1370,7 +1370,7 @@ computeUseImpacts ({ config, db } as requirements) query lifeCycle =
                                             { elec = config.use.defaultElecProcess
                                             , heat = config.use.defaultHeatProcess
                                             }
-                                        |> Impact.multiplyBy
+                                        |> Impacts.multiplyBy
                                             (amount
                                                 |> useProcessAmount lifeCycle process
                                                 |> Amount.toFloat
@@ -1682,7 +1682,7 @@ emptyComponent =
 
 emptyDistributionResults : DistributionResults
 emptyDistributionResults =
-    { impacts = Impact.empty
+    { impacts = Impacts.empty
     , process = Nothing
     , volume = Quantity.zero
     }
@@ -1692,7 +1692,7 @@ emptyLifeCycle : LifeCycle
 emptyLifeCycle =
     { assembly = emptyResults
     , distribution = emptyDistributionResults
-    , endOfLife = Impact.empty
+    , endOfLife = Impacts.empty
     , packaging = []
     , productMass = Quantity.zero
     , production = emptyResults
@@ -1703,8 +1703,8 @@ emptyLifeCycle =
 
 emptyLifeCycleTransports : LifeCycleTransport
 emptyLifeCycleTransports =
-    { toAssembly = Transport.default Impact.empty
-    , toDistribution = Transport.default Impact.empty
+    { toAssembly = Transport.default Impacts.empty
+    , toDistribution = Transport.default Impacts.empty
     }
 
 
@@ -1727,7 +1727,7 @@ emptyResults =
     Results
         { amount = Amount.fromFloat 0
         , complementsImpacts = Complement.emptyComplementsResultsImpacts
-        , impacts = Impact.empty
+        , impacts = Impacts.empty
         , items = []
         , label = Nothing
         , mass = Quantity.zero
@@ -1814,10 +1814,10 @@ encodeApiCompositionItem maybeDurability item (Results results) =
         , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
         , ( "score"
           , complementPoints complements
-                |> encodeApiScore (Impact.getImpact Definition.Ecs impacts)
+                |> encodeApiScore (Impacts.getImpact Definition.Ecs impacts)
                 |> Just
           )
-        , ( "impacts", impacts |> Impact.encodeExcept [ Definition.Ecs ] |> Just )
+        , ( "impacts", impacts |> Impacts.encodeExcept [ Definition.Ecs ] |> Just )
         , ( "complements"
           , complements
                 |> Complement.encodeComplementsResultsAs Definition.Ecs
@@ -1847,9 +1847,9 @@ encodeApiResponse definitions query lifeCycle =
       )
     , ( "score"
       , complementPoints complements
-            |> encodeApiScore (Impact.getImpact Definition.Ecs impacts)
+            |> encodeApiScore (Impacts.getImpact Definition.Ecs impacts)
       )
-    , ( "impacts", impacts |> Impact.encodeExcept [ Definition.Ecs ] )
+    , ( "impacts", impacts |> Impacts.encodeExcept [ Definition.Ecs ] )
     , ( "complements", complements |> Complement.encodeComplementsResultsAs Definition.Ecs )
     , ( "subscores", lifeCycle |> encodeApiSubscores definitions query.durability lifeCycleImpacts )
     , ( "stages", lifeCycle |> encodeApiStages query.durability )
@@ -1872,9 +1872,9 @@ encodeApiStages maybeDurability lifeCycle =
             stagesImpacts lifeCycle
 
         getEcs =
-            Maybe.withDefault Impact.empty
+            Maybe.withDefault Impacts.empty
                 >> applyDurabilityToImpacts maybeDurability
-                >> Impact.getImpact Definition.Ecs
+                >> Impacts.getImpact Definition.Ecs
                 >> Unit.encodeImpact
     in
     Encode.object
@@ -1893,12 +1893,12 @@ encodeApiSubscores : Definitions -> Maybe Unit.Ratio -> Impacts -> LifeCycle -> 
 encodeApiSubscores definitions maybeDurability lifeCycleImpacts lifeCycle =
     let
         areas =
-            Impact.toProtectionAreas definitions lifeCycleImpacts
+            Impacts.toProtectionAreas definitions lifeCycleImpacts
 
         complements =
             extractComplementsImpacts lifeCycle.production
                 |> Complement.mergeComplementsResultsImpacts
-                |> Impact.getImpact Definition.Ecs
+                |> Impacts.getImpact Definition.Ecs
 
         getEcs impact =
             impact
@@ -1957,23 +1957,23 @@ encodeLifeCycle maybeTrigram lifeCycle =
           , case maybeTrigram of
                 Just trigram ->
                     lifeCycle.endOfLife
-                        |> Impact.getImpact trigram
+                        |> Impacts.getImpact trigram
                         |> Unit.encodeImpact
 
                 Nothing ->
-                    Impact.encode lifeCycle.endOfLife
+                    Impacts.encode lifeCycle.endOfLife
           )
         , ( "distribution", encodeLifeCycleDistribution lifeCycle.distribution )
         , ( "production", encodeResults maybeTrigram lifeCycle.production )
         , ( "transport", encodeLifeCycleTransport lifeCycle.transports )
-        , ( "use", Encode.list Impact.encode lifeCycle.use )
+        , ( "use", Encode.list Impacts.encode lifeCycle.use )
         ]
 
 
 encodeLifeCycleDistribution : DistributionResults -> Encode.Value
 encodeLifeCycleDistribution distribution =
     EU.optionalPropertiesObject
-        [ ( "impacts", distribution.impacts |> Impact.encode |> Just )
+        [ ( "impacts", distribution.impacts |> Impacts.encode |> Just )
         , ( "process", distribution.process |> Maybe.map (.id >> Process.encodeId) )
         , ( "volume", distribution.volume |> Volume.inCubicMeters |> Encode.float |> Just )
         ]
@@ -2033,11 +2033,11 @@ encodeComplementsResultsImpacts maybeTrigram complementsResultsImpacts =
             case maybeTrigram of
                 Just trigram ->
                     complement
-                        |> Impact.getImpact trigram
+                        |> Impacts.getImpact trigram
                         |> Unit.encodeImpact
 
                 Nothing ->
-                    Impact.encode complement
+                    Impacts.encode complement
     in
     EU.optionalPropertiesObject
         [ ( "cropDiversity", complementsResultsImpacts.cropDiversity |> Maybe.map encodeComplement )
@@ -2066,11 +2066,11 @@ encodeResults maybeTrigram (Results results) =
                 case maybeTrigram of
                     Just trigram ->
                         results.impacts
-                            |> Impact.getImpact trigram
+                            |> Impacts.getImpact trigram
                             |> Unit.encodeImpact
 
                     Nothing ->
-                        Impact.encode results.impacts
+                        Impacts.encode results.impacts
           )
         , ( "items", results.items |> Encode.list (encodeResults maybeTrigram) |> Just )
         ]
@@ -2492,13 +2492,13 @@ getEndOfLifeImpacts ({ config, sector } as requirements) recyclable lifeCycle =
                     , nonCollectedStrategies.recycling
                     ]
                         |> List.map .impacts
-                        |> Impact.sumImpacts
+                        |> Impacts.sumImpacts
                 )
             |> AnyDict.values
-            |> Impact.sumImpacts
+            |> Impacts.sumImpacts
 
     else
-        Impact.empty
+        Impacts.empty
 
 
 getEndOfLifeSectorCollectionRate : Config -> Bool -> Sector -> Split
@@ -2596,7 +2596,7 @@ getResultedElementList productionResults =
 
 getTotalImpacts : Results -> Impacts
 getTotalImpacts (Results { impacts, complementsImpacts }) =
-    Impact.sumImpacts
+    Impacts.sumImpacts
         [ impacts
         , complementsImpacts |> Complement.mergeComplementsResultsImpacts
         ]
@@ -2604,7 +2604,7 @@ getTotalImpacts (Results { impacts, complementsImpacts }) =
 
 getTotalTransportImpacts : LifeCycleTransport -> Impacts
 getTotalTransportImpacts transports =
-    Impact.sumImpacts
+    Impacts.sumImpacts
         [ transports.toAssembly.impacts
         , transports.toDistribution.impacts
         ]
@@ -3089,16 +3089,16 @@ stagesImpacts lifeCycle =
             (\(Results { impacts, stage }) acc ->
                 case stage of
                     Just AssemblyStage ->
-                        { acc | assembly = acc.assembly |> Maybe.map (\i -> Impact.sumImpacts [ i, impacts ]) }
+                        { acc | assembly = acc.assembly |> Maybe.map (\i -> Impacts.sumImpacts [ i, impacts ]) }
 
                     Just MaterialStage ->
-                        { acc | materials = acc.materials |> Maybe.map (\i -> Impact.sumImpacts [ i, impacts ]) }
+                        { acc | materials = acc.materials |> Maybe.map (\i -> Impacts.sumImpacts [ i, impacts ]) }
 
                     Just TransformStage ->
-                        { acc | transform = acc.transform |> Maybe.map (\i -> Impact.sumImpacts [ i, impacts ]) }
+                        { acc | transform = acc.transform |> Maybe.map (\i -> Impacts.sumImpacts [ i, impacts ]) }
 
                     Just TransportStage ->
-                        { acc | transports = acc.transports |> Maybe.map (\i -> Impact.sumImpacts [ i, impacts ]) }
+                        { acc | transports = acc.transports |> Maybe.map (\i -> Impacts.sumImpacts [ i, impacts ]) }
 
                     Nothing ->
                         acc
@@ -3107,7 +3107,7 @@ stagesImpacts lifeCycle =
                 lifeCycle.assembly
                     |> extractImpacts
                     |> (\impacts ->
-                            if impacts == Impact.empty then
+                            if impacts == Impacts.empty then
                                 Nothing
 
                             else
@@ -3115,12 +3115,12 @@ stagesImpacts lifeCycle =
                        )
             , distribution = lifeCycle.distribution.impacts |> Just
             , endOfLife = lifeCycle.endOfLife |> Just
-            , materials = Just Impact.empty
-            , packaging = lifeCycle.packaging |> Impact.sumImpacts |> Just
-            , transform = Just Impact.empty
+            , materials = Just Impacts.empty
+            , packaging = lifeCycle.packaging |> Impacts.sumImpacts |> Just
+            , transform = Just Impacts.empty
             , transports = getTotalTransportImpacts lifeCycle.transports |> Just
             , trims = Nothing
-            , usage = lifeCycle.use |> Impact.sumImpacts |> Just
+            , usage = lifeCycle.use |> Impacts.sumImpacts |> Just
             }
 
 
@@ -3142,16 +3142,16 @@ stageToString stage =
 
 sumLifeCycleImpacts : LifeCycle -> Impacts
 sumLifeCycleImpacts lifeCycle =
-    Impact.sumImpacts
+    Impacts.sumImpacts
         [ extractImpacts lifeCycle.production
         , extractComplementsImpacts lifeCycle.production |> Complement.mergeComplementsResultsImpacts
         , extractImpacts lifeCycle.assembly
         , lifeCycle.distribution.impacts
         , lifeCycle.endOfLife
-        , lifeCycle.packaging |> Impact.sumImpacts
+        , lifeCycle.packaging |> Impacts.sumImpacts
         , lifeCycle.transports.toAssembly.impacts
         , lifeCycle.transports.toDistribution.impacts
-        , lifeCycle.use |> Impact.sumImpacts
+        , lifeCycle.use |> Impacts.sumImpacts
         ]
 
 

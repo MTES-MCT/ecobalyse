@@ -1,4 +1,4 @@
-module Data.Impact exposing
+module Data.Impacts exposing
     ( Impacts
     , StagesImpacts
     , decodeImpacts

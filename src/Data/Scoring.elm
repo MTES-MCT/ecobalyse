@@ -4,8 +4,8 @@ module Data.Scoring exposing
     , empty
     )
 
-import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions)
+import Data.Impacts as Impacts exposing (Impacts)
 import Data.Unit as Unit
 import Quantity
 
@@ -26,11 +26,11 @@ compute definitions totalComplementsImpactPerKg perKgWithoutComplements =
     let
         ecsPerKgWithoutComplements =
             perKgWithoutComplements
-                |> Impact.getImpact Definition.Ecs
+                |> Impacts.getImpact Definition.Ecs
 
         subScores =
             perKgWithoutComplements
-                |> Impact.toProtectionAreas definitions
+                |> Impacts.toProtectionAreas definitions
     in
     { all =
         -- Reminder: complements are stored using the same convention as impacts and therefore must be **added** not substracted

@@ -24,8 +24,8 @@ module TestUtils exposing
 import Data.Component as Component
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
-import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Trigrams)
+import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process as Process
 import Data.Split as Split
 import Data.Textile.Fabric as Fabric
@@ -150,7 +150,7 @@ expectImpactsEqual impacts subject =
     Definition.trigrams
         |> List.map
             (\trigram ->
-                Impact.getImpact trigram >> Unit.impactToFloat >> Definition.get trigram impacts
+                Impacts.getImpact trigram >> Unit.impactToFloat >> Definition.get trigram impacts
             )
         |> (\expectations ->
                 Expect.all expectations subject

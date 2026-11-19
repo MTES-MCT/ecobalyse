@@ -19,7 +19,7 @@ import Data.Component as Component exposing (Item)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
-import Data.Impact as Impact
+import Data.Impacts as Impacts
 import Data.Process as Process
 import Data.Split as Split exposing (Split)
 import Data.Textile.Dyeing as Dyeing exposing (ProcessType)
@@ -503,7 +503,7 @@ computeMaterialTransport distances nextCountryCode { country, material, share } 
     if share /= Split.zero then
         let
             emptyImpacts =
-                Impact.empty
+                Impacts.empty
 
             countryCode =
                 country
@@ -514,7 +514,7 @@ computeMaterialTransport distances nextCountryCode { country, material, share } 
             |> Transport.getTransportBetweenLegacy emptyImpacts countryCode nextCountryCode
 
     else
-        Transport.default Impact.empty
+        Transport.default Impacts.empty
 
 
 isFabricOfType : Fabric -> Inputs -> Bool
