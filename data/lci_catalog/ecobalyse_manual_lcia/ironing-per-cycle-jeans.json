@@ -1,0 +1,36 @@
+{
+  "categories": ["use"],
+  "comment": "Repassage pour la catégorie « Jean ». Unité : 1 cycle d'entretien (le nombre de cycles par défaut de la catégorie est 23) ; valeur indépendante de la masse du produit. Calcul : ironingElecInMJ = 0,2438 MJ ; 0,2438 / 3,6 = 0,0677 kWh par cycle. Pas d'impact propre (ecs = 0) : l'impact vient de l'électricité du pays d'utilisation.",
+  "displayName": "Repassage, par cycle d'entretien (Jean)",
+  "elecKwh": 0.0677,
+  "heatMJ": 0,
+  "id": "908545d6-5832-54f3-861a-60125a3c9cd8",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "69085d9c-0cb4-4661-bbdb-f49862db72a0", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 1.0,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "item"
+}

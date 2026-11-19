@@ -1,0 +1,36 @@
+{
+  "categories": ["use"],
+  "comment": "Repassage pour la catégorie « Chemise ». Unité : 1 cycle d'entretien (le nombre de cycles par défaut de la catégorie est 20) ; valeur indépendante de la masse du produit. Calcul : ironingElecInMJ = 0,1638 MJ ; 0,1638 / 3,6 = 0,0455 kWh par cycle. Pas d'impact propre (ecs = 0) : l'impact vient de l'électricité du pays d'utilisation.",
+  "displayName": "Repassage, par cycle d'entretien (Chemise)",
+  "elecKwh": 0.0455,
+  "heatMJ": 0,
+  "id": "b65e7f30-3d90-50d2-95f7-ad3ba0779098",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "064c646e-826c-4a84-94e7-1fa8c1debea0", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 1.0,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "item"
+}
