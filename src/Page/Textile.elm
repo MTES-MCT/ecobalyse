@@ -1060,7 +1060,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
     in
     div [ class "row" ]
         [ div [ class "col-lg-8 bg-white" ]
-            [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
+            [ h1 [ class "mb-3" ] [ text "Simulateur " ]
             , div [ class "sticky-md-top bg-white pb-3" ]
                 [ ExampleView.view
                     { currentQuery = session.queries.textile
