@@ -1,13 +1,20 @@
 module Data.Impact exposing
-    ( Impact
-    , ImpactUnit
-    , aggregateScore
-    , decoder
-    , encode
-    , fromFloat
-    , none
+    ( Impact, ImpactUnit
+    , none, fromFloat
     , toFloat
+    , aggregateScore
+    , decoder, encode
     )
+
+{-|
+
+@docs Impact, ImpactUnit
+@docs none, fromFloat
+@docs toFloat
+@docs aggregateScore
+@docs decoder, encode
+
+-}
 
 import Data.Split as Split exposing (Split)
 import Json.Decode as Decode exposing (Decoder)
