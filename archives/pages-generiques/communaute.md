@@ -23,4 +23,4 @@ Une fois inscrit et connecté :
     * Pour le domaine **ameublement** :
       * [41\_Ameublement](https://chat.ecobalyse.fr/ecobalyse/channels/41_ameublement) : pour toutes les discussions sur Écobalyse pour le secteur Ameublement, la documentation, l’API…
 
-    <div data-gb-custom-block data-tag="hint" data-style="info" class="hint hint-info"><p>Pour rejoindre un canal, il suffit de s'y rendre en suivant les liens ci-dessus, ou alors d'utiliser le moteur de recherche de Mattermost pour les retrouver :<br><br><img src="../.gitbook/assets/ezgif-2-b290f475bf.gif" alt=""></p></div>
+    <div data-gb-custom-block data-tag="hint" data-style="info" class="hint hint-info"><p>Pour rejoindre un canal, il suffit de s'y rendre en suivant les liens ci-dessus, ou alors d'utiliser le moteur de recherche de Mattermost pour les retrouver :<br><br><img src="../../.gitbook/assets/ezgif-2-b290f475bf.gif" alt=""></p></div>

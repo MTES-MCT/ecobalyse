@@ -3,7 +3,6 @@
 ## 💡 Présentation et informations diverses <a href="#ecobalyse-info" id="ecobalyse-info"></a>
 
 * [🇫🇷 Ecobalyse](README.md)
-* [🤝 Communauté](ecobalyse-info/communaute.md)
 * [🫴 Contribuer avec vos données](ecobalyse-info/contribuer.md)
 * [Conditions d'utilisation](ecobalyse-info/conditions-dutilisation.md)
 * [ℹ️ EN PROGRESSION Comment lire cette documentation](ecobalyse-info/comment-lire-cette-documentation.md)
@@ -21,6 +20,7 @@
   * [Correction de la caractérisation de la ressource en Uranium](def-cout-environnemental/categories-dimpact-acv/correction-de-la-caracterisation-de-la-ressource-en-uranium.md)
 * [🏷️ Durabilité](def-cout-environnemental/durabilite.md)
 * [📚 Source des procédés](def-cout-environnemental/source-des-procedes.md)
+* [Outils et méthodes](def-cout-environnemental/outils-et-methodes.md)
 * [Aide API](def-cout-environnemental/aide-api.md)
 * [EN PROGRESSION Vocabulaire et définitions](def-cout-environnemental/vocabulaire-et-definitions.md)
 
@@ -316,6 +316,7 @@
 ## Archives
 
 * [Pages génériques](archives/pages-generiques/README.md)
+  * [🤝 Communauté](archives/pages-generiques/communaute.md)
   * [📝 Le coût environnemental : approche méthodologique globale (old)](archives/pages-generiques/impacts-consideres/README.md)
     * [Compléments hors ACV - old](archives/pages-generiques/impacts-consideres/complements-hors-acv.md)
     * [♻️ OLD - Modèle d'impact de la fin de vie](archives/pages-generiques/impacts-consideres/old-modele-dimpact-de-la-fin-de-vie.md)
