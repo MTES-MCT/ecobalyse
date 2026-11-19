@@ -8,6 +8,7 @@ import Data.Food.Ingredient.CropGroup as CropGroup
 import Data.Food.Ingredient.Scenario as Scenario
 import Data.Food.Origin as Origin
 import Data.Gitbook as Gitbook
+import Data.Impact as Impact
 import Data.Process as Process
 import Data.Sector exposing (Sector)
 import Data.Split as Split
@@ -135,7 +136,7 @@ table { detailed, sector } =
                                 (\( label, impact ) ->
                                     span []
                                         [ text <| label ++ ": "
-                                        , Unit.impactToFloat impact
+                                        , Impact.impactToFloat impact
                                             |> Format.formatImpactFloat { unit = "Pts/kg", decimals = 2 }
                                         ]
                                 )

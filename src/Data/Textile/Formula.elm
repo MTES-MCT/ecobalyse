@@ -19,6 +19,7 @@ module Data.Textile.Formula exposing
 
 import Area exposing (Area)
 import Data.Country as Country
+import Data.Impact as Impact
 import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -104,8 +105,8 @@ recycledMaterialImpacts impacts { cffData, nonRecycledProcess, recycledProcess }
             (\trigram _ ->
                 let
                     ( recycledImpactPerKg, nonRecycledImpactPerKg ) =
-                        ( Process.getImpact trigram recycledProcess |> Unit.impactToFloat
-                        , Process.getImpact trigram nonRecycledProcess |> Unit.impactToFloat
+                        ( Process.getImpact trigram recycledProcess |> Impact.impactToFloat
+                        , Process.getImpact trigram nonRecycledProcess |> Impact.impactToFloat
                         )
                 in
                 Mass.inKilograms outputMass
@@ -113,7 +114,7 @@ recycledMaterialImpacts impacts { cffData, nonRecycledProcess, recycledProcess }
                         + Split.apply (Split.toFloat recycledQualityRatio) (Split.complement manufacturerAllocation)
                         * nonRecycledImpactPerKg
                       )
-                    |> Unit.impact
+                    |> Impact.impact
             )
 
 

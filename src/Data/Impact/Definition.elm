@@ -20,8 +20,8 @@ module Data.Impact.Definition exposing
     , update
     )
 
+import Data.Impact as Impact exposing (Impact)
 import Data.Split as Split exposing (Split)
-import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as JDP
@@ -34,7 +34,7 @@ import Json.Encode as Encode
 
 type alias AggregatedScoreData =
     { color : String
-    , normalization : Unit.Impact
+    , normalization : Impact
     , weighting : Split
     }
 
@@ -538,7 +538,7 @@ decodeAggregatedScoreData : Decoder AggregatedScoreData
 decodeAggregatedScoreData =
     Decode.map3 AggregatedScoreData
         (Decode.field "color" Decode.string)
-        (Decode.field "normalization" Unit.decodeImpact)
+        (Decode.field "normalization" Impact.decodeImpact)
         (Decode.field "weighting" Split.decodeFloat)
 
 

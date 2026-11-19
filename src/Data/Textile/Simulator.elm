@@ -15,6 +15,7 @@ import Data.Component as Component
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Env as Env
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Impacts as Impacts exposing (Impacts)
 import Data.Sector as Sector
@@ -854,7 +855,7 @@ toStagesImpacts trigram simulator =
                 Maybe.map
                     (Quantity.plus
                         (complementImpact
-                            |> Maybe.withDefault Unit.noImpacts
+                            |> Maybe.withDefault Impact.noImpacts
                             |> Quantity.multiplyBy (Unit.floatDurabilityFromHolistic simulator.durability)
                         )
                     )

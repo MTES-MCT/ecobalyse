@@ -1,11 +1,11 @@
 module Data.Textile.InputsTest exposing (..)
 
 import Data.Country.Code as CountryCode
+import Data.Impact as Impact
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material
 import Data.Textile.Query exposing (default)
-import Data.Unit as Unit
 import Expect
 import List.Extra as LE
 import Test exposing (..)
@@ -44,7 +44,7 @@ suite =
             , let
                 testComplementEqual x =
                     Inputs.fromQuery db
-                        >> Result.map (Inputs.getOutOfEuropeEOLComplement >> Maybe.withDefault Unit.noImpacts >> Unit.impactToFloat)
+                        >> Result.map (Inputs.getOutOfEuropeEOLComplement >> Maybe.withDefault Impact.noImpacts >> Impact.impactToFloat)
                         >> Result.withDefault 0
                         >> Expect.within (Expect.Absolute 0.001) x
               in
@@ -85,7 +85,7 @@ suite =
             , let
                 testComplementEqual x =
                     Inputs.fromQuery db
-                        >> Result.map (Inputs.getTotalMicrofibersComplement >> Maybe.withDefault Unit.noImpacts >> Unit.impactToFloat)
+                        >> Result.map (Inputs.getTotalMicrofibersComplement >> Maybe.withDefault Impact.noImpacts >> Impact.impactToFloat)
                         >> Result.withDefault 0
                         >> Expect.within (Expect.Absolute 0.001) x
               in

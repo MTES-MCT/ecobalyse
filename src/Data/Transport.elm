@@ -22,10 +22,10 @@ module Data.Transport exposing
 
 import Data.Country exposing (Country)
 import Data.Country.Code as CountryCode
+import Data.Impact as Impact
 import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
-import Data.Unit as Unit
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
@@ -142,9 +142,9 @@ computeImpacts modes mass transport =
                             |> Impacts.mapImpacts
                                 (\_ impact ->
                                     impact
-                                        |> Unit.impactToFloat
+                                        |> Impact.impactToFloat
                                         |> (*) (Mass.inMetricTons mass * Length.inKilometers distance)
-                                        |> Unit.impact
+                                        |> Impact.impact
                                 )
                     )
                 |> Impacts.sumImpacts

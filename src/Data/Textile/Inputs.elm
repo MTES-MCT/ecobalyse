@@ -19,6 +19,7 @@ import Data.Component as Component exposing (Item)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
+import Data.Impact as Impact exposing (Impact)
 import Data.Impacts as Impacts
 import Data.Process as Process
 import Data.Split as Split exposing (Split)
@@ -418,7 +419,7 @@ countryList inputs =
     ]
 
 
-getMaterialMicrofibersComplement : Mass -> MaterialInput -> Unit.Impact
+getMaterialMicrofibersComplement : Mass -> MaterialInput -> Impact
 getMaterialMicrofibersComplement finalProductMass { material, share } =
     -- Note: Impact is computed against the final product mass, because microfibers
     --       are always released in the environment from finished products.
@@ -432,7 +433,7 @@ getMaterialMicrofibersComplement finalProductMass { material, share } =
         |> Quantity.multiplyBy materialMassInKg
 
 
-getTotalMicrofibersComplement : Inputs -> Maybe Unit.Impact
+getTotalMicrofibersComplement : Inputs -> Maybe Impact
 getTotalMicrofibersComplement { mass, materials } =
     let
         impact =
@@ -440,7 +441,7 @@ getTotalMicrofibersComplement { mass, materials } =
                 |> List.map (getMaterialMicrofibersComplement mass)
                 |> Quantity.sum
     in
-    if impact == Unit.noImpacts then
+    if impact == Impact.noImpacts then
         Nothing
 
     else
@@ -481,17 +482,17 @@ getOutOfEuropeEOLProbability materialInputs =
         |> Result.withDefault Split.zero
 
 
-getOutOfEuropeEOLComplement : Inputs -> Maybe Unit.Impact
+getOutOfEuropeEOLComplement : Inputs -> Maybe Impact
 getOutOfEuropeEOLComplement { mass, materials } =
     let
         impact =
-            Unit.impact
+            Impact.impact
                 (Split.toFloat (getOutOfEuropeEOLProbability materials)
                     * Mass.inKilograms mass
                     * 5000
                 )
     in
-    if impact == Unit.noImpacts then
+    if impact == Impact.noImpacts then
         Nothing
 
     else

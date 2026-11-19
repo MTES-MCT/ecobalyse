@@ -1,11 +1,11 @@
 module Data.TransportTest exposing (..)
 
 import Data.Country.Code as CountryCode
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Impacts as Impacts
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport, getTransportBetweenLegacy)
-import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Expect
 import Length
@@ -92,7 +92,7 @@ suite =
                             |> Transport.computeImpacts transports.modeProcesses Mass.kilogram
                             |> .impacts
                             |> Impacts.getImpact Definition.Ecs
-                            |> Unit.impactToFloat
+                            |> Impact.impactToFloat
                             |> Expect.greaterThan 0
                         )
                     ]

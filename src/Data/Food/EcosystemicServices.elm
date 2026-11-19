@@ -5,13 +5,13 @@ module Data.Food.EcosystemicServices exposing
     , labels
     )
 
-import Data.Unit as Unit
+import Data.Impact as Impact exposing (Impact)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 
 
 type alias EcosystemicServices =
-    AbstractEcosystemicServices Unit.Impact
+    AbstractEcosystemicServices Impact
 
 
 type alias Labels =
@@ -31,18 +31,18 @@ decode =
     Decode.succeed AbstractEcosystemicServices
         -- We need to negate the complements to stay backward compatible as the old format in ingredients.json was not accurate
         -- see https://github.com/MTES-MCT/ecobalyse-data/pull/263
-        |> Pipe.optional "cropDiversity" Unit.decodeAndNegateImpact Unit.noImpacts
-        |> Pipe.optional "hedges" Unit.decodeAndNegateImpact Unit.noImpacts
-        |> Pipe.optional "permanentPasture" Unit.decodeAndNegateImpact Unit.noImpacts
-        |> Pipe.optional "plotSize" Unit.decodeAndNegateImpact Unit.noImpacts
+        |> Pipe.optional "cropDiversity" Impact.decodeAndNegateImpact Impact.noImpacts
+        |> Pipe.optional "hedges" Impact.decodeAndNegateImpact Impact.noImpacts
+        |> Pipe.optional "permanentPasture" Impact.decodeAndNegateImpact Impact.noImpacts
+        |> Pipe.optional "plotSize" Impact.decodeAndNegateImpact Impact.noImpacts
 
 
 empty : EcosystemicServices
 empty =
-    { cropDiversity = Unit.noImpacts
-    , hedges = Unit.noImpacts
-    , permanentPasture = Unit.noImpacts
-    , plotSize = Unit.noImpacts
+    { cropDiversity = Impact.noImpacts
+    , hedges = Impact.noImpacts
+    , permanentPasture = Impact.noImpacts
+    , plotSize = Impact.noImpacts
     }
 
 

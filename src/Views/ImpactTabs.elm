@@ -12,13 +12,13 @@ module Views.ImpactTabs exposing
 import Data.Complement as Complement
 import Data.Component as Component
 import Data.Food.Recipe as Recipe
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Impacts as Impacts exposing (Impacts)
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Session as Session exposing (Session)
 import Data.Stages as Stages
 import Data.Textile.Simulator as TextileSimulator exposing (Simulator)
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -95,7 +95,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                             [ -- Food ecosystemic services
                               { entryAttributes = []
                               , name = "Services écosystémiques"
-                              , value = Unit.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact)
+                              , value = Impact.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact)
                               }
 
                             -- Textile complements
@@ -103,22 +103,22 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                               , name = "Complément " ++ String.toLower Complement.labels.outOfEuropeEOL
                               , value =
                                     complementsImpact.outOfEuropeEOL
-                                        |> Maybe.withDefault Unit.noImpacts
-                                        |> Unit.impactToFloat
+                                        |> Maybe.withDefault Impact.noImpacts
+                                        |> Impact.impactToFloat
                               }
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.microfibers
                               , value =
                                     complementsImpact.microfibers
-                                        |> Maybe.withDefault Unit.noImpacts
-                                        |> Unit.impactToFloat
+                                        |> Maybe.withDefault Impact.noImpacts
+                                        |> Impact.impactToFloat
                               }
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.forest
                               , value =
                                     complementsImpact.forest
-                                        |> Maybe.withDefault Unit.noImpacts
-                                        |> Unit.impactToFloat
+                                        |> Maybe.withDefault Impact.noImpacts
+                                        |> Impact.impactToFloat
                               }
                             ]
                         |> List.sortBy .value
@@ -199,7 +199,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                                 , name = name
                                 , value =
                                     value
-                                        |> Maybe.map Unit.impactToFloat
+                                        |> Maybe.map Impact.impactToFloat
                                         |> Maybe.withDefault 0
                                 }
                             )
@@ -207,13 +207,13 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
 
                 ( SubscoresTab, True ) ->
                     Table.percentageTable impactDefinition
-                        [ { entryAttributes = [], name = "Climat", value = Unit.impactToFloat scoring.climate }
-                        , { entryAttributes = [], name = "Biodiversité", value = Unit.impactToFloat scoring.biodiversity }
-                        , { entryAttributes = [], name = "Santé environnementale", value = Unit.impactToFloat scoring.health }
-                        , { entryAttributes = [], name = "Ressource", value = Unit.impactToFloat scoring.resources }
+                        [ { entryAttributes = [], name = "Climat", value = Impact.impactToFloat scoring.climate }
+                        , { entryAttributes = [], name = "Biodiversité", value = Impact.impactToFloat scoring.biodiversity }
+                        , { entryAttributes = [], name = "Santé environnementale", value = Impact.impactToFloat scoring.health }
+                        , { entryAttributes = [], name = "Ressource", value = Impact.impactToFloat scoring.resources }
                         , { entryAttributes = []
                           , name = "Compléments"
-                          , value = Unit.impactToFloat scoring.complements
+                          , value = Impact.impactToFloat scoring.complements
                           }
                         ]
 

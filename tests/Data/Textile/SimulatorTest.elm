@@ -2,6 +2,7 @@ module Data.Textile.SimulatorTest exposing (..)
 
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Impacts as Impacts
 import Data.Split as Split
@@ -27,7 +28,7 @@ getImpact db trigram query =
                     |> Result.map
                         (.impacts
                             >> Impacts.getImpact trigram
-                            >> Unit.impactToFloat
+                            >> Impact.impactToFloat
                         )
             )
 
@@ -222,7 +223,7 @@ suite =
                             |> Result.map
                                 (Simulator.getTotalImpactsWithoutComplements
                                     >> Impacts.getImpact Definition.Ecs
-                                    >> Unit.impactToFloat
+                                    >> Impact.impactToFloat
                                 )
                             |> Result.withDefault 0
                             |> Expect.greaterThan 0
@@ -240,8 +241,8 @@ suite =
                                 |> Result.andThen (computeWithDefaultComponentConfig db)
                                 |> Result.map
                                     (\simulator ->
-                                        ( simulator.impacts |> Impacts.getImpact Definition.Ecs |> Unit.impactToFloat
-                                        , Simulator.getTotalImpactsWithoutDurability simulator |> Impacts.getImpact Definition.Ecs |> Unit.impactToFloat
+                                        ( simulator.impacts |> Impacts.getImpact Definition.Ecs |> Impact.impactToFloat
+                                        , Simulator.getTotalImpactsWithoutDurability simulator |> Impacts.getImpact Definition.Ecs |> Impact.impactToFloat
                                         )
                                     )
                         of
