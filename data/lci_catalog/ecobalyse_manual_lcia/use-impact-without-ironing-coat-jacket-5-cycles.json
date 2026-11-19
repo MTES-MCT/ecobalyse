@@ -1,0 +1,36 @@
+{
+  "categories": ["productmassdependent", "use"],
+  "comment": "Utilisation hors repassage pour la catégorie « Manteau / Veste », par kg de produit, sur les 5 cycles d'entretien par défaut. Dérivé du procédé « Utilisation : Impact hors repassage (Manteau) » (par cycle), dont l'électricité et l'impact sont multipliés par le nombre de cycles. Électricité : 0,2684 × 5 = 1,342 kWh/kg. Impact (ecs, recalculé depuis les 19 indicateurs : somme de impact / normalisation × pondération × 10^6) : 15,1335 × 5 = 75,6677 µPt/kg. Impacts détaillés : valeurs du procédé d'origine (par cycle) multipliées par le nombre de cycles.",
+  "displayName": "Utilisation hors repassage (Manteau / Veste, 5 cycles d'entretien)",
+  "elecKwh": 1.342,
+  "heatMJ": 0,
+  "id": "8bed2573-4448-5a4b-8e6f-66f4edb2a2b8",
+  "impacts": {
+    "acd": 0.000469701,
+    "cch": 0.170097,
+    "etf": 0.0,
+    "etf-c": 0.0,
+    "fru": 3.58697,
+    "fwe": 5.54305e-05,
+    "htc": 0.0,
+    "htc-c": 0.0,
+    "htn": 0.0,
+    "htn-c": 0.0,
+    "ior": 6.74415,
+    "ldu": 5.2986,
+    "mru": 6.2929e-07,
+    "ozd": 4.21618e-08,
+    "pco": 0.000283294,
+    "pma": 9.6603e-09,
+    "swe": 0.00010038,
+    "tre": 0.00054699,
+    "wtu": 0.0
+  },
+  "metadata": [
+    { "id": "9a82bc70-6f83-4251-91a7-1d45e35a9ff2", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 1.0,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}

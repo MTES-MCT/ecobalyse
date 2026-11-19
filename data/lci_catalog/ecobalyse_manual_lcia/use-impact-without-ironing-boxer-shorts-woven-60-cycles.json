@@ -1,0 +1,36 @@
+{
+  "categories": ["productmassdependent", "use"],
+  "comment": "Utilisation hors repassage pour la catégorie « Caleçon (tissé) », par kg de produit, sur les 60 cycles d'entretien par défaut. Dérivé du procédé « Utilisation : Impact hors repassage (Pull) » (par cycle), dont l'électricité et l'impact sont multipliés par le nombre de cycles. Électricité : 0,2852 × 60 = 17,112 kWh/kg. Impact (ecs, recalculé depuis les 19 indicateurs : somme de impact / normalisation × pondération × 10^6) : 15,1335 × 60 = 908,0121 µPt/kg. Impacts détaillés : valeurs du procédé d'origine (par cycle) multipliées par le nombre de cycles.",
+  "displayName": "Utilisation hors repassage (Caleçon (tissé), 60 cycles d'entretien)",
+  "elecKwh": 17.112,
+  "heatMJ": 0,
+  "id": "7111ccd0-ea80-5831-aeb2-eabf7d5ee4bf",
+  "impacts": {
+    "acd": 0.00563641,
+    "cch": 2.04116,
+    "etf": 0.0,
+    "etf-c": 0.0,
+    "fru": 43.0437,
+    "fwe": 0.000665166,
+    "htc": 0.0,
+    "htc-c": 0.0,
+    "htn": 0.0,
+    "htn-c": 0.0,
+    "ior": 80.9298,
+    "ldu": 63.5832,
+    "mru": 7.55148e-06,
+    "ozd": 5.05942e-07,
+    "pco": 0.00339953,
+    "pma": 1.15924e-07,
+    "swe": 0.00120457,
+    "tre": 0.00656388,
+    "wtu": 0.0
+  },
+  "metadata": [
+    { "id": "3dfabb67-d30a-4d68-967e-92edc28b4207", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 1.0,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}
