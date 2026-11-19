@@ -1,0 +1,36 @@
+{
+  "categories": ["productmassdependent", "use"],
+  "comment": "Utilisation hors repassage pour la catégorie « Chaussettes », par kg de produit, sur les 25 cycles d'entretien par défaut. Dérivé du procédé « Utilisation : Impact hors repassage (Pull) » (par cycle), dont l'électricité et l'impact sont multipliés par le nombre de cycles. Électricité : 0,2852 × 25 = 7,13 kWh/kg. Impact (ecs, recalculé depuis les 19 indicateurs : somme de impact / normalisation × pondération × 10^6) : 15,1335 × 25 = 378,3384 µPt/kg. Impacts détaillés : valeurs du procédé d'origine (par cycle) multipliées par le nombre de cycles.",
+  "displayName": "Utilisation hors repassage (Chaussettes, 25 cycles d'entretien)",
+  "elecKwh": 7.13,
+  "heatMJ": 0,
+  "id": "fd71e90a-15d7-58c3-9d98-f08b1b16e13a",
+  "impacts": {
+    "acd": 0.0023485,
+    "cch": 0.850483,
+    "etf": 0.0,
+    "etf-c": 0.0,
+    "fru": 17.9349,
+    "fwe": 0.000277153,
+    "htc": 0.0,
+    "htc-c": 0.0,
+    "htn": 0.0,
+    "htn-c": 0.0,
+    "ior": 33.7208,
+    "ldu": 26.493,
+    "mru": 3.14645e-06,
+    "ozd": 2.10809e-07,
+    "pco": 0.00141647,
+    "pma": 4.83015e-08,
+    "swe": 0.000501902,
+    "tre": 0.00273495,
+    "wtu": 0.0
+  },
+  "metadata": [
+    { "id": "bc4c50c0-75b4-4edf-b9e8-780a2a80041e", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 1.0,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}
