@@ -30,8 +30,9 @@ module Data.Process exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Country.Code as CountryCode
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impact exposing (Impact)
 import Data.Impact.Definition as Definition
+import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process.Category as Category exposing (Category)
 import Data.Process.Metadata as Metadata exposing (Metadata)
 import Data.Sector as Sector exposing (Sector)
@@ -110,9 +111,9 @@ getDefaultOrigin =
     .metadata >> Maybe.andThen .defaultOrigin
 
 
-getImpact : Definition.Trigram -> Process -> Unit.Impact
+getImpact : Definition.Trigram -> Process -> Impact
 getImpact trigram =
-    .impacts >> Impact.getImpact trigram
+    .impacts >> Impacts.getImpact trigram
 
 
 activityNameFromString : String -> ActivityName
@@ -130,10 +131,10 @@ activityNameToString (ActivityName string) =
 computeImpacts : { elec : Process, heat : Process } -> Process -> Impacts
 computeImpacts { elec, heat } process =
     [ process.impacts
-    , elec.impacts |> Impact.multiplyBy (Energy.inKilowattHours process.elec)
-    , heat.impacts |> Impact.multiplyBy (Energy.inMegajoules process.heat)
+    , elec.impacts |> Impacts.multiplyBy (Energy.inKilowattHours process.elec)
+    , heat.impacts |> Impacts.multiplyBy (Energy.inMegajoules process.heat)
     ]
-        |> Impact.sumImpacts
+        |> Impacts.sumImpacts
 
 
 computeSearchableText : Process -> Process
@@ -141,7 +142,7 @@ computeSearchableText process =
     { process | searchableText = toSearchableText process }
 
 
-decode : Decoder Impact.Impacts -> Decoder Process
+decode : Decoder Impacts.Impacts -> Decoder Process
 decode impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "activityName" (DU.decodeNonEmptyString |> Decode.map activityNameFromString)
@@ -178,7 +179,7 @@ encode process =
         , ( "elecKwh", Encode.float (Energy.inKilowattHours process.elec) )
         , ( "heatMJ", Encode.float (Energy.inMegajoules process.heat) )
         , ( "id", encodeId process.id )
-        , ( "impacts", Impact.encode process.impacts )
+        , ( "impacts", Impacts.encode process.impacts )
         , ( "landOccupation", EncodeExtra.maybe Encode.float process.landOccupation )
         , ( "location", EncodeExtra.maybe Encode.string process.location )
         , ( "massPerUnit", EncodeExtra.maybe Encode.float process.massPerUnit )
@@ -195,7 +196,7 @@ decodeId =
     Decode.map Id Uuid.decoder
 
 
-decodeList : Decoder Impact.Impacts -> Decoder (List Process)
+decodeList : Decoder Impacts.Impacts -> Decoder (List Process)
 decodeList =
     decode >> Decode.list
 
@@ -268,10 +269,10 @@ hasCategory category process =
 
 impactsPerUnit : { country | electricityProcess : Process, heatProcess : Process } -> Process -> Impacts
 impactsPerUnit { electricityProcess, heatProcess } { elec, heat, impacts } =
-    Impact.sumImpacts
+    Impacts.sumImpacts
         [ impacts
-        , electricityProcess.impacts |> Impact.multiplyBy (Energy.inKilowattHours elec)
-        , heatProcess.impacts |> Impact.multiplyBy (Energy.inMegajoules heat)
+        , electricityProcess.impacts |> Impacts.multiplyBy (Energy.inKilowattHours elec)
+        , heatProcess.impacts |> Impacts.multiplyBy (Energy.inMegajoules heat)
         ]
 
 

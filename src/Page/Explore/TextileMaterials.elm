@@ -5,13 +5,13 @@ import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
+import Data.Impact as Impact
 import Data.Process as Process
 import Data.Sector exposing (Sector)
 import Data.Split as Split
 import Data.Text as Text
 import Data.Textile.Material as Material exposing (Id, Material)
 import Data.Textile.Material.Origin as Origin
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Maybe.Extra as Maybe
@@ -92,11 +92,11 @@ table db { detailed, sector } =
           , toCell = .recycledFrom >> recycledToString >> text
           }
         , { label = "Complément Microfibres"
-          , toValue = Table.FloatValue <| .origin >> Origin.toMicrofibersComplement >> Unit.impactToFloat
+          , toValue = Table.FloatValue <| .origin >> Origin.toMicrofibersComplement >> Impact.toFloat
           , toCell =
                 .origin
                     >> Origin.toMicrofibersComplement
-                    >> Unit.impactToFloat
+                    >> Impact.toFloat
                     >> Format.formatImpactFloat { unit = "\u{202F}Pts/kg", decimals = 2 }
                     >> withPill Gitbook.TextileComplementMicrofibers
           }

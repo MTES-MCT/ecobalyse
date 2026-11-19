@@ -8,9 +8,9 @@ import Data.Food.Preparation as Preparation
 import Data.Food.Recipe as Recipe
 import Data.Food.Retail as Retail
 import Data.Food.Transport as FoodTransport
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impact)
 import Data.Impact.Definition as Definition
-import Data.Unit as Unit
+import Data.Impacts as Impacts
 import Expect
 import Length
 import Mass
@@ -18,11 +18,11 @@ import Test exposing (..)
 import TestUtils exposing (asTest, itFromResult, suiteWithDb)
 
 
-expectImpactEqual : Unit.Impact -> Maybe Unit.Impact -> Expect.Expectation
+expectImpactEqual : Impact -> Maybe Impact -> Expect.Expectation
 expectImpactEqual expectedImpactUnit =
-    Maybe.withDefault Unit.noImpacts
-        >> Unit.impactToFloat
-        >> Expect.within (Expect.Relative 0.000000001) (Unit.impactToFloat expectedImpactUnit)
+    Maybe.withDefault Impact.none
+        >> Impact.toFloat
+        >> Expect.within (Expect.Relative 0.000000001) (Impact.toFloat expectedImpactUnit)
 
 
 suite : Test
@@ -50,17 +50,17 @@ suite =
                             (let
                                 complementsImpacts =
                                     testComputedComplements
-                                        { hedges = Unit.noImpacts
-                                        , plotSize = Unit.noImpacts
-                                        , cropDiversity = Unit.noImpacts
-                                        , permanentPasture = Unit.noImpacts
+                                        { hedges = Impact.none
+                                        , plotSize = Impact.none
+                                        , cropDiversity = Impact.none
+                                        , permanentPasture = Impact.none
                                         }
                              in
                              [ complementsImpacts.hedges
-                                |> expectImpactEqual Unit.noImpacts
+                                |> expectImpactEqual Impact.none
                                 |> asTest "should compute a zero hedges ingredient complement"
                              , Just (Complement.getTotalComplementsImpacts complementsImpacts)
-                                |> expectImpactEqual Unit.noImpacts
+                                |> expectImpactEqual Impact.none
                                 |> asTest "should compute a zero total complement"
                              ]
                             )
@@ -68,17 +68,17 @@ suite =
                             (let
                                 complementsImpacts =
                                     testComputedComplements
-                                        { hedges = Unit.impact 1
-                                        , plotSize = Unit.impact 1
-                                        , cropDiversity = Unit.impact 1
-                                        , permanentPasture = Unit.impact 1
+                                        { hedges = Impact.fromFloat 1
+                                        , plotSize = Impact.fromFloat 1
+                                        , cropDiversity = Impact.fromFloat 1
+                                        , permanentPasture = Impact.fromFloat 1
                                         }
                              in
                              [ complementsImpacts.hedges
-                                |> expectImpactEqual (Unit.impact 2)
+                                |> expectImpactEqual (Impact.fromFloat 2)
                                 |> asTest "should compute a non-zero hedges ingredient complement"
                              , Just (Complement.getTotalComplementsImpacts complementsImpacts)
-                                |> expectImpactEqual (Unit.impact 8)
+                                |> expectImpactEqual (Impact.fromFloat 8)
                                 |> asTest "should compute a non-zero total complement"
                              ]
                             )
@@ -110,7 +110,7 @@ suite =
                              in
                              [ royalPizzaResults
                                 |> Result.map (Tuple.second >> .total)
-                                |> Result.withDefault Impact.empty
+                                |> Result.withDefault Impacts.empty
                                 |> TestUtils.expectImpactsEqual
                                     { acd = Expect.greaterThan 0
                                     , cch = Expect.greaterThan 0
@@ -140,21 +140,21 @@ suite =
                                 |> Expect.within (Expect.Absolute 0.01) 0.3425
                                 |> asTest "should compute ingredients total edible mass"
                              , asTest "should have the total ecs impact with the complement taken into account"
-                                (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact Definition.Ecs) of
+                                (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .total >> Impacts.getImpact Definition.Ecs) of
                                     Err err ->
                                         Expect.fail err
 
                                     Ok result ->
-                                        Unit.impactToFloat result
+                                        Impact.toFloat result
                                             |> Expect.within (Expect.Absolute 0.1) 136.48
                                 )
                              , asTest "should have the ingredients' total ecs impact with the complement taken into account"
-                                (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
+                                (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impacts.getImpact Definition.Ecs) of
                                     Err err ->
                                         Expect.fail err
 
                                     Ok result ->
-                                        Unit.impactToFloat result
+                                        Impact.toFloat result
                                             |> Expect.within (Expect.Absolute 0.1) 113.1
                                 )
                              , describe "Scoring"
@@ -165,17 +165,17 @@ suite =
                                         ]
 
                                     Ok scoring ->
-                                        [ Unit.impactToFloat scoring.all
+                                        [ Impact.toFloat scoring.all
                                             |> Expect.within (Expect.Absolute 0.01) 455.48
                                             |> asTest "should properly score total impact"
-                                        , Unit.impactToFloat scoring.allWithoutComplements
+                                        , Impact.toFloat scoring.allWithoutComplements
                                             |> Expect.within (Expect.Absolute 0.01) 456.62
                                             |> asTest "should properly score total impact without complements"
-                                        , Unit.impactToFloat scoring.complements
+                                        , Impact.toFloat scoring.complements
                                             |> Expect.within (Expect.Absolute 0.01) -1.136
                                             |> asTest "should properly score complement impact"
-                                        , (Unit.impactToFloat scoring.allWithoutComplements + Unit.impactToFloat scoring.complements)
-                                            |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
+                                        , (Impact.toFloat scoring.allWithoutComplements + Impact.toFloat scoring.complements)
+                                            |> Expect.within (Expect.Absolute 0.0001) (Impact.toFloat scoring.all)
                                             |> asTest "should expose coherent scoring"
 
                                         -- Protection-area scores are recomputed from individual trigrams.
@@ -184,16 +184,16 @@ suite =
                                         -- scores, especially for health.
                                         -- Totals above stay small because they use `ecs`, which keeps its
                                         -- production value.
-                                        , Unit.impactToFloat scoring.biodiversity
+                                        , Impact.toFloat scoring.biodiversity
                                             |> Expect.within (Expect.Absolute 0.01) 60114.2248
                                             |> asTest "should properly score impact on biodiversity protected area"
-                                        , Unit.impactToFloat scoring.climate
+                                        , Impact.toFloat scoring.climate
                                             |> Expect.within (Expect.Absolute 0.01) 188.3162
                                             |> asTest "should properly score impact on climate protected area"
-                                        , Unit.impactToFloat scoring.health
+                                        , Impact.toFloat scoring.health
                                             |> Expect.within (Expect.Absolute 0.01) 448132406.0268
                                             |> asTest "should properly score impact on health protected area"
-                                        , Unit.impactToFloat scoring.resources
+                                        , Impact.toFloat scoring.resources
                                             |> Expect.within (Expect.Absolute 0.01) 3504703.8195
                                             |> asTest "should properly score impact on resources protected area"
                                         ]
@@ -202,9 +202,9 @@ suite =
                                 (royalPizzaResults |> Result.map Tuple.second)
                                 (\{ perKg, scoring } ->
                                     perKg
-                                        |> Impact.getImpact Definition.Ecs
-                                        |> Unit.impactToFloat
-                                        |> Expect.within (Expect.Absolute 0.01) (Unit.impactToFloat scoring.all)
+                                        |> Impacts.getImpact Definition.Ecs
+                                        |> Impact.toFloat
+                                        |> Expect.within (Expect.Absolute 0.01) (Impact.toFloat scoring.all)
                                 )
                              ]
                             )

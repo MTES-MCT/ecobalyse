@@ -4,9 +4,9 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Complement as Complement
 import Data.Component as Component
 import Data.Db exposing (Db)
+import Data.Impact as Impact
 import Data.Process as Process
 import Data.Sector as Sector
-import Data.Unit as Unit
 import Expect exposing (Expectation)
 import Json.Decode as Decode
 import Test exposing (..)
@@ -132,7 +132,7 @@ cookedHamComplements db =
             (.metadata
                 >> Maybe.andThen .complements
                 >> Result.fromMaybe "Missing expected complements"
-                >> Result.map (Complement.getTotalComplementsImpacts >> Unit.impactToFloat)
+                >> Result.map (Complement.getTotalComplementsImpacts >> Impact.toFloat)
             )
 
 

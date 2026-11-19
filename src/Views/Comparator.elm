@@ -14,10 +14,10 @@ import Data.Food.Recipe as Recipe
 import Data.Generic.Simulator as GenericSimulator
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
+import Data.Impacts as Impacts
 import Data.Sector as Sector
 import Data.Session as Session exposing (Session)
 import Data.Textile.Simulator as TextileSimulator
-import Data.Unit as Unit
 import Dict
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -55,9 +55,9 @@ type ComparisonType
 
 type alias ChartsData =
     { complementsImpact : Complement.ComplementsImpacts
-    , impacts : Impact.Impacts
+    , impacts : Impacts.Impacts
     , label : String
-    , stagesImpacts : Impact.StagesImpacts
+    , stagesImpacts : Impacts.StagesImpacts
     }
 
 
@@ -166,7 +166,7 @@ addToComparison { componentConfig, db } { name, query } =
                         { complementsImpact =
                             lifeCycle.production
                                 |> Component.extractComplementsImpacts
-                                |> Complement.mapComplements (Maybe.map (Impact.getImpact Definition.Ecs))
+                                |> Complement.mapComplements (Maybe.map (Impacts.getImpact Definition.Ecs))
                         , impacts = Component.sumLifeCycleImpacts lifeCycle
                         , label = name
                         , stagesImpacts =
@@ -271,7 +271,7 @@ encodeChartSeries toEntries =
                 [ ( "label", Encode.string chartEntry.label )
                 , ( "data"
                   , toEntries chartEntry
-                        |> Encode.list Impact.encodeAggregatedScoreChartEntry
+                        |> Encode.list Impacts.encodeAggregatedScoreChartEntry
                   )
                 ]
         )
@@ -343,7 +343,7 @@ entriesForIndividualImpacts definitions { complementsImpact, impacts } =
     in
     Complement.complementsImpactAsChartEntries complementsImpact
         ++ (impacts
-                |> Impact.getAggregatedScoreData definitions .ecoscoreData
+                |> Impacts.getAggregatedScoreData definitions .ecoscoreData
                 |> List.sortWith labelComparison
            )
         |> List.reverse
@@ -352,21 +352,21 @@ entriesForIndividualImpacts definitions { complementsImpact, impacts } =
 entriesForStages : ChartsData -> List ChartEntry
 entriesForStages { stagesImpacts } =
     stagesImpacts
-        |> Impact.stagesImpactsAsChartEntries
+        |> Impacts.stagesImpactsAsChartEntries
         |> List.reverse
 
 
 entriesForSubscores : Definitions -> ChartsData -> List ChartEntry
 entriesForSubscores definitions { complementsImpact, impacts } =
     impacts
-        |> Impact.toProtectionAreas definitions
+        |> Impacts.toProtectionAreas definitions
         |> (\{ biodiversity, climate, health, resources } ->
                 List.reverse
                     [ Complement.totalComplementsImpactAsChartEntry complementsImpact
-                    , { color = "#9025be", name = "Climat", value = Unit.impactToFloat climate }
-                    , { color = "#00b050", name = "Biodiversité", value = Unit.impactToFloat biodiversity }
-                    , { color = "#ffc000", name = "Santé environnementale", value = Unit.impactToFloat health }
-                    , { color = "#0070c0", name = "Ressource", value = Unit.impactToFloat resources }
+                    , { color = "#9025be", name = "Climat", value = Impact.toFloat climate }
+                    , { color = "#00b050", name = "Biodiversité", value = Impact.toFloat biodiversity }
+                    , { color = "#ffc000", name = "Santé environnementale", value = Impact.toFloat health }
+                    , { color = "#0070c0", name = "Ressource", value = Impact.toFloat resources }
                     ]
            )
 
@@ -377,8 +377,8 @@ entriesForTotal { impacts } =
       , name = "Impact total"
       , value =
             impacts
-                |> Impact.getImpact Definition.Ecs
-                |> Unit.impactToFloat
+                |> Impacts.getImpact Definition.Ecs
+                |> Impact.toFloat
       }
     ]
 

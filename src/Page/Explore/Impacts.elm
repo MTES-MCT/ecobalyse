@@ -1,11 +1,11 @@
 module Page.Explore.Impacts exposing (table)
 
 import Data.Dataset as Dataset
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Sector exposing (Sector)
 import Data.Split as Split
 import Data.Text as Text
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
@@ -45,12 +45,12 @@ table { detailed, sector } =
           , toValue =
                 Table.FloatValue <|
                     .ecoscoreData
-                        >> Maybe.map (.normalization >> Unit.impactToFloat)
+                        >> Maybe.map (.normalization >> Impact.toFloat)
                         >> Maybe.withDefault 0
           , toCell =
                 \def ->
                     def.ecoscoreData
-                        |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
+                        |> Maybe.map (.normalization >> Impact.toFloat >> Format.formatRichFloat 2 def.unit)
                         |> Maybe.withDefault (text Table.emptyLabel)
           }
         , { label = "Pondération (Coût Evt)"

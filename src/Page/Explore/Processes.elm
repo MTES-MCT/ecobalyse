@@ -5,8 +5,9 @@ import Data.Country as Country
 import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Env as Env
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impact)
 import Data.Impact.Definition as Definition exposing (Definitions)
+import Data.Impacts as Impacts
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Sector exposing (Sector)
@@ -122,12 +123,12 @@ commentCell detailed comment =
 complementsColumns : Session -> List (Column Process String msg)
 complementsColumns { db } =
     let
-        complementToMaybeFloat : (Complement.ComplementsImpacts -> Maybe Unit.Impact) -> Process -> Maybe Float
+        complementToMaybeFloat : (Complement.ComplementsImpacts -> Maybe Impact) -> Process -> Maybe Float
         complementToMaybeFloat accessor =
             .metadata
                 >> Maybe.andThen .complements
                 >> Maybe.andThen accessor
-                >> Maybe.map Unit.impactToFloat
+                >> Maybe.map Impact.toFloat
     in
     List.map2
         (\a b ->
@@ -149,7 +150,7 @@ complementsColumns { db } =
 impactCell : Definitions -> Definition.Trigram -> Column Process String msg
 impactCell definitions trigram =
     { label = Definition.toString trigram
-    , toValue = Table.FloatValue <| .impacts >> Impact.getImpact trigram >> Unit.impactToFloat
+    , toValue = Table.FloatValue <| .impacts >> Impacts.getImpact trigram >> Impact.toFloat
     , toCell = .impacts >> Format.formatImpact (Definition.get trigram definitions)
     }
 

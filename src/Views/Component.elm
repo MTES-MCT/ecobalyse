@@ -24,14 +24,14 @@ import Data.Component as Component
 import Data.Component.Config as Config
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country.Code as CountryCode
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
+import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split exposing (Split)
 import Data.Transport exposing (Transport)
-import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -387,7 +387,7 @@ packagingView ({ query } as config) lifeCycle =
                 [ text "Emballage" ]
             , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.packaging
-                    |> Impact.sumImpacts
+                    |> Impacts.sumImpacts
                     |> Format.formatImpact config.impact
                 ]
             , documentationLink config "packaging"
@@ -470,7 +470,7 @@ quantifiedProcessList { db, floatInputState, impact, noOp } lifeCycle listConfig
                                         , td [ class "align-middle text-end text-nowrap" ]
                                             [ listConfig.impactsList
                                                 |> LE.getAt index
-                                                |> Maybe.withDefault Impact.empty
+                                                |> Maybe.withDefault Impacts.empty
                                                 |> Format.formatImpact impact
                                             ]
                                         , td [ class "align-middle pe-3 pt-2" ]
@@ -821,7 +821,7 @@ useStageView ({ impact, query } as config) lifeCycle =
                 [ text "Utilisation" ]
             , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.use
-                    |> Impact.sumImpacts
+                    |> Impacts.sumImpacts
                     |> Format.formatImpact impact
                 ]
             , documentationLink config "use"
@@ -971,13 +971,13 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
             else
                 let
                     impact =
-                        impacts |> Impact.getImpact config.impact.trigram
+                        impacts |> Impacts.getImpact config.impact.trigram
 
                     formatted =
                         impacts |> Format.formatImpact config.impact
                 in
                 div []
-                    [ if isRecycling && Unit.impactToFloat impact == 0 then
+                    [ if isRecycling && Impact.toFloat impact == 0 then
                         span [ class "cursor-help", title "Le recyclage est ici considéré sans impact" ]
                             [ formatted, text "*" ]
 
@@ -1004,7 +1004,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
               , nonCollected |> Tuple.second |> .incinerating |> .impacts
               , nonCollected |> Tuple.second |> .landfilling |> .impacts
               ]
-                |> Impact.sumImpacts
+                |> Impacts.sumImpacts
                 |> Format.formatImpact config.impact
             ]
         ]
@@ -1019,7 +1019,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
               , collected |> Tuple.second |> .incinerating |> .impacts
               , collected |> Tuple.second |> .landfilling |> .impacts
               ]
-                |> Impact.sumImpacts
+                |> Impacts.sumImpacts
                 |> Format.formatImpact config.impact
             ]
         ]
@@ -1034,7 +1034,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
               , nonCollected |> Tuple.second |> .incinerating |> .impacts
               , nonCollected |> Tuple.second |> .landfilling |> .impacts
               ]
-                |> Impact.sumImpacts
+                |> Impacts.sumImpacts
                 |> Format.formatImpact config.impact
             ]
         ]
