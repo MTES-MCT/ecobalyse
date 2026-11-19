@@ -28,7 +28,7 @@ Les variables d’environnement décrites ci-dessous doivent être définies. En
 - `ENABLE_FOOD2_SECTION` : affichage de la section “Alimentaire BÉTA” (moteur générique) et activation de l'api associée (valeur `True` ou `False`, par défaut `False`)
 - `ENABLE_FURNITURE_SECTION` : affichage de la section “Ameublement” (moteur générique) et activation de l'api associée (valeur `True` ou `False`, par défaut `False`)
 - `ENABLE_OBJECTS_SECTION` : affichage de la section “Objets” et activation de l'api associée (valeur `True` ou `False`, par défaut `False`)
-- `ENABLE_VELI_SECTION` : affichage de la section Mobilité et activation de l'api associée (valeur `True` ou `False`, par défaut `False`)
+- `ENABLE_VELI_SECTION` : affichage de la section ”Mobilité” et activation de l'api associée (valeur `True` ou `False`, par défaut `False`)
 - `ENCRYPTION_KEY` : la clé utilisée par les scripts `npm run encrypt` et  `npm run decrypt` pour chiffrer/déchiffrer les fichiers d’impacts détaillés inclus dans chaque archive de release. Pour générer une nouvelle clé, vous pouvez utiliser le script `bin/generate-crypto-key`
 - `GITHUB_TOKEN` : le jeton GitHub utilisé côté serveur pour créer les branches, commits et pull requests de contribution (requis)
 - `GITHUB_REPOSITORY` : dépôt cible au format `owner/repo` (par défaut `MTES-MCT/ecobalyse`).
