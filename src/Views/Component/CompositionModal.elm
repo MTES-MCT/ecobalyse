@@ -138,8 +138,8 @@ assemblyLossRows config elementMass =
             |> Component.expandAssembly config.db.processes
     of
         Err error ->
-            [ Alert.simpleError (Just "Erreur") <|
-                ("Erreur de calcul des pertes à l’assemblage\u{00A0}: " ++ error)
+            [ ("Erreur de récupération des opérations d’assemblage\u{00A0}: " ++ error)
+                |> Alert.simpleError (Just "Erreur")
             ]
 
         Ok operations ->
