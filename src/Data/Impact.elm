@@ -2,7 +2,6 @@ module Data.Impact exposing
     ( Impact
     , ImpactUnit
     , aggregateScore
-    , decodeAndNegateImpact
     , decoder
     , encode
     , fromFloat
@@ -45,11 +44,6 @@ aggregateScore normalization weighting =
         >> Quantity.multiplyBy (Split.toFloat weighting)
         -- Raw aggregate scores like PEF are expressed in Pt (points); we want Pts (micropoints)
         >> Quantity.multiplyBy 1000000
-
-
-decodeAndNegateImpact : Decoder Impact
-decodeAndNegateImpact =
-    Decode.map Quantity.negate decoder
 
 
 decoder : Decoder Impact
