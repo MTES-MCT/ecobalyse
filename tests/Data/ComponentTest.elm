@@ -646,6 +646,37 @@ suite =
                                 )
                             ]
                         ]
+                    , describe "assembledMass"
+                        [ itFromResult2 "should keep the displayed component mass as post-assembly mass"
+                            fixtures.confection
+                            (Process.idFromString nonExistentUuid)
+                            (\confection missingId ->
+                                let
+                                    preAssemblyMass =
+                                        Mass.kilograms 1.25
+
+                                    queryWith operations =
+                                        { emptyQuery
+                                            | assembly = { emptyAssembly | operations = Just operations }
+                                        }
+                                in
+                                expectAllSucceed
+                                    [ preAssemblyMass
+                                        |> Component.assembledMass requirements (queryWith [ confection.id ])
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual
+                                            (1.25 * Unit.qtyVariationRatioToFloat confection.qtyVariationRatio)
+                                    , preAssemblyMass
+                                        |> Component.assembledMass requirements (queryWith [ missingId ])
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual 1.25
+                                    , preAssemblyMass
+                                        |> Component.assembledMass requirements emptyQuery
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual 1.25
+                                    ]
+                            )
+                        ]
                     , describe "compute"
                         [ it "should compute results from decoded component items"
                             (chair
@@ -1617,7 +1648,7 @@ suite =
                             )
                             (\lifeCycle withAssemblyWaste ->
                                 let
-                                    -- Two 50% waste operations: finished mass stays, incoming mass x4
+                                    -- Two 50% waste operations: post-assembly mass stays, incoming mass x4
                                     incomingMassRatio =
                                         4
 
@@ -1640,7 +1671,7 @@ suite =
                                     baseToDistributionImpact =
                                         getEcsImpact lifeCycle.transports.toDistribution.impacts
                                 in
-                                [ it "should keep the finished product mass equal to the case without assembly waste"
+                                [ it "should keep the post-assembly product mass equal to the case without assembly waste"
                                     (withAssemblyWaste.productMass
                                         |> Mass.inKilograms
                                         |> expectFloatMostlyEqual (Mass.inKilograms lifeCycle.productMass)

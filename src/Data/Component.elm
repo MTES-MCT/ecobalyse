@@ -34,6 +34,7 @@ module Data.Component exposing
     , applyDefaultOrigins
     , applyDurability
     , applyTransforms
+    , assembledMass
     , compute
     , computeElementResults
     , computeImpacts
@@ -792,6 +793,17 @@ applyTransportedMassImpacts requirements transportOptions mass maybeFrom maybeTo
             )
 
 
+{-| Given a pre-assembly stage mass, computes a post-assembly one with assembly operations losses applied.
+-}
+assembledMass : Requirements db -> Query -> Mass -> Mass
+assembledMass requirements query mass =
+    query
+        |> getAssemblyOperations requirements
+        |> expandAssembly requirements.db.processes
+        |> Result.map (List.foldl (.qtyVariationRatio >> Unit.applyQtyVariationRatioToMass) mass)
+        |> Result.withDefault mass
+
+
 assemblyResultsFromMass : Mass -> Results
 assemblyResultsFromMass mass =
     Results
@@ -1004,8 +1016,8 @@ computeItemResults requirements transportOptions assemblyQtyVariationRatios { cu
                 custom
                     |> customElements component
                     |> scaleElementsToUnitMass requirements.db unitMass
-                    -- amount input is the *finished* product amount; assembly losses increase
-                    -- what must be produced *before* that step, the same way transform losses do
+                    -- amount input is the *post-assembly* component amount; assembly losses increase
+                    -- what must be produced *before* that stage, the same way transform losses do
                     |> Result.andThen
                         (List.map
                             (\element ->
