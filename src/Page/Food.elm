@@ -28,8 +28,8 @@ import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Food.Retail as Retail
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Gitbook as Gitbook
-import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
+import Data.Impacts as Impacts
 import Data.Key as Key
 import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
@@ -975,7 +975,7 @@ updatePackagingFormView { autocompleteState, packaging, impact, updateEvent, del
 type alias UpdateIngredientConfig =
     { excluded : List Ingredient.Id
     , recipeIngredient : Recipe.RecipeIngredient
-    , impact : Impact.Impacts
+    , impact : Impacts.Impacts
     , selectedImpact : Definition
     , transportImpact : Html Msg
     }
@@ -1241,7 +1241,7 @@ ingredientListView db selectedImpact recipe results =
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
-        , StagesBorder.style Impact.stagesColors.materials
+        , StagesBorder.style Impacts.stagesColors.materials
         ]
         [ h2
             [ class "h5 mb-0"
@@ -1282,7 +1282,7 @@ ingredientListView db selectedImpact recipe results =
                                 results.recipe.ingredients
                                     |> LE.find (\( recipeIngredient, _ ) -> recipeIngredient == ingredient)
                                     |> Maybe.map Tuple.second
-                                    |> Maybe.withDefault Impact.empty
+                                    |> Maybe.withDefault Impacts.empty
                             , selectedImpact = selectedImpact
                             , transportImpact =
                                 ingredient
@@ -1326,7 +1326,7 @@ packagingListView db selectedImpact recipe results =
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
-        , StagesBorder.style Impact.stagesColors.packaging
+        , StagesBorder.style Impacts.stagesColors.packaging
         ]
         [ h2
             [ class "h5 mb-0"
@@ -1526,7 +1526,7 @@ distributionView selectedImpact recipe results =
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
-        , StagesBorder.style Impact.stagesColors.distribution
+        , StagesBorder.style Impacts.stagesColors.distribution
         ]
         [ h2
             [ class "h5 mb-0"
@@ -1589,7 +1589,7 @@ consumptionView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg
 consumptionView { food } selectedImpact recipe results =
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
-        , StagesBorder.style Impact.stagesColors.usage
+        , StagesBorder.style Impacts.stagesColors.usage
         ]
         [ h2
             [ class "h5 mb-0"
@@ -1826,7 +1826,7 @@ transformView db selectedImpact recipe results =
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
-        , StagesBorder.style Impact.stagesColors.transform
+        , StagesBorder.style Impacts.stagesColors.transform
         ]
         [ h2
             [ class "h5 mb-0"

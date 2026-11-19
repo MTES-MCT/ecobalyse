@@ -32,8 +32,8 @@ module Views.Format exposing
 import Area exposing (Area)
 import Data.Complement as Complement
 import Data.Component.Amount as Amount exposing (Amount)
-import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
+import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
@@ -59,14 +59,14 @@ formatImpactFloat { decimals, unit } =
 
 formatImpact : Definition -> Impacts -> Html msg
 formatImpact { decimals, trigram, unit } =
-    Impact.getImpact trigram
+    Impacts.getImpact trigram
         >> Unit.impactToFloat
         >> formatRichFloat decimals unit
 
 
 formatImpactToString : Definition -> Impacts -> String
 formatImpactToString { decimals, trigram } =
-    Impact.getImpact trigram
+    Impacts.getImpact trigram
         >> Unit.impactToFloat
         >> formatFloat decimals
 

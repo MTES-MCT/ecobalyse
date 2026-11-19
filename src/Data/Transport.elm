@@ -22,7 +22,7 @@ module Data.Transport exposing
 
 import Data.Country exposing (Country)
 import Data.Country.Code as CountryCode
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
@@ -139,7 +139,7 @@ computeImpacts modes mass transport =
                 |> List.map
                     (\( transportProcess, distance ) ->
                         transportProcess.impacts
-                            |> Impact.mapImpacts
+                            |> Impacts.mapImpacts
                                 (\_ impact ->
                                     impact
                                         |> Unit.impactToFloat
@@ -147,7 +147,7 @@ computeImpacts modes mass transport =
                                         |> Unit.impact
                                 )
                     )
-                |> Impact.sumImpacts
+                |> Impacts.sumImpacts
     }
 
 
@@ -173,7 +173,7 @@ makeCooled transport =
 
 noTransport : Transport
 noTransport =
-    default Impact.empty
+    default Impacts.empty
 
 
 sum : List Transport -> Transport
@@ -182,14 +182,14 @@ sum =
         (\{ air, impacts, road, roadCooled, sea, seaCooled } acc ->
             { acc
                 | air = acc.air |> Quantity.plus air
-                , impacts = Impact.sumImpacts [ acc.impacts, impacts ]
+                , impacts = Impacts.sumImpacts [ acc.impacts, impacts ]
                 , road = acc.road |> Quantity.plus road
                 , roadCooled = acc.roadCooled |> Quantity.plus roadCooled
                 , sea = acc.sea |> Quantity.plus sea
                 , seaCooled = acc.seaCooled |> Quantity.plus seaCooled
             }
         )
-        (default Impact.empty)
+        (default Impacts.empty)
 
 
 totalKm : Transport -> Float
@@ -277,7 +277,7 @@ decode : Decoder Transport
 decode =
     Decode.succeed Transport
         |> Decode.required "air" decodeKm
-        |> Decode.hardcoded Impact.empty
+        |> Decode.hardcoded Impacts.empty
         |> Decode.required "road" decodeKm
         -- roadCooled
         |> Decode.hardcoded Quantity.zero
@@ -290,7 +290,7 @@ encode : Transport -> Encode.Value
 encode v =
     Encode.object
         [ ( "air", encodeKm v.air )
-        , ( "impacts", Impact.encode v.impacts )
+        , ( "impacts", Impacts.encode v.impacts )
         , ( "road", encodeKm v.road )
         , ( "roadCooled", encodeKm v.roadCooled )
         , ( "sea", encodeKm v.sea )

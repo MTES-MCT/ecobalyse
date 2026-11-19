@@ -1,8 +1,8 @@
 module Views.Sidebar exposing (Config, view)
 
 import Data.Bookmark exposing (Bookmark)
-import Data.Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition, Trigram)
+import Data.Impacts exposing (Impacts)
 import Data.Sector exposing (Sector)
 import Data.Session exposing (Session)
 import Html exposing (..)

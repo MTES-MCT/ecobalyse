@@ -1,8 +1,8 @@
 module Data.Food.PreparationTest exposing (..)
 
 import Data.Food.Preparation as Preparation
-import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Impacts as Impacts
 import Data.Split as Split
 import Data.Unit as Unit
 import Energy
@@ -24,7 +24,7 @@ suite =
                   , applyRawToCookedRatio = False
                   }
                     |> Preparation.apply food.wellKnown (Mass.kilograms 1)
-                    |> Impact.getImpact Definition.Ecs
+                    |> Impacts.getImpact Definition.Ecs
                     |> Unit.impactToFloat
                     |> Expect.within (Expect.Absolute 0.001) 11.544
                     |> asTest "compute impacts from applying a consumption preparation technique"

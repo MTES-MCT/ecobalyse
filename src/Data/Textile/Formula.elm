@@ -19,7 +19,7 @@ module Data.Textile.Formula exposing
 
 import Area exposing (Area)
 import Data.Country as Country
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
@@ -82,7 +82,7 @@ makingDeadStock deadstock baseMass =
 pureMaterialImpacts : Impacts -> Process -> Mass -> Impacts
 pureMaterialImpacts impacts process mass =
     impacts
-        |> Impact.mapImpacts
+        |> Impacts.mapImpacts
             (\trigram _ ->
                 mass
                     |> Unit.forKg (Process.getImpact trigram process)
@@ -100,7 +100,7 @@ recycledMaterialImpacts impacts { cffData, nonRecycledProcess, recycledProcess }
             cffData
     in
     impacts
-        |> Impact.mapImpacts
+        |> Impacts.mapImpacts
             (\trigram _ ->
                 let
                     ( recycledImpactPerKg, nonRecycledImpactPerKg ) =
@@ -125,7 +125,7 @@ spinningImpacts impacts { countryElecProcess, spinningKwh } =
     { heat = Quantity.zero
     , impacts =
         impacts
-            |> Impact.mapImpacts
+            |> Impacts.mapImpacts
                 (\trigram _ ->
                     spinningKwh |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
                 )
@@ -155,7 +155,7 @@ dyeingImpacts impacts dyeingProcess heatProcess elecProcess baseMass =
     { heat = heatMJ
     , impacts =
         impacts
-            |> Impact.mapImpacts
+            |> Impacts.mapImpacts
                 (\trigram _ ->
                     Quantity.sum
                         [ baseMass |> Unit.forKg (Process.getImpact trigram dyeingProcess)
@@ -197,7 +197,7 @@ printingImpacts impacts { elecProcess, heatProcess, printingProcess, ratio, surf
     { heat = heatMJ
     , impacts =
         impacts
-            |> Impact.mapImpacts
+            |> Impacts.mapImpacts
                 (\trigram _ ->
                     Quantity.sum
                         [ surface |> Unit.forSquareMeter (Process.getImpact trigram printingProcess)
@@ -228,7 +228,7 @@ finishingImpacts impacts { elecProcess, finishingProcess, heatProcess } baseMass
     { heat = heatMJ
     , impacts =
         impacts
-            |> Impact.mapImpacts
+            |> Impacts.mapImpacts
                 (\trigram _ ->
                     Quantity.sum
                         [ baseMass |> Unit.forKg (Process.getImpact trigram finishingProcess)
@@ -251,7 +251,7 @@ materialDyeingToxicityImpacts :
     -> Impacts
 materialDyeingToxicityImpacts impacts { aquaticPollutionScenario, dyeingToxicityProcess } baseMass split =
     impacts
-        |> Impact.mapImpacts
+        |> Impacts.mapImpacts
             (\trigram _ ->
                 baseMass
                     |> Unit.forKg (Process.getImpact trigram dyeingToxicityProcess)
@@ -276,7 +276,7 @@ materialPrintingToxicityImpacts :
     -> Impacts
 materialPrintingToxicityImpacts impacts { aquaticPollutionScenario, printingToxicityProcess, surfaceMass } split baseMass =
     impacts
-        |> Impact.mapImpacts
+        |> Impacts.mapImpacts
             (\trigram _ ->
                 baseMass
                     |> Unit.surfaceMassToSurface surfaceMass
@@ -328,7 +328,7 @@ makingImpacts impacts { countryElecProcess, countryHeatProcess, fadingProcess, m
     { heat = fadingHeat
     , impacts =
         impacts
-            |> Impact.mapImpacts
+            |> Impacts.mapImpacts
                 (\trigram _ ->
                     Quantity.sum
                         [ -- Making process (per-item)
@@ -371,7 +371,7 @@ knittingImpacts impacts { countryElecProcess, elec } baseMass =
     -- FIXME: why don't we use threadDensity and picking here?
     { impacts =
         impacts
-            |> Impact.mapImpacts
+            |> Impacts.mapImpacts
                 (\trigram _ ->
                     electricityKWh
                         |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
@@ -417,7 +417,7 @@ weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMas
     in
     { impacts =
         impacts
-            |> Impact.mapImpacts
+            |> Impacts.mapImpacts
                 (\trigram _ ->
                     electricityKWh
                         |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
@@ -481,7 +481,7 @@ useImpacts impacts { countryElecProcess, ironingElec, nonIroningProcess, useNbCy
     { heat = Quantity.zero
     , impacts =
         impacts
-            |> Impact.mapImpacts
+            |> Impacts.mapImpacts
                 (\trigram _ ->
                     Quantity.sum
                         [ totalEnergy
@@ -535,7 +535,7 @@ endOfLifeImpacts impacts { countryElecProcess, endOfLife, heatProcess, passenger
     { heat = heatEnergy
     , impacts =
         impacts
-            |> Impact.mapImpacts
+            |> Impacts.mapImpacts
                 (\trigram _ ->
                     Quantity.sum
                         [ Process.getImpact trigram passengerCar
