@@ -588,7 +588,7 @@ view session =
             [ h1 [ class "mb-3" ] [ text "API Ecobalyse" ]
             , div [ class "row" ]
                 [ div [ class "col-xl-8 d-flex flex-column gap-3" ]
-                    [ """L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles, alimentaires, objets et véhicules. """
+                    [ """L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles, alimentaires, objets et mobilité. """
                         |> Markdown.simple [ class "fw-bold" ]
                     , p [ class "mb-0" ]
                         [ text "Elle est accessible à l'adresse "

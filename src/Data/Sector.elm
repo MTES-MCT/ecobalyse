@@ -18,6 +18,7 @@ module Data.Sector exposing
     , parseGeneric
     , toGenericSector
     , toLabel
+    , toLabelGeneric
     , toString
     , toStringGeneric
     )
@@ -212,7 +213,7 @@ toLabelGeneric genericSector =
             "Objets"
 
         Veli ->
-            "Véhicules"
+            "Mobilité"
 
 
 toString : Sector -> String
