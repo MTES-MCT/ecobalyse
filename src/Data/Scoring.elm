@@ -48,11 +48,11 @@ compute definitions totalComplementsImpactPerKg perKgWithoutComplements =
 
 empty : Scoring
 empty =
-    { all = Impact.noImpacts
-    , allWithoutComplements = Impact.noImpacts
-    , biodiversity = Impact.noImpacts
-    , climate = Impact.noImpacts
-    , complements = Impact.noImpacts
-    , health = Impact.noImpacts
-    , resources = Impact.noImpacts
+    { all = Impact.none
+    , allWithoutComplements = Impact.none
+    , biodiversity = Impact.none
+    , climate = Impact.none
+    , complements = Impact.none
+    , health = Impact.none
+    , resources = Impact.none
     }

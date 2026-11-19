@@ -1832,8 +1832,8 @@ encodeApiResponse definitions query lifeCycle =
 encodeApiScore : Impact -> Impact -> Encode.Value
 encodeApiScore ecs complements =
     Encode.object
-        [ ( "ecs", Impact.encodeImpact ecs )
-        , ( "complements", Impact.encodeImpact complements )
+        [ ( "ecs", Impact.encode ecs )
+        , ( "complements", Impact.encode complements )
         ]
 
 
@@ -1847,7 +1847,7 @@ encodeApiStages maybeDurability lifeCycle =
             Maybe.withDefault Impacts.empty
                 >> applyDurabilityToImpacts maybeDurability
                 >> Impacts.getImpact Definition.Ecs
-                >> Impact.encodeImpact
+                >> Impact.encode
     in
     Encode.object
         [ ( "materials", getEcs stages.materials )
@@ -1875,7 +1875,7 @@ encodeApiSubscores definitions maybeDurability lifeCycleImpacts lifeCycle =
         getEcs impact =
             impact
                 |> applyDurabilityToImpact maybeDurability
-                |> Impact.encodeImpact
+                |> Impact.encode
     in
     Encode.object
         [ ( "biodiversity", getEcs areas.biodiversity )
@@ -1930,7 +1930,7 @@ encodeLifeCycle maybeTrigram lifeCycle =
                 Just trigram ->
                     lifeCycle.endOfLife
                         |> Impacts.getImpact trigram
-                        |> Impact.encodeImpact
+                        |> Impact.encode
 
                 Nothing ->
                     Impacts.encode lifeCycle.endOfLife
@@ -2006,7 +2006,7 @@ encodeComplementsResultsImpacts maybeTrigram complementsResultsImpacts =
                 Just trigram ->
                     complement
                         |> Impacts.getImpact trigram
-                        |> Impact.encodeImpact
+                        |> Impact.encode
 
                 Nothing ->
                     Impacts.encode complement
@@ -2039,7 +2039,7 @@ encodeResults maybeTrigram (Results results) =
                     Just trigram ->
                         results.impacts
                             |> Impacts.getImpact trigram
-                            |> Impact.encodeImpact
+                            |> Impact.encode
 
                     Nothing ->
                         Impacts.encode results.impacts

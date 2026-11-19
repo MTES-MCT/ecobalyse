@@ -1059,16 +1059,16 @@ updateIngredientFormView db ({ recipeIngredient, selectedImpact, transportImpact
                                 |> Recipe.computeIngredientComplementsImpacts ingredient.ecosystemicServices
                     in
                     [ { name = EcosystemicServices.labels.hedges
-                      , computedImpact = complementsImpacts.hedges |> Maybe.withDefault Impact.noImpacts
+                      , computedImpact = complementsImpacts.hedges |> Maybe.withDefault Impact.none
                       }
                     , { name = EcosystemicServices.labels.plotSize
-                      , computedImpact = complementsImpacts.plotSize |> Maybe.withDefault Impact.noImpacts
+                      , computedImpact = complementsImpacts.plotSize |> Maybe.withDefault Impact.none
                       }
                     , { name = EcosystemicServices.labels.cropDiversity
-                      , computedImpact = complementsImpacts.cropDiversity |> Maybe.withDefault Impact.noImpacts
+                      , computedImpact = complementsImpacts.cropDiversity |> Maybe.withDefault Impact.none
                       }
                     , { name = EcosystemicServices.labels.permanentPasture
-                      , computedImpact = complementsImpacts.permanentPasture |> Maybe.withDefault Impact.noImpacts
+                      , computedImpact = complementsImpacts.permanentPasture |> Maybe.withDefault Impact.none
                       }
                     ]
                         |> List.map

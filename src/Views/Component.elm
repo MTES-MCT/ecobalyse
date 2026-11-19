@@ -977,7 +977,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
                         impacts |> Format.formatImpact config.impact
                 in
                 div []
-                    [ if isRecycling && Impact.impactToFloat impact == 0 then
+                    [ if isRecycling && Impact.toFloat impact == 0 then
                         span [ class "cursor-help", title "Le recyclage est ici considéré sans impact" ]
                             [ formatted, text "*" ]
 

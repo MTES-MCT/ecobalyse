@@ -44,7 +44,7 @@ suite =
             , let
                 testComplementEqual x =
                     Inputs.fromQuery db
-                        >> Result.map (Inputs.getOutOfEuropeEOLComplement >> Maybe.withDefault Impact.noImpacts >> Impact.impactToFloat)
+                        >> Result.map (Inputs.getOutOfEuropeEOLComplement >> Maybe.withDefault Impact.none >> Impact.toFloat)
                         >> Result.withDefault 0
                         >> Expect.within (Expect.Absolute 0.001) x
               in
@@ -85,7 +85,7 @@ suite =
             , let
                 testComplementEqual x =
                     Inputs.fromQuery db
-                        >> Result.map (Inputs.getTotalMicrofibersComplement >> Maybe.withDefault Impact.noImpacts >> Impact.impactToFloat)
+                        >> Result.map (Inputs.getTotalMicrofibersComplement >> Maybe.withDefault Impact.none >> Impact.toFloat)
                         >> Result.withDefault 0
                         >> Expect.within (Expect.Absolute 0.001) x
               in

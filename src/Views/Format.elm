@@ -61,14 +61,14 @@ formatImpactFloat { decimals, unit } =
 formatImpact : Definition -> Impacts -> Html msg
 formatImpact { decimals, trigram, unit } =
     Impacts.getImpact trigram
-        >> Impact.impactToFloat
+        >> Impact.toFloat
         >> formatRichFloat decimals unit
 
 
 formatImpactToString : Definition -> Impacts -> String
 formatImpactToString { decimals, trigram } =
     Impacts.getImpact trigram
-        >> Impact.impactToFloat
+        >> Impact.toFloat
         >> formatFloat decimals
 
 
@@ -162,7 +162,7 @@ complement impact =
     let
         formatted =
             impact
-                |> Impact.impactToFloat
+                |> Impact.toFloat
                 |> formatFloat 2
     in
     span []

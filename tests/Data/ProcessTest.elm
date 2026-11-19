@@ -26,11 +26,11 @@ suite =
                         ({ process
                             | elec = Energy.kilowattHours 1
                             , heat = Energy.megajoules 1
-                            , impacts = Impacts.empty |> Impacts.updateImpact db.definitions Definition.Ecs (Impact.impact 1)
+                            , impacts = Impacts.empty |> Impacts.updateImpact db.definitions Definition.Ecs (Impact.fromFloat 1)
                          }
                             |> Process.impactsPerUnit france
                             |> Impacts.getImpact Definition.Ecs
-                            |> Impact.impactToFloat
+                            |> Impact.toFloat
                             |> Expect.greaterThan 0
                         )
                     ]

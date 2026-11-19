@@ -400,7 +400,7 @@ suite =
                                 (getTestEcsImpact
                                     [ fading
                                         |> resetProcessElecAndHeat
-                                        |> setProcessEcsImpact (Impact.impact 10)
+                                        |> setProcessEcsImpact (Impact.fromFloat 10)
                                     ]
                                     |> Expect.within (Expect.Absolute 1) 95
                                 )
@@ -409,7 +409,7 @@ suite =
                                     [ { fading
                                         | impacts =
                                             fading.impacts
-                                                |> Impacts.insertWithoutAggregateComputation Definition.Ecs (Impact.impact 10)
+                                                |> Impacts.insertWithoutAggregateComputation Definition.Ecs (Impact.fromFloat 10)
                                       }
                                     ]
                                     |> Expect.within (Expect.Absolute 1) 505
@@ -457,15 +457,15 @@ suite =
                                 )
                             , it "should add impacts when multiple transforms are passed (no elec, no heat)"
                                 (getTestEcsImpact
-                                    [ fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Impact.impact 10)
-                                    , fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Impact.impact 20)
+                                    [ fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Impact.fromFloat 10)
+                                    , fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Impact.fromFloat 20)
                                     ]
                                     |> Expect.within (Expect.Absolute 1) 200
                                 )
                             , it "should add impacts when multiple transforms are passed (including elec and heat)"
                                 (getTestEcsImpact
-                                    [ fading |> setProcessEcsImpact (Impact.impact 10)
-                                    , fading |> setProcessEcsImpact (Impact.impact 20)
+                                    [ fading |> setProcessEcsImpact (Impact.fromFloat 10)
+                                    , fading |> setProcessEcsImpact (Impact.fromFloat 20)
                                     ]
                                     |> Expect.within (Expect.Absolute 1) 1021
                                 )
@@ -499,7 +499,7 @@ suite =
                                 Component.Results
                                     { amount = Amount.fromFloat 1
                                     , complementsImpacts = Complement.emptyComplementsResultsImpacts
-                                    , impacts = Impacts.empty |> Impacts.insertWithoutAggregateComputation Definition.Ecs (Impact.impact 100)
+                                    , impacts = Impacts.empty |> Impacts.insertWithoutAggregateComputation Definition.Ecs (Impact.fromFloat 100)
                                     , items = []
                                     , label = Nothing
                                     , mass = Mass.kilogram
@@ -521,11 +521,11 @@ suite =
                                         [ fading
                                             |> resetProcessElecAndHeat
                                             |> setProcessQtyVariationRatio (Unit.qtyVariationRatio 0.5)
-                                            |> setProcessEcsImpact (Impact.impact 10)
+                                            |> setProcessEcsImpact (Impact.fromFloat 10)
                                         , fading
                                             |> resetProcessElecAndHeat
                                             |> setProcessQtyVariationRatio (Unit.qtyVariationRatio 0.5)
-                                            |> setProcessEcsImpact (Impact.impact 20)
+                                            |> setProcessEcsImpact (Impact.fromFloat 20)
                                         ]
                               in
                               describe "excluding elec and heat"
@@ -550,10 +550,10 @@ suite =
                                     getTestResults
                                         [ fading
                                             |> setProcessQtyVariationRatio (Unit.qtyVariationRatio 0.5)
-                                            |> setProcessEcsImpact (Impact.impact 10)
+                                            |> setProcessEcsImpact (Impact.fromFloat 10)
                                         , fading
                                             |> setProcessQtyVariationRatio (Unit.qtyVariationRatio 0.5)
-                                            |> setProcessEcsImpact (Impact.impact 20)
+                                            |> setProcessEcsImpact (Impact.fromFloat 20)
                                         ]
                               in
                               describe "including elec and heat"
@@ -763,7 +763,7 @@ suite =
                                                 , it "should compute non-empty impacts"
                                                     (distribution.impacts
                                                         |> Impacts.getImpact Definition.Ecs
-                                                        |> Impact.impactToFloat
+                                                        |> Impact.toFloat
                                                         |> Expect.greaterThan 0
                                                     )
                                                 ]
@@ -1380,7 +1380,7 @@ suite =
                             (Expect.equal [])
                          , itFromResult2 "should compute packaging impacts from their amount"
                             (fixtures.chipsBag
-                                |> Result.map (.impacts >> Impacts.getImpact Definition.Ecs >> Impact.impactToFloat)
+                                |> Result.map (.impacts >> Impacts.getImpact Definition.Ecs >> Impact.toFloat)
                             )
                             (fixtures.chipsBag
                                 |> Result.andThen
@@ -1635,7 +1635,7 @@ suite =
                                         |> .toAssembly
                                         |> .impacts
                                         |> Impacts.getImpact Definition.Ecs
-                                        |> Impact.impactToFloat
+                                        |> Impact.toFloat
                                         |> Expect.greaterThan 0
                                     )
                                 , it "should add transports to assembly when multiple items are shipped"
@@ -1644,7 +1644,7 @@ suite =
                                         |> .toAssembly
                                         |> .impacts
                                         |> Impacts.getImpact Definition.Ecs
-                                        |> Impact.impactToFloat
+                                        |> Impact.toFloat
                                         |> Expect.greaterThan 0
                                     )
                                 ]
@@ -2491,7 +2491,7 @@ suite =
                                             >> .incinerating
                                             >> .impacts
                                             >> Impacts.getImpact Definition.Ecs
-                                            >> Impact.impactToFloat
+                                            >> Impact.toFloat
                                         )
                                     |> List.all (\x -> x > 0)
                                     |> Expect.equal True
@@ -2505,7 +2505,7 @@ suite =
                                             >> .incinerating
                                             >> .impacts
                                             >> Impacts.getImpact Definition.Ecs
-                                            >> Impact.impactToFloat
+                                            >> Impact.toFloat
                                         )
                                     |> List.all (\x -> x > 0)
                                     |> Expect.equal True
@@ -3576,7 +3576,7 @@ findProductCategoryByLabel { db } label =
 
 getEcsImpact : Impacts -> Float
 getEcsImpact =
-    Impacts.getImpact Definition.Ecs >> Impact.impactToFloat
+    Impacts.getImpact Definition.Ecs >> Impact.toFloat
 
 
 decodeAndComputeQueryThen : Requirements db -> String -> Result String LifeCycle

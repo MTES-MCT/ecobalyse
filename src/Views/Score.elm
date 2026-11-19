@@ -25,7 +25,7 @@ view { customInfo, impactDefinition, mass, score, scoreWithoutDurability } =
         , attribute "data-testid" "score-card"
         , score
             |> Impacts.getImpact impactDefinition.trigram
-            |> Impact.impactToFloat
+            |> Impact.toFloat
             |> String.fromFloat
             |> attribute "data-score"
         ]

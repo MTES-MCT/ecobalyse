@@ -128,7 +128,7 @@ complementsColumns { db } =
             .metadata
                 >> Maybe.andThen .complements
                 >> Maybe.andThen accessor
-                >> Maybe.map Impact.impactToFloat
+                >> Maybe.map Impact.toFloat
     in
     List.map2
         (\a b ->
@@ -150,7 +150,7 @@ complementsColumns { db } =
 impactCell : Definitions -> Definition.Trigram -> Column Process String msg
 impactCell definitions trigram =
     { label = Definition.toString trigram
-    , toValue = Table.FloatValue <| .impacts >> Impacts.getImpact trigram >> Impact.impactToFloat
+    , toValue = Table.FloatValue <| .impacts >> Impacts.getImpact trigram >> Impact.toFloat
     , toCell = .impacts >> Format.formatImpact (Definition.get trigram definitions)
     }
 

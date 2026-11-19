@@ -307,9 +307,9 @@ computeIngredientComplementsImpacts { cropDiversity, hedges, permanentPasture, p
 
 computeImpact : Mass -> Definition.Trigram -> Impact -> Impact
 computeImpact mass _ =
-    Impact.impactToFloat
+    Impact.toFloat
         >> (*) (Mass.inKilograms mass)
-        >> Impact.impact
+        >> Impact.fromFloat
 
 
 computePackagingImpacts : { a | amount : PackagingAmount, process : Process } -> Impacts
@@ -494,11 +494,11 @@ encodeResults results =
 encodeScoring : Scoring -> Encode.Value
 encodeScoring scoring =
     Encode.object
-        [ ( "all", Impact.encodeImpact scoring.all )
-        , ( "climate", Impact.encodeImpact scoring.climate )
-        , ( "biodiversity", Impact.encodeImpact scoring.biodiversity )
-        , ( "health", Impact.encodeImpact scoring.health )
-        , ( "resources", Impact.encodeImpact scoring.resources )
+        [ ( "all", Impact.encode scoring.all )
+        , ( "climate", Impact.encode scoring.climate )
+        , ( "biodiversity", Impact.encode scoring.biodiversity )
+        , ( "health", Impact.encode scoring.health )
+        , ( "resources", Impact.encode scoring.resources )
         ]
 
 

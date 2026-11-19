@@ -136,7 +136,7 @@ table { detailed, sector } =
                                 (\( label, impact ) ->
                                     span []
                                         [ text <| label ++ ": "
-                                        , Impact.impactToFloat impact
+                                        , Impact.toFloat impact
                                             |> Format.formatImpactFloat { unit = "Pts/kg", decimals = 2 }
                                         ]
                                 )

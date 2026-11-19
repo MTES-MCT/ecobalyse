@@ -441,7 +441,7 @@ getTotalMicrofibersComplement { mass, materials } =
                 |> List.map (getMaterialMicrofibersComplement mass)
                 |> Quantity.sum
     in
-    if impact == Impact.noImpacts then
+    if impact == Impact.none then
         Nothing
 
     else
@@ -486,13 +486,13 @@ getOutOfEuropeEOLComplement : Inputs -> Maybe Impact
 getOutOfEuropeEOLComplement { mass, materials } =
     let
         impact =
-            Impact.impact
+            Impact.fromFloat
                 (Split.toFloat (getOutOfEuropeEOLProbability materials)
                     * Mass.inKilograms mass
                     * 5000
                 )
     in
-    if impact == Impact.noImpacts then
+    if impact == Impact.none then
         Nothing
 
     else

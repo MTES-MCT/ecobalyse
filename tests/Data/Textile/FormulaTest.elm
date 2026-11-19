@@ -57,26 +57,26 @@ suite =
                                     { sampleProcess
                                         | impacts =
                                             Impacts.empty
-                                                |> Impacts.updateImpact db.definitions Definition.Cch (Impact.impact 0.5)
-                                                |> Impacts.updateImpact db.definitions Definition.Fwe (Impact.impact 1.5)
+                                                |> Impacts.updateImpact db.definitions Definition.Cch (Impact.fromFloat 0.5)
+                                                |> Impacts.updateImpact db.definitions Definition.Fwe (Impact.fromFloat 1.5)
                                     }
                                 , countryHeatProcess =
                                     { sampleProcess
                                         | impacts =
                                             Impacts.empty
-                                                |> Impacts.updateImpact db.definitions Definition.Cch (Impact.impact 0.5)
-                                                |> Impacts.updateImpact db.definitions Definition.Fwe (Impact.impact 1.5)
+                                                |> Impacts.updateImpact db.definitions Definition.Cch (Impact.fromFloat 0.5)
+                                                |> Impacts.updateImpact db.definitions Definition.Fwe (Impact.fromFloat 1.5)
                                     }
                                 }
                  in
                  [ res.impacts
                     |> Impacts.getImpact Definition.Cch
-                    |> Impact.impactToFloat
+                    |> Impact.toFloat
                     |> Expect.within (Expect.Absolute 0.01) 0.435
                     |> asTest "should compute Making stage cch from process and country data"
                  , res.impacts
                     |> Impacts.getImpact Definition.Fwe
-                    |> Impact.impactToFloat
+                    |> Impact.toFloat
                     |> Expect.within (Expect.Absolute 0.01) 1.305
                     |> asTest "should compute Making stage fwe from process and country data"
                  , res.kwh
@@ -94,8 +94,8 @@ suite =
                                 { sampleProcess
                                     | impacts =
                                         Impacts.empty
-                                            |> Impacts.updateImpact db.definitions Definition.Cch (Impact.impact 8.13225e-2)
-                                            |> Impacts.updateImpact db.definitions Definition.Fwe (Impact.impact 3.26897e-8)
+                                            |> Impacts.updateImpact db.definitions Definition.Cch (Impact.fromFloat 8.13225e-2)
+                                            |> Impacts.updateImpact db.definitions Definition.Fwe (Impact.fromFloat 3.26897e-8)
                                 }
                             , outputMass = kg 0.478
                             , pickingElec = 1
@@ -134,19 +134,19 @@ suite =
                                     { sampleProcess
                                         | impacts =
                                             Impacts.empty
-                                                |> Impacts.updateImpact db.definitions Definition.Cch (Impact.impact 0.2)
-                                                |> Impacts.updateImpact db.definitions Definition.Fwe (Impact.impact 0.5)
+                                                |> Impacts.updateImpact db.definitions Definition.Cch (Impact.fromFloat 0.2)
+                                                |> Impacts.updateImpact db.definitions Definition.Fwe (Impact.fromFloat 0.5)
                                     }
                                 }
                  in
                  [ res.impacts
                     |> Impacts.getImpact Definition.Cch
-                    |> Impact.impactToFloat
+                    |> Impact.toFloat
                     |> Expect.within (Expect.Absolute 0.01) 1
                     |> asTest "should compute KnittingWeaving stage cch from process and product data"
                  , res.impacts
                     |> Impacts.getImpact Definition.Fwe
-                    |> Impact.impactToFloat
+                    |> Impact.toFloat
                     |> Expect.within (Expect.Absolute 0.01) 2.5
                     |> asTest "should compute KnittingWeaving stage fwe from process and product data"
                  , res.kwh

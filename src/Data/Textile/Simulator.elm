@@ -855,7 +855,7 @@ toStagesImpacts trigram simulator =
                 Maybe.map
                     (Quantity.plus
                         (complementImpact
-                            |> Maybe.withDefault Impact.noImpacts
+                            |> Maybe.withDefault Impact.none
                             |> Quantity.multiplyBy (Unit.floatDurabilityFromHolistic simulator.durability)
                         )
                     )

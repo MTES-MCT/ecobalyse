@@ -363,10 +363,10 @@ entriesForSubscores definitions { complementsImpact, impacts } =
         |> (\{ biodiversity, climate, health, resources } ->
                 List.reverse
                     [ Complement.totalComplementsImpactAsChartEntry complementsImpact
-                    , { color = "#9025be", name = "Climat", value = Impact.impactToFloat climate }
-                    , { color = "#00b050", name = "Biodiversité", value = Impact.impactToFloat biodiversity }
-                    , { color = "#ffc000", name = "Santé environnementale", value = Impact.impactToFloat health }
-                    , { color = "#0070c0", name = "Ressource", value = Impact.impactToFloat resources }
+                    , { color = "#9025be", name = "Climat", value = Impact.toFloat climate }
+                    , { color = "#00b050", name = "Biodiversité", value = Impact.toFloat biodiversity }
+                    , { color = "#ffc000", name = "Santé environnementale", value = Impact.toFloat health }
+                    , { color = "#0070c0", name = "Ressource", value = Impact.toFloat resources }
                     ]
            )
 
@@ -378,7 +378,7 @@ entriesForTotal { impacts } =
       , value =
             impacts
                 |> Impacts.getImpact Definition.Ecs
-                |> Impact.impactToFloat
+                |> Impact.toFloat
       }
     ]
 

@@ -28,7 +28,7 @@ getImpact db trigram query =
                     |> Result.map
                         (.impacts
                             >> Impacts.getImpact trigram
-                            >> Impact.impactToFloat
+                            >> Impact.toFloat
                         )
             )
 
@@ -223,7 +223,7 @@ suite =
                             |> Result.map
                                 (Simulator.getTotalImpactsWithoutComplements
                                     >> Impacts.getImpact Definition.Ecs
-                                    >> Impact.impactToFloat
+                                    >> Impact.toFloat
                                 )
                             |> Result.withDefault 0
                             |> Expect.greaterThan 0
@@ -241,8 +241,8 @@ suite =
                                 |> Result.andThen (computeWithDefaultComponentConfig db)
                                 |> Result.map
                                     (\simulator ->
-                                        ( simulator.impacts |> Impacts.getImpact Definition.Ecs |> Impact.impactToFloat
-                                        , Simulator.getTotalImpactsWithoutDurability simulator |> Impacts.getImpact Definition.Ecs |> Impact.impactToFloat
+                                        ( simulator.impacts |> Impacts.getImpact Definition.Ecs |> Impact.toFloat
+                                        , Simulator.getTotalImpactsWithoutDurability simulator |> Impacts.getImpact Definition.Ecs |> Impact.toFloat
                                         )
                                     )
                         of

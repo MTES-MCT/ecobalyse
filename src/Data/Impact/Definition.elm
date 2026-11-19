@@ -538,7 +538,7 @@ decodeAggregatedScoreData : Decoder AggregatedScoreData
 decodeAggregatedScoreData =
     Decode.map3 AggregatedScoreData
         (Decode.field "color" Decode.string)
-        (Decode.field "normalization" Impact.decodeImpact)
+        (Decode.field "normalization" Impact.decoder)
         (Decode.field "weighting" Split.decodeFloat)
 
 

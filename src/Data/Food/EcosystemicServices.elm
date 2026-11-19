@@ -31,18 +31,18 @@ decode =
     Decode.succeed AbstractEcosystemicServices
         -- We need to negate the complements to stay backward compatible as the old format in ingredients.json was not accurate
         -- see https://github.com/MTES-MCT/ecobalyse-data/pull/263
-        |> Pipe.optional "cropDiversity" Impact.decodeAndNegateImpact Impact.noImpacts
-        |> Pipe.optional "hedges" Impact.decodeAndNegateImpact Impact.noImpacts
-        |> Pipe.optional "permanentPasture" Impact.decodeAndNegateImpact Impact.noImpacts
-        |> Pipe.optional "plotSize" Impact.decodeAndNegateImpact Impact.noImpacts
+        |> Pipe.optional "cropDiversity" Impact.decodeAndNegateImpact Impact.none
+        |> Pipe.optional "hedges" Impact.decodeAndNegateImpact Impact.none
+        |> Pipe.optional "permanentPasture" Impact.decodeAndNegateImpact Impact.none
+        |> Pipe.optional "plotSize" Impact.decodeAndNegateImpact Impact.none
 
 
 empty : EcosystemicServices
 empty =
-    { cropDiversity = Impact.noImpacts
-    , hedges = Impact.noImpacts
-    , permanentPasture = Impact.noImpacts
-    , plotSize = Impact.noImpacts
+    { cropDiversity = Impact.none
+    , hedges = Impact.none
+    , permanentPasture = Impact.none
+    , plotSize = Impact.none
     }
 
 
