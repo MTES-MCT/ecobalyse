@@ -89,20 +89,20 @@ apply wellKnown mass preparation =
         [ wellKnown.lowVoltageElectricity.impacts
             |> Impacts.mapImpacts
                 (\_ ->
-                    Impact.impactToFloat
+                    Impact.toFloat
                         >> (*) (Energy.inKilowattHours (Tuple.first preparation.elec))
                         >> (*) (Mass.inKilograms mass)
                         >> (*) (Split.toFloat (Tuple.second preparation.elec))
-                        >> Impact.impact
+                        >> Impact.fromFloat
                 )
         , wellKnown.domesticGasHeat.impacts
             |> Impacts.mapImpacts
                 (\_ ->
-                    Impact.impactToFloat
+                    Impact.toFloat
                         >> (*) (Energy.inMegajoules (Tuple.first preparation.heat))
                         >> (*) (Mass.inKilograms mass)
                         >> (*) (Split.toFloat (Tuple.second preparation.heat))
-                        >> Impact.impact
+                        >> Impact.fromFloat
                 )
         ]
 

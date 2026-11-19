@@ -142,9 +142,9 @@ computeImpacts modes mass transport =
                             |> Impacts.mapImpacts
                                 (\_ impact ->
                                     impact
-                                        |> Impact.impactToFloat
+                                        |> Impact.toFloat
                                         |> (*) (Mass.inMetricTons mass * Length.inKilometers distance)
-                                        |> Impact.impact
+                                        |> Impact.fromFloat
                                 )
                     )
                 |> Impacts.sumImpacts

@@ -1,13 +1,13 @@
 module Data.Impact exposing
     ( Impact
     , ImpactUnit
+    , aggregateScore
     , decodeAndNegateImpact
-    , decodeImpact
-    , encodeImpact
-    , impact
-    , impactAggregateScore
-    , impactToFloat
-    , noImpacts
+    , decoder
+    , encode
+    , fromFloat
+    , none
+    , toFloat
     )
 
 import Data.Split as Split exposing (Split)
@@ -24,24 +24,24 @@ type alias Impact =
     Quantity Float ImpactUnit
 
 
-impact : Float -> Impact
-impact value =
+fromFloat : Float -> Impact
+fromFloat value =
     Quantity value
 
 
-noImpacts : Impact
-noImpacts =
-    impact 0
+none : Impact
+none =
+    fromFloat 0
 
 
-impactToFloat : Impact -> Float
-impactToFloat (Quantity value) =
+toFloat : Impact -> Float
+toFloat (Quantity value) =
     value
 
 
-impactAggregateScore : Impact -> Split -> Impact -> Impact
-impactAggregateScore normalization weighting =
-    Quantity.divideBy (impactToFloat normalization)
+aggregateScore : Impact -> Split -> Impact -> Impact
+aggregateScore normalization weighting =
+    Quantity.divideBy (toFloat normalization)
         >> Quantity.multiplyBy (Split.toFloat weighting)
         -- Raw aggregate scores like PEF are expressed in Pt (points); we want Pts (micropoints)
         >> Quantity.multiplyBy 1000000
@@ -49,14 +49,14 @@ impactAggregateScore normalization weighting =
 
 decodeAndNegateImpact : Decoder Impact
 decodeAndNegateImpact =
-    Decode.map Quantity.negate decodeImpact
+    Decode.map Quantity.negate decoder
 
 
-decodeImpact : Decoder Impact
-decodeImpact =
-    Decode.map impact Decode.float
+decoder : Decoder Impact
+decoder =
+    Decode.map fromFloat Decode.float
 
 
-encodeImpact : Impact -> Encode.Value
-encodeImpact =
-    impactToFloat >> Encode.float
+encode : Impact -> Encode.Value
+encode =
+    toFloat >> Encode.float

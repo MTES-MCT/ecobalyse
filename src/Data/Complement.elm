@@ -117,23 +117,23 @@ complementsImpactAsChartEntries : ComplementsImpacts -> List { color : String, n
 complementsImpactAsChartEntries c =
     -- Notes:
     -- - We want to sum ecosystemic service components impacts to only have a single entry in the charts
-    [ { color = "#606060", name = "Services écosystémiques", value = Impact.impactToFloat (sumEcosystemicImpacts c) }
-    , { color = "#c0c0c0", name = "Complément microfibres", value = c.microfibers |> Maybe.map Impact.impactToFloat |> Maybe.withDefault 0 }
-    , { color = "#e0e0e0", name = "Complément export hors-Europe", value = c.outOfEuropeEOL |> Maybe.map Impact.impactToFloat |> Maybe.withDefault 0 }
-    , { color = "#f1f1f1", name = "Complément " ++ labels.forest, value = c.forest |> Maybe.map Impact.impactToFloat |> Maybe.withDefault 0 }
+    [ { color = "#606060", name = "Services écosystémiques", value = Impact.toFloat (sumEcosystemicImpacts c) }
+    , { color = "#c0c0c0", name = "Complément microfibres", value = c.microfibers |> Maybe.map Impact.toFloat |> Maybe.withDefault 0 }
+    , { color = "#e0e0e0", name = "Complément export hors-Europe", value = c.outOfEuropeEOL |> Maybe.map Impact.toFloat |> Maybe.withDefault 0 }
+    , { color = "#f1f1f1", name = "Complément " ++ labels.forest, value = c.forest |> Maybe.map Impact.toFloat |> Maybe.withDefault 0 }
     ]
 
 
 decodeComplementsImpacts : Decoder ComplementsImpacts
 decodeComplementsImpacts =
     Decode.succeed AbstractComplements
-        |> DU.strictOptional "cropDiversity" Impact.decodeImpact
-        |> DU.strictOptional "forest" Impact.decodeImpact
-        |> DU.strictOptional "hedges" Impact.decodeImpact
-        |> DU.strictOptional "microfibers" Impact.decodeImpact
-        |> DU.strictOptional "outOfEuropeEOL" Impact.decodeImpact
-        |> DU.strictOptional "permanentPasture" Impact.decodeImpact
-        |> DU.strictOptional "plotSize" Impact.decodeImpact
+        |> DU.strictOptional "cropDiversity" Impact.decoder
+        |> DU.strictOptional "forest" Impact.decoder
+        |> DU.strictOptional "hedges" Impact.decoder
+        |> DU.strictOptional "microfibers" Impact.decoder
+        |> DU.strictOptional "outOfEuropeEOL" Impact.decoder
+        |> DU.strictOptional "permanentPasture" Impact.decoder
+        |> DU.strictOptional "plotSize" Impact.decoder
 
 
 divideComplementsImpactsBy : Float -> ComplementsImpacts -> ComplementsImpacts
@@ -157,7 +157,7 @@ encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
 encodeComplementsImpacts =
     let
         encodeTuple label maybeComplement =
-            ( label, maybeComplement |> Maybe.map Impact.encodeImpact )
+            ( label, maybeComplement |> Maybe.map Impact.encode )
     in
     allComplementsToList
         >> List.map2 encodeTuple (allComplementsToList identifiers)
@@ -170,7 +170,7 @@ encodeComplementsResultsAs trigram =
         encodeTuple label maybeImpacts =
             ( label
             , maybeImpacts
-                |> Maybe.map (Impacts.getImpact trigram >> Impact.encodeImpact)
+                |> Maybe.map (Impacts.getImpact trigram >> Impact.encode)
             )
     in
     allComplementsToList
@@ -181,7 +181,7 @@ encodeComplementsResultsAs trigram =
 getTotalComplementsImpacts : ComplementsImpacts -> Impact
 getTotalComplementsImpacts =
     allComplementsToList
-        >> List.map (Maybe.withDefault Impact.noImpacts)
+        >> List.map (Maybe.withDefault Impact.none)
         >> Quantity.sum
 
 
@@ -310,10 +310,10 @@ sumComplementsResultsImpacts =
 sumEcosystemicImpacts : ComplementsImpacts -> Impact
 sumEcosystemicImpacts c =
     Quantity.sum
-        [ c.cropDiversity |> Maybe.withDefault Impact.noImpacts
-        , c.hedges |> Maybe.withDefault Impact.noImpacts
-        , c.permanentPasture |> Maybe.withDefault Impact.noImpacts
-        , c.plotSize |> Maybe.withDefault Impact.noImpacts
+        [ c.cropDiversity |> Maybe.withDefault Impact.none
+        , c.hedges |> Maybe.withDefault Impact.none
+        , c.permanentPasture |> Maybe.withDefault Impact.none
+        , c.plotSize |> Maybe.withDefault Impact.none
         ]
 
 
@@ -321,5 +321,5 @@ totalComplementsImpactAsChartEntry : ComplementsImpacts -> { color : String, nam
 totalComplementsImpactAsChartEntry complementsImpacts =
     { color = "#808080"
     , name = "Compléments"
-    , value = Impact.impactToFloat (getTotalComplementsImpacts complementsImpacts)
+    , value = Impact.toFloat (getTotalComplementsImpacts complementsImpacts)
     }

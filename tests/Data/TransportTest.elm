@@ -92,7 +92,7 @@ suite =
                             |> Transport.computeImpacts transports.modeProcesses Mass.kilogram
                             |> .impacts
                             |> Impacts.getImpact Definition.Ecs
-                            |> Impact.impactToFloat
+                            |> Impact.toFloat
                             |> Expect.greaterThan 0
                         )
                     ]

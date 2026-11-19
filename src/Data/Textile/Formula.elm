@@ -105,8 +105,8 @@ recycledMaterialImpacts impacts { cffData, nonRecycledProcess, recycledProcess }
             (\trigram _ ->
                 let
                     ( recycledImpactPerKg, nonRecycledImpactPerKg ) =
-                        ( Process.getImpact trigram recycledProcess |> Impact.impactToFloat
-                        , Process.getImpact trigram nonRecycledProcess |> Impact.impactToFloat
+                        ( Process.getImpact trigram recycledProcess |> Impact.toFloat
+                        , Process.getImpact trigram nonRecycledProcess |> Impact.toFloat
                         )
                 in
                 Mass.inKilograms outputMass
@@ -114,7 +114,7 @@ recycledMaterialImpacts impacts { cffData, nonRecycledProcess, recycledProcess }
                         + Split.apply (Split.toFloat recycledQualityRatio) (Split.complement manufacturerAllocation)
                         * nonRecycledImpactPerKg
                       )
-                    |> Impact.impact
+                    |> Impact.fromFloat
             )
 
 

@@ -92,11 +92,11 @@ table db { detailed, sector } =
           , toCell = .recycledFrom >> recycledToString >> text
           }
         , { label = "Complément Microfibres"
-          , toValue = Table.FloatValue <| .origin >> Origin.toMicrofibersComplement >> Impact.impactToFloat
+          , toValue = Table.FloatValue <| .origin >> Origin.toMicrofibersComplement >> Impact.toFloat
           , toCell =
                 .origin
                     >> Origin.toMicrofibersComplement
-                    >> Impact.impactToFloat
+                    >> Impact.toFloat
                     >> Format.formatImpactFloat { unit = "\u{202F}Pts/kg", decimals = 2 }
                     >> withPill Gitbook.TextileComplementMicrofibers
           }

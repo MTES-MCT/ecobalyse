@@ -150,7 +150,7 @@ expectImpactsEqual impacts subject =
     Definition.trigrams
         |> List.map
             (\trigram ->
-                Impacts.getImpact trigram >> Impact.impactToFloat >> Definition.get trigram impacts
+                Impacts.getImpact trigram >> Impact.toFloat >> Definition.get trigram impacts
             )
         |> (\expectations ->
                 Expect.all expectations subject

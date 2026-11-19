@@ -132,7 +132,7 @@ cookedHamComplements db =
             (.metadata
                 >> Maybe.andThen .complements
                 >> Result.fromMaybe "Missing expected complements"
-                >> Result.map (Complement.getTotalComplementsImpacts >> Impact.impactToFloat)
+                >> Result.map (Complement.getTotalComplementsImpacts >> Impact.toFloat)
             )
 
 

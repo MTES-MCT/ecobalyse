@@ -166,9 +166,9 @@ waterImpact waterNeeds volume =
         >> Impacts.mapImpacts
             (\_ impact ->
                 impact
-                    |> Impact.impactToFloat
+                    |> Impact.toFloat
                     |> (*) (Quantity.multiplyBy waterNeeds volume |> Volume.inLiters)
-                    |> Impact.impact
+                    |> Impact.fromFloat
             )
 
 
@@ -178,9 +178,9 @@ elecImpact elecNeeds volume =
         >> Impacts.mapImpacts
             (\_ impact ->
                 impact
-                    |> Impact.impactToFloat
+                    |> Impact.toFloat
                     |> (*) (Quantity.at elecNeeds volume |> Energy.inKilowattHours)
-                    |> Impact.impact
+                    |> Impact.fromFloat
             )
 
 

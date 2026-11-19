@@ -115,5 +115,5 @@ getComponentEcoscore { componentConfig, db } sector =
         >> Result.map
             (Component.extractImpacts
                 >> Impacts.getImpact Definition.Ecs
-                >> Impact.impactToFloat
+                >> Impact.toFloat
             )

@@ -95,7 +95,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                             [ -- Food ecosystemic services
                               { entryAttributes = []
                               , name = "Services écosystémiques"
-                              , value = Impact.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact)
+                              , value = Impact.toFloat (Complement.sumEcosystemicImpacts complementsImpact)
                               }
 
                             -- Textile complements
@@ -103,22 +103,22 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                               , name = "Complément " ++ String.toLower Complement.labels.outOfEuropeEOL
                               , value =
                                     complementsImpact.outOfEuropeEOL
-                                        |> Maybe.withDefault Impact.noImpacts
-                                        |> Impact.impactToFloat
+                                        |> Maybe.withDefault Impact.none
+                                        |> Impact.toFloat
                               }
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.microfibers
                               , value =
                                     complementsImpact.microfibers
-                                        |> Maybe.withDefault Impact.noImpacts
-                                        |> Impact.impactToFloat
+                                        |> Maybe.withDefault Impact.none
+                                        |> Impact.toFloat
                               }
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.forest
                               , value =
                                     complementsImpact.forest
-                                        |> Maybe.withDefault Impact.noImpacts
-                                        |> Impact.impactToFloat
+                                        |> Maybe.withDefault Impact.none
+                                        |> Impact.toFloat
                               }
                             ]
                         |> List.sortBy .value
@@ -199,7 +199,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                                 , name = name
                                 , value =
                                     value
-                                        |> Maybe.map Impact.impactToFloat
+                                        |> Maybe.map Impact.toFloat
                                         |> Maybe.withDefault 0
                                 }
                             )
@@ -207,13 +207,13 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
 
                 ( SubscoresTab, True ) ->
                     Table.percentageTable impactDefinition
-                        [ { entryAttributes = [], name = "Climat", value = Impact.impactToFloat scoring.climate }
-                        , { entryAttributes = [], name = "Biodiversité", value = Impact.impactToFloat scoring.biodiversity }
-                        , { entryAttributes = [], name = "Santé environnementale", value = Impact.impactToFloat scoring.health }
-                        , { entryAttributes = [], name = "Ressource", value = Impact.impactToFloat scoring.resources }
+                        [ { entryAttributes = [], name = "Climat", value = Impact.toFloat scoring.climate }
+                        , { entryAttributes = [], name = "Biodiversité", value = Impact.toFloat scoring.biodiversity }
+                        , { entryAttributes = [], name = "Santé environnementale", value = Impact.toFloat scoring.health }
+                        , { entryAttributes = [], name = "Ressource", value = Impact.toFloat scoring.resources }
                         , { entryAttributes = []
                           , name = "Compléments"
-                          , value = Impact.impactToFloat scoring.complements
+                          , value = Impact.toFloat scoring.complements
                           }
                         ]
 

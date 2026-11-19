@@ -743,7 +743,7 @@ getFoodScore db =
             (Tuple.second
                 >> .total
                 >> Impacts.getImpact Definition.Ecs
-                >> Impact.impactToFloat
+                >> Impact.toFloat
             )
         >> Result.withDefault 0
 
@@ -756,7 +756,7 @@ getFoodScorePer100g db =
             (Tuple.second
                 >> .perKg
                 >> Impacts.getImpact Definition.Ecs
-                >> (\x -> Impact.impactToFloat x / 10)
+                >> (\x -> Impact.toFloat x / 10)
             )
         >> Result.withDefault 0
 
@@ -768,7 +768,7 @@ getGenericScore { componentConfig, db } sector { query } =
         |> Result.map
             (Component.sumLifeCycleImpacts
                 >> Impacts.getImpact Definition.Ecs
-                >> Impact.impactToFloat
+                >> Impact.toFloat
             )
         |> Result.withDefault 0
 
@@ -783,7 +783,7 @@ getGenericScorePer100g { componentConfig, db } sector { query } =
                     |> Component.sumLifeCycleImpacts
                     |> Impacts.per100grams lifeCycle.productMass
                     |> Impacts.getImpact Definition.Ecs
-                    |> Impact.impactToFloat
+                    |> Impact.toFloat
             )
         |> Result.withDefault 0
 
@@ -792,7 +792,7 @@ getTextileScore : Session -> Example TextileQuery.Query -> Float
 getTextileScore { componentConfig, db } { query } =
     query
         |> Simulator.compute db componentConfig
-        |> Result.map (.impacts >> Impacts.getImpact Definition.Ecs >> Impact.impactToFloat)
+        |> Result.map (.impacts >> Impacts.getImpact Definition.Ecs >> Impact.toFloat)
         |> Result.withDefault 0
 
 
@@ -804,7 +804,7 @@ getTextileScorePer100g { componentConfig, db } { query } =
             (.impacts
                 >> Impacts.per100grams query.mass
                 >> Impacts.getImpact Definition.Ecs
-                >> Impact.impactToFloat
+                >> Impact.toFloat
             )
         |> Result.withDefault 0
 
