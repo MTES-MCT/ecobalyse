@@ -24,6 +24,7 @@ import Data.Component as Component
 import Data.Component.Config as Config
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country.Code as CountryCode
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process as Process exposing (Process)
@@ -31,7 +32,6 @@ import Data.Process.Category as Category exposing (Category)
 import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split exposing (Split)
 import Data.Transport exposing (Transport)
-import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -977,7 +977,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
                         impacts |> Format.formatImpact config.impact
                 in
                 div []
-                    [ if isRecycling && Unit.impactToFloat impact == 0 then
+                    [ if isRecycling && Impact.impactToFloat impact == 0 then
                         span [ class "cursor-help", title "Le recyclage est ici considéré sans impact" ]
                             [ formatted, text "*" ]
 

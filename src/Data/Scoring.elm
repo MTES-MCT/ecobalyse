@@ -4,24 +4,24 @@ module Data.Scoring exposing
     , empty
     )
 
+import Data.Impact as Impact exposing (Impact)
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Impacts as Impacts exposing (Impacts)
-import Data.Unit as Unit
 import Quantity
 
 
 type alias Scoring =
-    { all : Unit.Impact
-    , allWithoutComplements : Unit.Impact
-    , biodiversity : Unit.Impact
-    , climate : Unit.Impact
-    , complements : Unit.Impact
-    , health : Unit.Impact
-    , resources : Unit.Impact
+    { all : Impact
+    , allWithoutComplements : Impact
+    , biodiversity : Impact
+    , climate : Impact
+    , complements : Impact
+    , health : Impact
+    , resources : Impact
     }
 
 
-compute : Definitions -> Unit.Impact -> Impacts -> Scoring
+compute : Definitions -> Impact -> Impacts -> Scoring
 compute definitions totalComplementsImpactPerKg perKgWithoutComplements =
     let
         ecsPerKgWithoutComplements =
@@ -48,11 +48,11 @@ compute definitions totalComplementsImpactPerKg perKgWithoutComplements =
 
 empty : Scoring
 empty =
-    { all = Unit.noImpacts
-    , allWithoutComplements = Unit.noImpacts
-    , biodiversity = Unit.noImpacts
-    , climate = Unit.noImpacts
-    , complements = Unit.noImpacts
-    , health = Unit.noImpacts
-    , resources = Unit.noImpacts
+    { all = Impact.noImpacts
+    , allWithoutComplements = Impact.noImpacts
+    , biodiversity = Impact.noImpacts
+    , climate = Impact.noImpacts
+    , complements = Impact.noImpacts
+    , health = Impact.noImpacts
+    , resources = Impact.noImpacts
     }

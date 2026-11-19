@@ -8,7 +8,7 @@ module Data.Textile.Material.Origin exposing
     , toString
     )
 
-import Data.Unit as Unit
+import Data.Impact as Impact exposing (Impact)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 
@@ -50,23 +50,23 @@ isSynthetic origin =
     origin == Synthetic
 
 
-toMicrofibersComplement : Origin -> Unit.Impact
+toMicrofibersComplement : Origin -> Impact
 toMicrofibersComplement origin =
     -- see https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/microfibres
     -- Notes:
     -- - the float value corresponds to Ref(f) * 1000 to ease applying the formula
     case origin of
         ArtificialFromOrganic ->
-            Unit.impact 330
+            Impact.impact 330
 
         NaturalFromAnimal ->
-            Unit.impact 390
+            Impact.impact 390
 
         NaturalFromVegetal ->
-            Unit.impact 250
+            Impact.impact 250
 
         Synthetic ->
-            Unit.impact 820
+            Impact.impact 820
 
 
 toLabel : Origin -> String

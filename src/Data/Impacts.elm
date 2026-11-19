@@ -27,9 +27,9 @@ module Data.Impacts exposing
     )
 
 import Data.Color as Color
+import Data.Impact as Impact exposing (Impact)
 import Data.Impact.Definition as Definition exposing (Definition, Definitions, Trigram, Trigrams)
 import Data.Stages as Stages exposing (Stages)
-import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -43,7 +43,7 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type alias StagesImpacts =
-    Stages (Maybe Unit.Impact)
+    Stages (Maybe Impact)
 
 
 noStagesImpacts : StagesImpacts
@@ -103,7 +103,7 @@ stagesImpactsAsChartEntries stagesImpacts =
                     -- All categories MUST be filled in order to allow comparing Food and Textile simulations
                     -- So, when we don't have a value for a given stage, we fallback to zero
                     maybeValue
-                        |> Maybe.map Unit.impactToFloat
+                        |> Maybe.map Impact.impactToFloat
                         |> Maybe.withDefault 0
                 }
             )
@@ -115,10 +115,10 @@ stagesImpactsAsChartEntries stagesImpacts =
 
 type alias ProtectionAreas =
     -- Protection Areas is basically scientific slang for subscores
-    { biodiversity : Unit.Impact -- Biodiversité
-    , climate : Unit.Impact -- Climat
-    , health : Unit.Impact -- Santé environnementale
-    , resources : Unit.Impact -- Ressources
+    { biodiversity : Impact -- Biodiversité
+    , climate : Impact -- Climat
+    , health : Impact -- Santé environnementale
+    , resources : Impact -- Ressources
     }
 
 
@@ -167,7 +167,7 @@ toProtectionAreas definitions (Impacts impactsPerKgWithoutComplements) =
 
 
 type Impacts
-    = Impacts (Trigrams Unit.Impact)
+    = Impacts (Trigrams Impact)
 
 
 default : Definition.Trigram
@@ -190,18 +190,18 @@ empty =
     Impacts (Definition.init Quantity.zero)
 
 
-insertWithoutAggregateComputation : Trigram -> Unit.Impact -> Impacts -> Impacts
+insertWithoutAggregateComputation : Trigram -> Impact -> Impacts -> Impacts
 insertWithoutAggregateComputation trigram impact (Impacts impacts) =
     Definition.update trigram (always impact) impacts
         |> Impacts
 
 
-getImpact : Trigram -> Impacts -> Unit.Impact
+getImpact : Trigram -> Impacts -> Impact
 getImpact trigram (Impacts impacts) =
     Definition.get trigram impacts
 
 
-mapImpacts : (Trigram -> Unit.Impact -> Unit.Impact) -> Impacts -> Impacts
+mapImpacts : (Trigram -> Impact -> Impact) -> Impacts -> Impacts
 mapImpacts fn (Impacts impacts) =
     Definition.map fn impacts
         |> Impacts
@@ -229,7 +229,7 @@ sumImpacts =
         empty
 
 
-updateImpact : Definitions -> Trigram -> Unit.Impact -> Impacts -> Impacts
+updateImpact : Definitions -> Trigram -> Impact -> Impacts -> Impacts
 updateImpact definitions trigram value =
     insertWithoutAggregateComputation trigram value
         >> updateAggregatedScores definitions
@@ -239,49 +239,49 @@ decodeImpacts : Decoder Impacts
 decodeImpacts =
     [ -- Fully detailed process impacts
       Decode.succeed Trigrams
-        |> Pipe.required "acd" Unit.decodeImpact
-        |> Pipe.required "cch" Unit.decodeImpact
-        |> Pipe.required "etf" Unit.decodeImpact
-        |> Pipe.required "etf-c" Unit.decodeImpact
-        |> Pipe.required "fru" Unit.decodeImpact
-        |> Pipe.required "fwe" Unit.decodeImpact
-        |> Pipe.required "htc" Unit.decodeImpact
-        |> Pipe.required "htc-c" Unit.decodeImpact
-        |> Pipe.required "htn" Unit.decodeImpact
-        |> Pipe.required "htn-c" Unit.decodeImpact
-        |> Pipe.required "ior" Unit.decodeImpact
-        |> Pipe.required "ldu" Unit.decodeImpact
-        |> Pipe.required "mru" Unit.decodeImpact
-        |> Pipe.required "ozd" Unit.decodeImpact
-        |> Pipe.required "pco" Unit.decodeImpact
-        |> Pipe.required "pma" Unit.decodeImpact
-        |> Pipe.required "swe" Unit.decodeImpact
-        |> Pipe.required "tre" Unit.decodeImpact
-        |> Pipe.required "wtu" Unit.decodeImpact
-        |> Pipe.required "ecs" Unit.decodeImpact
+        |> Pipe.required "acd" Impact.decodeImpact
+        |> Pipe.required "cch" Impact.decodeImpact
+        |> Pipe.required "etf" Impact.decodeImpact
+        |> Pipe.required "etf-c" Impact.decodeImpact
+        |> Pipe.required "fru" Impact.decodeImpact
+        |> Pipe.required "fwe" Impact.decodeImpact
+        |> Pipe.required "htc" Impact.decodeImpact
+        |> Pipe.required "htc-c" Impact.decodeImpact
+        |> Pipe.required "htn" Impact.decodeImpact
+        |> Pipe.required "htn-c" Impact.decodeImpact
+        |> Pipe.required "ior" Impact.decodeImpact
+        |> Pipe.required "ldu" Impact.decodeImpact
+        |> Pipe.required "mru" Impact.decodeImpact
+        |> Pipe.required "ozd" Impact.decodeImpact
+        |> Pipe.required "pco" Impact.decodeImpact
+        |> Pipe.required "pma" Impact.decodeImpact
+        |> Pipe.required "swe" Impact.decodeImpact
+        |> Pipe.required "tre" Impact.decodeImpact
+        |> Pipe.required "wtu" Impact.decodeImpact
+        |> Pipe.required "ecs" Impact.decodeImpact
 
     -- Non-detailed process impacts (featuring only ecs)
     , Decode.succeed Trigrams
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.required "ecs" Unit.decodeImpact
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.hardcoded (Impact.impact 0)
+        |> Pipe.required "ecs" Impact.decodeImpact
     ]
         |> Decode.oneOf
         |> Decode.map Impacts
@@ -290,7 +290,7 @@ decodeImpacts =
 encode : Impacts -> Encode.Value
 encode (Impacts impacts) =
     impacts
-        |> Definition.encodeBase Unit.encodeImpact
+        |> Definition.encodeBase Impact.encodeImpact
 
 
 {-| Encode the impacts except the given trigram
@@ -302,7 +302,7 @@ encodeExcept excluded (Impacts impacts) =
         |> List.map
             (\trigram ->
                 ( Definition.toString trigram
-                , Unit.encodeImpact (Definition.get trigram impacts)
+                , Impact.encodeImpact (Definition.get trigram impacts)
                 )
             )
         |> Encode.object
@@ -311,7 +311,7 @@ encodeExcept excluded (Impacts impacts) =
 encodeSingleImpact : Impacts -> Trigram -> Encode.Value
 encodeSingleImpact (Impacts impacts) trigram =
     Encode.object
-        [ ( Definition.toString trigram, Unit.encodeImpact (Definition.get trigram impacts) )
+        [ ( Definition.toString trigram, Impact.encodeImpact (Definition.get trigram impacts) )
         ]
 
 
@@ -345,8 +345,8 @@ getAggregatedScoreData definitions getter (Impacts impacts) =
                     , name = def.label
                     , value =
                         impact
-                            |> Unit.impactAggregateScore normalization weighting
-                            |> Unit.impactToFloat
+                            |> Impact.impactAggregateScore normalization weighting
+                            |> Impact.impactToFloat
                     }
                         :: acc
 
@@ -367,7 +367,7 @@ encodeAggregatedScoreChartEntry entry =
         ]
 
 
-computeAggregatedScore : Definitions -> (Definition -> Maybe Definition.AggregatedScoreData) -> Impacts -> Unit.Impact
+computeAggregatedScore : Definitions -> (Definition -> Maybe Definition.AggregatedScoreData) -> Impacts -> Impact
 computeAggregatedScore definitions getter (Impacts impacts) =
     impacts
         |> Definition.map
@@ -377,7 +377,7 @@ computeAggregatedScore definitions getter (Impacts impacts) =
                     |> Maybe.map
                         (\{ normalization, weighting } ->
                             impact
-                                |> Unit.impactAggregateScore normalization weighting
+                                |> Impact.impactAggregateScore normalization weighting
                         )
                     |> Maybe.withDefault Quantity.zero
             )

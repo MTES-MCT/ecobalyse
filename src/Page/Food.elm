@@ -28,6 +28,7 @@ import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Food.Retail as Retail
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Gitbook as Gitbook
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Impacts as Impacts
 import Data.Key as Key
@@ -36,7 +37,6 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Sector as Sector
 import Data.Session as Session exposing (Session)
-import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -1059,16 +1059,16 @@ updateIngredientFormView db ({ recipeIngredient, selectedImpact, transportImpact
                                 |> Recipe.computeIngredientComplementsImpacts ingredient.ecosystemicServices
                     in
                     [ { name = EcosystemicServices.labels.hedges
-                      , computedImpact = complementsImpacts.hedges |> Maybe.withDefault Unit.noImpacts
+                      , computedImpact = complementsImpacts.hedges |> Maybe.withDefault Impact.noImpacts
                       }
                     , { name = EcosystemicServices.labels.plotSize
-                      , computedImpact = complementsImpacts.plotSize |> Maybe.withDefault Unit.noImpacts
+                      , computedImpact = complementsImpacts.plotSize |> Maybe.withDefault Impact.noImpacts
                       }
                     , { name = EcosystemicServices.labels.cropDiversity
-                      , computedImpact = complementsImpacts.cropDiversity |> Maybe.withDefault Unit.noImpacts
+                      , computedImpact = complementsImpacts.cropDiversity |> Maybe.withDefault Impact.noImpacts
                       }
                     , { name = EcosystemicServices.labels.permanentPasture
-                      , computedImpact = complementsImpacts.permanentPasture |> Maybe.withDefault Unit.noImpacts
+                      , computedImpact = complementsImpacts.permanentPasture |> Maybe.withDefault Impact.noImpacts
                       }
                     ]
                         |> List.map

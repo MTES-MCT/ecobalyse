@@ -17,10 +17,10 @@ module Data.Food.Retail exposing
 -}
 
 import Data.Food.WellKnown exposing (WellKnown)
+import Data.Impact as Impact
 import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
-import Data.Unit as Unit
 import Energy exposing (Joules, kilowattHours)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -166,9 +166,9 @@ waterImpact waterNeeds volume =
         >> Impacts.mapImpacts
             (\_ impact ->
                 impact
-                    |> Unit.impactToFloat
+                    |> Impact.impactToFloat
                     |> (*) (Quantity.multiplyBy waterNeeds volume |> Volume.inLiters)
-                    |> Unit.impact
+                    |> Impact.impact
             )
 
 
@@ -178,9 +178,9 @@ elecImpact elecNeeds volume =
         >> Impacts.mapImpacts
             (\_ impact ->
                 impact
-                    |> Unit.impactToFloat
+                    |> Impact.impactToFloat
                     |> (*) (Quantity.at elecNeeds volume |> Energy.inKilowattHours)
-                    |> Unit.impact
+                    |> Impact.impact
             )
 
 

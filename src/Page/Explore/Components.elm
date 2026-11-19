@@ -3,13 +3,13 @@ module Page.Explore.Components exposing (table)
 import Data.Component as Component exposing (Component)
 import Data.Component.Amount as Amount
 import Data.Dataset as Dataset
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Impacts as Impacts
 import Data.Process as Process
 import Data.Sector exposing (Sector)
 import Data.Session exposing (Session)
 import Data.Text as Text
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
@@ -115,5 +115,5 @@ getComponentEcoscore { componentConfig, db } sector =
         >> Result.map
             (Component.extractImpacts
                 >> Impacts.getImpact Definition.Ecs
-                >> Unit.impactToFloat
+                >> Impact.impactToFloat
             )

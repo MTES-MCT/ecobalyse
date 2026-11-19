@@ -30,6 +30,7 @@ module Data.Process exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Country.Code as CountryCode
+import Data.Impact exposing (Impact)
 import Data.Impact.Definition as Definition
 import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process.Category as Category exposing (Category)
@@ -110,7 +111,7 @@ getDefaultOrigin =
     .metadata >> Maybe.andThen .defaultOrigin
 
 
-getImpact : Definition.Trigram -> Process -> Unit.Impact
+getImpact : Definition.Trigram -> Process -> Impact
 getImpact trigram =
     .impacts >> Impacts.getImpact trigram
 

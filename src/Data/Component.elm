@@ -149,6 +149,7 @@ import Data.Component.Consumption as Consumption exposing (Consumption)
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
+import Data.Impact as Impact exposing (Impact)
 import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
 import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process as Process exposing (Process)
@@ -667,7 +668,7 @@ applyDurabilityToComplements maybeDurability complements =
             complements
 
 
-applyDurabilityToImpact : Maybe Unit.Ratio -> Unit.Impact -> Unit.Impact
+applyDurabilityToImpact : Maybe Unit.Ratio -> Impact -> Impact
 applyDurabilityToImpact maybeDurability impact =
     case maybeDurability of
         Just durability ->
@@ -807,7 +808,7 @@ assemblyResultsFromMass mass =
         }
 
 
-complementPoints : ComplementsResultsImpacts -> Unit.Impact
+complementPoints : ComplementsResultsImpacts -> Impact
 complementPoints =
     Complement.mergeComplementsResultsImpacts
         >> Impacts.getImpact Definition.Ecs
@@ -1828,11 +1829,11 @@ encodeApiResponse definitions query lifeCycle =
     ]
 
 
-encodeApiScore : Unit.Impact -> Unit.Impact -> Encode.Value
+encodeApiScore : Impact -> Impact -> Encode.Value
 encodeApiScore ecs complements =
     Encode.object
-        [ ( "ecs", Unit.encodeImpact ecs )
-        , ( "complements", Unit.encodeImpact complements )
+        [ ( "ecs", Impact.encodeImpact ecs )
+        , ( "complements", Impact.encodeImpact complements )
         ]
 
 
@@ -1846,7 +1847,7 @@ encodeApiStages maybeDurability lifeCycle =
             Maybe.withDefault Impacts.empty
                 >> applyDurabilityToImpacts maybeDurability
                 >> Impacts.getImpact Definition.Ecs
-                >> Unit.encodeImpact
+                >> Impact.encodeImpact
     in
     Encode.object
         [ ( "materials", getEcs stages.materials )
@@ -1874,7 +1875,7 @@ encodeApiSubscores definitions maybeDurability lifeCycleImpacts lifeCycle =
         getEcs impact =
             impact
                 |> applyDurabilityToImpact maybeDurability
-                |> Unit.encodeImpact
+                |> Impact.encodeImpact
     in
     Encode.object
         [ ( "biodiversity", getEcs areas.biodiversity )
@@ -1929,7 +1930,7 @@ encodeLifeCycle maybeTrigram lifeCycle =
                 Just trigram ->
                     lifeCycle.endOfLife
                         |> Impacts.getImpact trigram
-                        |> Unit.encodeImpact
+                        |> Impact.encodeImpact
 
                 Nothing ->
                     Impacts.encode lifeCycle.endOfLife
@@ -2005,7 +2006,7 @@ encodeComplementsResultsImpacts maybeTrigram complementsResultsImpacts =
                 Just trigram ->
                     complement
                         |> Impacts.getImpact trigram
-                        |> Unit.encodeImpact
+                        |> Impact.encodeImpact
 
                 Nothing ->
                     Impacts.encode complement
@@ -2038,7 +2039,7 @@ encodeResults maybeTrigram (Results results) =
                     Just trigram ->
                         results.impacts
                             |> Impacts.getImpact trigram
-                            |> Unit.encodeImpact
+                            |> Impact.encodeImpact
 
                     Nothing ->
                         Impacts.encode results.impacts

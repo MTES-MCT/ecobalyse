@@ -24,6 +24,7 @@ import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
 import Data.Generic.Simulator as GenericSimulator
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Impacts as Impacts
 import Data.Key as Key
@@ -34,7 +35,6 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator
-import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
 import Dict
 import File.Download as Download
@@ -743,7 +743,7 @@ getFoodScore db =
             (Tuple.second
                 >> .total
                 >> Impacts.getImpact Definition.Ecs
-                >> Unit.impactToFloat
+                >> Impact.impactToFloat
             )
         >> Result.withDefault 0
 
@@ -756,7 +756,7 @@ getFoodScorePer100g db =
             (Tuple.second
                 >> .perKg
                 >> Impacts.getImpact Definition.Ecs
-                >> (\x -> Unit.impactToFloat x / 10)
+                >> (\x -> Impact.impactToFloat x / 10)
             )
         >> Result.withDefault 0
 
@@ -768,7 +768,7 @@ getGenericScore { componentConfig, db } sector { query } =
         |> Result.map
             (Component.sumLifeCycleImpacts
                 >> Impacts.getImpact Definition.Ecs
-                >> Unit.impactToFloat
+                >> Impact.impactToFloat
             )
         |> Result.withDefault 0
 
@@ -783,7 +783,7 @@ getGenericScorePer100g { componentConfig, db } sector { query } =
                     |> Component.sumLifeCycleImpacts
                     |> Impacts.per100grams lifeCycle.productMass
                     |> Impacts.getImpact Definition.Ecs
-                    |> Unit.impactToFloat
+                    |> Impact.impactToFloat
             )
         |> Result.withDefault 0
 
@@ -792,7 +792,7 @@ getTextileScore : Session -> Example TextileQuery.Query -> Float
 getTextileScore { componentConfig, db } { query } =
     query
         |> Simulator.compute db componentConfig
-        |> Result.map (.impacts >> Impacts.getImpact Definition.Ecs >> Unit.impactToFloat)
+        |> Result.map (.impacts >> Impacts.getImpact Definition.Ecs >> Impact.impactToFloat)
         |> Result.withDefault 0
 
 
@@ -804,7 +804,7 @@ getTextileScorePer100g { componentConfig, db } { query } =
             (.impacts
                 >> Impacts.per100grams query.mass
                 >> Impacts.getImpact Definition.Ecs
-                >> Unit.impactToFloat
+                >> Impact.impactToFloat
             )
         |> Result.withDefault 0
 

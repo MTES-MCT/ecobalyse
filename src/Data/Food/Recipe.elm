@@ -36,6 +36,7 @@ import Data.Food.Query as BuilderQuery exposing (PackagingAmount, Query, packagi
 import Data.Food.Retail as Retail
 import Data.Food.Transport as FoodTransport
 import Data.Food.WellKnown exposing (WellKnown)
+import Data.Impact as Impact exposing (Impact)
 import Data.Impact.Definition as Definition
 import Data.Impacts as Impacts exposing (Impacts)
 import Data.Process as Process exposing (Process)
@@ -304,11 +305,11 @@ computeIngredientComplementsImpacts { cropDiversity, hedges, permanentPasture, p
     }
 
 
-computeImpact : Mass -> Definition.Trigram -> Unit.Impact -> Unit.Impact
+computeImpact : Mass -> Definition.Trigram -> Impact -> Impact
 computeImpact mass _ =
-    Unit.impactToFloat
+    Impact.impactToFloat
         >> (*) (Mass.inKilograms mass)
-        >> Unit.impact
+        >> Impact.impact
 
 
 computePackagingImpacts : { a | amount : PackagingAmount, process : Process } -> Impacts
@@ -493,11 +494,11 @@ encodeResults results =
 encodeScoring : Scoring -> Encode.Value
 encodeScoring scoring =
     Encode.object
-        [ ( "all", Unit.encodeImpact scoring.all )
-        , ( "climate", Unit.encodeImpact scoring.climate )
-        , ( "biodiversity", Unit.encodeImpact scoring.biodiversity )
-        , ( "health", Unit.encodeImpact scoring.health )
-        , ( "resources", Unit.encodeImpact scoring.resources )
+        [ ( "all", Impact.encodeImpact scoring.all )
+        , ( "climate", Impact.encodeImpact scoring.climate )
+        , ( "biodiversity", Impact.encodeImpact scoring.biodiversity )
+        , ( "health", Impact.encodeImpact scoring.health )
+        , ( "resources", Impact.encodeImpact scoring.resources )
         ]
 
 
