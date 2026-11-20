@@ -1,0 +1,19 @@
+{
+  "activityName": "powder coating, steel, 2 layers, adapted from BAFU",
+  "categories": ["transformation", "material_type:ferrous_metals"],
+  "comment": "80µm coating, 2 layers, 2mm Fe (65m²/t Fe). Adapted from 'Powder coating, steel, RER', BAFU:2026. Heat and electricity consumptions are not included.",
+  "displayName": "Thermolaquage acier, 2x80µm sur 2mm de métal",
+  "elecKwh": 0.48,
+  "heatMJ": 12.8,
+  "id": "c8d33354-fae8-4cd5-8171-ea1e4a86cf06",
+  "metadata": [
+    {
+      "id": "0d8c7dc1-83a8-4459-adb7-184dfa832b86",
+      "scopes": ["furniture", "object", "veli"]
+    }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["furniture", "object", "veli"],
+  "source": "Ecobalyse_custom_lci",
+  "unit": "kg"
+}
