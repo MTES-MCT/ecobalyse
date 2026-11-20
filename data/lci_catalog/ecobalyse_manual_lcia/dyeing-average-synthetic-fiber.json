@@ -1,0 +1,39 @@
+{
+  "categories": ["transformation", "material_type:synthetic_fibers", "aquaticPollutionDependent"],
+  "comment": "Teinture dont les valeurs électricité et chaleur sont issues de la moyenne entre la teinture continu et discontinu. corr2 : inventaires enrichis (substances chimiques) Ancien identifiant (12/2024): ecobalyse-teinture-fibres-cellulosiques.",
+  "displayName": "Teinture sur fibres synthétiques",
+  "elecKwh": 1.0,
+  "heatMJ": 24.3,
+  "id": "f2ce09f3-6f9b-44bb-8c59-e9fb6f05f7b0",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 289,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 6.1e-11,
+    "htn": 0,
+    "htn-c": 1.74e-08,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "49503701-704f-44a5-92d1-6608c7924c45",
+      "scopes": ["apparel", "furniture", "object"]
+    }
+  ],
+  "qtyVariationRatio": 1.0,
+  "scopes": ["apparel", "furniture", "object"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}
