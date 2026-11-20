@@ -1,0 +1,19 @@
+{
+  "activityName": "zinc coating, adapted from BAFU",
+  "categories": ["transformation", "material_type:ferrous_metals"],
+  "comment": "65µm Zn, 2 layers, 60m²/t Fe (~2mm). Adapted from 'zinc coating, pieces, RER', BAFU:2026.",
+  "displayName": "Galvanization, 2x80µm pour 2mm de métal",
+  "elecKwh": 0.0167,
+  "heatMJ": 1.22,
+  "id": "2cdfc304-ee2a-410a-8a5f-43429fd06ee3",
+  "metadata": [
+    {
+      "id": "f28c972f-0c99-4c02-b24b-78578288f890",
+      "scopes": ["furniture", "object", "veli"]
+    }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["furniture", "object", "veli"],
+  "source": "Ecobalyse_custom_lci",
+  "unit": "kg"
+}
