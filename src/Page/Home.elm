@@ -121,7 +121,7 @@ viewHero { enabledSections } =
                   }
                 )
               , ( enabledSections.veli
-                , { label = "Calculer l’impact d’un véhicule"
+                , { label = "Calculer l’impact d’un matériel de transport"
                   , subLabel = Just "Simulateur en construction"
                   , callToAction = False
                   , link = RouteLink <| Route.GenericSimulatorHome Sector.Veli

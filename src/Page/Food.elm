@@ -1660,7 +1660,8 @@ mainView ({ db } as session) model =
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
-            [ ExampleView.view
+            [ h1 [ class "mb-3" ] [ text "Alimentaire" ]
+            , ExampleView.view
                 { currentQuery = session.queries.food
                 , emptyQuery = Query.empty
                 , examples = db.food.examples

@@ -60,7 +60,7 @@ Le compilateur nous indique immédiatement de gérer les nouvelles branches intr
 203|#>#            "Objets"
 204|#>#
 205|#>#        Veli ->
-206|#>#            "Véhicules"
+206|#>#            "Mobilité"
 
 Missing possibilities include:
 
@@ -439,7 +439,7 @@ const GENERIC_SECTOR_CONFIG = {
   flowers: { env: "ENABLE_FLOWERS_SECTION", label: "Fleurs" },
   food2: { env: "ENABLE_FOOD2_SECTION", label: "Alimentaire BÉTA" },
   object: { env: "ENABLE_OBJECTS_SECTION", label: "Objets" },
-  veli: { env: "ENABLE_VELI_SECTION", label: "Véhicules" },
+  veli: { env: "ENABLE_VELI_SECTION", label: "Mobilité" },
 };
 ```
 
