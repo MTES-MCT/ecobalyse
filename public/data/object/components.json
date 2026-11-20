@@ -1085,15 +1085,16 @@
     "elements": [
       {
         "amount": 1,
-        "material": { "country": "REE", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+        "material": { "country": "REO", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
         "transforms": [
-          { "country": "REE", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-          { "country": "REE", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+          { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+          { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
+          { "country": "REO", "id": "0d8c7dc1-83a8-4459-adb7-184dfa832b86" }
         ]
       }
     ],
     "id": "2285d4ab-9fc6-4aa1-a2b7-2db38fa4e2d1",
-    "name": "Acier laminé, usiné, mix marché Europe",
+    "name": "Acier 2mm, usiné, peint 2 couches, mix marché Europe",
     "scopes": ["veli", "furniture", "object"]
   },
   {
@@ -1101,15 +1102,16 @@
     "elements": [
       {
         "amount": 1,
-        "material": { "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+        "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
         "transforms": [
-          { "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-          { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+          { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+          { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
+          { "country": "RAS", "id": "0d8c7dc1-83a8-4459-adb7-184dfa832b86" }
         ]
       }
     ],
     "id": "bd0d3f86-996a-4957-bfaf-cafaa1d9e2aa",
-    "name": "Acier laminé, usiné, mix marché hors Europe",
+    "name": "Acier 2mm, usiné, peint 2 couches, mix marché hors Europe",
     "scopes": ["veli", "furniture", "object"]
   },
   {
@@ -1117,102 +1119,125 @@
     "elements": [
       {
         "amount": 1,
-        "material": { "country": "REE", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
+        "material": { "country": "REO", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
         "transforms": [
-          { "country": "REE", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-          { "country": "REE", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
-          { "country": "REE", "id": "d935e937-35e7-471d-8d78-f5c6c1685adf" }
+          { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+          { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
+          { "country": "REO", "id": "f28c972f-0c99-4c02-b24b-78578288f890" }
+        ]
+      }
+    ],
+    "id": "2285d4ab-9fc6-4aa1-a2b7-2db38fa4e2d1",
+    "name": "Acier galvanisé 2mm, usiné, mix marché Europe",
+    "scopes": ["veli", "furniture", "object"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "REO", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
+        "transforms": [
+          { "country": "REO", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
+          { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
+          { "country": "REO", "id": "d935e937-35e7-471d-8d78-f5c6c1685adf" },
+          { "country": "REO", "id": "2e1cabad-3987-4810-84fa-4c752fc10ae0" }
         ]
       }
     ],
     "id": "ef50924c-ee2a-42af-9b9c-38c1701dd3f8",
-    "name": "Aluminium, plaque usinée avec traitement thermique, mix marché Europe",
-    "scopes": ["veli"]
+    "name": "Aluminium, 2mm, usiné, avec traitement thermique, peinture 1 face 2 couches, mix marché Europe",
+    "scopes": ["veli", "furniture", "object"]
   },
   {
     "comment": null,
     "elements": [
       {
         "amount": 1,
-        "material": { "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84" },
+        "material": { "country": "RAS", "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84" },
         "transforms": [
-          { "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-          { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
-          { "id": "d935e937-35e7-471d-8d78-f5c6c1685adf" }
+          { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
+          { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
+          { "country": "RAS", "id": "d935e937-35e7-471d-8d78-f5c6c1685adf" },
+          { "country": "RAS", "id": "2e1cabad-3987-4810-84fa-4c752fc10ae0" }
         ]
       }
     ],
     "id": "abba240e-05a3-4395-adf3-2426d2deb824",
-    "name": "Aluminium, plaque usinée avec traitement thermique, mix marché hors Europe et Chine",
-    "scopes": ["veli"]
+    "name": "Aluminium, 2mm, usiné, traitement thermique, peinture 1 face 2 couches, mix marché hors Europe",
+    "scopes": ["veli", "furniture", "object"]
   },
   {
     "comment": null,
     "elements": [
       {
         "amount": 1,
-        "material": { "country": "REE", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+        "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
         "transforms": [
-          { "country": "REE", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-          { "country": "REE", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
-          { "country": "REE", "id": "d935e937-35e7-471d-8d78-f5c6c1685adf" }
+          { "country": "REO", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
+          { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
+          { "country": "REO", "id": "d935e937-35e7-471d-8d78-f5c6c1685adf" },
+          { "country": "REO", "id": "2e1cabad-3987-4810-84fa-4c752fc10ae0" }
         ]
       }
     ],
     "id": "7c50438a-7129-40d1-a235-7dea89072e37",
-    "name": "Aluminium vierge, plaque usinée avec traitement thermique,Europe",
-    "scopes": ["veli"]
+    "name": "Aluminium vierge, 2mm, usinée, traitement thermique, peinture 1 face 2 couches, Europe",
+    "scopes": ["veli", "furniture", "object"]
   },
   {
     "comment": null,
     "elements": [
       {
         "amount": 1,
-        "material": { "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+        "material": { "country": "RAS", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
         "transforms": [
-          { "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-          { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
-          { "id": "d935e937-35e7-471d-8d78-f5c6c1685adf" }
+          { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
+          { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
+          { "country": "RAS", "id": "d935e937-35e7-471d-8d78-f5c6c1685adf" },
+          { "country": "RAS", "id": "2e1cabad-3987-4810-84fa-4c752fc10ae0" }
         ]
       }
     ],
     "id": "e4f2f2c8-5f9f-47fe-9296-de1ef0889b66",
-    "name": "Aluminium vierge, plaque usinée avec traitement thermique, hors Europe et Inde",
-    "scopes": ["veli"]
+    "name": "Aluminium vierge, 2mm, usinée, traitement thermique, peinture 1 face 2 couches, hors Europe",
+    "scopes": ["veli", "furniture", "object"]
   },
   {
     "comment": null,
     "elements": [
       {
         "amount": 1,
-        "material": { "country": "REE", "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84" },
+        "material": { "country": "REO", "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84" },
         "transforms": [
-          { "country": "REE", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
-          { "country": "REE", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
-          { "country": "REE", "id": "d935e937-35e7-471d-8d78-f5c6c1685adf" }
+          { "country": "REO", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
+          { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
+          { "country": "REO", "id": "d935e937-35e7-471d-8d78-f5c6c1685adf" },
+          { "country": "REO", "id": "2e1cabad-3987-4810-84fa-4c752fc10ae0" }
         ]
       }
     ],
     "id": "a4d621eb-dee9-4758-8522-fc1746bb08ea",
-    "name": "Aluminium, tube usiné avec traitement thermique, mix marché Europe",
-    "scopes": ["veli"]
+    "name": "Aluminium, tube, usiné, traitement thermique, peinture 2 couches, mix marché Europe",
+    "scopes": ["veli", "furniture", "object"]
   },
   {
     "comment": null,
     "elements": [
       {
         "amount": 1,
-        "material": { "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84" },
+        "material": { "country": "RAS", "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84" },
         "transforms": [
-          { "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
-          { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
-          { "id": "d935e937-35e7-471d-8d78-f5c6c1685adf" }
+          { "country": "RAS", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
+          { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
+          { "country": "RAS", "id": "d935e937-35e7-471d-8d78-f5c6c1685adf" },
+          { "country": "RAS", "id": "2e1cabad-3987-4810-84fa-4c752fc10ae0" }
         ]
       }
     ],
     "id": "128b5347-386e-4e10-9112-41d0309a3024",
-    "name": "Aluminium, tube usiné avec traitement thermique, mix marché hors Europe et Chine",
-    "scopes": ["veli"]
+    "name": "Aluminium, tube, usiné, traitement thermique, peinture 2 couches, mix marché hors Europe",
+    "scopes": ["veli", "furniture", "object"]
   },
   {
     "comment": null,
@@ -1252,36 +1277,6 @@
     "id": "3aaebbee-a087-404b-bce8-3a710245b0fa",
     "name": "Barre penderie 60cm (acier)",
     "scopes": ["furniture", "object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 1,
-        "material": "d738711a-c339-4e9e-8d63-b202f6b5c131",
-        "transforms": [
-          { "country": "REE", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
-        ]
-      }
-    ],
-    "id": "7583bda0-49d1-4e36-84f5-e8fbd59f4c83",
-    "name": "Bois massif, feuillu, Europe",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 1,
-        "material": { "country": "REE", "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657" },
-        "transforms": [
-          { "country": "RAS", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
-        ]
-      }
-    ],
-    "id": "e6896642-af4d-46b8-b8b7-c29df7e4e1c5",
-    "name": "Bois massif, pin, Asie",
-    "scopes": ["veli"]
   },
   {
     "comment": null,
@@ -1732,36 +1727,6 @@
     ],
     "id": "819e2167-5d04-4898-9cd5-a41a3ecfb418",
     "name": "Panneau OSB (1m3) (635 kg/m3)",
-    "scopes": ["furniture", "object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 1.0,
-        "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
-        "transforms": ["ea284007-49a8-4be1-95fc-452ea180285a", "7319ac9c-5796-412f-a1eb-58e01afa7708"]
-      }
-    ],
-    "id": "fc1c8108-4fff-4952-b842-a35125e9c5dc",
-    "name": "Pièce en acier laminé (1kg)",
-    "scopes": ["furniture", "object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 1.0,
-        "material": "baae8572-db4a-4cb8-8f74-e72ba5ef0116",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      }
-    ],
-    "id": "6bfe81a6-96e8-4845-a864-0b18be6aa81a",
-    "name": "Pièce en aluminium (1kg)",
     "scopes": ["furniture", "object"]
   },
   {

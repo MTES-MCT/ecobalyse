@@ -2,7 +2,7 @@
   "activityName": "powder coating, 2 layers, aluminium, adapted from BAFU",
   "categories": ["transformation", "material_type:aluminium"],
   "comment": "80µm coating, 2 layers, 2mm Al (185m²/t Al). Adapted from 'Powder coating, aluminium sheet, RER', BAFU:2026. Heat and electricity consumptions are separated.",
-  "displayName": "Thermolaquage aluminium, 2x80µm sur 2mm de métal",
+  "displayName": "Thermolaquage aluminium, 2x80µm pour 2mm de métal",
   "elecKwh": 0.48,
   "heatMJ": 9,
   "id": "13f50d88-60e9-4f24-80af-0ec18a14f367",
