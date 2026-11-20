@@ -1,0 +1,16 @@
+{
+  "activityName": "Zinc, primary, at regional storage {RER} U",
+  "categories": ["material", "material_type:aluminium"],
+  "comment": "",
+  "displayName": "Zinc",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "dc154194-9d16-48fd-a1d7-65ec5030a3dd",
+  "metadata": [
+    { "id": "909a4bdb-c60d-404a-883a-8c2577ce85d2", "scopes": ["furniture", "object", "veli"] }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["apparel", "textile", "furniture", "object", "veli"],
+  "source": "BAFU 2025v2",
+  "unit": "kg"
+}
