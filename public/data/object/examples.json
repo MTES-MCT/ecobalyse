@@ -1,52 +1,11 @@
 [
   {
     "category": "",
-    "id": "141eea6d-5ebb-434b-9b02-da99db1d0a28",
-    "name": "Jardinière d'extérieur en bois (séchage bois en extérieur)",
-    "query": {
-      "components": [
-        { "id": "c5d86519-e56a-4ad7-aada-d4f7fffd5628", "quantity": 1 },
-        { "id": "c845482e-8347-4a3c-9dd4-392d8fc2cb3f", "quantity": 1 }
-      ]
-    },
-    "scope": "object"
-  },
-  {
-    "category": "",
     "id": "3caed878-2825-43cc-8f59-84ba39dc1206",
     "name": "Caisse de rangement en bois (40 x 30 x 20)",
     "query": { "components": [
       { "id": "f27f7f37-5165-49b8-9f41-36d4f15a9170", "quantity": 2 }
     ] },
-    "scope": "object"
-  },
-  {
-    "category": "",
-    "id": "40158dac-ed21-4415-a9ee-b46049709656",
-    "name": "Boîte en plastique (1,2 kg)",
-    "query": {
-      "assembly": { "country": "RAS" },
-      "components": [
-        {
-          "elements": [
-            {
-              "amount": 1.26,
-              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-              "transforms": [
-                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            }
-          ],
-          "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
-          "name": "Plastique moulé",
-          "quantity": 1
-        }
-      ],
-      "packagings": [
-        { "amount": 0.2, "processId": "1421dfdc-0168-4e6c-bbb4-c724785d61d6" }
-      ],
-      "recyclable": true
-    },
     "scope": "object"
   },
   {
@@ -431,27 +390,6 @@
           "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
           "quantity": 1
         }
-      ]
-    },
-    "scope": "object"
-  },
-  {
-    "category": "",
-    "id": "ebbff4dc-e52d-42e7-916b-ac191605b474",
-    "name": "Lot de 3 boîtes plastiques PP 45L",
-    "query": { "components": [
-      { "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62", "quantity": 3 }
-    ] },
-    "scope": "object"
-  },
-  {
-    "category": "",
-    "id": "ffea421b-03b4-42f1-bf39-f17362d23cb0",
-    "name": "Jardinière d'extérieur en bois (séchage bois au four)",
-    "query": {
-      "components": [
-        { "id": "6ff284b4-976d-4cf4-a4be-164f1c46ede2", "quantity": 1 },
-        { "id": "c5d86519-e56a-4ad7-aada-d4f7fffd5628", "quantity": 1 }
       ]
     },
     "scope": "object"
