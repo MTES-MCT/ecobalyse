@@ -18,6 +18,7 @@ module Data.Sector exposing
     , parseGeneric
     , toGenericSector
     , toLabel
+    , toLabelGeneric
     , toString
     , toStringGeneric
     )
@@ -100,13 +101,8 @@ dictGet =
 
 
 dictGetMaybe : Sector -> Dict (Maybe a) -> Maybe a
-dictGetMaybe sector dict =
-    case dictGet sector dict of
-        Just maybe ->
-            maybe
-
-        Nothing ->
-            Nothing
+dictGetMaybe sector =
+    dictGet sector >> Maybe.andThen identity
 
 
 encode : Sector -> Encode.Value
@@ -217,7 +213,7 @@ toLabelGeneric genericSector =
             "Objets"
 
         Veli ->
-            "Véhicules"
+            "Mobilité"
 
 
 toString : Sector -> String

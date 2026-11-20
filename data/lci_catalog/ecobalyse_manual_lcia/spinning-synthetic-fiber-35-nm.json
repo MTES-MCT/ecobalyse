@@ -1,0 +1,36 @@
+{
+  "categories": ["transformation", "material_type:synthetic_fibers"],
+  "comment": "Électricité exprimée par kg de fil entrant (perte de 3 % pour les fibres synthétiques, qtyVariationRatio 0.97). Formule de la documentation : titrage (Nm) / 50 × constante du procédé × masse sortante (kg), avec une constante de 1,5 kWh pour filage. Calcul pour 1 kg de fil sorti : 35 / 50 × 1,5 = 1,05 kWh/kg sorti. Ramené à 1 kg entrant : 1,05 × 0,97 = 1,0185 kWh/kg entrant.",
+  "displayName": "Filage - fibres synthétiques (35Nm)",
+  "elecKwh": 1.0185,
+  "heatMJ": 0,
+  "id": "6b10015a-d3ee-4a96-a3fe-3e7b0c1bb8db",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "e5903b0f-110e-4918-9d7f-9225c77a3564", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 0.97,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}

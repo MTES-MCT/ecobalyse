@@ -99,7 +99,7 @@ describe("lib.sectors", () => {
         }),
       ).toEqual([
         { id: "food2", name: "Alimentaire BÉTA" },
-        { id: "veli", name: "Véhicules" },
+        { id: "veli", name: "Mobilité" },
       ]);
     });
   });
