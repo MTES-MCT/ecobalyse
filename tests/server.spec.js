@@ -740,7 +740,7 @@ describe("API", () => {
           { id: "apparel", name: "Habillement" },
           { id: "food2", name: "Alimentaire BÉTA" },
           { id: "furniture", name: "Ameublement" },
-          { id: "veli", name: "Véhicules" },
+          { id: "veli", name: "Mobilité" },
         ]);
       });
 
