@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Any
 
 from data.config import settings
 
@@ -10,7 +11,7 @@ from models.process import Cff, Material
 
 def activities_to_materials_json(
     activities: list[dict], materials_path: Path
-) -> list[Material]:
+) -> list[dict[str, Any]]:
     materials = activities_to_materials_list(activities)
 
     materials_dicts = [material.model_dump(by_alias=True) for material in materials]

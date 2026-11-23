@@ -20,7 +20,7 @@ import statistics
 import sys
 import tempfile
 import time
-from collections.abc import Callable, Iterator, Sequence
+from collections.abc import Callable, Generator, Sequence
 from contextlib import contextmanager, redirect_stderr
 from math import log
 from pathlib import Path
@@ -395,7 +395,7 @@ def draw(rows: list[dict], path: Path) -> None:
 
 
 @contextmanager
-def engine(binary: str) -> Iterator[Server]:
+def engine(binary: str) -> Generator[Server]:
     """Start an engine of this tool's own, on a free port, on the files the import reads.
 
     Takes the engine binary's path. Yields the running server, and stops it on the way out.

@@ -38,7 +38,7 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
 
     repository_type = UserRepository
     default_role = constants.DEFAULT_USER_ROLE
-    match_fields: ClassVar[list[str]] = ["email"]
+    match_fields: ClassVar[list[str] | str | None] = ["email"]
 
     async def to_model_on_create(self, data: ModelDictT[m.User]) -> ModelDictT[m.User]:
         return await self._populate_model(data, operation="create")
@@ -216,7 +216,7 @@ class RoleService(SQLAlchemyAsyncRepositoryService[m.Role]):
         model_type = m.Role
 
     repository_type = Repository
-    match_fields: ClassVar[list[str]] = ["name"]
+    match_fields: ClassVar[list[str] | str | None] = ["name"]
 
     async def to_model_on_create(self, data: ModelDictT[m.Role]) -> ModelDictT[m.Role]:
         data = schema_dump(data)
