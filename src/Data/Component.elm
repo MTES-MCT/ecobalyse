@@ -2423,9 +2423,9 @@ getEndOfLifeDetailedImpacts { config, sector } recyclable lifeCycle =
         productionMass =
             extractMass lifeCycle.production
 
-        -- Note: Assembly waste is modeled as a global mass reduction, without per-material losses,
-        -- while EoL impacts are computed per material category; so we need to scale each by the same
-        -- factor so their masses sum back to `productMass`
+        -- Note: Assembly losses increase each element's incoming mass, so `productionMass` is the
+        -- pre-assembly mass. End-of-life impacts are per material category, so scale every category
+        -- by the same factor to bring those masses back to `productMass`
         massScaleRatio =
             if lifeCycle.productMass == Quantity.zero then
                 1
@@ -2453,7 +2453,7 @@ getEndOfLifeDetailedImpacts { config, sector } recyclable lifeCycle =
         |> AnyDict.map
             (\materialCategory mass ->
                 let
-                    -- Apply assembly mass loss ratio back to every material category
+                    -- Bring this category's pre-assembly mass back to the finished product
                     scaledMass =
                         mass |> Quantity.multiplyBy massScaleRatio
                 in
