@@ -160,7 +160,8 @@ def processes_generic(
             f"-> Filtered activities to scopes: {scopes}, {len(activities)} activities remaining for a total of {all_activities_number}"
         )
 
-    # Export all generic processes to processes_generic.json
+    # Export generic processes to processes_generic.json
+    # Don’t export activities with `visible: false`
     generic_activities = [
         activity for activity in activities if GENERIC_SCOPES & set(activity["scopes"])
     ]
