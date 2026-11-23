@@ -74,15 +74,15 @@ addProductionItemButton ({ requirements } as config) =
 
         availableMaterials =
             case config.context of
-                Context.TextileTrims ->
-                    []
-
-                _ ->
+                Context.Generic ->
                     requirements.db.processes
                         |> Process.listAvailableByCategory requirements.sector Category.Material
                         -- Exclude packaging materials as they're available in a dedicated section
                         |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
                         |> List.map MaterialItem
+
+                Context.TextileTrims ->
+                    []
 
         availableProductionItems =
             availableComponents ++ availableMaterials
