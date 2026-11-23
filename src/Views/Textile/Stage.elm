@@ -509,7 +509,7 @@ viewStageImpacts selectedImpact { complementsImpacts, impacts } =
         div []
             [ span [ class "flex-fill" ]
                 [ totalImpacts
-                    |> Format.formatImpact selectedImpact
+                    |> Format.impact selectedImpact
                 ]
             ]
 
@@ -558,7 +558,7 @@ viewMaterials config =
                                     , title "Impact du transport pour cette matière"
                                     ]
                                     [ text "(+ "
-                                    , Format.formatImpact config.selectedImpact transport.impacts
+                                    , Format.impact config.selectedImpact transport.impacts
                                     , text ")"
                                     ]
                               ]
@@ -748,7 +748,7 @@ viewTransport { current, inputs, selectedImpact } =
                     )
                 , span []
                     [ current.transport.impacts
-                        |> Format.formatImpact selectedImpact
+                        |> Format.impact selectedImpact
                     , inlineDocumentationLink Gitbook.TextileTransport
                     ]
                 ]
@@ -883,7 +883,7 @@ ennoblingToxicityView db { inputs, selectedImpact } current =
                         , toxicityDetails
                             |> List.map Tuple.second
                             |> Impact.sumImpacts
-                            |> Format.formatImpact selectedImpact
+                            |> Format.impact selectedImpact
                         , text ")"
                         , inlineDocumentationLink Gitbook.TextileEnnoblingToxicity
                         ]
@@ -896,7 +896,7 @@ ennoblingToxicityView db { inputs, selectedImpact } current =
                                 , impacts
                                     |> Impact.getImpact Definition.Ecs
                                     |> Unit.impactToFloat
-                                    |> Format.formatRichFloat 2 "Pts"
+                                    |> Format.richFloat 2 "Pts"
                                 ]
                         )
                     |> div []
@@ -912,7 +912,7 @@ pickingView maybePicking =
                 [ text "Duitage\u{00A0}:\u{00A0}"
                 , picking
                     |> Unit.pickPerMeterToFloat
-                    |> Format.formatRichFloat 0 "duites.m"
+                    |> Format.richFloat 0 "duites.m"
                 ]
 
         Nothing ->
@@ -931,7 +931,7 @@ threadDensityView threadDensity =
                 [ span [ class "d-flex justify-content-center gap-2" ]
                     [ text "Densité de fils (approx.)\u{00A0}:\u{00A0}"
                     , value
-                        |> Format.formatRichFloat 0 "fils/cm"
+                        |> Format.richFloat 0 "fils/cm"
                     ]
                 , if round value < Unit.threadDensityToInt Unit.threadDensityLow then
                     text "⚠️ la densité de fils semble très faible"
@@ -1162,7 +1162,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                     li [ class "list-group-item text-muted" ]
                         [ div [ class "d-flex justify-content-between" ]
                             [ text "Fin de vie"
-                            , Format.formatImpact selectedImpact current.impacts
+                            , Format.impact selectedImpact current.impacts
                             ]
                         , showIf (selectedImpact.trigram == Definition.Ecs) <|
                             div [ class "text-start mt-2" ]

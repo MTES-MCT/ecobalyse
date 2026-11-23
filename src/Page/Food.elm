@@ -1257,7 +1257,7 @@ ingredientListView db selectedImpact recipe results =
             ]
         , span []
             [ results.recipe.ingredientsTotal
-                |> Format.formatImpact selectedImpact
+                |> Format.impact selectedImpact
             , Button.docsPillLink
                 [ class "btn btn-secondary ms-2 py-1"
                 , href (Gitbook.publicUrlFromPath Gitbook.FoodIngredients)
@@ -1288,7 +1288,7 @@ ingredientListView db selectedImpact recipe results =
                                 ingredient
                                     |> Recipe.computeIngredientTransport db
                                     |> .impacts
-                                    |> Format.formatImpact selectedImpact
+                                    |> Format.impact selectedImpact
                             }
                     )
          )
@@ -1335,7 +1335,7 @@ packagingListView db selectedImpact recipe results =
             [ text "Emballage" ]
         , span []
             [ results.packaging
-                |> Format.formatImpact selectedImpact
+                |> Format.impact selectedImpact
             , Button.docsPillLink
                 [ class "btn btn-secondary ms-2 py-1"
                 , href (Gitbook.publicUrlFromPath Gitbook.FoodPackaging)
@@ -1360,7 +1360,7 @@ packagingListView db selectedImpact recipe results =
                             , impact =
                                 packaging
                                     |> Recipe.computePackagingImpacts
-                                    |> Format.formatImpact selectedImpact
+                                    |> Format.impact selectedImpact
                             , packaging = packaging
                             , processes =
                                 db.processes
@@ -1408,7 +1408,7 @@ transportToTransformationView selectedImpact results =
                         }
                 )
             , span []
-                [ Format.formatImpact selectedImpact results.recipe.transports.impacts
+                [ Format.impact selectedImpact results.recipe.transports.impacts
                 , Button.smallPillLink
                     [ href (Gitbook.publicUrlFromPath Gitbook.FoodTransport)
                     , target "_blank"
@@ -1478,7 +1478,7 @@ transportToDistributionView wellKnown selectedImpact recipe results =
                         }
                 )
             , span []
-                [ Format.formatImpact selectedImpact results.distribution.transports.impacts
+                [ Format.impact selectedImpact results.distribution.transports.impacts
                 , Button.smallPillLink
                     [ href (Gitbook.publicUrlFromPath Gitbook.FoodTransport)
                     , target "_blank"
@@ -1522,7 +1522,7 @@ distributionView selectedImpact recipe results =
     let
         impact =
             results.distribution.total
-                |> Format.formatImpact selectedImpact
+                |> Format.impact selectedImpact
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
@@ -1535,7 +1535,7 @@ distributionView selectedImpact recipe results =
             [ text "Distribution" ]
         , span []
             [ results.distribution.total
-                |> Format.formatImpact selectedImpact
+                |> Format.impact selectedImpact
             , Button.docsPillLink
                 [ class "btn btn-secondary ms-2 py-1"
                 , href (Gitbook.publicUrlFromPath Gitbook.FoodDistribution)
@@ -1598,7 +1598,7 @@ consumptionView { food } selectedImpact recipe results =
             [ text "Consommation" ]
         , span []
             [ results.preparation
-                |> Format.formatImpact selectedImpact
+                |> Format.impact selectedImpact
             , Button.docsPillLink
                 [ class "btn btn-secondary ms-2 py-1"
                 , href (Gitbook.publicUrlFromPath Gitbook.FoodUse)
@@ -1635,7 +1635,7 @@ consumptionView { food } selectedImpact recipe results =
                             , span [ class "w-50 text-end" ]
                                 [ usedPreparation
                                     |> Preparation.apply food.wellKnown results.recipe.transformedMass
-                                    |> Format.formatImpact selectedImpact
+                                    |> Format.impact selectedImpact
                                 ]
                             , BaseElement.deleteItemButton { disabled = False } (DeletePreparation usedPreparation.id)
                             ]
@@ -1822,7 +1822,7 @@ transformView db selectedImpact recipe results =
     let
         impact =
             results.recipe.transform
-                |> Format.formatImpact selectedImpact
+                |> Format.impact selectedImpact
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"

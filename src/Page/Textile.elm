@@ -1245,7 +1245,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                             [ text "Pour 100g\u{00A0}:\u{00A0}"
                             , impacts
                                 |> Impact.per100grams inputs.mass
-                                |> Format.formatImpact model.impact
+                                |> Format.impact model.impact
                             ]
                         )
                 , productMass = inputs.mass

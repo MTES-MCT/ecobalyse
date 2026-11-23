@@ -138,7 +138,7 @@ complementsColumns { db } =
                         >> Maybe.withDefault 0
             , toCell =
                 complementToMaybeFloat a
-                    >> Maybe.map (Format.formatImpactFloat (Definition.get Definition.Ecs db.definitions))
+                    >> Maybe.map (Format.impactAsFloat (Definition.get Definition.Ecs db.definitions))
                     >> Maybe.withDefault (text Table.emptyLabel)
             }
         )
@@ -150,7 +150,7 @@ impactCell : Definitions -> Definition.Trigram -> Column Process String msg
 impactCell definitions trigram =
     { label = Definition.toString trigram
     , toValue = Table.FloatValue <| .impacts >> Impact.getImpact trigram >> Unit.impactToFloat
-    , toCell = .impacts >> Format.formatImpact (Definition.get trigram definitions)
+    , toCell = .impacts >> Format.impact (Definition.get trigram definitions)
     }
 
 

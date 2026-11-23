@@ -19,7 +19,7 @@ impactBarGraph detailed max score =
             [ classList [ ( "text-end", not detailed ) ]
             , style "min-width" "76px"
             ]
-            [ Format.formatRichFloat 2 "Pts" score
+            [ Format.richFloat 2 "Pts" score
             ]
         , div [ class "progress", style "min-width" "calc(100% - 76px)" ]
             [ div

@@ -30,10 +30,10 @@ view { customInfo, impactDefinition, mass, score, scoreWithoutDurability } =
             |> attribute "data-score"
         ]
         [ div [ class "card-body text-center text-nowrap text-white" ]
-            [ div [ class "display-3 lh-1" ] [ Format.formatImpact impactDefinition score ]
+            [ div [ class "display-3 lh-1" ] [ Format.impact impactDefinition score ]
             , div []
                 [ scoreWithoutDurability
-                    |> Maybe.map (\s -> span [] [ Format.formatImpact impactDefinition s, text " hors durabilité" ])
+                    |> Maybe.map (\s -> span [] [ Format.impact impactDefinition s, text " hors durabilité" ])
                     |> Maybe.withDefault (text "")
                 ]
             , small [] [ text "Pour ", Format.kg mass ]

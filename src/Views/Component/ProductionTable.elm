@@ -138,7 +138,7 @@ elementSummaryRow config itemResults { material, transforms } elementResults =
         { emptyItemRow
             | impacts =
                 Component.getTotalImpacts elementResults
-                    |> Format.formatImpact config.impact
+                    |> Format.impact config.impact
             , label =
                 div [ class "d-flex flex-column" ]
                     [ div [ title <| materialLabel material ]
@@ -300,7 +300,7 @@ itemView config itemIndex { component, elements, quantity } itemResults =
                     expandToggler config itemIndex collapsed
             , impacts =
                 Component.getTotalImpacts itemResults
-                    |> Format.formatImpact config.impact
+                    |> Format.impact config.impact
             , label = span [ title component.name ] [ text component.name ]
             , quantity = quantity |> quantityInput config itemIndex
             , totalMass =
@@ -411,7 +411,7 @@ view ({ docsUrl, explorerRoute, query } as config) productionResults =
                 [ span [ class "cursor-help", Attr.title "Hors transports" ]
                     [ productionResults
                         |> Component.getTotalImpacts
-                        |> Format.formatImpact config.impact
+                        |> Format.impact config.impact
                     ]
                 , case docsUrl of
                     Just url ->

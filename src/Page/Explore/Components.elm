@@ -97,7 +97,7 @@ table ({ db } as session) { sector } =
           , toValue = Table.FloatValue <| getComponentEcoscore session sector >> Result.withDefault 0
           , toCell =
                 getComponentEcoscore session sector
-                    >> Result.map (Format.formatImpactFloat { decimals = 2, unit = "Pts par composant" })
+                    >> Result.map (Format.impactAsFloat { decimals = 2, unit = "Pts par composant" })
                     >> Result.withDefault (text Table.emptyLabel)
           }
         ]

@@ -113,7 +113,7 @@ view ({ baseElement, db, impact } as config) =
             ]
     , span [ class "text-end ImpactDisplay fs-7" ]
         [ impact
-            |> Format.formatImpact config.selectedImpact
+            |> Format.impact config.selectedImpact
         ]
     , deleteItemButton { disabled = not (canDeleteItem config) } deleteEvent
     ]

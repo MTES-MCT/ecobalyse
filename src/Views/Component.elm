@@ -323,7 +323,7 @@ lifeCycleView ({ impact, query, sector } as config) lifeCycle =
                     ]
                     [ div [ class "d-flex gap-2" ]
                         [ lifeCycle.transports.toAssembly.impacts
-                            |> Format.formatImpact impact
+                            |> Format.impact impact
                         , smallDocumentationLink config "transport"
                         ]
                     ]
@@ -387,7 +387,7 @@ packagingView ({ query } as config) lifeCycle =
             , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.packaging
                     |> Impact.sumImpacts
-                    |> Format.formatImpact config.impact
+                    |> Format.impact config.impact
                 ]
             , documentationLink config "packaging"
             ]
@@ -470,7 +470,7 @@ quantifiedProcessList { db, floatInputState, impact, noOp } lifeCycle listConfig
                                             [ listConfig.impactsList
                                                 |> LE.getAt index
                                                 |> Maybe.withDefault Impact.empty
-                                                |> Format.formatImpact impact
+                                                |> Format.impact impact
                                             ]
                                         , td [ class "align-middle pe-3 pt-2" ]
                                             [ button
@@ -548,7 +548,7 @@ transportToDistributionView ({ componentConfig, impact, sector } as config) mass
                     }
                 |> div [ class "d-flex gap-2" ]
             , transport.impacts
-                |> Format.formatImpact impact
+                |> Format.impact impact
             , smallDocumentationLink config "transport"
             ]
         ]
@@ -636,7 +636,7 @@ assemblyView ({ db, impact, query, sector } as config) lifeCycle =
             , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.assembly
                     |> Component.extractImpacts
-                    |> Format.formatImpact impact
+                    |> Format.impact impact
                 ]
             , documentationLink config "assembly"
             ]
@@ -714,7 +714,7 @@ assemblyView ({ db, impact, query, sector } as config) lifeCycle =
                                                 , td [ class "align-middle text-end text-nowrap" ]
                                                     [ operationResult
                                                         |> Component.extractImpacts
-                                                        |> Format.formatImpact impact
+                                                        |> Format.impact impact
                                                     ]
                                                 , td [ class "align-middle pe-3 text-end" ]
                                                     [ button
@@ -773,7 +773,7 @@ distributionView ({ componentConfig, db, impact, query, sector, updateDistributi
                 [ text "Distribution" ]
             , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.distribution.impacts
-                    |> Format.formatImpact impact
+                    |> Format.impact impact
                 ]
             , documentationLink config "distribution"
             ]
@@ -827,7 +827,7 @@ useStageView ({ impact, query } as config) lifeCycle =
             , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.use
                     |> Impact.sumImpacts
-                    |> Format.formatImpact impact
+                    |> Format.impact impact
                 ]
             , documentationLink config "use"
             ]
@@ -920,7 +920,7 @@ endOfLifeView ({ componentConfig, query, sector, updateRecyclable } as config) l
                     ]
                 ]
             , lifeCycle.endOfLife
-                |> Format.formatImpact config.impact
+                |> Format.impact config.impact
             , documentationLink config "eol"
             ]
         , div [ class "card-body table-responsive p-0" ]
@@ -979,7 +979,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
                         impacts |> Impact.getImpact config.impact.trigram
 
                     formatted =
-                        impacts |> Format.formatImpact config.impact
+                        impacts |> Format.impact config.impact
                 in
                 div []
                     [ if isRecycling && Unit.impactToFloat impact == 0 then
@@ -1010,7 +1010,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
               , nonCollected |> Tuple.second |> .landfilling |> .impacts
               ]
                 |> Impact.sumImpacts
-                |> Format.formatImpact config.impact
+                |> Format.impact config.impact
             ]
         ]
     , tr []
@@ -1025,7 +1025,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
               , collected |> Tuple.second |> .landfilling |> .impacts
               ]
                 |> Impact.sumImpacts
-                |> Format.formatImpact config.impact
+                |> Format.impact config.impact
             ]
         ]
     , tr []
@@ -1040,7 +1040,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
               , nonCollected |> Tuple.second |> .landfilling |> .impacts
               ]
                 |> Impact.sumImpacts
-                |> Format.formatImpact config.impact
+                |> Format.impact config.impact
             ]
         ]
     ]

@@ -97,7 +97,7 @@ table db { detailed, sector } =
                 .origin
                     >> Origin.toMicrofibersComplement
                     >> Unit.impactToFloat
-                    >> Format.formatImpactFloat { unit = "\u{202F}Pts/kg", decimals = 2 }
+                    >> Format.impactAsFloat { unit = "\u{202F}Pts/kg", decimals = 2 }
                     >> withPill Gitbook.TextileComplementMicrofibers
           }
         , { label = "Procédé de fabrication du fil"

@@ -137,7 +137,7 @@ table { detailed, sector } =
                                     span []
                                         [ text <| label ++ ": "
                                         , Unit.impactToFloat impact
-                                            |> Format.formatImpactFloat { unit = "Pts/kg", decimals = 2 }
+                                            |> Format.impactAsFloat { unit = "Pts/kg", decimals = 2 }
                                         ]
                                 )
                             |> div [ class "d-flex gap-2" ]

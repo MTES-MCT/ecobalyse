@@ -259,7 +259,7 @@ elementCompositionRows config targetElement ({ amount, material, transforms } as
                                 [ totalImpact
                                 , span [ class "text-muted fw-normal" ]
                                     [ text " (dont transport "
-                                    , transportImpacts |> Format.formatImpact config.impact
+                                    , transportImpacts |> Format.impact config.impact
                                     , text ")"
                                     ]
                                 ]
@@ -381,7 +381,7 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
                                    ]
                     , impact =
                         transport.impacts
-                            |> Format.formatImpact config.impact
+                            |> Format.impact config.impact
                     , label =
                         div [ class "d-flex align-items-center gap-1 text-nowrap text-muted" ]
                             [ text "Transport\u{00A0}"
@@ -407,7 +407,7 @@ finalElementTransportView ({ query, requirements } as config) cooling elementCou
 impactPill : Config db msg -> Impacts -> Html msg
 impactPill config impacts =
     span [ class "ImpactPill bg-info-subtle" ]
-        [ impacts |> Format.formatImpact config.impact
+        [ impacts |> Format.impact config.impact
         ]
 
 
@@ -463,7 +463,7 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
                 ]
             , compositionStat "impact total"
                 [ Component.getTotalImpacts itemResults
-                    |> Format.formatImpact config.impact
+                    |> Format.impact config.impact
                 ]
             ]
         , div [ class "d-flex justify-content-between align-items-center gap-2" ]
@@ -578,7 +578,7 @@ materialCompositionRows config targetElement materialResults material =
                         | impact =
                             complementsImpacts
                                 |> Complement.mergeComplementsResultsImpacts
-                                |> Format.formatImpact config.impact
+                                |> Format.impact config.impact
                         , label =
                             span
                                 [ class "cursor-help fs-8"

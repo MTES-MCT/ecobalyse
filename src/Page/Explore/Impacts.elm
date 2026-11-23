@@ -50,7 +50,7 @@ table { detailed, sector } =
           , toCell =
                 \def ->
                     def.ecoscoreData
-                        |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
+                        |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.richFloat 2 def.unit)
                         |> Maybe.withDefault (text Table.emptyLabel)
           }
         , { label = "Pondération (Coût Evt)"
