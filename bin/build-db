@@ -21,7 +21,7 @@ function parseAndValidate(dataDir, relativePath, idKeyName = "id", pathsToMerge 
   let raw = JSON.parse(fs.readFileSync(filePath).toString());
 
   // Allow to pass multiple JSON files to this function, the arrays contained in the files
-  // will be merge into one, as if they was only on file in input
+  // will be merged into one, as if they were only one input file
   pathsToMerge.forEach((pathToMerge) => {
     const mergedPath = path.join(dataDir, pathToMerge);
     raw = raw.concat(JSON.parse(fs.readFileSync(mergedPath).toString()));
@@ -81,6 +81,12 @@ const elmTemplate = fs.readFileSync(templateFile).toString();
 const elmModuleContents = elmTemplate
   .replaceAll("%moduleName%", moduleName)
   // Transverse JSON data
+  .replace("%apparelComponentsJson%", parseAndValidate(dataDir, "apparel/components.json", "id"))
+  .replace(
+    "%apparelProductCategoriesJson%",
+    parseAndValidate(dataDir, "apparel/categories.json", "id"),
+  )
+  .replace("%apparelExamplesJson%", parseAndValidate(dataDir, "apparel/examples.json", "id"))
   .replace("%componentConfigJson%", parseAndValidate(dataDir, "components/config.json", null))
   .replace("%countriesJson%", parseAndValidate(dataDir, "countries.json", "code"))
   .replace("%impactsJson%", parseAndValidate(dataDir, "impacts.json"))
@@ -93,6 +99,16 @@ const elmModuleContents = elmTemplate
   .replace("%food2ComponentsJson%", parseAndValidate(dataDir, "food2/components.json", "id"))
   .replace("%food2ProductCategoriesJson%", parseAndValidate(dataDir, "food2/categories.json", "id"))
   .replace("%food2ExamplesJson%", parseAndValidate(dataDir, "food2/examples.json", "id"))
+  // Furniture JSON data
+  .replace(
+    "%furnitureComponentsJson%",
+    parseAndValidate(dataDir, "furniture/components.json", "id"),
+  )
+  .replace(
+    "%furnitureProductCategoriesJson%",
+    parseAndValidate(dataDir, "furniture/categories.json", "id"),
+  )
+  .replace("%furnitureExamplesJson%", parseAndValidate(dataDir, "furniture/examples.json", "id"))
   // Object JSON data
   .replace("%objectComponentsJson%", parseAndValidate(dataDir, "object/components.json", "id"))
   .replace(

@@ -11,6 +11,7 @@ module Request.Db exposing
 
 import Data.Db as Db exposing (Db)
 import Http
+import List.Extra as LE
 import RemoteData exposing (WebData)
 import Request.Common as RequestCommon
 
@@ -51,21 +52,26 @@ getProgress : LoadingState -> { loaded : Int, total : Int }
 getProgress state =
     { loaded =
         Db.propGetters
-            |> List.filter (\getter -> getter state |> RemoteData.isSuccess)
-            |> List.length
+            |> LE.count (\getter -> getter state |> RemoteData.isSuccess)
     , total = List.length Db.propGetters
     }
 
 
 initLoadingState : LoadingState
 initLoadingState =
-    { countries = RemoteData.NotAsked
+    { apparelComponents = RemoteData.NotAsked
+    , apparelExamples = RemoteData.NotAsked
+    , apparelProductCategories = RemoteData.NotAsked
+    , countries = RemoteData.NotAsked
     , definitions = RemoteData.NotAsked
     , food2Components = RemoteData.NotAsked
     , food2Examples = RemoteData.NotAsked
     , food2ProductCategories = RemoteData.NotAsked
     , foodIngredients = RemoteData.NotAsked
     , foodProductExamples = RemoteData.NotAsked
+    , furnitureComponents = RemoteData.NotAsked
+    , furnitureExamples = RemoteData.NotAsked
+    , furnitureProductCategories = RemoteData.NotAsked
     , objectComponents = RemoteData.NotAsked
     , objectExamples = RemoteData.NotAsked
     , objectProductCategories = RemoteData.NotAsked
@@ -84,6 +90,9 @@ initLoadingState =
 resolve : LoadingState -> WebData Db.RawJsonStrings
 resolve data =
     RemoteData.succeed Db.Properties
+        |> RemoteData.andMap data.apparelComponents
+        |> RemoteData.andMap data.apparelExamples
+        |> RemoteData.andMap data.apparelProductCategories
         |> RemoteData.andMap data.countries
         |> RemoteData.andMap data.definitions
         |> RemoteData.andMap data.food2Components
@@ -91,6 +100,9 @@ resolve data =
         |> RemoteData.andMap data.food2ProductCategories
         |> RemoteData.andMap data.foodIngredients
         |> RemoteData.andMap data.foodProductExamples
+        |> RemoteData.andMap data.furnitureComponents
+        |> RemoteData.andMap data.furnitureExamples
+        |> RemoteData.andMap data.furnitureProductCategories
         |> RemoteData.andMap data.objectComponents
         |> RemoteData.andMap data.objectExamples
         |> RemoteData.andMap data.objectProductCategories
@@ -115,25 +127,19 @@ toRawJsonStrings state =
             Nothing
 
 
-updateRawJson : (LoadingState -> LoadingState) -> LoadingState -> ( LoadingState, Maybe (Result DbError Db) )
-updateRawJson update loadingState =
-    let
-        updated =
-            update loadingState
-    in
+updateRawJson : LoadingState -> Maybe (Result DbError Db)
+updateRawJson updated =
     case resolve updated of
         RemoteData.Failure error ->
-            ( updated, Just <| Err (FetchError error) )
+            Just <| Err (FetchError error)
 
         RemoteData.Loading ->
-            ( updated, Nothing )
+            Nothing
 
         RemoteData.NotAsked ->
-            ( updated, Nothing )
+            Nothing
 
         RemoteData.Success json ->
-            ( updated
-            , Db.build json
+            Db.build json
                 |> Result.mapError ParseError
                 |> Just
-            )

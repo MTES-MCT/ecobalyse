@@ -9,7 +9,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Scope exposing (Scope)
+import Data.Sector exposing (Sector)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Energy
@@ -20,11 +20,11 @@ import Route
 import Views.Format as Format
 
 
-table : Session -> { detailed : Bool, scope : Scope } -> Table Process String msg
-table session { detailed, scope } =
+table : Session -> { detailed : Bool, sector : Sector } -> Table Process String msg
+table session { detailed, sector } =
     { filename = "processes"
     , toId = .id >> Process.idToString
-    , toRoute = .id >> Just >> Dataset.Processes scope >> Route.Explore scope
+    , toRoute = .id >> Just >> Dataset.Processes sector >> Route.Explore sector
     , toSearchableText = .searchableText
     , facets =
         [ Table.Facet "Catégories" (.categories >> List.map ProcessCategory.toLabel)

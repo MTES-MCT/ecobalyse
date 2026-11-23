@@ -11,14 +11,24 @@ from common.export import (
 
 
 class Scope(str, Enum):
+    apparel = "apparel"
     food = "food"
     food2 = "food2"
+    furniture = "furniture"
     object = "object"
     textile = "textile"
     veli = "veli"
 
 
-GENERIC_SCOPES = {Scope.object, Scope.veli, Scope.food2}
+class GenericScope(str, Enum):
+    apparel = "apparel"
+    food2 = "food2"
+    furniture = "furniture"
+    object = "object"
+    veli = "veli"
+
+
+GENERIC_SCOPES = set(GenericScope)
 
 
 class EcoModel(BaseModel):
@@ -118,8 +128,9 @@ class IngredientMetadata(EcoModel):
 
 
 class ProcessGenericMetadata(EcoModel):
-    forest_management: ForestManagement | None = None
+    categories: list[str] | None
     complements: Complements | None = None
+    forest_management: ForestManagement | None = None
     ingredient: IngredientMetadata | None = None
     default_origin: str | None = None
 

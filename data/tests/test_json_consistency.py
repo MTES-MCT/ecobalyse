@@ -4,6 +4,14 @@ Consistency checks on json files.
 To add a new check define a new function and set it in the CHECKS dict
 """
 
+# FIXME the currently loaded BAFU DB in Brightway has an incorrect name.
+# This will be fixed with the next BAFU update
+BAFU_BW_DB_NAME = "BAFU 2025v2"
+BAFU_LCI_CAT_DIR_NAME = "bafu-2026-1"
+
+# FIXME (20261104) we need to create or improve schemas for all json files
+# and enforce validity
+
 import json
 import re
 import sys
@@ -99,6 +107,27 @@ def metadata_consistency(filename, activities):
                 )
 
 
+def material_types_consistency(filename, content):
+    """If an activity is a material, it should have only one material_types."""
+
+    def check_material_types(categories: list[str]) -> None:
+        if "material" in categories:
+            material_types = [
+                cat for cat in categories if cat.startswith("material_type:")
+            ]
+            if len(material_types) > 1:
+                raise AssertionError(
+                    f"Several material_types defined in material `{activity['alias']}` ({activity['id']})"
+                )
+
+    for activity in content:
+        categories = activity.get("categories", [])
+        check_material_types(categories)
+        for metadata in activity.get("metadata", []):
+            categories = metadata.get("categories", [])
+            check_material_types(categories)
+
+
 def custom_source_consistency(filename, activities):
     """
     Check that source = "Ecobalyse_manual_lcia" if and only if impacts are present
@@ -114,6 +143,23 @@ def custom_source_consistency(filename, activities):
             raise AssertionError(
                 f"Manual LCIA source inconsistency : activity {display_name} has source = 'Ecobalyse_manual_lcia' but no hardcoded impacts"
             )
+
+
+def source_path_consistency(activity: dict, activity_path: Path):
+    """
+    Check that the activities are in the directory corresponding to their source
+    """
+    source = activity["source"]
+    # FIXME this won’t be necessary when BAFU gets next updated.
+    if source == BAFU_BW_DB_NAME:
+        expected_parent = BAFU_LCI_CAT_DIR_NAME
+    else:
+        expected_parent = re.sub(r" |\.", "-", source.lower())
+    actual_parent = str(activity_path.parent)
+    if actual_parent != expected_parent:
+        raise AssertionError(
+            f"LCI source/path inconsistency: {activity_path} has source = '{source}' but is in the '{actual_parent}' folder"
+        )
 
 
 def invalid_uuid(filename, content, key):
@@ -302,10 +348,11 @@ def _concat_lci(activities_file_path: Path):
 
 
 def test():
+    LCI_DIR = DATA_ROOT_DIR / "lci_catalog"
     with tempfile.NamedTemporaryFile(
         mode="w+", prefix="activities-"
     ) as activities_temp:
-        json.dump(_concat_lci(DATA_ROOT_DIR / "lci_catalog"), activities_temp)
+        json.dump(_concat_lci(LCI_DIR), activities_temp)
         activities_temp.seek(0)
 
         with tempfile.NamedTemporaryFile(
@@ -368,6 +415,7 @@ def test():
             CONTENT_CHECKS = {
                 activities_temp.name: (
                     metadata_consistency,
+                    material_types_consistency,
                     custom_source_consistency,
                     duplicate_alias_in_metadata,
                 ),
@@ -375,6 +423,17 @@ def test():
 
             check_all(CHECKS, CONTENT_CHECKS)
             creation_alias_matches_export_alias(activities_temp)
+
+    # FIXME Plan some refactorization here; tests until now were run on an aggregation
+    # of all activity files (which is mainly a remnant of the time when they
+    # were all stored in a unique file).
+    # For this particular test, though, we need to check the path of the real file
+
+    for lci in LCI_DIR.glob("*/*.json"):
+        activity_relative_path = lci.relative_to(LCI_DIR)
+        with open(lci) as fd:
+            activity = json.load(fd)
+            source_path_consistency(activity, activity_relative_path)
 
 
 if __name__ == "__main__":

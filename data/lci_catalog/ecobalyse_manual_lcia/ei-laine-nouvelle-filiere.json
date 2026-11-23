@@ -28,7 +28,7 @@
   },
   "metadata": [
     {
-      "alias": "ei-laine-nouvelle-filiere",
+      "alias": "laine-nouvelle-filiere",
       "defaultCountry": "CN",
       "displayName": "Laine nouvelle filière",
       "geographicOrigin": "Asie - Pacifique",
@@ -36,11 +36,11 @@
       "name": "Laine nouvelle filière",
       "origin": "NaturalFromAnimal",
       "primary": true,
-      "scopes": ["object", "textile"]
+      "scopes": ["apparel", "furniture", "object", "textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile", "object"],
+  "scopes": ["apparel", "furniture", "object", "textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

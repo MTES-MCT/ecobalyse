@@ -3,6 +3,7 @@ module Page.Food exposing
     , Msg
     , init
     , initFromExample
+    , shouldTrackUsage
     , subscriptions
     , update
     , view
@@ -33,7 +34,7 @@ import Data.Key as Key
 import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Scope as Scope
+import Data.Sector as Sector
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
@@ -42,6 +43,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import Length
+import List.Extra as LE
 import Mass exposing (Mass)
 import Page.Explore as Explore
 import Page.Explore.Processes as Processes
@@ -370,7 +372,10 @@ update ({ db, queries } as session) msg model =
         OpenComparator ->
             { model | modal = ComparatorModal }
                 |> createPageUpdate (session |> Session.checkComparedSimulations)
-                |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened Scope.Food ]
+                |> App.withCmds
+                    [ Plausible.send session <| Plausible.ComparatorOpened Sector.Food
+                    , Ports.loadCharts ()
+                    ]
 
         RenameBookmark ->
             case model.bookmarkBeingRenamed of
@@ -404,7 +409,7 @@ update ({ db, queries } as session) msg model =
                             (SaveBookmarkWithTime model.bookmarkName
                                 (Bookmark.Food query)
                             )
-                    , Plausible.send session <| Plausible.BookmarkSaved Scope.Food
+                    , Plausible.send session <| Plausible.BookmarkSaved Sector.Food
                     ]
 
         SaveBookmarkWithTime name foodQuery now ->
@@ -414,7 +419,7 @@ update ({ db, queries } as session) msg model =
                         { name = String.trim name
                         , query = foodQuery
                         , created = now
-                        , genericScope = Nothing
+                        , genericSector = Nothing
                         }
                 )
                 model
@@ -433,7 +438,7 @@ update ({ db, queries } as session) msg model =
             { model | bookmarkTab = bookmarkTab }
                 |> createPageUpdate session
                 |> App.withCmds
-                    [ Plausible.TabSelected Scope.Food "Partager"
+                    [ Plausible.TabSelected Sector.Food "Partager"
                         |> Plausible.sendIf session (bookmarkTab == BookmarkView.ShareTab)
                     ]
 
@@ -442,7 +447,7 @@ update ({ db, queries } as session) msg model =
                 |> createPageUpdate session
                 |> App.withCmds
                     [ ComparatorView.comparisonTypeToString displayChoice
-                        |> Plausible.ComparisonTypeSelected Scope.Food
+                        |> Plausible.ComparisonTypeSelected Sector.Food
                         |> Plausible.send session
                     ]
 
@@ -453,7 +458,7 @@ update ({ db, queries } as session) msg model =
                         |> Route.FoodBuilder trigram
                         |> Route.toString
                         |> Navigation.pushUrl session.navKey
-                    , Plausible.send session <| Plausible.ImpactSelected Scope.Food trigram
+                    , Plausible.send session <| Plausible.ImpactSelected Sector.Food trigram
                     ]
 
         SwitchImpact (Err error) ->
@@ -465,7 +470,7 @@ update ({ db, queries } as session) msg model =
                 |> createPageUpdate session
                 |> App.withCmds
                     [ ImpactTabs.tabToString impactsTab
-                        |> Plausible.TabSelected Scope.Food
+                        |> Plausible.TabSelected Sector.Food
                         |> Plausible.send session
                     ]
 
@@ -521,7 +526,7 @@ getAvailableTransforms : Db -> List Process.Process
 getAvailableTransforms =
     .processes
         >> Process.listByCategory ProcessCategory.Transform
-        >> Scope.anyOf [ Scope.Food ]
+        >> Sector.anyOf [ Sector.Food ]
         >> List.sortBy Process.getDisplayName
 
 
@@ -693,7 +698,148 @@ selectExample autocompleteState pageUpdate =
             LoadQuery example
     in
     update pageUpdate.session msg pageUpdate.model
-        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected Scope.Food ]
+        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected Sector.Food ]
+
+
+{-| Simulator actions that count as usage.
+-}
+shouldTrackUsage : Msg -> Bool
+shouldTrackUsage msg =
+    case msg of
+        AddDistribution ->
+            True
+
+        AddIngredient _ ->
+            False
+
+        AddPackaging _ ->
+            False
+
+        AddPreparation ->
+            True
+
+        AddTransform ->
+            True
+
+        CopyToClipBoard _ ->
+            False
+
+        DeleteBookmark _ ->
+            False
+
+        DeleteIngredient _ ->
+            True
+
+        DeletePackaging _ ->
+            True
+
+        DeletePreparation _ ->
+            True
+
+        ExportBookmarks ->
+            False
+
+        ImportBookmarks ->
+            False
+
+        LoadQuery _ ->
+            False
+
+        NoOp ->
+            False
+
+        OnAutocompleteExample _ ->
+            False
+
+        OnAutocompleteIngredient _ ->
+            False
+
+        OnAutocompletePackaging _ ->
+            False
+
+        OnAutocompleteSelect ->
+            True
+
+        OnDragLeaveBookmark ->
+            False
+
+        OnDragOverBookmark _ ->
+            False
+
+        OnDragStartBookmark _ ->
+            False
+
+        OnDropBookmark _ ->
+            False
+
+        OnStageClick _ ->
+            False
+
+        OpenComparator ->
+            False
+
+        RenameBookmark ->
+            False
+
+        Reset ->
+            False
+
+        ResetDistribution ->
+            True
+
+        ResetTransform ->
+            True
+
+        SaveBookmark ->
+            False
+
+        SaveBookmarkWithTime _ _ _ ->
+            False
+
+        SelectAllBookmarks ->
+            False
+
+        SelectNoBookmarks ->
+            False
+
+        SetModal _ ->
+            False
+
+        SwitchBookmarksTab _ ->
+            False
+
+        SwitchComparisonType _ ->
+            True
+
+        SwitchImpact _ ->
+            True
+
+        SwitchImpactsTab _ ->
+            True
+
+        ToggleComparedSimulation _ _ ->
+            True
+
+        UpdateBookmarkName _ ->
+            False
+
+        UpdateDistribution _ ->
+            True
+
+        UpdateIngredient _ _ ->
+            True
+
+        UpdatePackaging _ _ ->
+            True
+
+        UpdatePreparation _ _ ->
+            True
+
+        UpdateRenamedBookmarkName _ _ ->
+            False
+
+        UpdateTransform _ ->
+            True
 
 
 
@@ -850,7 +996,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
         { elements = db.food.ingredients
         , countries =
             db.countries
-                |> Scope.anyOf [ Scope.Food ]
+                |> Sector.anyOf [ Sector.Food ]
                 |> List.sortBy .name
         , definitions = db.definitions
         }
@@ -1103,7 +1249,7 @@ ingredientListView db selectedImpact recipe results =
             ]
             [ text "Ingrédients"
             , Link.smallPillExternal
-                [ Route.href (Route.Explore Scope.Food (Dataset.FoodIngredients Nothing))
+                [ Route.href (Route.Explore Sector.Food (Dataset.FoodIngredients Nothing))
                 , title "Explorer"
                 , attribute "aria-label" "Explorer"
                 ]
@@ -1134,8 +1280,7 @@ ingredientListView db selectedImpact recipe results =
                             , recipeIngredient = ingredient
                             , impact =
                                 results.recipe.ingredients
-                                    |> List.filter (\( recipeIngredient, _ ) -> recipeIngredient == ingredient)
-                                    |> List.head
+                                    |> LE.find (\( recipeIngredient, _ ) -> recipeIngredient == ingredient)
                                     |> Maybe.map Tuple.second
                                     |> Maybe.withDefault Impact.empty
                             , selectedImpact = selectedImpact
@@ -1515,16 +1660,17 @@ mainView ({ db } as session) model =
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
-            [ ExampleView.view
+            [ h1 [ class "mb-3" ] [ text "Alimentaire" ]
+            , ExampleView.view
                 { currentQuery = session.queries.food
                 , emptyQuery = Query.empty
                 , examples = db.food.examples
                 , helpUrl = Nothing
                 , onOpen = SelectExampleModal >> SetModal
                 , routes =
-                    { explore = Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
+                    { explore = Route.Explore Sector.Food (Dataset.FoodExamples Nothing)
                     , load = Route.FoodBuilderExample
-                    , scopeHome = Route.FoodBuilderHome
+                    , sectorHome = Route.FoodBuilderHome
                     }
                 }
             , case computed of
@@ -1554,7 +1700,7 @@ processSelectorView selectedId event excluded processes =
         , onInput (Process.idFromString >> Result.map event >> Result.withDefault NoOp)
         ]
         (processes
-            |> Scope.anyOf [ Scope.Food ]
+            |> Sector.anyOf [ Sector.Food ]
             |> List.sortBy (\process -> Process.getDisplayName process)
             |> List.map
                 (\process ->
@@ -1596,7 +1742,7 @@ sidebarView session model results =
     SidebarView.view
         { noOp = NoOp
         , session = session
-        , scope = Scope.Food
+        , sector = Sector.Food
 
         -- Impact selector
         , selectedImpact = model.impact
@@ -1731,7 +1877,6 @@ view session model =
                         { autocompleteState = autocompleteState
                         , closeModal = SetModal NoModal
                         , footer = []
-                        , noOp = NoOp
                         , onAutocomplete = OnAutocompleteIngredient
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
@@ -1749,7 +1894,6 @@ view session model =
                         { autocompleteState = autocompleteState
                         , closeModal = SetModal NoModal
                         , footer = []
-                        , noOp = NoOp
                         , onAutocomplete = OnAutocompletePackaging
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom de de l’emballage pour le rechercher"
@@ -1766,7 +1910,6 @@ view session model =
                     ModalView.view
                         { size = ModalView.ExtraLarge
                         , close = SetModal NoModal
-                        , noOp = NoOp
                         , title = "Comparateur de simulations sauvegardées"
                         , subTitle = Just "Coût environnemental, par produit ⚠️\u{00A0}Attention, ces résultats sont provisoires"
                         , formAction = Nothing
@@ -1793,7 +1936,6 @@ view session model =
                     ModalView.view
                         { size = ModalView.Large
                         , close = SetModal NoModal
-                        , noOp = NoOp
                         , title = ingredient.name
                         , subTitle = Nothing
                         , formAction = Nothing
@@ -1805,11 +1947,10 @@ view session model =
                     ModalView.view
                         { size = ModalView.Large
                         , close = SetModal NoModal
-                        , noOp = NoOp
                         , title = Process.getDisplayName process
                         , subTitle = Nothing
                         , formAction = Nothing
-                        , content = [ Table.viewDetails Scope.Food (Processes.table session) process ]
+                        , content = [ Table.viewDetails Sector.Food (Processes.table session) process ]
                         , footer = []
                         }
 
@@ -1821,7 +1962,6 @@ view session model =
                         { autocompleteState = autocompleteState
                         , closeModal = SetModal NoModal
                         , footer = []
-                        , noOp = NoOp
                         , onAutocomplete = OnAutocompleteExample
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"

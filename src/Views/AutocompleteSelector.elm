@@ -13,7 +13,6 @@ type alias Config element msg =
     { autocompleteState : Autocomplete element
     , closeModal : msg
     , footer : List (Html msg)
-    , noOp : msg
     , onAutocomplete : Autocomplete.Msg element -> msg
     , onAutocompleteSelect : msg
     , placeholderText : String
@@ -30,7 +29,7 @@ focusInput noOp =
 
 
 view : Config element msg -> Html msg
-view ({ autocompleteState, closeModal, footer, noOp, onAutocomplete, onAutocompleteSelect, placeholderText, title } as config) =
+view ({ autocompleteState, closeModal, footer, onAutocomplete, onAutocompleteSelect, placeholderText, title } as config) =
     ModalView.view
         { close = closeModal
         , content =
@@ -64,7 +63,6 @@ view ({ autocompleteState, closeModal, footer, noOp, onAutocomplete, onAutocompl
             ]
         , footer = footer
         , formAction = Nothing
-        , noOp = noOp
         , size = ModalView.Large
         , subTitle = Nothing
         , title = title

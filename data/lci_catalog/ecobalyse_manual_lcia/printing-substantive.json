@@ -27,8 +27,11 @@
     "tre": 0.000133536,
     "wtu": 0
   },
+  "metadata": [
+    { "id": "f61bf766-f681-49b9-b8b0-af0a6a0ee82d", "scopes": ["apparel", "textile"] }
+  ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile"],
+  "scopes": ["apparel", "textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "m2"
 }

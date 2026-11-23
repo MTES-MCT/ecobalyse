@@ -26,8 +26,11 @@
     "tre": 0.000109398,
     "wtu": 0
   },
+  "metadata": [
+    { "id": "c97f1f10-6cf1-498d-ab83-b553969abbec", "scopes": ["apparel", "textile"] }
+  ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile"],
+  "scopes": ["apparel", "textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

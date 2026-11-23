@@ -36,11 +36,11 @@
       "name": "Elasthane",
       "origin": "Synthetic",
       "primary": false,
-      "scopes": ["textile"]
+      "scopes": ["apparel", "textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile"],
+  "scopes": ["apparel", "textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

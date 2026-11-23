@@ -14,13 +14,19 @@ this function is for the API Server (tests load Static.TestDb instead)
 dbFromJsonStrings : String -> Result String Db
 dbFromJsonStrings processesJson =
     Db.buildFromStrings
-        { countries = ProdJson.countriesJson
+        { apparelComponents = ProdJson.apparelComponentsJson
+        , apparelExamples = ProdJson.apparelExamplesJson
+        , apparelProductCategories = ProdJson.apparelProductCategoriesJson
+        , countries = ProdJson.countriesJson
         , definitions = ProdJson.impactsJson
         , food2Components = ProdJson.food2ComponentsJson
         , food2Examples = ProdJson.food2ExamplesJson
         , food2ProductCategories = ProdJson.food2ProductCategoriesJson
         , foodIngredients = ProdJson.foodIngredientsJson
         , foodProductExamples = ProdJson.foodProductExamplesJson
+        , furnitureComponents = ProdJson.furnitureComponentsJson
+        , furnitureExamples = ProdJson.furnitureExamplesJson
+        , furnitureProductCategories = ProdJson.furnitureProductCategoriesJson
         , objectComponents = ProdJson.rawJsonComponents.objectComponents
         , objectExamples = ProdJson.objectExamplesJson
         , objectProductCategories = ProdJson.objectProductCategoriesJson

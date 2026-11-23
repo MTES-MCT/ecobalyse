@@ -1,6 +1,5 @@
 import { Elm } from "./src/Main.elm";
-import * as Sentry from "@sentry/browser";
-import Charts from "./lib/charts";
+import { init, setTag } from "@sentry/browser"; // force tree shaking
 import store from "./lib/store";
 
 // The localStorage key to use to store serialized session data
@@ -17,10 +16,9 @@ const plausibleEnabled =
 
 // Sentry
 if (NODE_ENV === "production" && SENTRY_DSN) {
+  const Sentry = { init, setTag };
   Sentry.init({
     dsn: SENTRY_DSN,
-    integrations: [Sentry.browserTracingIntegration()],
-    tracesSampleRate: 0,
     allowUrls: [
       /^https:\/\/ecobalyse\.beta\.gouv\.fr/,
       /^https:\/\/staging-ecobalyse\.incubateur\.net/,
@@ -54,8 +52,10 @@ const app = Elm.Main.init({
   flags: {
     clientUrl,
     enabledSections: {
+      apparel: process.env.ENABLE_APPAREL_SECTION === "True",
       food: process.env.ENABLE_FOOD_SECTION === "True",
       food2: process.env.ENABLE_FOOD2_SECTION === "True",
+      furniture: process.env.ENABLE_FURNITURE_SECTION === "True",
       objects: process.env.ENABLE_OBJECTS_SECTION === "True",
       textile: true, // always enabled
       veli: process.env.ENABLE_VELI_SECTION === "True",
@@ -121,6 +121,14 @@ app.ports.loadRapidoc.subscribe(() => {
   // load the rapi-doc script if the component hasn't be registered yet
   if (!customElements.get("rapi-doc")) {
     import("rapidoc");
+  }
+});
+
+app.ports.loadCharts.subscribe(() => {
+  if (!customElements.get("ecobalyse-comparator")) {
+    import("./lib/charts").then((charts) => {
+      charts.default.registerElements();
+    });
   }
 });
 
@@ -198,6 +206,3 @@ window.addEventListener(
   },
   false,
 );
-
-// Register custom chart elements
-Charts.registerElements();
