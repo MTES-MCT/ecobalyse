@@ -22,7 +22,7 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
-import Mass
+import Mass exposing (Mass)
 import Quantity
 import Route exposing (Route)
 import Views.Alert as Alert
@@ -42,6 +42,7 @@ type alias Config db msg =
     , docsUrl : Maybe String
     , documentationLink : Html msg
     , explorerRoute : Maybe Route
+    , finishedMass : Mass
     , floatInputState : Maybe FloatInput.State
     , impact : Definition
     , labels :
@@ -53,6 +54,7 @@ type alias Config db msg =
     , noOp : msg
     , openItemEditModal : TargetItem -> msg
     , openSelectProductionItem : Autocomplete ProductionItem -> msg
+    , productWeight : Maybe Mass
     , query : Query
     , removeItem : Index -> msg
     , requirements : Component.Requirements db
@@ -389,6 +391,70 @@ quantityInput config itemIndex quantity =
         ]
 
 
+massSharePill : Float -> Html msg
+massSharePill share =
+    let
+        classes =
+            if share > 100 then
+                "bg-danger-subtle text-danger-emphasis"
+
+            else if share == 100 then
+                "bg-success-subtle text-success-emphasis"
+
+            else
+                "bg-warning-subtle text-warning-emphasis"
+
+        hundredths =
+            round (share * 100)
+
+        remainder =
+            remainderBy 100 hundredths
+
+        whole =
+            hundredths // 100
+    in
+    span [ class <| classes ++ " badge rounded-pill fw-bold flex-shrink-0 fs-6" ]
+        [ text <|
+            if remainder == 0 then
+                String.fromInt whole ++ "%"
+
+            else
+                String.fromInt whole
+                    ++ ","
+                    ++ (remainder |> String.fromInt |> String.padLeft 2 '0')
+                    ++ "%"
+        ]
+
+
+massShareSummary : Config db msg -> Html msg
+massShareSummary config =
+    case config.context of
+        Context.Generic ->
+            case config.productWeight of
+                Just target ->
+                    let
+                        share =
+                            Format.roundedMassShare 2 config.finishedMass target
+                    in
+                    div [ class "px-3 pt-2 pb-1 d-flex flex-column gap-1" ]
+                        [ div [ class "d-flex justify-content-between align-items-baseline gap-3" ]
+                            [ span [] [ text "Somme des masses de matériaux\u{00A0}:" ]
+                            , span [ class "fw-bold text-nowrap" ] [ Format.kg config.finishedMass ]
+                            ]
+                        , div [ class "d-flex justify-content-between align-items-center gap-3" ]
+                            [ span [ class "text-muted" ]
+                                [ text "Masses des matériaux par rapport au poids du produit\u{00A0}:" ]
+                            , massSharePill share
+                            ]
+                        ]
+
+                Nothing ->
+                    text ""
+
+        Context.TextileTrims ->
+            text ""
+
+
 view : Config db msg -> Results -> Html msg
 view ({ docsUrl, explorerRoute, query } as config) productionResults =
     div [ class "card shadow-sm" ]
@@ -424,6 +490,7 @@ view ({ docsUrl, explorerRoute, query } as config) productionResults =
                 ]
             , config.documentationLink
             ]
+        , massShareSummary config
         , if List.isEmpty query.items then
             div [ class "card-body" ]
                 [ text config.labels.empty

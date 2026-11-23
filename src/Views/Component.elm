@@ -73,6 +73,7 @@ type alias Config db msg =
     , openSelectPackagingModal : Autocomplete Process -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
     , openSelectProductionItem : Autocomplete ProductionItem -> msg
+    , productWeight : Maybe Mass
     , query : Query
     , removeAssemblyOperation : Index -> msg
     , removeConsumption : Index -> msg
@@ -295,6 +296,7 @@ lifeCycleView ({ impact, query, sector } as config) lifeCycle =
             , docsUrl = config.docsUrl
             , documentationLink = documentationLink config "production"
             , explorerRoute = config.explorerRoute
+            , finishedMass = lifeCycle.productMass
             , floatInputState = config.floatInputState
             , impact = config.impact
             , labels =
@@ -306,6 +308,7 @@ lifeCycleView ({ impact, query, sector } as config) lifeCycle =
             , noOp = config.noOp
             , openItemEditModal = config.openItemEditModal
             , openSelectProductionItem = config.openSelectProductionItem
+            , productWeight = config.productWeight
             , query = config.query
             , removeItem = config.removeItem
             , requirements = requirementsFromConfig config

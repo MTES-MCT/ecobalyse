@@ -1058,6 +1058,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , openSelectPackagingModal = \_ -> NoOp
         , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
         , openSelectProductionItem = AddTrimModal >> SetModal
+        , productWeight = Nothing
         , query = Component.emptyQuery |> Component.setQueryItems inputs.trims
         , removeAssemblyOperation = \_ -> NoOp
         , removeConsumption = \_ -> NoOp

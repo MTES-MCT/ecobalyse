@@ -1388,6 +1388,7 @@ editorConfig session ({ genericSector } as model) =
     , openSelectPackagingModal = SelectPackagingModal >> AppendModal
     , openSelectProcessModal = \c ti mi ac -> AppendModal (SelectProcessModal c ti mi ac)
     , openSelectProductionItem = AddProductionItemModal >> AppendModal
+    , productWeight = model.productWeight
     , query = session |> Session.genericQuery genericSector
     , removeAssemblyOperation = RemoveAssemblyOperation
     , removeConsumption = RemoveConsumption
