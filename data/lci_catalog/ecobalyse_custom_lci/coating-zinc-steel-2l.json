@@ -1,5 +1,5 @@
 {
-  "activityName": "zinc coating, adapted from BAFU",
+  "activityName": "zinc coating, 2 layers, adapted from BAFU",
   "categories": ["transformation", "material_type:ferrous_metals"],
   "comment": "65µm Zn, 2 layers, 60m²/t Fe (~2mm). Adapted from 'zinc coating, pieces, RER', BAFU:2026.",
   "displayName": "Galvanization, 2x80µm pour 2mm de métal",
