@@ -230,6 +230,26 @@ input {
   }
 }
 
+.page-notice {
+  position: relative;
+  padding: 1rem;
+  margin-top: -7px;
+
+  &-info {
+    background-color: #e8edff;
+    color: #0063cb;
+  }
+
+  &-warning {
+    background-color: #feebd0;
+    color: #7e631e;
+  }
+
+  .md-inline {
+    display: flex;
+  }
+}
+
 .sticky {
 
   &-sm-top,
