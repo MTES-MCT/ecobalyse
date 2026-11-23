@@ -41,6 +41,7 @@ create-activities:
 
 export-all:
     {{ python-cmd-data }} {{ export-script }} processes-legacy
+    {{ python-cmd-data }} {{ export-script }} processes-generic
     {{ python-cmd-data }} {{ export-script }} metadata
     {{ python-cmd-data }} {{ export-script }} merge-processes
 
@@ -50,24 +51,8 @@ generate-taxonomy-with-aliases:
 merge-processes:
     {{ python-cmd-data }} {{ export-script }} merge-processes
 
-export-food:
-    {{ python-cmd-data }} {{ export-script }} processes-legacy --scopes food --merge
-    {{ python-cmd-data }} {{ export-script }} metadata --scopes food
-    {{ python-cmd-data }} {{ export-script }} merge-processes
-
 export-generic:
-    {{ python-cmd-data }} {{ export-script }} processes-legacy --scopes object --merge
-    {{ python-cmd-data }} {{ export-script }} metadata --scopes generic
-    {{ python-cmd-data }} {{ export-script }} merge-processes
-
-export-textile:
-    {{ python-cmd-data }} {{ export-script }} processes-legacy --scopes textile --merge
-    {{ python-cmd-data }} {{ export-script }} metadata --scopes textile
-    {{ python-cmd-data }} {{ export-script }} merge-processes
-
-export-veli:
-    {{ python-cmd-data }} {{ export-script }} processes-legacy --scopes veli --merge
-    {{ python-cmd-data }} {{ export-script }} merge-processes
+    {{ python-cmd-data }} {{ export-script }} processes-generic
 
 compute-distances:
     {{ python-cmd-data }} -m common.distances.compute_distances

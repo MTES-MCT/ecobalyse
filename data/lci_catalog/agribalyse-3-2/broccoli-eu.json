@@ -17,7 +17,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "broccoli-non-eu-2025",
@@ -32,7 +32,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "broccoli-fr",

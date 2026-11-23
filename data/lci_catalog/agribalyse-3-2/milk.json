@@ -67,7 +67,7 @@
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": ["food", "food2"],

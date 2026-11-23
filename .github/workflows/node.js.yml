@@ -8,8 +8,10 @@ env:
   TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
   ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
   BACKEND_API_URL: http://localhost:1234/backend
+  ENABLE_APPAREL_SECTION: "True"
   ENABLE_FOOD_SECTION: "True"
   ENABLE_FOOD2_SECTION: "True"
+  ENABLE_FURNITURE_SECTION: "True"
   ENABLE_OBJECTS_SECTION: "True"
   ENABLE_VELI_SECTION: "True"
   EMAIL_SERVER_HOST: localhost
@@ -88,7 +90,7 @@ jobs:
         sudo apt-get install -y just
 
     - name: Install uv
-      uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+      uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
       with:
         version: ">=0.13.4"
         python-version: ${{ matrix.python-version }}

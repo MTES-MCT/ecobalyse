@@ -4,7 +4,7 @@ module Data.Example exposing
     , findByName
     , findByQuery
     , findByUuid
-    , forScope
+    , forSector
     , parseUuid
     , toCategory
     , toName
@@ -12,10 +12,11 @@ module Data.Example exposing
     )
 
 import Data.Common.DecodeUtils as DU
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
+import List.Extra as LE
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -25,7 +26,7 @@ type alias Example query =
     , name : String
     , query : query
     , recyclable : Bool
-    , scope : Scope
+    , sector : Sector
     }
 
 
@@ -38,7 +39,7 @@ decode decodeQuery =
         |> Pipe.required "query" decodeQuery
         -- By default, if not specified, everything is recyclable
         |> DU.strictOptionalWithDefault "recyclable" Decode.bool True
-        |> Pipe.required "scope" Scope.decode
+        |> Pipe.required "scope" Sector.decode
 
 
 decodeListFromJsonString : Decoder query -> String -> Result String (List (Example query))
@@ -49,28 +50,25 @@ decodeListFromJsonString decodeQuery =
 
 findByName : String -> List (Example query) -> Result String (Example query)
 findByName name =
-    List.filter (.name >> (==) name)
-        >> List.head
+    LE.find (.name >> (==) name)
         >> Result.fromMaybe ("Exemple introuvable avec le nom " ++ name)
 
 
 findByUuid : Uuid -> List (Example query) -> Result String (Example query)
 findByUuid id =
-    List.filter (.id >> (==) id)
-        >> List.head
+    LE.find (.id >> (==) id)
         >> Result.fromMaybe ("Exemple introuvable pour l'uuid " ++ Uuid.toString id)
 
 
 findByQuery : query -> List (Example query) -> Result String (Example query)
 findByQuery query =
-    List.filter (.query >> (==) query)
-        >> List.head
+    LE.find (.query >> (==) query)
         >> Result.fromMaybe "Exemple introuvable"
 
 
-forScope : Scope -> List (Example query) -> List (Example query)
-forScope scope =
-    List.filter (.scope >> (==) scope)
+forSector : Sector -> List (Example query) -> List (Example query)
+forSector sector =
+    List.filter (.sector >> (==) sector)
 
 
 parseUuid : Parser (Uuid -> a) a
@@ -113,5 +111,5 @@ toSearchableString example =
     String.join " "
         [ example.id |> Uuid.toString
         , example.name
-        , example.scope |> Scope.toString
+        , example.sector |> Sector.toString
         ]

@@ -6,7 +6,7 @@ import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Query exposing (IngredientQuery, PackagingAmount, PackagingQuery, ProcessQuery, Query, packagingAmountToFloat)
 import Data.Process as Process
-import Data.Scope as Scope
+import Data.Sector as Sector
 import Data.Validation as Validation
 import Mass exposing (Mass)
 import Result.Extra as RE
@@ -29,7 +29,7 @@ validateIngredient db ingredientQuery =
     Ok IngredientQuery
         |> RE.andMap
             (ingredientQuery.country
-                |> validateMaybe (Country.validateForScope Scope.Food db.countries)
+                |> validateMaybe (Country.validateForSector Sector.Food db.countries)
             )
         |> RE.andMap
             (db.food.ingredients

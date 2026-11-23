@@ -6,7 +6,7 @@ module Page.Explore.GenericExamples exposing (table)
 import Data.Component as Component
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Text as Text
 import Data.Uuid as Uuid
 import Html exposing (..)
@@ -19,13 +19,13 @@ import Views.Icon as Icon
 
 table :
     { maxScore : Float, maxPer100g : Float }
-    -> Scope.GenericScope
-    -> { detailed : Bool, scope : Scope }
+    -> Sector.GenericSector
+    -> { detailed : Bool, sector : Sector }
     -> Table ( Example Component.Query, { score : Float, per100g : Float } ) String msg
-table { maxScore, maxPer100g } genericScope { detailed, scope } =
-    { filename = Scope.toString scope ++ "-examples"
+table { maxScore, maxPer100g } genericSector { detailed, sector } =
+    { filename = Sector.toString sector ++ "-examples"
     , toId = Tuple.first >> .id >> Uuid.toString
-    , toRoute = Tuple.first >> .id >> Just >> Dataset.GenericExamples genericScope >> Route.Explore scope
+    , toRoute = Tuple.first >> .id >> Just >> Dataset.GenericExamples genericSector >> Route.Explore sector
     , toSearchableText = Tuple.first >> Example.toSearchableString >> Text.toSearchable
     , facets = []
     , legend = []
@@ -35,8 +35,8 @@ table { maxScore, maxPer100g } genericScope { detailed, scope } =
           , toCell = Tuple.first >> .name >> text
           }
         , { label = "Famille"
-          , toValue = Table.StringValue (Tuple.first >> .scope >> Scope.toLabel)
-          , toCell = Tuple.first >> .scope >> Scope.toLabel >> text
+          , toValue = Table.StringValue (Tuple.first >> .sector >> Sector.toLabel)
+          , toCell = Tuple.first >> .sector >> Sector.toLabel >> text
           }
 
         -- FIXME: this column should eventually be replaced with the product category
@@ -68,7 +68,7 @@ table { maxScore, maxPer100g } genericScope { detailed, scope } =
                 \( example, _ ) ->
                     a
                         [ class "btn btn-light btn-sm w-100"
-                        , Route.href <| Route.GenericSimulatorExample genericScope example.id
+                        , Route.href <| Route.GenericSimulatorExample genericSector example.id
                         , title <| "Charger " ++ example.name
                         ]
                         [ Icon.search ]

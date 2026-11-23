@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: API Ecobalyse
-  description: L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles, alimentaires, objets et véhicules.
+  description: L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles, alimentaires, objets et mobilité.
   version: 0.0.1-alpha
 externalDocs:
   description: Visiter le site

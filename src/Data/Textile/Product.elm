@@ -24,6 +24,7 @@ import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
+import List.Extra as LE
 import Volume exposing (Volume)
 
 
@@ -77,8 +78,7 @@ getMakingDurationInMinutes =
 
 findById : Id -> List Product -> Result String Product
 findById id =
-    List.filter (.id >> (==) id)
-        >> List.head
+    LE.find (.id >> (==) id)
         >> Result.fromMaybe ("Produit non trouvé id=" ++ idToString id ++ ".")
 
 

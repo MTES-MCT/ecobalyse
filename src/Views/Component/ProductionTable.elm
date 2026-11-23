@@ -18,7 +18,7 @@ import Data.Component.Amount as Amount
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process
 import Data.Process.Category as Category
-import Data.Scope exposing (Scope)
+import Data.Sector exposing (Sector)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -57,7 +57,7 @@ type alias Config db msg =
     , openSelectProductionItem : Autocomplete ProductionItem -> msg
     , query : Query
     , removeItem : Index -> msg
-    , scope : Scope
+    , sector : Sector
     , setDetailed : List Index -> msg
     , unitMassLocked : Bool
     , updateItemQuantity : Index -> Quantity -> msg
@@ -71,7 +71,7 @@ addProductionItemButton ({ db } as config) =
         availableComponents =
             db.components
                 |> List.filter (not << Component.isEmpty)
-                |> List.filter (.scopes >> List.member config.scope)
+                |> List.filter (.sectors >> List.member config.sector)
                 |> List.map ComponentItem
 
         availableMaterials =
@@ -81,7 +81,7 @@ addProductionItemButton ({ db } as config) =
 
                 _ ->
                     db.processes
-                        |> Process.listAvailableByCategory config.scope Category.Material
+                        |> Process.listAvailableByCategory config.sector Category.Material
                         -- Exclude packaging materials as they're available in a dedicated section
                         |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
                         |> List.map MaterialItem

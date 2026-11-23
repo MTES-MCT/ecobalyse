@@ -130,8 +130,7 @@ toMaterialQuery =
 
 getMainMaterial : List MaterialInput -> Result String Material
 getMainMaterial =
-    List.sortBy (.share >> Split.toFloat)
-        >> List.reverse
+    List.sortBy (.share >> Split.toFloat >> negate)
         >> List.head
         >> Maybe.map .material
         >> Result.fromMaybe "La liste de matières est vide."

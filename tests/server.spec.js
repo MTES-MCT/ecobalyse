@@ -3,6 +3,7 @@ const request = require("supertest");
 const fixtureDataDir = `${__dirname}/../tests/fixtures`;
 const app = require("../server");
 const textileExamples = require(`${fixtureDataDir}/textile/examples.json`);
+const sectors = require("../lib/sectors");
 
 const e2eOutput = { food: [], textile: [] };
 
@@ -725,7 +726,7 @@ describe("API", () => {
         process.env.ENABLE_VELI_SECTION = previous.veli;
       });
 
-      it("should list enabled generic scopes", async () => {
+      it("should list enabled generic sectors", async () => {
         process.env.ENABLE_FOOD2_SECTION = "True";
         process.env.ENABLE_OBJECTS_SECTION = "False";
         process.env.ENABLE_VELI_SECTION = "True";
@@ -736,12 +737,14 @@ describe("API", () => {
 
         expectStatus(response, 200);
         expect(response.body).toEqual([
+          { id: "apparel", name: "Habillement" },
           { id: "food2", name: "Alimentaire BÉTA" },
-          { id: "veli", name: "Véhicules" },
+          { id: "furniture", name: "Ameublement" },
+          { id: "veli", name: "Mobilité" },
         ]);
       });
 
-      it("should reject a disabled generic scope with 403", async () => {
+      it("should reject a disabled generic sector with 403", async () => {
         process.env.ENABLE_FOOD2_SECTION = "False";
 
         const response = await request(app)
@@ -1055,31 +1058,31 @@ describe("API", () => {
       });
     });
 
-    for (const scope of ["food2", "object", "veli"]) {
-      describe(`/${scope}/simulator`, () => {
+    for (const sector of sectors.GENERIC_SECTORS) {
+      describe(`/${sector}/simulator`, () => {
         it("should accept an empty query", async () => {
-          const response = await makePostRequest(`/api/${scope}/simulator`, {});
+          const response = await makePostRequest(`/api/${sector}/simulator`, {});
           expect(response.body.error).toBeUndefined();
           expectStatus(response, 200);
           expect(response.body.impacts).toBeDefined();
         });
 
         it("should accept an empty components list", async () => {
-          const response = await makePostRequest(`/api/${scope}/simulator`, { components: [] });
+          const response = await makePostRequest(`/api/${sector}/simulator`, { components: [] });
           expect(response.body.error).toBeUndefined();
           expectStatus(response, 200);
           expect(response.body.impacts).toBeDefined();
         });
 
-        const examples = require(`${fixtureDataDir}/${scope}/examples.json`);
+        const examples = require(`${fixtureDataDir}/${sector}/examples.json`);
 
         for (const { name, query } of examples) {
           it(name, async () => {
-            const response = await makePostRequest(`/api/${scope}/simulator`, query);
+            const response = await makePostRequest(`/api/${sector}/simulator`, query);
             expect(response.body.error).toBeUndefined();
             expectStatus(response, 200);
             expect(response.body.impacts).toBeDefined();
-            expect(response.body.webUrl).toContain(`/${scope}/simulator/`);
+            expect(response.body.webUrl).toContain(`/${sector}/simulator/`);
           });
         }
       });

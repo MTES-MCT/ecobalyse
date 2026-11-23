@@ -51,7 +51,7 @@ describe("lib.plausible", () => {
       });
     });
 
-    test("should handle different scopes", () => {
+    test("should handle different sectors", () => {
       const event = createEvent(
         200,
         {
@@ -77,7 +77,7 @@ describe("lib.plausible", () => {
       });
     });
 
-    test("should handle no scope", () => {
+    test("should handle no sector", () => {
       const event = createEvent(200, {
         headers: {},
         method: "GET",
