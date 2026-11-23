@@ -13,7 +13,7 @@ La chaîne de traitement est la suivante :
 
 Outils utilisés :
 
-[Volca](https://www.volca.run/) : analyse préalables et vérification
+[Volca](https://www.volca.run/) : analyses préalables et vérifications
 
 * Exploration des données ACV avant leur intégration dans Ecobalyse, explorations méthodologiques, interprétation, comparaisons entre sources de données etc.
 * Transfert de données d’arrière-plan d’ecoinvent vers BAFU, avec analyse des écarts
