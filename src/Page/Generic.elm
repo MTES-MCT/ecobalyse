@@ -1384,7 +1384,7 @@ simulatorView ({ componentConfig } as session) ({ genericSector } as model) =
             session |> Session.genericQuery genericSector
     in
     div [ class "row" ]
-        [ div [ class "col-lg-8 bg-white" ]
+        [ div [ class "col-lg-8 bg-white min-w-0" ]
             [ h1 [ class "mb-3" ] [ text <| Sector.toLabelGeneric genericSector ]
             , div [ class "sticky-md-top bg-white pb-3" ]
                 [ ExampleView.view

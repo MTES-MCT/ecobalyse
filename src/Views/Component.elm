@@ -1066,35 +1066,38 @@ productCategorySelectorView { onSelect, products, query, sector } =
         text ""
 
     else
-        div [ class "d-flex flex-row align-items-center gap-2 my-3" ]
+        div [ class "row align-items-center gx-2 gy-0 g-md-2 mt-2" ]
             [ label
                 [ Attr.for "product-category"
-                , class "form-label fw-bold text-nowrap"
+                , class "SimulatorFiedlLabel col-12 col-md-auto col-form-label"
+                , class "text-start text-md-end fw-bold mb-1 mb-md-0"
                 ]
                 [ text "Catégorie de produit" ]
-            , select
-                [ Attr.id "product-category"
-                , class "form-select"
-                , onInput <|
-                    \str ->
-                        if String.isEmpty str then
-                            onSelect Nothing
+            , div [ class "col-12 col-md min-w-0" ]
+                [ select
+                    [ Attr.id "product-category"
+                    , class "form-select"
+                    , onInput <|
+                        \str ->
+                            if String.isEmpty str then
+                                onSelect Nothing
 
-                        else
-                            ProductCategory.idFromString str
-                                |> Result.map (Just >> onSelect)
-                                |> Result.withDefault (onSelect Nothing)
+                            else
+                                ProductCategory.idFromString str
+                                    |> Result.map (Just >> onSelect)
+                                    |> Result.withDefault (onSelect Nothing)
+                    ]
+                    (option [ value "", selected (query.product == Nothing) ]
+                        [ text "Autres" ]
+                        :: List.map
+                            (\product ->
+                                option
+                                    [ value (ProductCategory.idToString product.id)
+                                    , selected (query.product == Just product.id)
+                                    ]
+                                    [ text product.label ]
+                            )
+                            sectoredProducts
+                    )
                 ]
-                (option [ value "", selected (query.product == Nothing) ]
-                    [ text "Autres" ]
-                    :: List.map
-                        (\product ->
-                            option
-                                [ value (ProductCategory.idToString product.id)
-                                , selected (query.product == Just product.id)
-                                ]
-                                [ text product.label ]
-                        )
-                        sectoredProducts
-                )
             ]

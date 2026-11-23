@@ -35,12 +35,16 @@ view config =
                 |> List.map .query
                 |> AutocompleteSelector.init (Example.toName config.examples)
     in
-    div [ class "d-flex flex-row justify-content-between align-items-start gap-3" ]
-        [ label [ for "selector-example", class "form-label fw-bold lh-lg mb-0" ]
+    div [ class "row align-items-center gx-2 gy-0 g-md-2" ]
+        [ label
+            [ for "selector-example"
+            , class "SimulatorFiedlLabel col-12 col-md-auto col-form-label"
+            , class "text-start text-md-end fw-bold mb-1 mb-md-0"
+            ]
             [ text "Exemples" ]
-        , div [ class "d-flex justify-content-between align-items-center flex-fill text-truncate" ]
+        , div [ class "col-12 col-md d-flex align-items-center min-w-0" ]
             [ button
-                [ class "form-select ElementSelector text-start"
+                [ class "form-select ElementSelector text-start text-truncate flex-fill"
                 , id "selector-example"
                 , title "Les simulations proposées ici constituent des exemples. Elles doivent être adaptées pour chaque produit modélisé"
                 , onClick <| config.onOpen autocompleteState
