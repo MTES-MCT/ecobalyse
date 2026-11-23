@@ -585,8 +585,6 @@ paths:
             examples:
               genericExampleCompote:
                 $ref: "#/components/examples/genericExampleCompote"
-              genericExampleJardiniere:
-                $ref: "#/components/examples/genericExampleJardiniere"
               genericExampleVeloDeVille:
                 $ref: "#/components/examples/genericExampleVeloDeVille"
       responses:
@@ -688,14 +686,6 @@ components:
         recyclable: true
         transportOptions:
           cooling: true
-    genericExampleJardiniere:
-      summary: "Jardinière d'extérieur en bois"
-      value:
-        components:
-        - id: c5d86519-e56a-4ad7-aada-d4f7fffd5628
-          quantity: 1
-        - id: c845482e-8347-4a3c-9dd4-392d8fc2cb3f
-          quantity: 1
     genericExampleVeloDeVille:
       summary: "Vélo de ville, cadre aluminium"
       value:
