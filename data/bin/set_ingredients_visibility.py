@@ -39,7 +39,7 @@ def main():
     ids = read_ids(args.ids_file)
     found = set()
 
-    for lci_path in sorted((DATA_ROOT_DIR / "lci_catalog").glob("*/*.json")):
+    for lci_path in (DATA_ROOT_DIR / "lci_catalog").glob("*/*.json"):
         with open(lci_path, encoding="utf-8") as fd:
             activity = json.load(fd)
 
