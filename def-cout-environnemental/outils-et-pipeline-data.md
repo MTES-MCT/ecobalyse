@@ -19,12 +19,12 @@ Outils utilisés :
 * Transfert de données d’arrière-plan d’ecoinvent vers BAFU, avec analyse des écarts
 * Recalcul des impacts pour vérifier la cohérence avec Brightway (contrôle fait historiquement avec SimaPro)
 
-[SimaPro](https://simapro.com/) : import des ICV sources
+[SimaPro](https://simapro.com/) : import des ICV sources dans brightway
 
 * Export CSV, qui garantissait historiquement une structure homogène entre les bases
 * Migration en cours vers l’import direct des formats natifs (par exemple ecospold pour BAFU 2026), en vue d’une chaîne d’outils entièrement open data et open source
 
-[Brightway](https://www.google.com/url?sa=t\&source=web\&rct=j\&opi=89978449\&url=https://brightway.dev/\&ved=2ahUKEwi9z9vhj5SYAxVSgP0HHTaWPH4QFnoECCgQAQ\&usg=AOvVaw1Plwsk35dLTynmW226-IMQ) : modélisation et calcul
+[Brightway](https://www.google.com/url?sa=t\&source=web\&rct=j\&opi=89978449\&url=https://brightway.dev/\&ved=2ahUKEwi9z9vhj5SYAxVSgP0HHTaWPH4QFnoECCgQAQ\&usg=AOvVaw1Plwsk35dLTynmW226-IMQ) : modélisation et calcul; export des procédés vers ecobalyse
 
 * Construction des inventaires Ecobalyse\_custom\_lci (documentés dans le dépôt Ecobalyse)
 * Structuration des données pour isoler des paramètres clés (taux de perte, etc.)
