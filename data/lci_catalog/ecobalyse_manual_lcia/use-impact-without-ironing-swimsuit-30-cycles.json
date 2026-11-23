@@ -1,0 +1,36 @@
+{
+  "categories": ["productmassdependent", "use"],
+  "comment": "Utilisation hors repassage pour la catégorie « Maillot de bain », par kg de produit, sur les 30 cycles d'entretien par défaut. Dérivé du procédé « Utilisation : Impact hors repassage (Pull) » (par cycle), dont l'électricité et l'impact sont multipliés par le nombre de cycles. Électricité : 0,2852 × 30 = 8,556 kWh/kg. Impact (ecs, recalculé depuis les 19 indicateurs : somme de impact / normalisation × pondération × 10^6) : 15,1335 × 30 = 454,006 µPt/kg. Impacts détaillés : valeurs du procédé d'origine (par cycle) multipliées par le nombre de cycles.",
+  "displayName": "Utilisation hors repassage (Maillot de bain, 30 cycles d'entretien)",
+  "elecKwh": 8.556,
+  "heatMJ": 0,
+  "id": "f8e12d9b-cf87-5fd1-9401-1d1b09d9b9ea",
+  "impacts": {
+    "acd": 0.0028182,
+    "cch": 1.02058,
+    "etf": 0.0,
+    "etf-c": 0.0,
+    "fru": 21.5219,
+    "fwe": 0.000332583,
+    "htc": 0.0,
+    "htc-c": 0.0,
+    "htn": 0.0,
+    "htn-c": 0.0,
+    "ior": 40.4649,
+    "ldu": 31.7916,
+    "mru": 3.77574e-06,
+    "ozd": 2.52971e-07,
+    "pco": 0.00169976,
+    "pma": 5.79618e-08,
+    "swe": 0.000602283,
+    "tre": 0.00328194,
+    "wtu": 0.0
+  },
+  "metadata": [
+    { "id": "8c2219c2-3124-4a97-8280-2c2de3d95450", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 1.0,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}
