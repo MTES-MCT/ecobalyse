@@ -572,7 +572,7 @@ addResults (Results results) (Results acc) =
 
 amountProcessToString : Amount -> Process -> String
 amountProcessToString amount process =
-    Format.formatFloat 5 (Amount.toFloat amount)
+    Format.float 5 (Amount.toFloat amount)
         ++ Process.unitToString process.unit
         ++ " "
         ++ Process.getDisplayName process

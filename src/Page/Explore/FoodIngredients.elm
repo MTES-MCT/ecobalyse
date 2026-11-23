@@ -7,7 +7,7 @@ import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Ingredient.CropGroup as CropGroup
 import Data.Food.Ingredient.Scenario as Scenario
 import Data.Food.Origin as Origin
-import Data.Format as DataFormat
+import Data.Format as Format
 import Data.Gitbook as Gitbook
 import Data.Process as Process
 import Data.Sector exposing (Sector)
@@ -64,7 +64,7 @@ table { detailed, sector } =
           }
         , { label = "Surface mobilisée"
           , toValue = Table.FloatValue <| .landOccupation
-          , toCell = .landOccupation >> (\v -> DataFormat.formatFloat 2 v ++ " m2.an") >> text
+          , toCell = .landOccupation >> (\v -> Format.float 2 v ++ " m2.an") >> text
           }
         , { label = "Part non-comestible"
           , toValue = Table.FloatValue <| .inediblePart >> Split.toPercent

@@ -27,7 +27,7 @@ module Views.Format exposing
 
 import Area exposing (Area)
 import Data.Component.Amount as Amount exposing (Amount)
-import Data.Format as DataFormat
+import Data.Format as Format
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
@@ -59,7 +59,7 @@ formatRichFloat : Int -> String -> Float -> Html msg
 formatRichFloat decimals unit value =
     span []
         [ value
-            |> DataFormat.formatFloat decimals
+            |> Format.float decimals
             |> text
         , span [ class "fs-unit" ] [ text "\u{202F}", text unit ]
         ]
@@ -71,7 +71,7 @@ complement impact =
         formatted =
             impact
                 |> Unit.impactToFloat
-                |> DataFormat.formatFloat 2
+                |> Format.float 2
     in
     span []
         [ text <|
@@ -173,7 +173,7 @@ yarnSize =
 splitAsFloat : Int -> Split -> Html msg
 splitAsFloat int value =
     Split.toFloat value
-        |> DataFormat.formatFloat int
+        |> Format.float int
         |> text
 
 

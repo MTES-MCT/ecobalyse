@@ -28,7 +28,7 @@ module Data.Impact exposing
     )
 
 import Data.Color as Color
-import Data.Format as DataFormat
+import Data.Format as Format
 import Data.Impact.Definition as Definition exposing (Definition, Definitions, Trigram, Trigrams)
 import Data.Stages as Stages exposing (Stages)
 import Data.Unit as Unit
@@ -207,7 +207,7 @@ formatImpacts : Definition -> Impacts -> String
 formatImpacts { decimals, trigram } =
     getImpact trigram
         >> Unit.impactToFloat
-        >> DataFormat.formatFloat decimals
+        >> Format.float decimals
 
 
 mapImpacts : (Trigram -> Unit.Impact -> Unit.Impact) -> Impacts -> Impacts

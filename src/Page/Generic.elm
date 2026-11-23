@@ -1510,7 +1510,7 @@ durabilityView componentConfig sector maybeDurability =
                 , div [ class "col-sm-2 col-md-2" ]
                     [ currentDurability
                         |> Unit.ratioToFloat
-                        |> Format.formatFloat 2
+                        |> Format.float 2
                         |> text
                     ]
                 , div [ class "col-sm-4 col-md-6 text-nowrap d-flex align-items-center gap-2" ]

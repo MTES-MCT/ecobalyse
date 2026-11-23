@@ -22,7 +22,7 @@ import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Example as Example
-import Data.Format as DataFormat
+import Data.Format as Format
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -1089,7 +1089,7 @@ simulatorFormView session model ({ inputs } as simulator) =
                 [ span [ class "d-none d-sm-flex text-truncate" ] [ text "Coefficient de durabilité\u{00A0}:" ]
                 , simulator.durability
                     |> Unit.floatDurabilityFromHolistic
-                    |> DataFormat.formatFloat 2
+                    |> Format.float 2
                     |> text
                 , Button.docsPillLink
                     [ class "bg-secondary"

@@ -7,7 +7,7 @@ import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Env as Env
-import Data.Format as DataFormat
+import Data.Format as Format
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -953,7 +953,7 @@ deadstockView config deadstock =
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
             (if deadstock /= Quantity.zero then
                 [ text "Dont stocks dormants\u{00A0}:\u{00A0}"
-                , DataFormat.formatKilograms deadstock |> text
+                , Format.kilograms deadstock |> text
                 , inlineDocumentationLink Gitbook.TextileMakingDeadStock
                 ]
 
@@ -968,7 +968,7 @@ wasteView { current } waste =
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
             (if waste /= Quantity.zero then
                 [ text "Pertes\u{00A0}:\u{00A0}"
-                , DataFormat.formatKilograms waste |> text
+                , Format.kilograms waste |> text
                 , inlineDocumentationLink
                     (if current.label == Label.Fabric then
                         Gitbook.TextileFabricWaste

@@ -1,7 +1,7 @@
 module Data.Format exposing
-    ( formatFloat
-    , formatFrenchDatetime
-    , formatKilograms
+    ( float
+    , frenchDatetime
+    , kilograms
     )
 
 import DateFormat
@@ -19,21 +19,21 @@ automatically when the provided value is either:
   - stricly lesser than `0.01`
 
 -}
-formatFloat : Int -> Float -> String
-formatFloat decimals float =
+float : Int -> Float -> String
+float decimals float_ =
     let
         simpleFmt dc =
             FormatNumber.format { frenchLocale | decimals = Exact dc }
                 >> String.replace "−" "-"
     in
-    if isNaN float then
+    if isNaN float_ then
         -- FIXME: this is a temporary workaround for when distances were missing
         --        during computation of a score and we fallback to using Infinity
         -- @see https://www.notion.so/e3866a56500d4dfd9c2fc1d3d44c58a1
         "N/A"
 
-    else if isInfinite float then
-        (if float < 0 then
+    else if isInfinite float_ then
+        (if float_ < 0 then
             "-"
 
          else
@@ -41,20 +41,20 @@ formatFloat decimals float =
         )
             ++ "∞"
 
-    else if float == 0 then
+    else if float_ == 0 then
         "0"
 
-    else if toFloat (round float) == float then
+    else if toFloat (round float_) == float_ then
         -- float is an integer, no need for decimals
-        simpleFmt 0 float
+        simpleFmt 0 float_
 
-    else if abs float >= 100 then
-        simpleFmt 0 float
+    else if abs float_ >= 100 then
+        simpleFmt 0 float_
 
-    else if abs float < 0.01 then
+    else if abs float_ < 0.01 then
         let
             sci =
-                float
+                float_
                     |> Decimal.fromFloat
                     |> Decimal.roundTo -12
                     |> Decimal.toStringIn Decimal.Sci
@@ -67,20 +67,20 @@ formatFloat decimals float =
                 formatFloatStr floatStr ++ "e" ++ exp
 
             _ ->
-                simpleFmt decimals float
+                simpleFmt decimals float_
 
     else
-        simpleFmt decimals float
+        simpleFmt decimals float_
 
 
-formatFrenchDatetime : Posix -> String
-formatFrenchDatetime =
+frenchDatetime : Posix -> String
+frenchDatetime =
     DateFormat.formatI18n DateFormat.french
         "dd/MM/yyyy à HH:mm:ss (UTC)"
         Time.utc
 
 
-formatKilograms : Mass -> String
-formatKilograms mass =
-    formatFloat 3 (Mass.inKilograms mass)
+kilograms : Mass -> String
+kilograms mass =
+    float 3 (Mass.inKilograms mass)
         ++ "kg"

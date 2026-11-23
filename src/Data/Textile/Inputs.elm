@@ -278,12 +278,12 @@ stagesToStrings wellKnown inputs =
                )
             ++ (case inputs.physicalDurability of
                     Just physicalDurability ->
-                        ", durabilité physique " ++ Format.formatFloat 3 (Unit.physicalDurabilityToFloat physicalDurability)
+                        ", durabilité physique " ++ Format.float 3 (Unit.physicalDurabilityToFloat physicalDurability)
 
                     Nothing ->
                         ""
                )
-      , Format.formatKilograms inputs.mass
+      , Format.kilograms inputs.mass
       ]
     , ifStageEnabled Label.Material
         [ "matière"
@@ -295,7 +295,7 @@ stagesToStrings wellKnown inputs =
         ]
     , case inputs.yarnSize of
         Just yarnSize ->
-            [ "titrage", Format.formatFloat 3 (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
+            [ "titrage", Format.float 3 (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
 
         Nothing ->
             []

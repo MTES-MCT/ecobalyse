@@ -4,7 +4,7 @@ module Views.Table exposing
     , responsiveDefault
     )
 
-import Data.Format as DataFormat
+import Data.Format as Format
 import Data.Impact.Definition exposing (Definition)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -77,9 +77,9 @@ percentageTable impactDefinition data =
                                 entryTitle =
                                     name
                                         ++ ": "
-                                        ++ DataFormat.formatFloat 2 percent
+                                        ++ Format.float 2 percent
                                         ++ "\u{202F}% ("
-                                        ++ DataFormat.formatFloat 2 impact
+                                        ++ Format.float 2 impact
                                         ++ "\u{202F}"
                                         ++ impactDefinition.unit
                                         ++ ")"

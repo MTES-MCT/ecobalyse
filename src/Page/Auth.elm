@@ -813,7 +813,7 @@ viewApiTokens session apiTokens =
                                             [ td [ class "align-middle" ] [ text apiToken.id ]
                                             , td [ class "align-middle text-end" ]
                                                 [ apiToken.lastAccessedAt
-                                                    |> Maybe.map Format.formatFrenchDatetime
+                                                    |> Maybe.map Format.frenchDatetime
                                                     |> Maybe.withDefault "Jamais utilisé"
                                                     |> text
                                                 ]
@@ -878,7 +878,7 @@ viewApiTokenDelete apiToken =
                 p [ class "alert alert-warning d-flex align-items-center gap-1" ]
                     [ Icon.warning
                     , text "Dernière utilisation\u{00A0}:\u{00A0}"
-                    , text <| Format.formatFrenchDatetime lastAccessedAt
+                    , text <| Format.frenchDatetime lastAccessedAt
                     ]
 
             Nothing ->
