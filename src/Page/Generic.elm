@@ -23,6 +23,7 @@ import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Example as Example exposing (Example)
+import Data.Format as Format
 import Data.Generic.Simulator as Simulator
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
@@ -58,7 +59,6 @@ import Views.Component.Context as Context
 import Views.Container as Container
 import Views.Example as ExampleView
 import Views.FloatInput as FloatInput
-import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView

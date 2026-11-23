@@ -150,6 +150,7 @@ import Data.Component.Consumption as Consumption exposing (Consumption)
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
+import Data.Format as Format
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
 import Data.Process as Process exposing (Process)
@@ -172,7 +173,6 @@ import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
-import Views.Format as Format
 import Volume exposing (Volume)
 
 

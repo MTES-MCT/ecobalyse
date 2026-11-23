@@ -19,6 +19,7 @@ import Data.Component as Component exposing (Item)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
+import Data.Format as Format
 import Data.Impact as Impact
 import Data.Process as Process
 import Data.Split as Split exposing (Split)
@@ -40,7 +41,6 @@ import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
-import Views.Format as Format
 
 
 type alias MaterialInput =
@@ -283,7 +283,7 @@ stagesToStrings wellKnown inputs =
                     Nothing ->
                         ""
                )
-      , Format.kgToString inputs.mass
+      , Format.formatKilograms inputs.mass
       ]
     , ifStageEnabled Label.Material
         [ "matière"

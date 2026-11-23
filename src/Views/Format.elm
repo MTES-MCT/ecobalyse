@@ -3,15 +3,11 @@ module Views.Format exposing
     , complement
     , cubicMeters
     , days
-    , formatComplementsResultsImpactsToString
-    , formatFloat
     , formatImpact
     , formatImpactFloat
     , formatRichFloat
-    , frenchDatetime
     , hours
     , kg
-    , kgToString
     , kilowattHours
     , km
     , massPerUnit
@@ -30,25 +26,20 @@ module Views.Format exposing
     )
 
 import Area exposing (Area)
-import Data.Complement as Complement
 import Data.Component.Amount as Amount exposing (Amount)
+import Data.Format as DataFormat
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
 import Data.Unit as Unit
-import DateFormat
-import Decimal
 import Duration exposing (Duration)
 import Energy exposing (Energy)
-import FormatNumber
-import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Length exposing (Length)
 import Mass exposing (Mass)
-import Time exposing (Posix)
 import Volume exposing (Volume)
 
 
@@ -64,93 +55,11 @@ formatImpact { decimals, trigram, unit } =
         >> formatRichFloat decimals unit
 
 
-formatImpactToString : Definition -> Impacts -> String
-formatImpactToString { decimals, trigram } =
-    Impact.getImpact trigram
-        >> Unit.impactToFloat
-        >> formatFloat decimals
-
-
-formatComplementsResultsImpactsToString : Definition -> Complement.ComplementsResultsImpacts -> String
-formatComplementsResultsImpactsToString impact complementsResultsImpacts =
-    let
-        formatComplement maybeComplement label =
-            maybeComplement
-                |> Maybe.map (formatImpactToString impact >> (++) (label ++ "\u{00A0}: "))
-    in
-    List.map2 formatComplement
-        (complementsResultsImpacts |> Complement.allComplementsToList)
-        (Complement.labels |> Complement.allComplementsToList)
-        |> List.filterMap identity
-        |> String.join "\n"
-
-
-{-| Formats a float with a provided decimal precision, which is overriden
-automatically when the provided value is either:
-
-  - greater or equal to `100`
-  - stricly lesser than `0.01`
-
--}
-formatFloat : Int -> Float -> String
-formatFloat decimals float =
-    let
-        simpleFmt dc =
-            FormatNumber.format { frenchLocale | decimals = Exact dc }
-                >> String.replace "−" "-"
-    in
-    if isNaN float then
-        -- FIXME: this is a temporary workaround for when distances were missing
-        --        during computation of a score and we fallback to using Infinity
-        -- @see https://www.notion.so/e3866a56500d4dfd9c2fc1d3d44c58a1
-        "N/A"
-
-    else if isInfinite float then
-        (if float < 0 then
-            "-"
-
-         else
-            ""
-        )
-            ++ "∞"
-
-    else if float == 0 then
-        "0"
-
-    else if toFloat (round float) == float then
-        -- flpat is an int, no need for decimals
-        simpleFmt 0 float
-
-    else if abs float >= 100 then
-        simpleFmt 0 float
-
-    else if abs float < 0.01 then
-        let
-            sci =
-                float
-                    |> Decimal.fromFloat
-                    |> Decimal.roundTo -12
-                    |> Decimal.toStringIn Decimal.Sci
-
-            formatFloatStr =
-                String.toFloat >> Maybe.withDefault 0 >> simpleFmt 2
-        in
-        case String.split "e" sci of
-            [ floatStr, exp ] ->
-                formatFloatStr floatStr ++ "e" ++ exp
-
-            _ ->
-                simpleFmt decimals float
-
-    else
-        simpleFmt decimals float
-
-
 formatRichFloat : Int -> String -> Float -> Html msg
 formatRichFloat decimals unit value =
     span []
         [ value
-            |> formatFloat decimals
+            |> DataFormat.formatFloat decimals
             |> text
         , span [ class "fs-unit" ] [ text "\u{202F}", text unit ]
         ]
@@ -162,7 +71,7 @@ complement impact =
         formatted =
             impact
                 |> Unit.impactToFloat
-                |> formatFloat 2
+                |> DataFormat.formatFloat 2
     in
     span []
         [ text <|
@@ -209,12 +118,6 @@ cubicMeters =
 kg : Mass -> Html msg
 kg =
     Mass.inKilograms >> formatRichFloat 3 "kg"
-
-
-kgToString : Mass -> String
-kgToString mass =
-    formatFloat 3 (Mass.inKilograms mass)
-        ++ "kg"
 
 
 km : Length -> Html msg
@@ -270,7 +173,7 @@ yarnSize =
 splitAsFloat : Int -> Split -> Html msg
 splitAsFloat int value =
     Split.toFloat value
-        |> formatFloat int
+        |> DataFormat.formatFloat int
         |> text
 
 
@@ -279,13 +182,6 @@ splitAsPercentage decimals value =
     Split.toPercentString decimals value
         ++ "\u{202F}%"
         |> Html.text
-
-
-frenchDatetime : Posix -> String
-frenchDatetime =
-    DateFormat.formatI18n DateFormat.french
-        "dd/MM/yyyy à HH:mm:ss (UTC)"
-        Time.utc
 
 
 days : Duration -> Html msg

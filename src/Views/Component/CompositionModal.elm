@@ -582,7 +582,7 @@ materialCompositionRows config targetElement materialResults material =
                         , label =
                             span
                                 [ class "cursor-help fs-8"
-                                , title (Format.formatComplementsResultsImpactsToString config.impact complementsImpacts)
+                                , title (Complement.formatComplementsResultsImpacts config.impact complementsImpacts)
                                 ]
                                 [ span [ class "ComponentElementIcon" ] [ Icon.calculator ]
                                 , text "Dont compléments"

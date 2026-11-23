@@ -27,6 +27,7 @@ import Data.Complement as Complement
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
+import Data.Format as Format
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -46,7 +47,6 @@ import Length
 import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
-import Views.Format as Format
 
 
 type alias Stage =
