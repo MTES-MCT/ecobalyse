@@ -107,18 +107,6 @@
   },
   {
     "category": "",
-    "id": "78dfebcb-9eab-4f83-a260-5c5dd24d4fac",
-    "name": "Table 4p chêne et acier (250 x 100)",
-    "query": {
-      "components": [
-        { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 4 },
-        { "id": "260bdfe2-1bef-4fd6-bf68-6e6174686d0d", "quantity": 1 }
-      ]
-    },
-    "scope": "object"
-  },
-  {
-    "category": "",
     "id": "95e6ec8b-7e54-4ac6-b83a-2f4e87fec41c",
     "name": "Tondeuse à gazon, autotractée, moteur thermique 190cm3, fabrication en France",
     "query": {
