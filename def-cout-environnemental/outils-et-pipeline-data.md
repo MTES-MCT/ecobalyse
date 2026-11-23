@@ -1,8 +1,4 @@
----
-hidden: true
----
-
-# Outils et pipeline data
+# ⚙️ Outils et pipeline data
 
 Pour faire fonctionner le calculateur, l’équipe Ecobalyse s’appuie sur plusieurs outils. Ils servent à intégrer les bases de données ACV sources, à assurer les mises à jour et la traçabilité, et à produire certaines données manquantes. L'équipe privilégie les outils open-source/open data, dans une logique de contribution et de collaboration avec d'autres acteurs engagés dans cette dynamique (ex: [Départ de Sentier](https://www.d-d-s.ch/)).&#x20;
 
