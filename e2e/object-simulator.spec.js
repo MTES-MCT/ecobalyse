@@ -1,10 +1,11 @@
 import { test, expect } from "@playwright/test";
-import { waitForAppReady } from "./lib";
+import { openSectorMenu, waitForAppReady } from "./lib";
 
 test("object simulator", async ({ page }) => {
   await page.goto("/");
   await waitForAppReady(page);
-  await page.getByLabel("Menu principal").getByRole("link", { name: "Objets" }).click();
+  const sectorMenu = await openSectorMenu(page);
+  await sectorMenu.getByRole("link", { name: "Autres" }).click();
 
   await page.getByRole("button", { name: "Ajouter un matériau" }).click();
   await page.getByRole("option", { name: "Pied chaise acier" }).click();

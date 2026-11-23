@@ -6,7 +6,7 @@ import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Process as Process
-import Data.Scope exposing (Scope)
+import Data.Sector exposing (Sector)
 import Data.Split as Split
 import Data.Text as Text
 import Data.Textile.Material as Material exposing (Id, Material)
@@ -39,8 +39,8 @@ getRecycledProcess materials material =
             )
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
-table db { detailed, scope } =
+table : Db -> { detailed : Bool, sector : Sector } -> Table Material String msg
+table db { detailed, sector } =
     let
         withPill url content =
             div
@@ -49,7 +49,7 @@ table db { detailed, scope } =
     in
     { filename = "materials"
     , toId = .id >> Material.idToString
-    , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope
+    , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore sector
     , toSearchableText = Material.toSearchableString db.countries >> Text.toSearchable
     , facets =
         [ Table.Facet "Origine de la matière" (.origin >> Origin.toLabel >> List.singleton)

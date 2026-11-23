@@ -44,8 +44,11 @@ boundedList ({ min } as bounds) key items validator accumulator =
     let
         max =
             Maybe.withDefault infinity bounds.max
+
+        length =
+            List.length items
     in
-    if List.length items < min || List.length items > max then
+    if length < min || length > max then
         Err <|
             Dict.singleton key
                 ("La liste '"

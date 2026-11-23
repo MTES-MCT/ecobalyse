@@ -8,10 +8,10 @@
   "id": "cde5ff1f-fab4-4a99-920d-5bc3bebc48bc",
   "massPerUnit": 0.001,
   "metadata": [
-    { "id": "9e53b447-9494-479f-9e73-4e40dca2b0b3", "scopes": ["object"] }
+    { "id": "9e53b447-9494-479f-9e73-4e40dca2b0b3", "scopes": ["furniture", "object"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["object"],
+  "scopes": ["furniture", "object"],
   "source": "Ecobalyse_custom_lci",
   "unit": "item"
 }

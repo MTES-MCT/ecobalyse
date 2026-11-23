@@ -7,7 +7,6 @@ module Data.Common.DecodeUtils exposing
     , strictOptionalWithDefault
     )
 
-import Dict
 import Json.Decode as Decode exposing (Decoder, Error)
 import Json.Decode.Extra as DE
 
@@ -43,14 +42,13 @@ decodeExpected decoder expected =
 
 isEmptyObject : Decode.Value -> Bool
 isEmptyObject =
-    Decode.decodeValue (Decode.dict Decode.value)
-        >> Result.map Dict.isEmpty
+    Decode.decodeValue (Decode.map List.isEmpty (Decode.keyValuePairs Decode.value))
         >> Result.withDefault False
 
 
 {-| A stricter Decode.maybe using Json.Decode.Extra's optionalField here because we want
 a failure when a Maybe decoded field value is invalid, while we still want to treat `null`
-as an acepted value.
+as an accepted value.
 -}
 strictOptional : String -> Decoder a -> Decoder (Maybe a -> b) -> Decoder b
 strictOptional field decoder =

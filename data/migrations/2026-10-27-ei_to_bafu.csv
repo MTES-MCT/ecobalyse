@@ -1,0 +1,109 @@
+,,,,,,,
+EI3.11,BAFU name,tech,geo,Geography,conversion,conversion,Fusionner
+"Battery, lead acid, rechargeable, stationary {RoW}| battery production, lead acid, rechargeable, stationary","Lead acid battery, for lorry",2,2,RER,unit table,"Lead acid battery, for lorry {RER} U",NA
+"Fibre, flax, long, scutched {RER}| fibre production, flax, scutching","Flax straw scutching, long fibers",3,"1,5",FR,unit table,"Flax straw scutching, long fibers {FR} U",NA
+"Textile, nonwoven polyester {GLO}| market for textile, nonwoven polyester","Polyethylene terephthalate, granulate, amorphous, at plant",1,3,GLO,unit table,"Polyethylene terephthalate, granulate, amorphous, at plant {GLO} U",Non
+,,,,,,,
+EI3.9.1,BAFU name,tech,geo,Geography,conversion,nom Brightway,Fusionner
+"acrylic varnish, with water, in 53% solution state//[RER] acrylic varnish production, with water, in 53% solution state","Acrylic varnish, 87.5% in H2O, at plant",2,3,RER,unit table,"Acrylic varnish, 87.5% in H2O, at plant {RER} U",NA
+acrylonitrile-butadiene-styrene copolymer//[GLO] market for acrylonitrile-butadiene-styrene copolymer,"Acrylonitrile-butadiene-styrene copolymer, ABS, at plant",3,"2,5",RER,unit table,"Acrylonitrile-butadiene-styrene copolymer, ABS, at plant {RER} U",NA
+brass//[RoW] market for brass,"Brass, at plant",3,"2,5",CH,unit table,"Brass, at plant {CH} U",NA
+"coating, with melamine impregnated paper//[RER] coating service, melamine impregnated paper, double-sided","Coating, with melamine impregnated paper, double-sided",3,3,RER,unit table,"Coating, with melamine impregnated paper, double-sided {RER} U",NA
+"copper, cathode//[GLO] market for copper, cathode","Copper, at regional storage",2,2,RER,unit table,"Copper, at regional storage {RER} U",NA
+corrugated board box//[RER] corrugated board box production,"Packaging, corrugated board, mixed fibre, single wall, at plant",3,3,RER,unit table,"Packaging, corrugated board, mixed fibre, single wall, at plant {RER} U",NA
+"electric motor, electric passenger car//[GLO] electric motor production, vehicle (electric powertrain)","Electric motor, for electric passenger car",3,2,RER,unit table,"Electric motor, for electric passenger car {RER} U",NA
+"electricity, low voltage//[FR] market for electricity, low voltage","Electricity, low voltage, at grid",3,3,FR,unit table,"Electricity, low voltage, at grid {FR} U",NA
+"electricity, medium voltage//[AL] market for electricity, medium voltage","Electricity, medium voltage, at grid",1,"2,2",RER,unit table,"Electricity, medium voltage, at grid {RER} U",Non
+"electricity, medium voltage//[AU] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,AU,unit table,"Electricity, medium voltage, at grid {AU} U",NA
+"electricity, medium voltage//[BD] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,BD,unit table,"Electricity, medium voltage, at grid {BD} U",NA
+"electricity, medium voltage//[BR] market group for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,BR,unit table,"Electricity, medium voltage, at grid {BR} U",NA
+"electricity, medium voltage//[CN] market group for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,CN,unit table,"Electricity, medium voltage, at grid {CN} U",NA
+"electricity, medium voltage//[CZ] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,CZ,unit table,"Electricity, medium voltage, at grid {CZ} U",NA
+"electricity, medium voltage//[DE] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,DE,unit table,"Electricity, medium voltage, at grid {DE} U",NA
+"electricity, medium voltage//[ES] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,ES,unit table,"Electricity, medium voltage, at grid {ES} U",NA
+"electricity, medium voltage//[ET] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,ET,unit table,"Electricity, medium voltage, at grid {ET} U",NA
+"electricity, medium voltage//[FR] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,FR,unit table,"Electricity, medium voltage, at grid {FR} U",NA
+"electricity, medium voltage//[IN] market group for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,IN,unit table,"Electricity, medium voltage, at grid {IN} U",NA
+"electricity, medium voltage//[IT] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,IT,unit table,"Electricity, medium voltage, at grid {IT} U",NA
+"electricity, medium voltage//[KE] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,0,NZ,unit table,"Electricity, medium voltage, at grid {NZ} U",Non
+"electricity, medium voltage//[KH] market for electricity, medium voltage","Electricity, medium voltage, at grid",1,2,RAS,unit table,"Electricity, medium voltage, at grid {RAS} U",Non
+"electricity, medium voltage//[MA] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,MA,unit table,"Electricity, medium voltage, at grid {MA} U",NA
+"electricity, medium voltage//[MM] market for electricity, medium voltage","Electricity, medium voltage, at grid",1,2,RAS,unit table,"Electricity, medium voltage, at grid {RAS} U",Non
+"electricity, medium voltage//[NL] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,NL,unit table,"Electricity, medium voltage, at grid {NL} U",NA
+"electricity, medium voltage//[NZ] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,NZ,unit table,"Electricity, medium voltage, at grid {NZ} U",Non
+"electricity, medium voltage//[PE] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,PE,unit table,"Electricity, medium voltage, at grid {PE} U",NA
+"electricity, medium voltage//[PK] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,PK,unit table,"Electricity, medium voltage, at grid {PK} U",NA
+"electricity, medium voltage//[PL] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,PL,unit table,"Electricity, medium voltage, at grid {PL} U",NA
+"electricity, medium voltage//[PT] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,PT,unit table,"Electricity, medium voltage, at grid {PT} U",NA
+"electricity, medium voltage//[RAF] market group for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,RAF,unit table,"Electricity, medium voltage, at grid {RAF} U",NA
+"electricity, medium voltage//[RAS] market group for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,RAS,unit table,"Electricity, medium voltage, at grid {RAS} U",Non
+"electricity, medium voltage//[RER] market group for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,RER,unit table,"Electricity, medium voltage, at grid {RER} U",Non
+"electricity, medium voltage//[RLA] market group for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,RLA,unit table,"Electricity, medium voltage, at grid {RLA} U",NA
+"electricity, medium voltage//[RME] market group for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,RME,unit table,"Electricity, medium voltage, at grid {RME} U",NA
+"electricity, medium voltage//[RNA] market group for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,RNA,unit table,"Electricity, medium voltage, at grid {RNA} U",NA
+"electricity, medium voltage//[SK] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,SK,unit table,"Electricity, medium voltage, at grid {SK} U",NA
+"electricity, medium voltage//[TN] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,TN,unit table,"Electricity, medium voltage, at grid {TN} U",NA
+"electricity, medium voltage//[TR] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,TR,unit table,"Electricity, medium voltage, at grid {TR} U",NA
+"electricity, medium voltage//[US] market group for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,US,unit table,"Electricity, medium voltage, at grid {US} U",NA
+"electricity, medium voltage//[VN] market for electricity, medium voltage","Electricity, medium voltage, at grid",3,3,VN,unit table,"Electricity, medium voltage, at grid {VN} U",NA
+"electronics, for control units//[RoW] electronics production, for control units",Electronics for control units,3,"2,5",RER,unit table,Electronics for control units {RER} U,NA
+"epoxy resin, liquid//[RER] epoxy resin production, liquid","Epoxy resin, liquid, at plant",3,3,RER,unit table,"Epoxy resin, liquid, at plant {RER} U",NA
+"extrusion of plastic sheets and thermoforming, inline//[GLO] market for extrusion of plastic sheets and thermoforming, inline","Extrusion, plastic film",2,2,RER,unit table,"Extrusion, plastic film {RER} U",NA
+"fibre, cotton//[RoW] fibre production, cotton, ginning","Cotton fibres, ginned, at farm",3,"1,5",CN,unit table,"Cotton fibres, ginned, at farm {CN} U",NA
+"fibre, jute//[RoW] fibre production, jute, retting","Jute fibres, rainfed system, at farm",1,"1,5",IN,unit table,"Jute fibres, rainfed system, at farm {IN} U",NA
+"fibre, viscose//[GLO] market for fibre, viscose","Viscose fibres, at plant",3,3,GLO,unit table,"Viscose fibres, at plant {GLO} U",NA
+"flat glass, uncoated//[RER] flat glass production, uncoated","Flat glass, uncoated, at plant",3,3,RER,unit table,"Flat glass, uncoated, at plant {RER} U",NA
+injection moulding//[RER] injection moulding,Injection moulding,3,3,RER,unit table,Injection moulding {RER} U,NA
+"internal combustion engine, passenger car//[GLO] internal combustion engine production, passenger car","Internal combustion engine, for passenger car",3,2,RER,unit table,"Internal combustion engine, for passenger car {RER} U",NA
+melamine urea formaldehyde adhesive//[GLO] market for melamine urea formaldehyde adhesive,"Melamine formaldehyde resin, at plant",2,"2,5",RER,unit table,"Melamine formaldehyde resin, at plant {RER} U",NA
+"municipal solid waste//[CH] treatment of municipal solid waste, sanitary landfill","Disposal, municipal solid waste, 22.9% water, to sanitary landfill",3,"1,6",CH,unit table,"Disposal, municipal solid waste, 22.9% water, to sanitary landfill {CH} U",NA
+"municipal solid waste//[FR] treatment of municipal solid waste, incineration","Disposal, municipal solid waste, 22.9% water, to municipal incineration",3,"1,6",CH,unit table,"Disposal, municipal solid waste, 22.9% water, to municipal incineration {CH} U",NA
+nylon 6-6//[RoW] nylon 6-6 production,"Nylon 66, at plant",3,"2,5",RER,unit table,"Nylon 66, at plant {RER} U",NA
+"packaging film, low density polyethylene//[RER] packaging film production, low density polyethylene","Packaging film, LDPE, at plant",3,3,RER,unit table,"Packaging film, LDPE, at plant {RER} U",NA
+paraffin//[GLO] market for paraffin,"Paraffin, at plant",3,"2,5",RER,unit table,"Paraffin, at plant {RER} U",NA
+phenolic resin//[RER] market for phenolic resin,"Phenolic resin, at plant",3,3,RER,unit table,"Phenolic resin, at plant {RER} U",NA
+polycarbonate//[RER] polycarbonate production,"Polycarbonate, at plant",3,3,RER,unit table,"Polycarbonate, at plant {RER} U",NA
+"polyethylene terephthalate, granulate, amorphous, recycled//[RoW] polyethylene terephthalate production, granulate, amorphous, recycled",Xx Recycling PET,1,"2,5",RER,unit table,Xx Recycling PET {RER} U,NA
+"polyethylene terephthalate, granulate, amorphous//[GLO] market for polyethylene terephthalate, granulate, amorphous","Polyethylene terephthalate, granulate, amorphous, at plant",3,2,RER,unit table,"Polyethylene terephthalate, granulate, amorphous, at plant {RER} U",OUI
+"polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous","Polyethylene terephthalate, granulate, amorphous, at plant",3,2,RER,unit table,"Polyethylene terephthalate, granulate, amorphous, at plant {RER} U",OUI
+"polymethyl methacrylate, beads//[RoW] polymethyl methacrylate production, beads","Polymethyl methacrylate, beads, at plant",3,3,RER,unit table,"Polymethyl methacrylate, beads, at plant {RER} U",NA
+"polymethyl methacrylate, sheet//[RER] polymethyl methacrylate production, sheet","Polymethyl methacrylate, sheet, at plant",3,3,RER,unit table,"Polymethyl methacrylate, sheet, at plant {RER} U",NA
+"polypropylene, granulate//[GLO] market for polypropylene, granulate","Polypropylene, granulate, at plant",3,2,RER,unit table,"Polypropylene, granulate, at plant {RER} U",OUI
+"polypropylene, granulate//[RER] polypropylene production, granulate","Polypropylene, granulate, at plant",3,3,RER,unit table,"Polypropylene, granulate, at plant {RER} U",OUI
+"polypropylene, granulate//[RoW] polypropylene production, granulate","Polypropylene, granulate, at plant",3,"0,2",RER,unit table,"Polypropylene, granulate, at plant {RER} U",OUI
+"polyurethane, rigid foam//[RER] polyurethane production, rigid foam","Polyurethane, rigid foam, at plant",3,3,RER,unit table,"Polyurethane, rigid foam, at plant {RER} U",NA
+"polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised","Polyvinylchloride, suspension polymerised, at plant",3,3,RER,unit table,"Polyvinylchloride, suspension polymerised, at plant {RER} U",NA
+"powder coat, aluminium sheet//[RER] powder coating, aluminium sheet","Powder coating, aluminium sheet",3,3,RER,unit table,"Powder coating, aluminium sheet {RER} U",NA
+"powder coat, steel//[RER] powder coating, steel","Powder coating, steel",3,3,RER,unit table,"Powder coating, steel {RER} U",NA
+"sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, beech, sustainable forest management","Sawlog and veneer log, beech, sustainable forest management, measured as solid wood under bark, at forest road",3,3,DE,unit table,"Sawlog and veneer log, beech, sustainable forest management, measured as solid wood under bark, at forest road {DE} U",NA
+"sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, oak, sustainable forest management","Sawlog and veneer log, oak, sustainable forest management, measured as solid wood under bark, at forest road",3,3,DE,unit table,"Sawlog and veneer log, oak, sustainable forest management, measured as solid wood under bark, at forest road {DE} U",NA
+"sawlog and veneer log, softwood, measured as solid wood under bark//[DE] softwood forestry, pine, sustainable forest management","Sawlog and veneer log, pine, sustainable forest management, measured as solid wood under bark, at forest road",3,3,DE,unit table,"Sawlog and veneer log, pine, sustainable forest management, measured as solid wood under bark, at forest road {DE} U",NA
+"sawlog and veneer log, softwood, measured as solid wood under bark//[DE] softwood forestry, spruce, sustainable forest management","Sawlog and veneer log, spruce, sustainable forest management, measured as solid wood under bark, at forest road",3,3,DE,unit table,"Sawlog and veneer log, spruce, sustainable forest management, measured as solid wood under bark, at forest road {DE} U",NA
+"scrap aluminium//[CH] treatment of scrap aluminium, municipal incineration with fly ash extraction","Disposal, aluminium, 0% water, to municipal incineration",2,3,CH,unit table,"Disposal, aluminium, 0% water, to municipal incineration {CH} U",NA
+"scrap copper//[Europe without Switzerland] treatment of scrap copper, municipal incineration","Disposal, copper, 0% water, to municipal incineration",3,"2,5",CH,unit table,"Disposal, copper, 0% water, to municipal incineration {CH} U",NA
+"scrap steel//[CH] treatment of scrap steel, municipal incineration","Disposal, steel, 0% water, to municipal incineration",2,3,CH,unit table,"Disposal, steel, 0% water, to municipal incineration {CH} U",OUI
+"scrap steel//[CH] treatment of scrap steel, municipal incineration with fly ash extraction","Disposal, steel, 0% water, to municipal incineration",2,3,CH,unit table,"Disposal, steel, 0% water, to municipal incineration {CH} U",OUI
+"scrap steel//[Europe without Switzerland] treatment of scrap steel, inert material landfill","Disposal, steel, 0% water, to construction waste landfill",2,2,CH,unit table,"Disposal, steel, 0% water, to construction waste landfill {CH} U",NA
+"steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8","Chromium steel 18/8, at plant",3,2,RER,unit table,"Chromium steel 18/8, at plant {RER} U",NA
+"steel, low-alloyed//[GLO] market for steel, low-alloyed","Steel, low-alloyed, at plant",3,2,RER,unit table,"Steel, low-alloyed, at plant {RER} U",NA
+"steel, unalloyed//[RER] steel production, converter, unalloyed","Steel, converter, unalloyed, at plant",3,3,RER,unit table,"Steel, converter, unalloyed, at plant {RER} U",Non
+"steel, unalloyed//[RoW] steel production, converter, unalloyed","Steel, converter, unalloyed, at plant",3,"2,5",RER,unit table,"Steel, converter, unalloyed, at plant {RER} U",Non
+"sunn hemp plant, harvested//[RoW] sunn hemp production","Hemp culture, hemp straw",2,"2,5",FR,unit table,"Hemp culture, hemp straw {FR} U",NA
+synthetic rubber//[RER] synthetic rubber production,"Synthetic rubber, at plant",3,3,RER,unit table,"Synthetic rubber, at plant {RER} U",NA
+"transport, freight train//[GLO] market group for transport, freight train","Transport, freight, rail",3,2,RER,unit table,"Transport, freight, rail {RER} U",NA
+"transport, freight, lorry, unspecified//[GLO] market group for transport, freight, lorry, unspecified","Transport, freight, lorry, fleet average",3,2,RER,unit table,"Transport, freight, lorry, fleet average {RER} U",NA
+"transport, freight, sea, container ship//[GLO] market for transport, freight, sea, container ship","Transport, transoceanic container ship",3,"2,5",OCE,unit table,"Transport, transoceanic container ship {OCE} U",NA
+urea formaldehyde resin//[RER] market for urea formaldehyde resin,"Urea formaldehyde resin, at plant",3,3,RER,unit table,"Urea formaldehyde resin, at plant {RER} U",NA
+"waste aluminium//[CH] treatment of waste aluminium, sanitary landfill","Disposal, aluminium, 0% water, to sanitary landfill",3,3,CH,unit table,"Disposal, aluminium, 0% water, to sanitary landfill {CH} U",NA
+"waste glass//[CH] treatment of waste glass, inert material landfill","Disposal, glass, 0% water, to construction waste landfill",3,3,CH,unit table,"Disposal, glass, 0% water, to construction waste landfill {CH} U",NA
+"waste glass//[CH] treatment of waste glass, municipal incineration with fly ash extraction","Disposal, glass, 0% water, to municipal incineration",3,3,CH,unit table,"Disposal, glass, 0% water, to municipal incineration {CH} U",NA
+"waste paperboard//[CH] treatment of waste paperboard, municipal incineration with fly ash extraction","Disposal, packaging cardboard, 19.6% water, to municipal incineration",3,3,CH,unit table,"Disposal, packaging cardboard, 19.6% water, to municipal incineration {CH} U",NA
+"waste paperboard//[CH] treatment of waste paperboard, sanitary landfill","Disposal, packaging cardboard, 19.6% water, to sanitary landfill",3,3,CH,unit table,"Disposal, packaging cardboard, 19.6% water, to sanitary landfill {CH} U",NA
+"waste plastic, consumer electronics//[CH] treatment of waste plastic, consumer electronics, municipal incineration with fly ash extraction","Disposal, plastic, consumer electronics, 15.3% water, to municipal incineration",3,3,CH,unit table,"Disposal, plastic, consumer electronics, 15.3% water, to municipal incineration {CH} U",NA
+"waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration","Disposal, plastics, mixture, 15.3% water, to municipal incineration",3,3,CH,unit table,"Disposal, plastics, mixture, 15.3% water, to municipal incineration {CH} U",NA
+"waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill","Disposal, plastics, mixture, 15.3% water, to sanitary landfill",3,3,CH,unit table,"Disposal, plastics, mixture, 15.3% water, to sanitary landfill {CH} U",NA
+"waste polyurethane//[CH] treatment of waste polyurethane, municipal incineration","Disposal, polyurethane, 0.2% water, to municipal incineration",3,3,CH,unit table,"Disposal, polyurethane, 0.2% water, to municipal incineration {CH} U",NA
+"waste polyurethane//[CH] treatment of waste polyurethane, sanitary landfill","Disposal, polyurethane, 0.2% water, to sanitary landfill",3,3,CH,unit table,"Disposal, polyurethane, 0.2% water, to sanitary landfill {CH} U",NA
+"waste textile, soiled//[CH] treatment of waste textile, soiled, municipal incineration with fly ash extraction","Disposal, textiles, soiled, 25% water, to municipal incineration",3,3,CH,unit table,"Disposal, textiles, soiled, 25% water, to municipal incineration {CH} U",NA
+"waste wood, untreated//[CH] treatment of waste wood, untreated, municipal incineration","Disposal, wood untreated, 20% water, to municipal incineration",3,3,CH,unit table,"Disposal, wood untreated, 20% water, to municipal incineration {CH} U",NA
+"waste wood, untreated//[CH] treatment of waste wood, untreated, sanitary landfill","Disposal, building, waste wood, untreated, to final disposal",3,3,CH,unit table,"Disposal, building, waste wood, untreated, to final disposal {CH} U",NA

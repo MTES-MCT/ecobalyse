@@ -2,18 +2,23 @@ module Main exposing (main)
 
 import App exposing (PageUpdate)
 import Browser exposing (Document)
+import Browser.Events
 import Browser.Navigation as Nav
 import Data.Component as Component
 import Data.Component.Config as ComponentConfig
 import Data.Db exposing (Db, RawJsonString)
+import Data.Env as Env
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
+import Data.Key as Key
 import Data.Notification as Notification exposing (Notification)
 import Data.Plausible as Plausible
+import Data.Sector as Sector exposing (Sector)
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
+import Http
 import Page.Api as Api
 import Page.Auth as Auth
 import Page.Editorial as Editorial
@@ -25,7 +30,6 @@ import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
-import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
 import Request.Common as RequestCommon
@@ -34,6 +38,7 @@ import Request.Version as Version exposing (VersionData)
 import Route
 import Toast
 import Url exposing (Url)
+import Views.Navigation as Navigation
 import Views.Page as Page
 
 
@@ -77,11 +82,13 @@ type State
 
 type alias Model =
     { dbLoadingState : LoadingState
+    , feedbackModalOpen : Bool
     , flags : Flags
-    , mobileNavigationOpened : Bool
+    , mobileMenuOpen : Bool
 
     -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
     , navKey : Nav.Key
+    , sectorMenuOpen : Bool
     , state : State
     , tray : Toast.Tray Notification
     , url : Url
@@ -92,14 +99,17 @@ type Msg
     = ApiMsg Api.Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
-    | ComponentConfigReceived Db SessionConfig (WebData Component.Config)
-    | DetailedProcessesReceived SessionConfig (BackendHttp.WebData String)
+    | CloseFeedbackModal
+    | ComponentConfigReceived Db SessionConfig (WebData String)
+    | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | GenericSimulatorMsg GenericSimulator.Msg
     | HomeMsg Home.Msg
     | RawDataReceived SessionConfig (WebData RawJsonString -> LoadingState -> LoadingState) (WebData RawJsonString)
+    | SectorMenuClose
+    | SectorMenuToggle
     | StatsMsg Stats.Msg
     | StoreChanged String
     | TextileSimulatorMsg TextileSimulator.Msg
@@ -111,48 +121,36 @@ type Msg
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags requestedUrl navKey =
-    setRoute requestedUrl
-        ( { dbLoadingState = RequestDb.initLoadingState
-          , flags = flags
-          , mobileNavigationOpened = False
-          , navKey = navKey
-          , state = Initializing
-          , tray = Toast.tray
-          , url = requestedUrl
-          }
-        , Cmd.batch
-            [ Ports.appStarted ()
-            , Version.loadVersion VersionReceived
-            , loadData { flags = flags, navKey = navKey, url = requestedUrl }
-            , Ports.loadJeDonneMonAvis ()
-            ]
-        )
+    ( { dbLoadingState = RequestDb.initLoadingState
+      , feedbackModalOpen = False
+      , flags = flags
+      , mobileMenuOpen = False
+      , navKey = navKey
+      , sectorMenuOpen = False
+      , state = Initializing
+      , tray = Toast.tray
+      , url = requestedUrl
+      }
+    , Cmd.batch
+        [ Ports.appStarted ()
+        , Version.loadVersion VersionReceived
+        , loadData { flags = flags, navKey = navKey, url = requestedUrl }
+        , Ports.loadJeDonneMonAvis ()
+        ]
+    )
 
 
 {-| Loads Db raw json files in parallel.
 -}
 loadData : SessionConfig -> Cmd Msg
 loadData sessionConfig =
-    [ ( "/data/countries.json", \data raw -> { raw | countries = data } )
-    , ( "/data/impacts.json", \data raw -> { raw | definitions = data } )
-    , ( "/data/food2/components.json", \data raw -> { raw | food2Components = data } )
-    , ( "/data/food2/categories.json", \data raw -> { raw | food2ProductCategories = data } )
-    , ( "/data/food2/examples.json", \data raw -> { raw | food2Examples = data } )
-    , ( "/data/food/ingredients.json", \data raw -> { raw | foodIngredients = data } )
-    , ( "/data/food/examples.json", \data raw -> { raw | foodProductExamples = data } )
-    , ( "/data/object/categories.json", \data raw -> { raw | objectProductCategories = data } )
-    , ( "/data/object/components.json", \data raw -> { raw | objectComponents = data } )
-    , ( "/data/object/examples.json", \data raw -> { raw | objectExamples = data } )
-    , ( "/data/processes.json", \data raw -> { raw | processes = data } )
-    , ( "/data/textile/components.json", \data raw -> { raw | textileComponents = data } )
-    , ( "/data/textile/examples.json", \data raw -> { raw | textileProductExamples = data } )
-    , ( "/data/textile/materials.json", \data raw -> { raw | textileMaterials = data } )
-    , ( "/data/textile/products.json", \data raw -> { raw | textileProducts = data } )
-    , ( "/data/transports.json", \data raw -> { raw | transports = data } )
-    , ( "/data/veli/categories.json", \data raw -> { raw | veliProductCategories = data } )
-    , ( "/data/veli/components.json", \data raw -> { raw | veliComponents = data } )
-    , ( "/data/veli/examples.json", \data raw -> { raw | veliExamples = data } )
-    ]
+    ([ ( "/data/countries.json", \data raw -> { raw | countries = data } )
+     , ( "/data/impacts.json", \data raw -> { raw | definitions = data } )
+     , ( "/data/transports.json", \data raw -> { raw | transports = data } )
+     , ( "/data/processes.json", \data raw -> { raw | processes = data } )
+     ]
+        ++ List.concatMap sectorLoadData Sector.all
+    )
         |> List.map
             (\( path, onLoaded ) ->
                 RequestDb.fetchJson path <| RawDataReceived sessionConfig onLoaded
@@ -160,22 +158,77 @@ loadData sessionConfig =
         |> Cmd.batch
 
 
-setupSession : SessionConfig -> LoadingState -> Db -> Component.Config -> Session
-setupSession { flags, navKey } dbLoadingState db componentConfig =
+sectorLoadData : Sector -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
+sectorLoadData sector =
+    case sector of
+        Sector.Food ->
+            [ ( "/data/food/ingredients.json", \data raw -> { raw | foodIngredients = data } )
+            , ( "/data/food/examples.json", \data raw -> { raw | foodProductExamples = data } )
+            ]
+
+        Sector.Generic genericSector ->
+            sectorGenericLoadData genericSector
+
+        Sector.Textile ->
+            [ ( "/data/textile/components.json", \data raw -> { raw | textileComponents = data } )
+            , ( "/data/textile/examples.json", \data raw -> { raw | textileProductExamples = data } )
+            , ( "/data/textile/materials.json", \data raw -> { raw | textileMaterials = data } )
+            , ( "/data/textile/products.json", \data raw -> { raw | textileProducts = data } )
+            ]
+
+
+sectorGenericLoadData : Sector.GenericSector -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
+sectorGenericLoadData sector =
+    case sector of
+        Sector.Apparel ->
+            [ ( "/data/apparel/categories.json", \data raw -> { raw | apparelProductCategories = data } )
+            , ( "/data/apparel/components.json", \data raw -> { raw | apparelComponents = data } )
+            , ( "/data/apparel/examples.json", \data raw -> { raw | apparelExamples = data } )
+            ]
+
+        Sector.Food2 ->
+            [ ( "/data/food2/components.json", \data raw -> { raw | food2Components = data } )
+            , ( "/data/food2/categories.json", \data raw -> { raw | food2ProductCategories = data } )
+            , ( "/data/food2/examples.json", \data raw -> { raw | food2Examples = data } )
+            ]
+
+        Sector.Furniture ->
+            [ ( "/data/furniture/categories.json", \data raw -> { raw | furnitureProductCategories = data } )
+            , ( "/data/furniture/components.json", \data raw -> { raw | furnitureComponents = data } )
+            , ( "/data/furniture/examples.json", \data raw -> { raw | furnitureExamples = data } )
+            ]
+
+        Sector.Object ->
+            [ ( "/data/object/categories.json", \data raw -> { raw | objectProductCategories = data } )
+            , ( "/data/object/components.json", \data raw -> { raw | objectComponents = data } )
+            , ( "/data/object/examples.json", \data raw -> { raw | objectExamples = data } )
+            ]
+
+        Sector.Veli ->
+            [ ( "/data/veli/categories.json", \data raw -> { raw | veliProductCategories = data } )
+            , ( "/data/veli/components.json", \data raw -> { raw | veliComponents = data } )
+            , ( "/data/veli/examples.json", \data raw -> { raw | veliExamples = data } )
+            ]
+
+
+setupSession : SessionConfig -> LoadingState -> Db -> String -> Component.Config -> Session
+setupSession { flags, navKey } dbLoadingState db componentRawConfig componentConfig =
     Session.decodeRawStore flags.rawStore
         { clientUrl = flags.clientUrl
         , componentConfig = componentConfig
         , currentVersion = Version.Unknown
         , db = db
-        , dbRawJson = RequestDb.toRawJsonStrings dbLoadingState
+        , detailedImpacts = False
         , enabledSections = flags.enabledSections
         , matomo = flags.matomo
         , navKey = navKey
         , notifications = []
         , plausible = flags.plausible
         , queries =
-            { food = FoodQuery.empty
+            { apparel = Component.emptyQuery
+            , food = FoodQuery.empty
             , food2 = Component.emptyQuery
+            , furniture = Component.emptyQuery
             , object = Component.emptyQuery
             , textile =
                 db.textile.examples
@@ -184,138 +237,142 @@ setupSession { flags, navKey } dbLoadingState db componentConfig =
                     |> Result.withDefault TextileQuery.default
             , veli = Component.emptyQuery
             }
+        , rawData =
+            { config = componentRawConfig
+            , db = RequestDb.toRawJsonStrings dbLoadingState
+            }
         , scalingoAppName = flags.scalingoAppName
         , store = Session.defaultStore
         , versionPollSeconds = flags.versionPollSeconds
         }
 
 
+saveStore : Session -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
+saveStore previousSession ( model, cmds ) =
+    ( model
+    , case model.state of
+        Loaded session _ ->
+            if previousSession.store /= session.store then
+                Cmd.batch
+                    [ cmds
+                    , session.store |> Session.serializeStore |> Ports.saveStore
+                    ]
+
+            else
+                cmds
+
+        _ ->
+            cmds
+    )
+
+
 toPage :
-    Session
-    -> Model
+    Model
     -> Cmd Msg
     -> (pageModel -> Page)
     -> (pageMsg -> Msg)
     -> PageUpdate pageModel pageMsg
     -> ( Model, Cmd Msg )
-toPage session model cmds toModel toMsg pageUpdate =
-    let
-        storeCmd =
-            if session.store /= pageUpdate.session.store then
-                pageUpdate.session.store |> Session.serializeStore |> Ports.saveStore
-
-            else
-                Cmd.none
-    in
+toPage model cmds toModel toMsg pageUpdate =
     ( { model | state = Loaded pageUpdate.session (toModel pageUpdate.model) }
     , Cmd.batch
         [ cmds
         , Cmd.map toMsg pageUpdate.cmd
-        , storeCmd
         , pageUpdate |> App.mapToCmd AppMsg
         ]
     )
 
 
-setRoute : Url -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
-setRoute url ( { state } as model, cmds ) =
-    case state of
-        Errored _ ->
-            -- FIXME: Static database decoding error, highly unlikely to ever happen
-            ( model, cmds )
+setRoute : Url -> Session -> Page -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
+setRoute url session currentPage ( model, cmds ) =
+    case Route.fromUrl url of
+        Just Route.Api ->
+            Api.init session
+                |> toPage model cmds ApiPage ApiMsg
 
-        Initializing ->
-            ( model, cmds )
+        Just Route.Auth ->
+            let
+                authInit =
+                    Auth.init session
+                        |> toPage model cmds AuthPage AuthMsg
+            in
+            case currentPage of
+                AuthPage ({ skipNextAuthInit } as authModel) ->
+                    if skipNextAuthInit && Session.isAuthenticated session then
+                        ( { model | state = Loaded session <| AuthPage { authModel | skipNextAuthInit = False } }
+                        , cmds
+                        )
 
-        Loaded session currentPage ->
-            case Route.fromUrl url of
-                Just Route.Api ->
-                    Api.init session
-                        |> toPage session model cmds ApiPage ApiMsg
+                    else
+                        authInit
 
-                Just Route.Auth ->
-                    let
-                        authInit =
-                            Auth.init session
-                                |> toPage session model cmds AuthPage AuthMsg
-                    in
-                    case currentPage of
-                        AuthPage ({ skipNextAuthInit } as authModel) ->
-                            if skipNextAuthInit && Session.isAuthenticated session then
-                                ( { model | state = Loaded session <| AuthPage { authModel | skipNextAuthInit = False } }
-                                , cmds
-                                )
+                _ ->
+                    authInit
 
-                            else
-                                authInit
+        Just (Route.AuthLogin email token) ->
+            Auth.initLogin session email token
+                |> toPage model cmds AuthPage AuthMsg
 
-                        _ ->
-                            authInit
+        Just Route.AuthSignup ->
+            Auth.initSignup session
+                |> toPage model cmds AuthPage AuthMsg
 
-                Just (Route.AuthLogin email token) ->
-                    Auth.initLogin session email token
-                        |> toPage session model cmds AuthPage AuthMsg
+        Just (Route.Editorial slug) ->
+            Editorial.init slug session
+                |> toPage model cmds EditorialPage EditorialMsg
 
-                Just Route.AuthSignup ->
-                    Auth.initSignup session
-                        |> toPage session model cmds AuthPage AuthMsg
+        Just (Route.Explore sector dataset) ->
+            Explore.init sector dataset session
+                |> toPage model cmds ExplorePage ExploreMsg
 
-                Just (Route.Editorial slug) ->
-                    Editorial.init slug session
-                        |> toPage session model cmds EditorialPage EditorialMsg
+        Just (Route.FoodBuilder trigram maybeQuery) ->
+            FoodBuilder.init session trigram maybeQuery
+                |> toPage model cmds FoodBuilderPage FoodBuilderMsg
 
-                Just (Route.Explore scope dataset) ->
-                    Explore.init scope dataset session
-                        |> toPage session model cmds ExplorePage ExploreMsg
+        Just (Route.FoodBuilderExample uuid) ->
+            FoodBuilder.initFromExample session uuid
+                |> toPage model cmds FoodBuilderPage FoodBuilderMsg
 
-                Just (Route.FoodBuilder trigram maybeQuery) ->
-                    FoodBuilder.init session trigram maybeQuery
-                        |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
+        Just Route.FoodBuilderHome ->
+            FoodBuilder.init session Impact.default Nothing
+                |> toPage model cmds FoodBuilderPage FoodBuilderMsg
 
-                Just (Route.FoodBuilderExample uuid) ->
-                    FoodBuilder.initFromExample session uuid
-                        |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
+        Just (Route.GenericSimulator genericSector trigram maybeQuery) ->
+            GenericSimulator.init genericSector trigram maybeQuery session
+                |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
 
-                Just Route.FoodBuilderHome ->
-                    FoodBuilder.init session Impact.default Nothing
-                        |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
+        Just (Route.GenericSimulatorExample genericSector uuid) ->
+            GenericSimulator.initFromExample session genericSector uuid
+                |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
 
-                Just (Route.GenericSimulator genericScope trigram maybeQuery) ->
-                    GenericSimulator.init genericScope trigram maybeQuery session
-                        |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
+        Just Route.Home ->
+            Home.init session
+                |> toPage model cmds HomePage HomeMsg
 
-                Just (Route.GenericSimulatorExample genericScope uuid) ->
-                    GenericSimulator.initFromExample session genericScope uuid
-                        |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
+        Just (Route.GenericSimulatorHome genericSector) ->
+            GenericSimulator.init genericSector Impact.default Nothing session
+                |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
 
-                Just Route.Home ->
-                    Home.init session
-                        |> toPage session model cmds HomePage HomeMsg
+        Just Route.Stats ->
+            Stats.init session
+                |> toPage model cmds StatsPage StatsMsg
 
-                Just (Route.GenericSimulatorHome genericScope) ->
-                    GenericSimulator.init genericScope Impact.default Nothing session
-                        |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
+        Just (Route.TextileSimulator trigram maybeQuery) ->
+            TextileSimulator.init trigram maybeQuery session
+                |> toPage model cmds TextileSimulatorPage TextileSimulatorMsg
 
-                Just Route.Stats ->
-                    Stats.init session
-                        |> toPage session model cmds StatsPage StatsMsg
+        Just (Route.TextileSimulatorExample uuid) ->
+            TextileSimulator.initFromExample session uuid
+                |> toPage model cmds TextileSimulatorPage TextileSimulatorMsg
 
-                Just (Route.TextileSimulator trigram maybeQuery) ->
-                    TextileSimulator.init trigram maybeQuery session
-                        |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
+        Just Route.TextileSimulatorHome ->
+            TextileSimulator.init Impact.default Nothing session
+                |> toPage model cmds TextileSimulatorPage TextileSimulatorMsg
 
-                Just (Route.TextileSimulatorExample uuid) ->
-                    TextileSimulator.initFromExample session uuid
-                        |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
-
-                Just Route.TextileSimulatorHome ->
-                    TextileSimulator.init Impact.default Nothing session
-                        |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
-
-                Nothing ->
-                    ( { model | state = Loaded session NotFoundPage }
-                    , Cmd.none
-                    )
+        Nothing ->
+            ( { model | state = Loaded session NotFoundPage }
+            , Cmd.none
+            )
 
 
 {-| Updates current page and recomputes results that were possibly cached against the previous database.
@@ -339,51 +396,78 @@ refreshCachedResults session currentPage =
 
 updateInitializing : Msg -> Model -> ( Model, Cmd Msg )
 updateInitializing initMsg model =
+    let
+        configLoadingError err =
+            "Impossible de charger la configuration des composants: " ++ err
+    in
     case initMsg of
         -- Components
-        ComponentConfigReceived db sessionConfig (RemoteData.Success componentConfig) ->
-            let
-                session =
-                    setupSession sessionConfig model.dbLoadingState db componentConfig
-            in
-            setRoute sessionConfig.url
-                ( { model | state = Loaded session LoadingPage }
-                , Cmd.batch
-                    [ if Session.isAuthenticated session then
-                        Request.Auth.processes session (DetailedProcessesReceived sessionConfig)
+        ComponentConfigReceived db sessionConfig remoteData ->
+            case remoteData of
+                RemoteData.Failure error ->
+                    ( { model
+                        | state =
+                            RequestCommon.errorToString error
+                                |> configLoadingError
+                                |> Errored
+                      }
+                    , Cmd.none
+                    )
 
-                      else
-                        Cmd.none
-                    , Plausible.send session <| Plausible.PageViewed sessionConfig.url
-                    ]
-                )
+                RemoteData.Loading ->
+                    ( model, Cmd.none )
 
-        ComponentConfigReceived _ _ (RemoteData.Failure error) ->
-            ( { model
-                | state =
-                    Errored <|
-                        "Impossible de charger la configuration des composants: "
-                            ++ RequestCommon.errorToString error
-              }
-            , Cmd.none
-            )
+                RemoteData.NotAsked ->
+                    ( model, Cmd.none )
+
+                RemoteData.Success componentRawConfig ->
+                    case ComponentConfig.parse db componentRawConfig of
+                        Err error ->
+                            ( { model | state = Errored <| configLoadingError error }
+                            , Cmd.none
+                            )
+
+                        Ok componentConfig ->
+                            let
+                                session =
+                                    componentConfig
+                                        |> setupSession sessionConfig model.dbLoadingState db componentRawConfig
+                            in
+                            ( { model | state = Loaded session LoadingPage }
+                            , Cmd.batch
+                                [ if Session.hasAccessToDetailedImpacts session then
+                                    Request.Auth.processes session DetailedProcessesReceived
+
+                                  else
+                                    Cmd.none
+                                , Plausible.send session <| Plausible.PageViewed sessionConfig.url
+                                ]
+                            )
+                                |> setRoute sessionConfig.url session LoadingPage
 
         -- Raw Json Db data received over HTTP
         RawDataReceived sessionConfig updateRaw data ->
-            case model.dbLoadingState |> RequestDb.updateRawJson (updateRaw data) of
-                ( rawJsonData, Just (Ok db) ) ->
+            let
+                rawJsonData : LoadingState
+                rawJsonData =
+                    updateRaw data model.dbLoadingState
+            in
+            case RequestDb.updateRawJson rawJsonData of
+                Just (Ok db) ->
                     ( { model | dbLoadingState = rawJsonData }
                       -- trigger loading the json config over http
-                    , ComponentConfig.decode db
-                        |> Http.get "/data/components/config.json" (ComponentConfigReceived db sessionConfig)
+                    , Http.get
+                        { expect = Http.expectString (RemoteData.fromResult >> ComponentConfigReceived db sessionConfig)
+                        , url = "/data/components/config.json"
+                        }
                     )
 
-                ( rawJsonData, Just (Err err) ) ->
+                Just (Err err) ->
                     ( { model | dbLoadingState = rawJsonData, state = Errored (RequestDb.dbErrorToString err) }
                     , Cmd.none
                     )
 
-                ( rawJsonData, Nothing ) ->
+                Nothing ->
                     ( { model | dbLoadingState = rawJsonData }
                     , Cmd.none
                     )
@@ -393,220 +477,321 @@ updateInitializing initMsg model =
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update rawMsg ({ state } as model) =
-    case ( state, rawMsg ) of
-        ( Errored _, _ ) ->
+update msg ({ state } as model) =
+    case state of
+        Errored _ ->
             ( model, Cmd.none )
 
-        ( Initializing, initMsg ) ->
-            updateInitializing initMsg model
+        Initializing ->
+            updateInitializing msg model
 
-        ( Loaded session page, msg ) ->
-            case ( msg, page ) of
-                -- Global app messages
-                ( AppMsg (App.AddToast notification), _ ) ->
-                    let
-                        ( newTray, newToastMsg ) =
-                            Toast.add model.tray <|
-                                case notification.level of
-                                    Notification.Error ->
-                                        Toast.persistent notification
+        Loaded session page ->
+            updateLoaded session page msg model
+                |> saveStore session
 
-                                    _ ->
-                                        Toast.expireOnBlur 5000 notification
-                    in
-                    ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
-                ( AppMsg App.CloseMobileNavigation, _ ) ->
-                    ( { model | mobileNavigationOpened = False }, Cmd.none )
-
-                ( AppMsg (App.CloseNotification notification), currentPage ) ->
-                    ( { model
-                        | state =
-                            currentPage
-                                |> Loaded (session |> Session.closeNotification notification)
-                      }
-                    , Cmd.none
-                    )
-
-                ( AppMsg (App.LoadUrl url), _ ) ->
-                    ( model, Nav.load url )
-
-                ( AppMsg App.OpenMobileNavigation, _ ) ->
-                    ( { model | mobileNavigationOpened = True }, Cmd.none )
-
-                ( AppMsg App.ReloadPage, _ ) ->
-                    ( model, Nav.reloadAndSkipCache )
-
-                ( AppMsg App.ResetSessionStore, currentPage ) ->
-                    let
-                        newSession =
-                            -- FIXME: remove notifications from session
-                            { session | notifications = [], store = Session.defaultStore }
-                    in
-                    ( { model | state = currentPage |> Loaded newSession }
-                    , Cmd.batch
-                        [ newSession.store |> Session.serializeStore |> Ports.saveStore
-                        , Notification.info "La session a été réinitialisée."
-                            |> App.AddToast
-                            |> App.toCmd AppMsg
-                        ]
-                    )
-
-                ( AppMsg (App.SwitchVersion version), _ ) ->
-                    ( model
-                    , Nav.load <|
-                        "/versions/"
-                            ++ version
-                            ++ "/#"
-                            ++ Maybe.withDefault "" model.url.fragment
-                    )
-
-                -- Toast notifications
-                ( AppMsg (App.ToastMsg toastMsg), _ ) ->
-                    let
-                        ( newTray, newToastMsg ) =
-                            Toast.update toastMsg model.tray
-                    in
-                    ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
-
-                -- Component config reloaded after detailed processes are received
-                ( ComponentConfigReceived _ _ (RemoteData.Success componentConfig), currentPage ) ->
-                    let
-                        updatedSession =
-                            { session | componentConfig = componentConfig }
-                    in
-                    ( { model
-                        | state =
-                            -- refresh simulator results cached from the previous config and db
-                            currentPage
-                                |> refreshCachedResults updatedSession
-                                |> Loaded updatedSession
-                      }
-                    , Cmd.none
-                    )
-
-                ( ComponentConfigReceived _ _ (RemoteData.Failure error), _ ) ->
-                    notifyError model "Erreur" <|
-                        "Impossible de recharger la configuration des composants\u{00A0}: "
-                            ++ RequestCommon.errorToString error
-
-                -- Detailed processes
-                ( DetailedProcessesReceived sessionConfig (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
-                    let
-                        newSession =
-                            -- When detailed processes are received, rebuild the entire Db using them
-                            session
-                                |> Session.updateDbProcesses rawDetailedProcessesJson
-                    in
-                    ( { model | state = Loaded newSession currentPage }
-                    , ComponentConfig.decode newSession.db
-                        |> Http.get "/data/components/config.json" (ComponentConfigReceived newSession.db sessionConfig)
-                    )
-
-                ( DetailedProcessesReceived _ (RemoteData.Failure _), _ ) ->
-                    notifyError model "Erreur" <|
-                        "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
-
-                -- Pages
-                ( ApiMsg apiMsg, ApiPage apiModel ) ->
+updateLoaded : Session -> Page -> Msg -> Model -> ( Model, Cmd Msg )
+updateLoaded session page msg model =
+    case msg of
+        ApiMsg apiMsg ->
+            case page of
+                ApiPage apiModel ->
                     Api.update session apiMsg apiModel
-                        |> toPage session model Cmd.none ApiPage ApiMsg
-
-                ( AuthMsg authMsg, AuthPage authModel ) ->
-                    Auth.update session authMsg authModel
-                        |> toPage session model Cmd.none AuthPage AuthMsg
-
-                ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
-                    Editorial.update session editorialMsg editorialModel
-                        |> toPage session model Cmd.none EditorialPage EditorialMsg
-
-                ( ExploreMsg examplesMsg, ExplorePage examplesModel ) ->
-                    Explore.update session examplesMsg examplesModel
-                        |> toPage session model Cmd.none ExplorePage ExploreMsg
-
-                -- Food
-                ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
-                    FoodBuilder.update session foodMsg foodModel
-                        |> toPage session model Cmd.none FoodBuilderPage FoodBuilderMsg
-
-                -- Home
-                ( HomeMsg homeMsg, HomePage homeModel ) ->
-                    Home.update session homeMsg homeModel
-                        |> toPage session model Cmd.none HomePage HomeMsg
-
-                -- Generic simulator
-                ( GenericSimulatorMsg genericMsg, GenericSimulatorPage genericModel ) ->
-                    GenericSimulator.update session genericMsg genericModel
-                        |> toPage session model Cmd.none GenericSimulatorPage GenericSimulatorMsg
-
-                -- Stats
-                ( StatsMsg statsMsg, StatsPage statsModel ) ->
-                    Stats.update session statsMsg statsModel
-                        |> toPage session model Cmd.none StatsPage StatsMsg
-
-                -- Store
-                ( StoreChanged json, currentPage ) ->
-                    ( { model
-                        | state =
-                            currentPage
-                                |> Loaded (session |> Session.decodeRawStore json)
-                      }
-                    , Cmd.none
-                    )
-
-                -- Textile
-                ( TextileSimulatorMsg textileMsg, TextileSimulatorPage textileModel ) ->
-                    TextileSimulator.update session textileMsg textileModel
-                        |> toPage session model Cmd.none TextileSimulatorPage TextileSimulatorMsg
-
-                -- Url
-                ( UrlChanged url, _ ) ->
-                    ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
-                        |> setRoute url
-                        |> Tuple.mapSecond (\cmd -> Cmd.batch [ cmd, Plausible.send session <| Plausible.PageViewed url ])
-
-                ( UrlRequested (Browser.Internal url), _ ) ->
-                    ( { model | url = url }, Nav.pushUrl session.navKey (Url.toString url) )
-
-                ( UrlRequested (Browser.External href), _ ) ->
-                    ( model, Nav.load href )
-
-                -- Version check
-                ( VersionReceived webData, currentPage ) ->
-                    ( { model
-                        | state =
-                            currentPage
-                                |> Loaded { session | currentVersion = Version.update session.currentVersion webData }
-                      }
-                    , Cmd.none
-                    )
-
-                ( VersionPoll, _ ) ->
-                    ( model, Version.loadVersion VersionReceived )
-
-                ( _, NotFoundPage ) ->
-                    ( { model | state = Loaded session NotFoundPage }
-                    , Cmd.none
-                    )
+                        |> toPage model Cmd.none ApiPage ApiMsg
 
                 _ ->
                     ( model, Cmd.none )
 
+        -- Global app messages
+        AppMsg appMsg ->
+            updateGlobalApp session page appMsg model
 
-notifyError : Model -> String -> String -> ( Model, Cmd Msg )
-notifyError model title message =
-    ( model
-    , Notification.error title message
-        |> App.AddToast
-        |> App.toCmd AppMsg
-    )
+        AuthMsg authMsg ->
+            case page of
+                AuthPage authModel ->
+                    Auth.update session authMsg authModel
+                        |> toPage model Cmd.none AuthPage AuthMsg
+
+                _ ->
+                    ( model, Cmd.none )
+
+        CloseFeedbackModal ->
+            ( { model | feedbackModalOpen = False }, Cmd.none )
+
+        -- Initial config response is handled while `Initializing`
+        ComponentConfigReceived _ _ _ ->
+            ( model, Cmd.none )
+
+        -- Detailed processes
+        DetailedProcessesReceived remoteData ->
+            updateDetailedProcess remoteData session page model
+
+        EditorialMsg editorialMsg ->
+            case page of
+                EditorialPage editorialModel ->
+                    Editorial.update session editorialMsg editorialModel
+                        |> toPage model Cmd.none EditorialPage EditorialMsg
+
+                _ ->
+                    ( model, Cmd.none )
+
+        ExploreMsg examplesMsg ->
+            case page of
+                ExplorePage examplesModel ->
+                    Explore.update session examplesMsg examplesModel
+                        |> toPage model Cmd.none ExplorePage ExploreMsg
+
+                _ ->
+                    ( model, Cmd.none )
+
+        -- Food
+        FoodBuilderMsg foodMsg ->
+            case page of
+                FoodBuilderPage foodModel ->
+                    FoodBuilder.update session foodMsg foodModel
+                        |> toPage model Cmd.none FoodBuilderPage FoodBuilderMsg
+                        |> trackUsage (FoodBuilder.shouldTrackUsage foodMsg)
+
+                _ ->
+                    ( model, Cmd.none )
+
+        -- Generic simulator
+        GenericSimulatorMsg genericMsg ->
+            case page of
+                GenericSimulatorPage genericModel ->
+                    GenericSimulator.update session genericMsg genericModel
+                        |> toPage model Cmd.none GenericSimulatorPage GenericSimulatorMsg
+                        |> trackUsage (GenericSimulator.shouldTrackUsage genericMsg)
+
+                _ ->
+                    ( model, Cmd.none )
+
+        -- Home
+        HomeMsg homeMsg ->
+            case page of
+                HomePage homeModel ->
+                    Home.update session homeMsg homeModel
+                        |> toPage model Cmd.none HomePage HomeMsg
+
+                _ ->
+                    ( model, Cmd.none )
+
+        RawDataReceived _ _ _ ->
+            ( model, Cmd.none )
+
+        SectorMenuClose ->
+            ( { model | sectorMenuOpen = False }, Cmd.none )
+
+        SectorMenuToggle ->
+            ( { model | sectorMenuOpen = not model.sectorMenuOpen }, Cmd.none )
+
+        -- Stats
+        StatsMsg statsMsg ->
+            case page of
+                StatsPage statsModel ->
+                    Stats.update session statsMsg statsModel
+                        |> toPage model Cmd.none StatsPage StatsMsg
+
+                _ ->
+                    ( model, Cmd.none )
+
+        -- Store
+        StoreChanged json ->
+            let
+                newSession =
+                    session |> Session.decodeRawStore json
+
+                newPage =
+                    if session.detailedImpacts /= newSession.detailedImpacts then
+                        page |> refreshCachedResults newSession
+
+                    else
+                        page
+            in
+            ( { model | state = Loaded newSession newPage }
+            , Cmd.none
+            )
+
+        -- Textile
+        TextileSimulatorMsg textileMsg ->
+            case page of
+                TextileSimulatorPage textileModel ->
+                    TextileSimulator.update session textileMsg textileModel
+                        |> toPage model Cmd.none TextileSimulatorPage TextileSimulatorMsg
+                        |> trackUsage (TextileSimulator.shouldTrackUsage textileMsg)
+
+                _ ->
+                    ( model, Cmd.none )
+
+        -- Url
+        UrlChanged url ->
+            ( { model | mobileMenuOpen = False, sectorMenuOpen = False, url = url }, Cmd.none )
+                |> setRoute url session page
+                |> Tuple.mapSecond (\cmd -> Cmd.batch [ cmd, Plausible.send session <| Plausible.PageViewed url ])
+
+        UrlRequested (Browser.Internal url) ->
+            ( { model | url = url }, Nav.pushUrl session.navKey (Url.toString url) )
+
+        UrlRequested (Browser.External href) ->
+            ( model, Nav.load href )
+
+        VersionPoll ->
+            ( model, Version.loadVersion VersionReceived )
+
+        -- Version check
+        VersionReceived webData ->
+            ( { model
+                | state =
+                    page
+                        |> Loaded { session | currentVersion = Version.update session.currentVersion webData }
+              }
+            , Cmd.none
+            )
+
+
+updateGlobalApp : Session -> Page -> App.Msg -> Model -> ( Model, Cmd Msg )
+updateGlobalApp session page msg model =
+    case msg of
+        App.AddToast notification ->
+            let
+                ( newTray, newToastMsg ) =
+                    Toast.add model.tray <|
+                        case notification.level of
+                            Notification.Error ->
+                                Toast.persistent notification
+
+                            _ ->
+                                Toast.expireOnBlur 5000 notification
+            in
+            ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
+
+        App.CloseMobileNavigation ->
+            ( { model | mobileMenuOpen = False }, Cmd.none )
+
+        App.CloseNotification notification ->
+            ( { model
+                | state =
+                    page
+                        |> Loaded (session |> Session.closeNotification notification)
+              }
+            , Cmd.none
+            )
+
+        App.LoadUrl url ->
+            ( model, Nav.load url )
+
+        App.OpenMobileNavigation ->
+            ( { model | mobileMenuOpen = True }, Cmd.none )
+
+        App.ReloadPage ->
+            ( model, Nav.reloadAndSkipCache )
+
+        App.ResetSessionStore ->
+            let
+                newSession =
+                    -- FIXME: remove notifications from session
+                    { session | notifications = [], store = Session.defaultStore }
+            in
+            ( { model
+                | feedbackModalOpen = False
+                , state = page |> Loaded newSession
+              }
+            , Notification.info "La session a été réinitialisée."
+                |> App.AddToast
+                |> App.toCmd AppMsg
+            )
+
+        -- Toast notifications
+        App.ToastMsg toastMsg ->
+            let
+                ( newTray, newToastMsg ) =
+                    Toast.update toastMsg model.tray
+            in
+            ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
+
+
+updateDetailedProcess : BackendHttp.WebData String -> Session -> Page -> Model -> ( Model, Cmd Msg )
+updateDetailedProcess remoteData session page model =
+    case remoteData of
+        RemoteData.Failure _ ->
+            ( model
+            , Notification.error "Erreur"
+                "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
+                |> App.AddToast
+                |> App.toCmd AppMsg
+            )
+
+        RemoteData.Loading ->
+            ( model, Cmd.none )
+
+        RemoteData.NotAsked ->
+            ( model, Cmd.none )
+
+        RemoteData.Success rawDetailedProcessesJson ->
+            let
+                newSession =
+                    session |> Session.updateDbProcesses rawDetailedProcessesJson
+            in
+            ( { model
+                | state =
+                    page
+                        |> refreshCachedResults newSession
+                        |> Loaded newSession
+              }
+            , Cmd.none
+            )
+
+
+trackUsage : Bool -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
+trackUsage shouldTrack ( model, cmds ) =
+    if not shouldTrack then
+        ( model, cmds )
+
+    else
+        case model.state of
+            Errored _ ->
+                ( model, cmds )
+
+            Initializing ->
+                ( model, cmds )
+
+            Loaded session currentPage ->
+                let
+                    ( openPrompt, newSession ) =
+                        if session.store.usageCount < Env.usageThreshold then
+                            let
+                                usageCount =
+                                    session.store.usageCount + 1
+                            in
+                            ( usageCount == Env.usageThreshold
+                            , session |> Session.updateStore (\store -> { store | usageCount = usageCount })
+                            )
+
+                        else
+                            ( False, session )
+                in
+                ( { model
+                    | feedbackModalOpen = model.feedbackModalOpen || openPrompt
+                    , state = Loaded newSession currentPage
+                  }
+                , cmds
+                )
 
 
 subscriptions : Model -> Sub Msg
-subscriptions { state } =
+subscriptions { feedbackModalOpen, sectorMenuOpen, state } =
     Sub.batch
         [ Ports.storeChanged StoreChanged
+        , if feedbackModalOpen then
+            Browser.Events.onKeyDown (Key.escape CloseFeedbackModal)
+
+          else
+            Sub.none
+        , if sectorMenuOpen then
+            Browser.Events.onKeyDown (Key.escape SectorMenuClose)
+
+          else
+            Sub.none
         , case state of
             Loaded { versionPollSeconds } _ ->
                 Version.pollVersion versionPollSeconds VersionPoll
@@ -636,18 +821,23 @@ subscriptions { state } =
 
 
 view : Model -> Document Msg
-view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
+view { dbLoadingState, feedbackModalOpen, flags, mobileMenuOpen, sectorMenuOpen, state, tray } =
     let
         defaultPageConfig =
-            { activePage = Page.Other
+            { activePage = Navigation.Other
             , clientUrl = flags.clientUrl
+            , closeFeedbackModal = CloseFeedbackModal
             , currentVersion = Version.Unknown
             , enabledSections = flags.enabledSections
-            , hasAccessToDetailedImpacts = False
+            , feedbackModalOpen = feedbackModalOpen
             , isAuthenticated = False
             , isSuperuser = False
-            , mobileNavigationOpened = mobileNavigationOpened
+            , mobileNavigationOpened = mobileMenuOpen
             , notifications = []
+            , sectorMenuClose = SectorMenuClose
+            , sectorMenuOpened = sectorMenuOpen
+            , sectorMenuToggle = SectorMenuToggle
+            , termsAccepted = False
             , toMsg = AppMsg
             , tray = tray
             }
@@ -673,10 +863,10 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
                         { defaultPageConfig
                             | activePage = activePage
                             , currentVersion = session.currentVersion
-                            , hasAccessToDetailedImpacts = Session.hasAccessToDetailedImpacts session
                             , isAuthenticated = Session.isAuthenticated session
                             , isSuperuser = Session.isSuperuser session
                             , notifications = session.notifications
+                            , termsAccepted = Session.hasAccessToDetailedImpacts session
                             , tray = tray
                         }
 
@@ -687,55 +877,55 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
                 ApiPage _ ->
                     Api.view session
                         |> mapMsg ApiMsg
-                        |> frame Page.Api
+                        |> frame Navigation.Api
 
                 AuthPage authModel ->
                     Auth.view session authModel
                         |> mapMsg AuthMsg
-                        |> frame Page.Auth
+                        |> frame Navigation.Auth
 
                 EditorialPage editorialModel ->
                     Editorial.view editorialModel
                         |> mapMsg EditorialMsg
-                        |> frame (Page.Editorial editorialModel.slug)
+                        |> frame (Navigation.Editorial editorialModel.slug)
 
                 ExplorePage examplesModel ->
                     Explore.view session examplesModel
                         |> mapMsg ExploreMsg
-                        |> frame Page.Explore
+                        |> frame Navigation.Explore
 
                 FoodBuilderPage foodModel ->
                     FoodBuilder.view session foodModel
                         |> mapMsg FoodBuilderMsg
-                        |> frame Page.Food
+                        |> frame Navigation.Food
 
                 GenericSimulatorPage simulatorModel ->
                     GenericSimulator.view session simulatorModel
                         |> mapMsg GenericSimulatorMsg
-                        |> frame (Page.Generic simulatorModel.genericScope)
+                        |> frame (Navigation.Generic simulatorModel.genericSector)
 
                 HomePage _ ->
                     Home.view session
                         |> mapMsg HomeMsg
-                        |> frame Page.Home
+                        |> frame Navigation.Home
 
                 LoadingPage ->
                     ( "Chargement…", [ Page.loading Nothing ] )
-                        |> frame Page.Other
+                        |> frame Navigation.Other
 
                 NotFoundPage ->
                     ( "404", [ Page.notFound ] )
-                        |> frame Page.Other
+                        |> frame Navigation.Other
 
                 StatsPage statsModel ->
                     Stats.view session statsModel
                         |> mapMsg StatsMsg
-                        |> frame Page.Stats
+                        |> frame Navigation.Stats
 
                 TextileSimulatorPage simulatorModel ->
                     TextileSimulator.view session simulatorModel
                         |> mapMsg TextileSimulatorMsg
-                        |> frame Page.TextileSimulator
+                        |> frame Navigation.TextileSimulator
 
 
 main : Program Flags Model Msg

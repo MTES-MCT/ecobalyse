@@ -5,6 +5,7 @@
     "items": {
       "properties": {
         "alias": { "type": "string" },
+        "categories": { "items": { "type": "string" }, "type": "array" },
         "displayName": { "type": "string" },
         "forestManagement": {
           "enum": [
@@ -18,11 +19,14 @@
         },
         "id": { "format": "uuid", "type": "string" },
         "scopes": {
-          "items": { "enum": ["food", "food2", "textile", "object", "veli"], "type": "string" },
+          "items": {
+            "enum": ["apparel", "food", "food2", "furniture", "textile", "object", "veli"],
+            "type": "string"
+          },
           "type": "array"
         }
       },
-      "required": ["scopes"],
+      "required": ["scopes", "id"],
       "type": "object"
     },
     "type": ["array", "null"]
@@ -32,12 +36,16 @@
     "displayName": { "type": ["string", "null"] },
     "id": { "format": "uuid", "type": "string" },
     "scopes": {
-      "items": { "enum": ["food", "food2", "textile", "object", "veli"], "type": "string" },
+      "items": {
+        "enum": ["apparel", "food", "food2", "furniture", "textile", "object", "veli"],
+        "type": "string"
+      },
       "type": "array"
     },
     "source": {
       "enum": [
         "Agribalyse 3.2",
+        "BAFU 2025v2",
         "Ecobalyse_manual_lcia",
         "Ecobalyse_custom_lci",
         "Ecoinvent 3.9.1",

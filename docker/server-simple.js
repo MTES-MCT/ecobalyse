@@ -1,5 +1,5 @@
 // Purposely unmaintained simplified server kept for Docker/demo setups.
-// Prefer ../server.js for feature parity (token checks, generic scope gates, etc.).
+// Prefer ../server.js for feature parity (token checks, generic sector gates, etc.).
 
 require("dotenv").config({ quiet: true });
 

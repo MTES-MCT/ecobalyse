@@ -31,6 +31,7 @@ module Data.Session exposing
     , updateDbProcesses
     , updateFoodQuery
     , updateGenericQuery
+    , updateStore
     , updateTextileQuery
     )
 
@@ -38,9 +39,10 @@ import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Common.DecodeUtils as DU
 import Data.Component as Component
+import Data.Component.Config as ComponentConfig
 import Data.Db as Db exposing (Db)
 import Data.Food.Query as FoodQuery
-import Data.Scope as Scope exposing (GenericScope)
+import Data.Sector as Sector exposing (GenericSector)
 import Data.Textile.Query as TextileQuery
 import Data.User as User
 import Json.Decode as Decode exposing (Decoder)
@@ -53,11 +55,19 @@ import Set exposing (Set)
 
 
 type alias Queries =
-    { food : FoodQuery.Query
+    { apparel : Component.Query
+    , food : FoodQuery.Query
     , food2 : Component.Query
+    , furniture : Component.Query
     , object : Component.Query
     , textile : TextileQuery.Query
     , veli : Component.Query
+    }
+
+
+type alias RawData =
+    { config : String
+    , db : Maybe Db.RawJsonStrings
     }
 
 
@@ -65,14 +75,18 @@ type alias Session =
     { clientUrl : String
     , componentConfig : Component.Config
     , currentVersion : Version
+
+    -- FIXME: db and detailedImpacts may be desynced; we should rather use a type
+    --        to distinguish a detailed db from non-detailed one
     , db : Db
-    , dbRawJson : Maybe Db.RawJsonStrings
+    , detailedImpacts : Bool
     , enabledSections : EnabledSections
     , matomo : { host : String, siteId : String }
     , navKey : Nav.Key
     , notifications : List Notification
     , plausible : { host : Maybe String }
     , queries : Queries
+    , rawData : RawData
     , scalingoAppName : Maybe String
     , store : Store
     , versionPollSeconds : Int
@@ -80,8 +94,10 @@ type alias Session =
 
 
 type alias EnabledSections =
-    { food : Bool
+    { apparel : Bool
+    , food : Bool
     , food2 : Bool
+    , furniture : Bool
     , objects : Bool
     , textile : Bool
     , veli : Bool
@@ -190,16 +206,22 @@ saveBookmark bookmark =
 -- Queries
 
 
-genericQuery : GenericScope -> Session -> Component.Query
-genericQuery genericScope session =
-    case genericScope of
-        Scope.Food2 ->
+genericQuery : GenericSector -> Session -> Component.Query
+genericQuery genericSector session =
+    case genericSector of
+        Sector.Apparel ->
+            session.queries.apparel
+
+        Sector.Food2 ->
             session.queries.food2
 
-        Scope.Object ->
+        Sector.Furniture ->
+            session.queries.furniture
+
+        Sector.Object ->
             session.queries.object
 
-        Scope.Veli ->
+        Sector.Veli ->
             session.queries.veli
 
 
@@ -208,16 +230,22 @@ updateFoodQuery foodQuery ({ queries } as session) =
     { session | queries = { queries | food = foodQuery } }
 
 
-updateGenericQuery : GenericScope -> Component.Query -> Session -> Session
-updateGenericQuery genericScope query ({ queries } as session) =
-    case genericScope of
-        Scope.Food2 ->
+updateGenericQuery : GenericSector -> Component.Query -> Session -> Session
+updateGenericQuery genericSector query ({ queries } as session) =
+    case genericSector of
+        Sector.Apparel ->
+            { session | queries = { queries | apparel = query } }
+
+        Sector.Food2 ->
             { session | queries = { queries | food2 = query } }
 
-        Scope.Object ->
+        Sector.Furniture ->
+            { session | queries = { queries | furniture = query } }
+
+        Sector.Object ->
             { session | queries = { queries | object = query } }
 
-        Scope.Veli ->
+        Sector.Veli ->
             { session | queries = { queries | veli = query } }
 
 
@@ -353,25 +381,46 @@ isSuperuser =
 
 
 logout : Session -> Session
-logout session =
-    setAuth Nothing <|
-        -- reinit Db in its pristine, non-detailed state
-        case session.dbRawJson |> Maybe.map Db.build of
-            Just (Ok db) ->
-                { session | db = db }
+logout =
+    setAuth Nothing
 
-            _ ->
-                session
+
+{-| Rebuild a Db and a Config from public raw data.
+-}
+loadDb : Session -> { detailedImpacts : Bool } -> Db -> Result String Session
+loadDb session { detailedImpacts } db =
+    session.rawData.config
+        |> ComponentConfig.parse db
+        |> Result.map
+            (\componentConfig ->
+                { session
+                    | componentConfig = componentConfig
+                    , db = db
+                    , detailedImpacts = detailedImpacts
+                }
+            )
+
+
+{-| Rebuild a Db and a Config from public raw data
+-}
+usePublicDb : Session -> Result String Session
+usePublicDb session =
+    session.rawData.db
+        |> Result.fromMaybe "Aucune donnée brute disponible en session pour reconstruire la base de données"
+        |> Result.andThen Db.build
+        |> Result.andThen (loadDb session { detailedImpacts = False })
 
 
 setAuth : Maybe Auth -> Session -> Session
-setAuth auth =
-    updateStore (\store -> { store | auth = auth })
+setAuth auth session =
+    syncDetailedDb session
+        (updateStore (\store -> { store | auth = auth }) session)
 
 
 updateAuth : (Auth -> Auth) -> Session -> Session
-updateAuth fn =
-    updateStore (\store -> { store | auth = store.auth |> Maybe.map fn })
+updateAuth fn session =
+    syncDetailedDb session
+        (updateStore (\store -> { store | auth = Maybe.map fn store.auth }) session)
 
 
 {-| A serializable data structure holding session information you want to share
@@ -381,6 +430,7 @@ type alias Store =
     { auth : Maybe Auth
     , bookmarks : List Bookmark
     , comparedSimulations : Set String
+    , usageCount : Int
     }
 
 
@@ -389,6 +439,7 @@ defaultStore =
     { auth = Nothing
     , bookmarks = []
     , comparedSimulations = Set.empty
+    , usageCount = 0
     }
 
 
@@ -398,6 +449,7 @@ decodeStore =
         |> DU.strictOptional "auth" decodeAuth
         |> JDP.optional "bookmarks" Bookmark.decodeJsonList []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
+        |> JDP.optional "usageCount" Decode.int 0
 
 
 encodeStore : Store -> Encode.Value
@@ -406,6 +458,7 @@ encodeStore store =
         [ ( "comparedSimulations", store.comparedSimulations |> Encode.set Encode.string )
         , ( "bookmarks", store.bookmarks |> Bookmark.encodeJsonList )
         , ( "auth", store.auth |> Maybe.map encodeAuth |> Maybe.withDefault Encode.null )
+        , ( "usageCount", Encode.int store.usageCount )
         ]
 
 
@@ -416,7 +469,23 @@ decodeRawStore rawStore session =
             session |> notifyStoreDecodingError error
 
         Ok store ->
-            { session | store = store }
+            syncDetailedDb session { session | store = store }
+
+
+{-| Handle session auth status transition wrt detailed impacts data access
+-}
+syncDetailedDb : Session -> Session -> Session
+syncDetailedDb previous next =
+    if hasAccessToDetailedImpacts previous && not (hasAccessToDetailedImpacts next) then
+        case usePublicDb next of
+            Err error ->
+                next |> notifyError "Impossible de recharger la base avec les données publiques" error
+
+            Ok publicSession ->
+                publicSession
+
+    else
+        next
 
 
 serializeStore : Store -> String
@@ -427,15 +496,16 @@ serializeStore =
 updateDbProcesses : String -> Session -> Session
 updateDbProcesses rawDetailedProcessesJson session =
     case
-        session.dbRawJson
+        session.rawData.db
             |> Result.fromMaybe "Aucune donnée brute disponible en session pour reconstruire la base de données"
             |> Result.andThen (\dbRawJson -> Db.build { dbRawJson | processes = Db.rawJsonString rawDetailedProcessesJson })
+            |> Result.andThen (loadDb session { detailedImpacts = True })
     of
         Err err ->
             session |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
 
-        Ok newDb ->
-            { session | db = newDb }
+        Ok newSession ->
+            newSession
 
 
 updateStore : (Store -> Store) -> Session -> Session

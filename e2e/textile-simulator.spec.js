@@ -1,11 +1,12 @@
 import { test, expect } from "@playwright/test";
-import { waitForAppReady } from "./lib";
+import { openSectorMenu, waitForAppReady } from "./lib";
 
 test.describe("Textile simulator", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
     await waitForAppReady(page);
-    await page.getByLabel("Menu principal").getByRole("link", { name: "Textile" }).click();
+    const sectorMenu = await openSectorMenu(page);
+    await sectorMenu.getByRole("link", { name: "Habillement", exact: true }).click();
   });
 
   test("score card", async ({ page }) => {

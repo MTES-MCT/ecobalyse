@@ -29,8 +29,11 @@ view { attrs, content, tabs } =
                         li [ class "TabsTab nav-item", classList [ ( "active", active ) ] ]
                             [ button
                                 [ class "nav-link no-outline border-top-0"
-                                , classList [ ( "active", active ) ]
-                                , onClick onTabClick
+                                , if active then
+                                    class "active"
+
+                                  else
+                                    onClick onTabClick
                                 ]
                                 [ label ]
                             ]
