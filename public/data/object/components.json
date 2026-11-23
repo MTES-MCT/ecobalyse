@@ -1135,6 +1135,30 @@
     "comment": null,
     "elements": [
       {
+        "amount": 0.944,
+        "material": { "country": "REO", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+        "transforms": [
+          { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+          { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
+          { "country": "REO", "id": "f28c972f-0c99-4c02-b24b-78578288f890" }
+        ]
+      },
+      {
+        "amount": 0.056,
+        "material": { "country": "REO", "id": "909a4bdb-c60d-404a-883a-8c2577ce85d2" },
+        "transforms": [
+          { "country": "REO", "id": "0096d2cc-0786-4beb-865a-13d4e3cd5953" }
+        ]
+      }
+    ],
+    "id": "a6508508-95c8-4f93-8552-d8ccfed6babf",
+    "name": "Acier galvanisé 2mm, usiné, mix marché Europe (zinc modifiable)",
+    "scopes": ["veli", "furniture", "object"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
         "amount": 1,
         "material": { "country": "REO", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
         "transforms": [
@@ -1190,7 +1214,7 @@
     "elements": [
       {
         "amount": 1,
-        "material": { "country": "RAS", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+        "material": { "country": "RAS", "id": "58030a01-e69f-43df-a8da-f950b29d7388" },
         "transforms": [
           { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
           { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
@@ -1208,7 +1232,7 @@
     "elements": [
       {
         "amount": 1,
-        "material": { "country": "REO", "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84" },
+        "material": { "country": "REO", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
         "transforms": [
           { "country": "REO", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
           { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },

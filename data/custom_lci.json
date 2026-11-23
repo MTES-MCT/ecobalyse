@@ -1178,7 +1178,7 @@
     "comment": "65µm Zn, 2mm Fe (60m²/t Fe), 1 side. Adapted from 'zinc coating, pieces, RER', BAFU:2026. Heat and electricity consumptions are not included.",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      { "amount": 0.06, "name": "zinc coat, pieces, without energy, per m2, RER" }
+      { "amount": 0.03, "name": "zinc coat, pieces, without energy, per m2, RER" }
     ],
     "newName": "zinc coating, 1 layer, adapted from BAFU"
   },
@@ -1188,7 +1188,7 @@
     "comment": "65µm Zn, 2mm Fe (60m²/t Fe), 2 sides. Adapted from 'zinc coating, pieces, RER', BAFU:2026. Heat and electricity consumptions are not included.",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      { "amount": 0.12, "name": "zinc coat, pieces, without energy, per m2, RER" }
+      { "amount": 0.06, "name": "zinc coat, pieces, without energy, per m2, RER" }
     ],
     "newName": "zinc coating, 2 layers, adapted from BAFU"
   },
