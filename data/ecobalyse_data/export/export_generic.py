@@ -247,21 +247,25 @@ def activities_to_processes_generic_json(
         ecosystemic_factors_path=ecosystemic_factors_path,
     )
 
+    visible_generic_dicts = [g for g in generic_dicts if g.get("visible", True)]
+
     for path in impacts_output_paths:
         export_json_with_sort_and_precision(
-            generic_dicts,
+            visible_generic_dicts,
             path,
         )
-        logger.info(f"Exported {len(generic_dicts)} generic processes to {path}")
+        logger.info(
+            f"Exported {len(visible_generic_dicts)} visible generic processes to {path} (total available processes: {len(generic_dicts)})"
+        )
 
-    without_detailed_impacts = remove_detailed_impacts(generic_dicts)
+    without_detailed_impacts = remove_detailed_impacts(visible_generic_dicts)
     for path in ecs_output_paths:
         export_json_with_sort_and_precision(
             without_detailed_impacts,
             path,
         )
         logger.info(
-            f"Exported {len(without_detailed_impacts)} generic processes without detailed impacts to {path}"
+            f"Exported {len(without_detailed_impacts)} visible generic processes without detailed impacts to {path} (total available processes: {len(generic_dicts)})"
         )
 
     return generic_dicts
