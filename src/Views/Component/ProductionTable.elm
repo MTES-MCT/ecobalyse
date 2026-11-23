@@ -18,7 +18,6 @@ import Data.Component.Amount as Amount
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process
 import Data.Process.Category as Category
-import Data.Sector exposing (Sector)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -39,7 +38,6 @@ import Views.Link as Link
 
 type alias Config db msg =
     { context : Context
-    , db : Component.DataContainer db
     , detailed : List Index
     , docsUrl : Maybe String
     , documentationLink : Html msg
@@ -57,7 +55,7 @@ type alias Config db msg =
     , openSelectProductionItem : Autocomplete ProductionItem -> msg
     , query : Query
     , removeItem : Index -> msg
-    , sector : Sector
+    , requirements : Component.Requirements db
     , setDetailed : List Index -> msg
     , unitMassLocked : Bool
     , updateItemQuantity : Index -> Quantity -> msg
@@ -66,12 +64,12 @@ type alias Config db msg =
 
 
 addProductionItemButton : Config db msg -> Html msg
-addProductionItemButton ({ db } as config) =
+addProductionItemButton ({ requirements } as config) =
     let
         availableComponents =
-            db.components
+            requirements.db.components
                 |> List.filter (not << Component.isEmpty)
-                |> List.filter (.sectors >> List.member config.sector)
+                |> List.filter (.sectors >> List.member requirements.sector)
                 |> List.map ComponentItem
 
         availableMaterials =
@@ -80,8 +78,8 @@ addProductionItemButton ({ db } as config) =
                     []
 
                 _ ->
-                    db.processes
-                        |> Process.listAvailableByCategory config.sector Category.Material
+                    requirements.db.processes
+                        |> Process.listAvailableByCategory requirements.sector Category.Material
                         -- Exclude packaging materials as they're available in a dedicated section
                         |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
                         |> List.map MaterialItem
@@ -131,7 +129,9 @@ elementSummaryRow config itemResults { material, transforms } elementResults =
 
                   else
                     text ""
-                , Format.kg elementMass
+                , elementMass
+                    |> Component.assembledMass config.requirements config.query
+                    |> Format.kg
                 ]
     in
     ItemRow.view [ class "fs-7 border-top" ]
@@ -305,10 +305,12 @@ itemView config itemIndex { component, elements, quantity } itemResults =
             , quantity = quantity |> quantityInput config itemIndex
             , totalMass =
                 Component.extractMass itemResults
+                    |> Component.assembledMass config.requirements config.query
                     |> Format.kg
             , unitMass =
                 if config.context == Context.TextileTrims then
                     Component.extractUnitMass itemResults
+                        |> Component.assembledMass config.requirements config.query
                         |> Format.kg
 
                 else
@@ -328,7 +330,10 @@ unitMassInput config itemIndex elements itemResults =
             config.query.items
                 |> LE.getAt itemIndex
                 |> Maybe.andThen .unitMass
-                |> Maybe.withDefault (Component.extractUnitMass itemResults)
+                |> Maybe.withDefault
+                    (Component.extractUnitMass itemResults
+                        |> Component.assembledMass config.requirements config.query
+                    )
 
         writeAccess =
             -- An element whose material process has no known mass per unit makes the item unit mass uneditable.
@@ -425,7 +430,7 @@ view ({ docsUrl, explorerRoute, query } as config) productionResults =
                 ]
 
           else
-            case Component.expandItems config.db query.items of
+            case Component.expandItems config.requirements.db query.items of
                 Err error ->
                     error |> Alert.simpleError (Just "Erreur")
 
