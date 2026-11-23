@@ -1225,7 +1225,7 @@
     ],
     "id": "c845482e-8347-4a3c-9dd4-392d8fc2cb3f",
     "name": "Bac + Pieds (jardinière pin 80 * 40 * 28)",
-    "scopes": ["furniture", "object"]
+    "scopes": ["object"]
   },
   {
     "comment": null,
@@ -1238,7 +1238,7 @@
     ],
     "id": "6ff284b4-976d-4cf4-a4be-164f1c46ede2",
     "name": "Bac + Pieds (jardinière pin 80 * 40 * 28 / séchage du bois au four)",
-    "scopes": ["furniture", "object"]
+    "scopes": ["object"]
   },
   {
     "comment": null,
@@ -1251,7 +1251,7 @@
     ],
     "id": "3aaebbee-a087-404b-bce8-3a710245b0fa",
     "name": "Barre penderie 60cm (acier)",
-    "scopes": ["furniture", "object"]
+    "scopes": ["object"]
   },
   {
     "comment": null,
@@ -1307,7 +1307,7 @@
     ],
     "id": "329b27b1-9f4b-47fd-a009-52ee4ed1e8d1",
     "name": "Pile AAA",
-    "scopes": ["furniture", "object"]
+    "scopes": ["object"]
   },
   {
     "comment": "Câble électrique de type H05VVF 3G1.5mm², section 7.4mm, 110g/m (isolant PVC). Adapté pour une puissance jusqu'à 2.5kW pour 20m max",
@@ -1952,19 +1952,6 @@
     "comment": null,
     "elements": [
       {
-        "amount": 0.2,
-        "material": "b87b7c27-6d51-4890-bc41-604586feda5e",
-        "transforms": ["7319ac9c-5796-412f-a1eb-58e01afa7708"]
-      }
-    ],
-    "id": "01181ac8-bb9e-431d-aee4-f1ca97737d88",
-    "name": "Poignée de porte (laiton)",
-    "scopes": ["furniture", "object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
         "amount": 29.0,
         "material": "7cd80a58-6d07-4abc-ab41-624c0d1487c7",
         "transforms": [
@@ -2053,6 +2040,6 @@
     ],
     "id": "c5d86519-e56a-4ad7-aada-d4f7fffd5628",
     "name": "Toile protection PP (jardinière pin 80 * 40 * 28)",
-    "scopes": ["furniture", "object"]
+    "scopes": ["object"]
   }
 ]
