@@ -11,7 +11,7 @@ import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Textile.Query as TextileQuery
 import Data.Uuid as Uuid exposing (Uuid)
 import Html exposing (Attribute)
@@ -26,13 +26,13 @@ type Route
     | AuthLogin String String
     | AuthSignup
     | Editorial String
-    | Explore Scope Dataset
+    | Explore Sector Dataset
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
     | FoodBuilderExample Uuid
     | FoodBuilderHome
-    | GenericSimulator Scope.GenericScope Definition.Trigram (Maybe Component.Query)
-    | GenericSimulatorExample Scope.GenericScope Uuid
-    | GenericSimulatorHome Scope.GenericScope
+    | GenericSimulator Sector.GenericSector Definition.Trigram (Maybe Component.Query)
+    | GenericSimulatorExample Sector.GenericSector Uuid
+    | GenericSimulatorHome Sector.GenericSector
     | Home
     | Stats
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
@@ -55,16 +55,13 @@ parser =
         , Parser.map Stats (Parser.s "stats")
 
         --  Explorer
-        , (Parser.s "explore" </> Scope.parse)
-            |> Parser.map (\scope -> Explore scope (Dataset.defaultDatasetFor scope))
+        , (Parser.s "explore" </> Sector.parse)
+            |> Parser.map (\sector -> Explore sector (Dataset.defaultDatasetFor sector))
         , Parser.map Explore
-            (Parser.s "explore" </> Scope.parse </> Dataset.parseSlug)
+            (Parser.s "explore" </> Sector.parse </> Dataset.parseSlug)
 
         -- Generic simulator routes
-        , parseGenericSimulatorRoutes Scope.Apparel "apparel"
-        , parseGenericSimulatorRoutes Scope.Food2 "food2"
-        , parseGenericSimulatorRoutes Scope.Object "object"
-        , parseGenericSimulatorRoutes Scope.Veli "veli"
+        , parseGenericSimulatorRoutes
 
         --
         -- Food specific routes
@@ -93,22 +90,35 @@ parser =
         ]
 
 
-parseGenericSimulatorRoutes : Scope.GenericScope -> String -> Parser (Route -> a) a
-parseGenericSimulatorRoutes genericScope path =
+parseGenericSimulatorRoutes : Parser (Route -> a) a
+parseGenericSimulatorRoutes =
     Parser.oneOf
-        [ Parser.map (GenericSimulatorHome genericScope)
-            (Parser.s path </> Parser.s "simulator")
-        , Parser.map (GenericSimulator genericScope) <|
-            Parser.s path
+        [ Parser.map GenericSimulatorHome
+            (sectorParser </> Parser.s "simulator")
+        , Parser.map GenericSimulator <|
+            sectorParser
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
                 </> Component.parseBase64Query
-        , Parser.map (GenericSimulatorExample genericScope)
-            (Parser.s path
+        , Parser.map GenericSimulatorExample
+            (sectorParser
                 </> Parser.s "edit-example"
                 </> Example.parseUuid
             )
         ]
+
+
+sectorParser : Parser (Sector.GenericSector -> a) a
+sectorParser =
+    List.map
+        (\sector ->
+            sector
+                |> Sector.toStringGeneric
+                |> Parser.s
+                |> Parser.map sector
+        )
+        Sector.allGeneric
+        |> Parser.oneOf
 
 
 parseTextileSimulator : Parser (Route -> a) a
@@ -193,14 +203,14 @@ toString route =
                 Editorial slug ->
                     [ "pages", slug ]
 
-                Explore Scope.Food (Dataset.FoodExamples Nothing) ->
+                Explore Sector.Food (Dataset.FoodExamples Nothing) ->
                     [ "explore", "food" ]
 
-                Explore Scope.Textile (Dataset.TextileExamples Nothing) ->
+                Explore Sector.Textile (Dataset.TextileExamples Nothing) ->
                     [ "explore", "textile" ]
 
-                Explore scope dataset ->
-                    "explore" :: Scope.toString scope :: Dataset.toRoutePath dataset
+                Explore sector dataset ->
+                    "explore" :: Sector.toString sector :: Dataset.toRoutePath dataset
 
                 FoodBuilder trigram Nothing ->
                     [ "food", Definition.toString trigram ]
@@ -214,27 +224,27 @@ toString route =
                 FoodBuilderHome ->
                     [ "food" ]
 
-                GenericSimulator genericScope trigram (Just query) ->
-                    [ Scope.toString (Scope.Generic genericScope)
+                GenericSimulator genericSector trigram (Just query) ->
+                    [ Sector.toString (Sector.Generic genericSector)
                     , "simulator"
                     , Definition.toString trigram
                     , Component.encodeBase64Query query
                     ]
 
-                GenericSimulator genericScope trigram Nothing ->
-                    [ Scope.toString (Scope.Generic genericScope)
+                GenericSimulator genericSector trigram Nothing ->
+                    [ Sector.toString (Sector.Generic genericSector)
                     , "simulator"
                     , Definition.toString trigram
                     ]
 
-                GenericSimulatorExample genericScope uuid ->
-                    [ Scope.toString (Scope.Generic genericScope)
+                GenericSimulatorExample genericSector uuid ->
+                    [ Sector.toString (Sector.Generic genericSector)
                     , "edit-example"
                     , Uuid.toString uuid
                     ]
 
-                GenericSimulatorHome genericScope ->
-                    [ Scope.toString (Scope.Generic genericScope)
+                GenericSimulatorHome genericSector ->
+                    [ Sector.toString (Sector.Generic genericSector)
                     , "simulator"
                     ]
 

@@ -14,18 +14,18 @@
       "displayName": "Bois d'oeuvre (Feuillus / Chêne) forêt diversifiée",
       "forestManagement": "diversifiedForest",
       "id": "dc58fc13-b036-46ed-ab5f-fd0a112e8b78",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     },
     {
       "alias": "oak-hardwood-certified-diversified-forest",
       "displayName": "Bois d'oeuvre (Feuillus / Chêne) forêt diversifiée certifiée",
       "forestManagement": "certifiedDiversifiedForest",
       "id": "9df1c3c8-071e-48ca-b45b-c1a3933f579e",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["object", "veli"],
+  "scopes": ["furniture", "object", "veli"],
   "source": "BAFU 2025v2",
   "unit": "m3"
 }

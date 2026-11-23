@@ -157,6 +157,7 @@ def compute_processes_generic(
         activities = [land_by_id.get(a["id"], a) for a in activities]
 
     generic_dicts = []
+    missing_metadata = 0
     for activity in activities:
         process = processes_by_id.get(activity["id"])
         if not process:
@@ -169,54 +170,61 @@ def compute_processes_generic(
             v["id"]: v for v in get_metadata_for_scope(activity, "food")
         }
 
-        for variant in activity["metadata"]:
-            metadata_out = _build_variant_metadata(
-                variant=variant,
-                activity=activity,
-                food_variant=food_variants_by_id.get(variant["id"]),
-                es_by_alias=es_by_alias,
-            )
+        if "metadata" not in activity:
+            logger.error(f"Missing `metadata` in {activity}, skipping export.")
+            missing_metadata += 1
+        else:
+            for variant in activity["metadata"]:
+                metadata_out = _build_variant_metadata(
+                    variant=variant,
+                    activity=activity,
+                    food_variant=food_variants_by_id.get(variant["id"]),
+                    es_by_alias=es_by_alias,
+                )
 
-            food_variant = food_variants_by_id.get(variant["id"])
-            land_occupation = (
-                food_variant.get("landOccupation")
-                if food_variant is not None
-                and food_variant.get("landOccupation") is not None
-                else activity.get("landOccupation")
-            )
+                food_variant = food_variants_by_id.get(variant["id"])
+                land_occupation = (
+                    food_variant.get("landOccupation")
+                    if food_variant is not None
+                    and food_variant.get("landOccupation") is not None
+                    else activity.get("landOccupation")
+                )
 
-            entry = ProcessGeneric(
-                activity_name=process["activityName"],
-                alias=variant.get("alias"),
-                categories=infer_variant_material_type(
-                    variant.get("categories", process["categories"]),
-                    variant.get("alias"),
-                ),
-                comment=process.get("comment", ""),
-                display_name=variant.get(
-                    "displayName", activity.get("displayName", "")
-                ),
-                elec_kwh=process.get("elecKwh", 0),
-                heat_mj=process.get("heatMJ", 0),
-                id=variant["id"],
-                impacts=process["impacts"],
-                land_occupation=land_occupation,
-                location=process.get("location"),
-                mass_per_unit=process.get("massPerUnit"),
-                metadata=None,
-                scopes=[
-                    Scope(s)
-                    for s in variant.get("scopes", [])
-                    if Scope(s) in GENERIC_SCOPES
-                ],
-                source=process["source"],
-                unit=process.get("unit"),
-                qty_variation_ratio=process.get("qtyVariationRatio", 1),
-                visible=variant.get("visible", True),
-            )
-            entry_dict = entry.model_dump(by_alias=True)
-            entry_dict["metadata"] = metadata_out
-            generic_dicts.append(entry_dict)
+                entry = ProcessGeneric(
+                    activity_name=process["activityName"],
+                    alias=variant.get("alias"),
+                    categories=infer_variant_material_type(
+                        variant.get("categories", process["categories"]),
+                        variant.get("alias"),
+                    ),
+                    comment=process.get("comment", ""),
+                    display_name=variant.get(
+                        "displayName", activity.get("displayName", "")
+                    ),
+                    elec_kwh=process.get("elecKwh", 0),
+                    heat_mj=process.get("heatMJ", 0),
+                    id=variant["id"],
+                    impacts=process["impacts"],
+                    land_occupation=land_occupation,
+                    location=process.get("location"),
+                    mass_per_unit=process.get("massPerUnit"),
+                    metadata=None,
+                    scopes=[
+                        Scope(s)
+                        for s in variant.get("scopes", [])
+                        if Scope(s) in GENERIC_SCOPES
+                    ],
+                    source=process["source"],
+                    unit=process.get("unit"),
+                    qty_variation_ratio=process.get("qtyVariationRatio", 1),
+                    visible=variant.get("visible", True),
+                )
+                entry_dict = entry.model_dump(by_alias=True)
+                entry_dict["metadata"] = metadata_out
+                generic_dicts.append(entry_dict)
+
+    if missing_metadata > 0:
+        logger.error(f"Missing {missing_metadata} metadata, processes were skipped.")
 
     return generic_dicts
 

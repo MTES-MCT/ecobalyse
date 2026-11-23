@@ -21,7 +21,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category
-import Data.Scope as Scope
+import Data.Sector as Sector
 import Data.Split as Split
 import Data.Transport as Transport
 import Data.Unit as Unit
@@ -416,7 +416,7 @@ suite =
                             , itFromResult "should compute apply custom mix impacts when a transform step country is set"
                                 -- fetch first country with mixes different from defaults
                                 (requirements.db.countries
-                                    |> Scope.anyOf [ requirements.scope ]
+                                    |> Sector.anyOf [ requirements.sector ]
                                     |> List.filter
                                         (\{ electricityProcess, heatProcess } ->
                                             (electricityProcess /= requirements.config.production.defaultElecProcess)
@@ -726,7 +726,7 @@ suite =
                                                     testDistributionProcess =
                                                         { randomProcess
                                                             | categories = [ Category.Distribution ]
-                                                            , scopes = [ requirements.scope ]
+                                                            , sectors = [ requirements.sector ]
                                                             , unit = Process.CubicMeter
                                                         }
                                                 in
@@ -1918,9 +1918,9 @@ suite =
                             -- setup
                             -- test country
                             (requirements.db.countries
-                                |> Scope.anyOf [ requirements.scope ]
+                                |> Sector.anyOf [ requirements.sector ]
                                 |> List.head
-                                |> Result.fromMaybe ("No test country available scoped " ++ Scope.toString requirements.scope)
+                                |> Result.fromMaybe ("No test country available sectored " ++ Sector.toString requirements.sector)
                             )
                             -- cotton
                             (findProcessByLabel requirements "Production de fibres de coton")
@@ -2272,19 +2272,19 @@ suite =
                             )
                         ]
                     , describe "getDocLink"
-                        [ it "should retrieve a scoped documentation link"
+                        [ it "should retrieve a sectored documentation link"
                             ("assembly"
-                                |> Component.getDocLink requirements.config (Scope.Generic Scope.Veli)
+                                |> Component.getDocLink requirements.config (Sector.Generic Sector.Veli)
                                 |> Expect.equal (Just "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage")
                             )
-                        , it "should fallback to a default documentation link when no scoped link exists"
+                        , it "should fallback to a default documentation link when no sectored link exists"
                             ("assembly"
-                                |> Component.getDocLink requirements.config (Scope.Generic Scope.Object)
+                                |> Component.getDocLink requirements.config (Sector.Generic Sector.Object)
                                 |> Expect.equal (Just "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/assemblage")
                             )
                         , it "should retrieve Nothing when no doc link exists"
                             ("invalid"
-                                |> Component.getDocLink requirements.config (Scope.Generic Scope.Object)
+                                |> Component.getDocLink requirements.config (Sector.Generic Sector.Object)
                                 |> Expect.equal Nothing
                             )
                         ]
@@ -2822,7 +2822,7 @@ suite =
                                         | consumptions =
                                             Just [ Component.consumption (Just (Amount.fromFloat -1)) steelProcess.id ]
                                      }
-                                        |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
+                                        |> Component.validateQuery { requirements | sector = Sector.Generic Sector.Food2 }
                                         |> expectResultErrorContains "Une quantité doit être supérieure ou égale à zéro"
                                     )
                                 ]
@@ -2855,19 +2855,19 @@ suite =
                                             )
                                         |> expectResultErrorContains "Le procédé de distribution doit accepter un volume"
                                     )
-                                , it "should reject a distribution referencing a process with the wrong scope" <|
+                                , it "should reject a distribution referencing a process with the wrong sector" <|
                                     (emptyQuery
                                         |> Component.updateDistribution (Just dryDistributionProcess.id)
                                         |> Component.validateQuery
                                             (requirements
                                                 |> updateRequirementsProcess dryDistributionProcess
-                                                    (\p -> { p | scopes = [] })
+                                                    (\p -> { p | sectors = [] })
                                             )
                                         |> expectResultErrorContains
                                             ("Le procédé "
                                                 ++ Process.idToString dryDistributionProcess.id
                                                 ++ " n'est pas disponible pour le périmètre "
-                                                ++ Scope.toLabel (Scope.Generic Scope.Object)
+                                                ++ Sector.toLabel (Sector.Generic Sector.Object)
                                             )
                                     )
                                 ]
@@ -2875,14 +2875,14 @@ suite =
                                 [ it "should accept a durability param when it's enabled by config" <|
                                     (emptyQuery
                                         |> Component.updateDurability (Unit.ratio 1.42)
-                                        |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Object }
+                                        |> Component.validateQuery { requirements | sector = Sector.Generic Sector.Object }
                                         |> Expect.ok
                                     )
                                 , it "should reject a durability param when it's disabled by config" <|
                                     (emptyQuery
                                         |> Component.updateDurability (Unit.ratio 1.42)
-                                        |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
-                                        |> expectResultErrorContains ("La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel (Scope.Generic Scope.Food2))
+                                        |> Component.validateQuery { requirements | sector = Sector.Generic Sector.Food2 }
+                                        |> expectResultErrorContains ("La durabilité n'est pas activée pour le périmètre " ++ Sector.toLabel (Sector.Generic Sector.Food2))
                                     )
                                 ]
                             , describe "process validation"
@@ -2894,13 +2894,13 @@ suite =
                                         |> Component.validateQuery requirements
                                         |> expectResultErrorContains ("Aucun procédé scopé Objets avec cet id: " ++ Process.idToString nonExistingProcessId)
                                     )
-                                , it "should reject a consumption referencing a process with the wrong scope" <|
+                                , it "should reject a consumption referencing a process with the wrong sector" <|
                                     ({ emptyQuery
                                         | consumptions =
-                                            -- Note: the sawing process isn't scoped for Food2
+                                            -- Note: the sawing process isn't sectored for Food2
                                             Just [ Component.consumption (Just (Amount.fromFloat 1)) sawingProcess.id ]
                                      }
-                                        |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
+                                        |> Component.validateQuery { requirements | sector = Sector.Generic Sector.Food2 }
                                         |> expectResultErrorContains ("Aucun procédé scopé Alimentaire BÉTA avec cet id: " ++ Process.idToString sawingProcess.id)
                                     )
                                 , itFromResult "should reject a productmassdependent consumption with an amount"
@@ -2909,7 +2909,7 @@ suite =
                                         { emptyQuery
                                             | consumptions = Just [ Component.consumption (Just (Amount.fromFloat 1)) oven.id ]
                                         }
-                                            |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
+                                            |> Component.validateQuery { requirements | sector = Sector.Generic Sector.Food2 }
                                             |> expectResultErrorContains "le champ amount n'est pas accepté"
                                     )
                                 , itFromResult "should reject a non-productmassdependent consumption without an amount"
@@ -2920,7 +2920,7 @@ suite =
                                         { emptyQuery
                                             | consumptions = Just [ Component.consumption Nothing packaging.id ]
                                         }
-                                            |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
+                                            |> Component.validateQuery { requirements | sector = Sector.Generic Sector.Food2 }
                                             |> expectResultErrorContains "le champ amount est requis"
                                     )
                                 , it "should reject a packaging referencing a missing process" <|
@@ -2932,14 +2932,14 @@ suite =
                                         |> Component.validateQuery requirements
                                         |> expectResultErrorContains ("Aucun procédé scopé Objets avec cet id: " ++ Process.idToString nonExistingProcessId)
                                     )
-                                , it "should reject a packaging referencing a process with the wrong scope" <|
+                                , it "should reject a packaging referencing a process with the wrong sector" <|
                                     ({ emptyQuery
                                         | packagings =
-                                            -- Note: the sawing process isn't scoped for Food2
+                                            -- Note: the sawing process isn't sectored for Food2
                                             [ Component.packaging (Amount.fromFloat 1) sawingProcess.id
                                             ]
                                      }
-                                        |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
+                                        |> Component.validateQuery { requirements | sector = Sector.Generic Sector.Food2 }
                                         |> expectResultErrorContains ("Aucun procédé scopé Alimentaire BÉTA avec cet id: " ++ Process.idToString sawingProcess.id)
                                     )
                                 ]
@@ -3406,7 +3406,7 @@ suite =
                             (\charcuterie ->
                                 emptyQuery
                                     |> Component.updateProduct (Just charcuterie)
-                                    |> Component.getDistributionProcessId { requirements | scope = Scope.Generic Scope.Food2 }
+                                    |> Component.getDistributionProcessId { requirements | sector = Sector.Generic Sector.Food2 }
                                     |> Expect.equal charcuterie.distribution
                             )
                         , itFromResult2 "should let explicit distribution taking precedence over product category value"
@@ -3416,7 +3416,7 @@ suite =
                                 emptyQuery
                                     |> Component.updateProduct (Just charcuterie)
                                     |> Component.updateDistribution frozen.distribution
-                                    |> Component.getDistributionProcessId { requirements | scope = Scope.Generic Scope.Food2 }
+                                    |> Component.getDistributionProcessId { requirements | sector = Sector.Generic Sector.Food2 }
                                     |> Expect.equal frozen.distribution
                             )
                         , it "should reject a query carrying an unknown product id" <|
@@ -3433,16 +3433,16 @@ suite =
                                 |> decodeJson (Component.decodeQuery db.processes)
                                 |> Expect.err
                             )
-                        , it "should fall back to the scoped default distribution process when product is unset" <|
+                        , it "should fall back to the sectored default distribution process when product is unset" <|
                             (emptyQuery
-                                |> Component.getDistributionProcessId { requirements | scope = Scope.Generic Scope.Food2 }
+                                |> Component.getDistributionProcessId { requirements | sector = Sector.Generic Sector.Food2 }
                                 |> Expect.equal
                                     (requirements.config.distribution.defaultProcess
-                                        |> Scope.dictGetMaybe (Scope.Generic Scope.Food2)
+                                        |> Sector.dictGetMaybe (Sector.Generic Sector.Food2)
                                         |> Maybe.map .id
                                     )
                             )
-                        , it "should not fall back to a scoped default distribution process from another scope" <|
+                        , it "should not fall back to a sectored default distribution process from another sector" <|
                             (emptyQuery
                                 |> Component.getDistributionProcessId requirements
                                 |> Expect.equal Nothing
@@ -3515,7 +3515,7 @@ createTestRequirements db =
             (\config ->
                 { config = config
                 , db = db
-                , scope = Scope.Generic Scope.Object
+                , sector = Sector.Generic Sector.Object
                 }
             )
 

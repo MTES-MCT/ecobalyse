@@ -228,14 +228,12 @@ removeMaterial materialId query =
     { query | materials = query.materials |> List.filter (\m -> m.id /= materialId) }
         |> (\newQuery ->
                 -- set share to 100% when a single material remains
-                if List.length newQuery.materials == 1 then
-                    newQuery.materials
-                        |> List.head
-                        |> Maybe.map (\m -> updateMaterialShare m.id Split.full newQuery)
-                        |> Maybe.withDefault newQuery
+                case newQuery.materials of
+                    [ material ] ->
+                        updateMaterialShare material.id Split.full newQuery
 
-                else
-                    newQuery
+                    _ ->
+                        newQuery
            )
 
 

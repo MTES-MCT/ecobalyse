@@ -1,5 +1,6 @@
 module %moduleName% exposing
     ( RawJsonComponents
+    , apparelComponentsJson
     , apparelProductCategoriesJson
     , apparelExamplesJson
     , componentConfigJson
@@ -7,6 +8,9 @@ module %moduleName% exposing
     , food2ComponentsJson
     , food2ProductCategoriesJson
     , food2ExamplesJson
+    , furnitureComponentsJson
+    , furnitureProductCategoriesJson
+    , furnitureExamplesJson
     , foodIngredientsJson
     , foodProductExamplesJson
     , impactsJson
@@ -26,6 +30,7 @@ module %moduleName% exposing
 type alias RawJsonComponents =
     { apparelComponents: String
     , food2Components : String
+    , furnitureComponents : String
     , objectComponents : String
     , textileComponents : String
     , veliComponents : String
@@ -81,6 +86,21 @@ food2ExamplesJson =
    """%food2ExamplesJson%"""
 
 
+furnitureComponentsJson : String
+furnitureComponentsJson =
+   """%furnitureComponentsJson%"""
+
+
+furnitureProductCategoriesJson : String
+furnitureProductCategoriesJson =
+   """%furnitureProductCategoriesJson%"""
+
+
+furnitureExamplesJson : String
+furnitureExamplesJson =
+   """%furnitureExamplesJson%"""
+
+
 impactsJson : String
 impactsJson =
     """%impactsJson%"""
@@ -110,6 +130,7 @@ rawJsonComponents : RawJsonComponents
 rawJsonComponents =
     { apparelComponents = apparelComponentsJson
     , food2Components = food2ComponentsJson
+    , furnitureComponents = furnitureComponentsJson
     , objectComponents = objectComponentsJson
     , textileComponents = textileComponentsJson
     , veliComponents = veliComponentsJson

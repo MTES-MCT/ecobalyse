@@ -7,9 +7,9 @@
   "metadata": [
     {
       "id": "eec31f13-d00a-4741-a84f-85d887026f8c",
-      "scopes": ["veli", "food2", "object"]
+      "scopes": ["veli", "food2", "furniture", "object"]
     }
   ],
-  "scopes": ["food", "apparel", "textile", "veli", "food2", "object"],
+  "scopes": ["food", "apparel", "textile", "veli", "food2", "furniture", "object"],
   "source": "BAFU 2025v2"
 }

@@ -20,7 +20,7 @@
         "id": { "format": "uuid", "type": "string" },
         "scopes": {
           "items": {
-            "enum": ["apparel", "food", "food2", "textile", "object", "veli"],
+            "enum": ["apparel", "food", "food2", "furniture", "textile", "object", "veli"],
             "type": "string"
           },
           "type": "array"
@@ -37,7 +37,7 @@
     "id": { "format": "uuid", "type": "string" },
     "scopes": {
       "items": {
-        "enum": ["apparel", "food", "food2", "textile", "object", "veli"],
+        "enum": ["apparel", "food", "food2", "furniture", "textile", "object", "veli"],
         "type": "string"
       },
       "type": "array"

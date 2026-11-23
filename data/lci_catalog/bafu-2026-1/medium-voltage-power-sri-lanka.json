@@ -7,6 +7,9 @@
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "59d67f99-8f91-5464-af4c-0b569f97b74e",
+  "metadata": [
+    { "id": "64140cd4-25bb-4c6b-9c48-499ddc150460", "scopes": ["apparel", "textile"] }
+  ],
   "qtyVariationRatio": 1,
   "scopes": ["apparel", "textile"],
   "source": "BAFU 2025v2",

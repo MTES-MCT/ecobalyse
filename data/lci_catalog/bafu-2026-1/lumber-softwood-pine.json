@@ -14,25 +14,25 @@
       "displayName": "Bois d'oeuvre (Résineux / Pin) plantation intensive",
       "forestManagement": "intensivePlantation",
       "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     },
     {
       "alias": "pine-softwood-sustainable-management",
       "displayName": "Bois d'oeuvre (Résineux / Pin) gestion durable",
       "forestManagement": "sustainableManagement",
       "id": "f4a5d1ad-9362-4b18-9555-d5ab58f3b993",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     },
     {
       "alias": "pine-softwood-certified-sustainable-management",
       "displayName": "Bois d'oeuvre (Résineux / Pin) gestion durable certifiée",
       "forestManagement": "certifiedSustainableManagement",
       "id": "9c80ffd0-ecff-4cb1-9b3a-9009d42cb425",
-      "scopes": ["object", "veli"]
+      "scopes": ["furniture", "object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["object", "veli"],
+  "scopes": ["furniture", "object", "veli"],
   "source": "BAFU 2025v2",
   "unit": "m3"
 }

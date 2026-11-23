@@ -1,6 +1,5 @@
 module Views.Page exposing
-    ( ActivePage(..)
-    , Config
+    ( Config
     , errored
     , frame
     , loading
@@ -12,7 +11,7 @@ import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Notification as Notification exposing (Notification)
-import Data.Scope as Scope exposing (GenericScope)
+import Data.Sector as Sector exposing (GenericSector)
 import Data.Session as Session
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -28,27 +27,9 @@ import Views.Feedback as FeedbackView
 import Views.Icon as Icon
 import Views.Link as Link
 import Views.Markdown as Markdown
+import Views.Navigation as Navigation exposing (ActivePage(..), MenuLink(..))
 import Views.Notice as Notice
 import Views.Spinner as Spinner
-
-
-type ActivePage
-    = Api
-    | Auth
-    | Editorial String
-    | Explore
-    | Food
-    | Generic GenericScope
-    | Home
-    | Other
-    | Stats
-    | TextileSimulator
-
-
-type MenuLink msg
-    = External String String
-    | Internal (List (Html msg)) Route.Route ActivePage
-    | MailTo String String
 
 
 type alias Config msg =
@@ -62,40 +43,66 @@ type alias Config msg =
     , isSuperuser : Bool
     , mobileNavigationOpened : Bool
     , notifications : List Session.Notification
+    , sectorMenuClose : msg
+    , sectorMenuOpened : Bool
+    , sectorMenuToggle : msg
     , termsAccepted : Bool
     , toMsg : App.Msg -> msg
     , tray : Toast.Tray Notification
     }
 
 
+type NavigationPlacement
+    = InHeader
+    | InMobileMenu
+
+
 getPageBody : Config msg -> List (Html msg) -> List (Html msg)
-getPageBody ({ activePage } as config) content =
-    [ stagingAlert config
-    , newVersionAlert config
+getPageBody ({ activePage, sectorMenuOpened } as config) content =
+    let
+        inertWhen opened =
+            if opened then
+                -- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inert
+                [ attribute "inert" "true" ]
+
+            else
+                []
+    in
+    [ div (inertWhen sectorMenuOpened)
+        [ stagingAlert config
+        , newVersionAlert config
+        ]
     , pageHeader config
-    , commonNotices config.toMsg activePage
-    , termsNotice config
-    , if config.mobileNavigationOpened then
-        mobileNavigation config
+    , if sectorMenuOpened then
+        Navigation.backdrop config.sectorMenuClose
 
       else
         text ""
-    , main_ [ class "PageContent bg-white highcharts-light" ]
-        [ -- general static notifications
-          notificationListView config
+    , div (inertWhen sectorMenuOpened)
+        [ commonNotices config.toMsg activePage
+        , termsNotice config
+        , if config.mobileNavigationOpened then
+            mobileNavigationView config
 
-        -- pop up notifications
-        , toastListView config
-        , div
-            [ if activePage == Home then
-                class ""
+          else
+            text ""
+        , main_ [ class "PageContent bg-white highcharts-light" ]
+            [ -- general static notifications
+              notificationListView config
 
-              else
-                class "pt-2 pt-sm-5"
+            -- pop up notifications
+            , toastListView config
+            , div
+                [ if activePage == Home then
+                    class ""
+
+                  else
+                    class "pt-2 pt-sm-5"
+                ]
+                content
             ]
-            content
+        , pageFooter config
         ]
-    , pageFooter config
     ]
 
 
@@ -131,32 +138,8 @@ commonNotices msg activePage =
                 , Markdown.simple [] "**Méthodologie stabilisée.** Calculette en cours de développement"
                 ]
 
-        Generic Scope.Apparel ->
-            Notice.info
-                [ Icon.info
-                , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
-                ]
-
-        Generic Scope.Food2 ->
-            Notice.info
-                [ Icon.info
-                , Markdown.simple [] "**Méthodologie stabilisée. Cette version de la calculette remplacera à terme la version initiale.**"
-                , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/02_alimentaire_general).""" |> Markdown.simple []
-                ]
-
-        Generic Scope.Object ->
-            Notice.info
-                [ Icon.info
-                , Markdown.simple [] "**Cette version est en cours de développement.**"
-                , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/41_ameublement)"""
-                    |> Markdown.simple []
-                ]
-
-        Generic Scope.Veli ->
-            Notice.info
-                [ Icon.info
-                , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
-                ]
+        Generic genericPage ->
+            commonNoticesForGeneric genericPage
 
         TextileSimulator ->
             Notice.info
@@ -177,6 +160,43 @@ commonNotices msg activePage =
 
         _ ->
             text ""
+
+
+commonNoticesForGeneric : GenericSector -> Html msg
+commonNoticesForGeneric genericPage =
+    case genericPage of
+        Sector.Apparel ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
+                ]
+
+        Sector.Food2 ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Méthodologie stabilisée. Cette version de la calculette remplacera à terme la version initiale.**"
+                , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/02_alimentaire_general).""" |> Markdown.simple []
+                ]
+
+        Sector.Furniture ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
+                ]
+
+        Sector.Object ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.**"
+                , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/41_ameublement)"""
+                    |> Markdown.simple []
+                ]
+
+        Sector.Veli ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
+                ]
 
 
 toastListView : Config msg -> Html msg
@@ -246,62 +266,38 @@ newVersionAlert { currentVersion, toMsg } =
             text ""
 
 
-addRouteIf : Bool -> MenuLink msg -> Maybe (MenuLink msg)
-addRouteIf flag route =
-    if flag then
-        Just route
-
-    else
-        Nothing
-
-
-mainMenuLinks : Session.EnabledSections -> List (MenuLink msg)
-mainMenuLinks enabledSections =
-    List.filterMap identity
-        [ Just <| Internal [ text "Accueil" ] Route.Home Home
-        , addRouteIf enabledSections.textile <|
-            Internal [ text "Textile" ] Route.TextileSimulatorHome TextileSimulator
-        , addRouteIf enabledSections.food <|
-            Internal [ text "Alimentaire" ] Route.FoodBuilderHome Food
-        , addRouteIf enabledSections.food2 <|
-            Internal [ text "Alimentaire", sup [] [ text "BÉTA" ] ] (Route.GenericSimulatorHome Scope.Food2) (Generic Scope.Food2)
-        , addRouteIf enabledSections.objects <|
-            Internal [ text "Objets" ] (Route.GenericSimulatorHome Scope.Object) (Generic Scope.Object)
-        , addRouteIf enabledSections.veli <|
-            Internal [ text "Véhicules" ] (Route.GenericSimulatorHome Scope.Veli) (Generic Scope.Veli)
-        , addRouteIf enabledSections.apparel <|
-            Internal [ text "Habillement" ] (Route.GenericSimulatorHome Scope.Apparel) (Generic Scope.Apparel)
-        , Just <| Internal [ text "Explorateur" ] (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
-        , Just <| Internal [ text "API" ] Route.Api Api
-        , Just <| MailTo "Contact" Env.contactEmail
-        ]
+mainNavigation : List (MenuLink msg)
+mainNavigation =
+    [ Internal [ text "Accueil" ] Route.Home Home
+    , SectorMenu
+    , Internal [ text "Explorateur" ] (Route.Explore Sector.Textile (Dataset.TextileExamples Nothing)) Explore
+    , Internal [ text "API" ] Route.Api Api
+    , MailTo "Contact" Env.contactEmail
+    ]
 
 
-secondaryMenuLinks : Session.EnabledSections -> List (MenuLink msg)
-secondaryMenuLinks enabledSections =
-    List.filterMap identity
-        [ Just <| Internal [ text "Dernières mises à jour" ] (Route.Editorial "maj") (Editorial "maj")
-        , Just <| Internal [ text "Statistiques" ] Route.Stats Stats
-        , Just <| External "Documentation" Env.gitbookUrl
-        , Just <| External "Communauté" Env.communityUrl
-        , Just <| External "Code source" Env.githubUrl
-        , Just <| External "CGU" Env.cguUrl
-        , addRouteIf enabledSections.food2 <|
-            Internal [ text "Alimentaire²" ] (Route.GenericSimulatorHome Scope.Food2) (Generic Scope.Food2)
-        ]
+secondaryNavigation : List (MenuLink msg)
+secondaryNavigation =
+    [ Internal [ text "Dernières mises à jour" ] (Route.Editorial "maj") (Editorial "maj")
+    , Internal [ text "Statistiques" ] Route.Stats Stats
+    , External "Documentation" Env.gitbookUrl
+    , External "Communauté" Env.communityUrl
+    , External "Code source" Env.githubUrl
+    , External "CGU" Env.cguUrl
+    ]
 
 
-headerMenuLinks : Config msg -> List (MenuLink msg)
-headerMenuLinks { enabledSections } =
-    mainMenuLinks enabledSections
+headerNavigation : List (MenuLink msg)
+headerNavigation =
+    mainNavigation
         ++ [ External "Communauté" Env.communityUrl
            , External "Documentation" Env.gitbookUrl
            ]
 
 
-mobileMenuLinks : Config msg -> List (MenuLink msg)
-mobileMenuLinks { enabledSections, isAuthenticated } =
-    mainMenuLinks enabledSections
+mobileNavigation : Config msg -> List (MenuLink msg)
+mobileNavigation { isAuthenticated } =
+    mainNavigation
         ++ [ External "Documentation" Env.gitbookUrl
            , External "Communauté" Env.communityUrl
            , MailTo "Contact" Env.contactEmail
@@ -317,8 +313,8 @@ mobileMenuLinks { enabledSections, isAuthenticated } =
            ]
 
 
-legalMenuLinks : List (MenuLink msg)
-legalMenuLinks =
+legalNavigation : List (MenuLink msg)
+legalNavigation =
     [ Internal [ text "Accessibilité\u{00A0}: non conforme" ] (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal [ text "Mentions légales" ] (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
     , Internal [ text "Politique de confidentialité" ] (Route.Editorial "politique-de-confidentialite") (Editorial "politique-de-confidentialite")
@@ -327,21 +323,27 @@ legalMenuLinks =
 
 
 pageFooter : Config msg -> Html msg
-pageFooter ({ clientUrl, enabledSections } as config) =
+pageFooter ({ clientUrl } as config) =
     let
         makeLink link =
             case link of
                 External label url ->
-                    Link.external [ class "text-decoration-none", href url ]
-                        [ text label ]
+                    Just <|
+                        Link.external [ class "text-decoration-none", href url ]
+                            [ text label ]
 
                 Internal label route _ ->
-                    Link.internal [ class "text-decoration-none", Route.href route ]
-                        label
+                    Just <|
+                        Link.internal [ class "text-decoration-none", Route.href route ]
+                            label
 
                 MailTo label email ->
-                    a [ class "text-decoration-none", href <| "mailto:" ++ email ]
-                        [ text label ]
+                    Just <|
+                        a [ class "text-decoration-none", href <| "mailto:" ++ email ]
+                            [ text label ]
+
+                SectorMenu ->
+                    Nothing
     in
     footer
         (class "Footer"
@@ -357,14 +359,14 @@ pageFooter ({ clientUrl, enabledSections } as config) =
             [ Container.centered []
                 [ div [ class "row" ]
                     [ div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
-                        [ mainMenuLinks enabledSections
-                            |> List.map makeLink
+                        [ mainNavigation
+                            |> List.filterMap makeLink
                             |> List.map (List.singleton >> li [])
                             |> ul [ class "list-unstyled" ]
                         ]
                     , div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
-                        [ secondaryMenuLinks enabledSections
-                            |> List.map makeLink
+                        [ secondaryNavigation
+                            |> List.filterMap makeLink
                             |> List.map (List.singleton >> li [])
                             |> ul [ class "list-unstyled" ]
                         ]
@@ -407,8 +409,8 @@ pageFooter ({ clientUrl, enabledSections } as config) =
                 ]
             ]
         , Container.centered []
-            [ legalMenuLinks
-                |> List.map makeLink
+            [ legalNavigation
+                |> List.filterMap makeLink
                 |> List.map (List.singleton >> li [])
                 |> List.intersperse (li [ attribute "aria-hidden" "true", class "text-muted" ] [ text "|" ])
                 |> ul [ class "FooterLegal d-flex justify-content-start flex-wrap gap-2 list-unstyled mt-3 pt-2 border-top" ]
@@ -439,11 +441,24 @@ versionLink version =
             text ""
 
 
+sectorMenuConfig : Config msg -> Navigation.Config msg
+sectorMenuConfig { activePage, enabledSections, sectorMenuClose, sectorMenuOpened, sectorMenuToggle } =
+    { activePage = activePage
+    , close = sectorMenuClose
+    , enabledSections = enabledSections
+    , opened = sectorMenuOpened
+    , toggle = sectorMenuToggle
+    }
+
+
 pageHeader : Config msg -> Html msg
-pageHeader ({ activePage, toMsg } as config) =
+pageHeader ({ activePage, sectorMenuOpened, toMsg } as config) =
     header
         [ class "Header shadow-sm"
-        , classList [ ( "mb-2", activePage /= Home ) ]
+        , classList
+            [ ( "mb-2", activePage /= Home )
+            , ( "position-relative z-index-fixed", sectorMenuOpened )
+            ]
         , attribute "role" "banner"
         ]
         [ div [ class "MobileMenuButton" ]
@@ -472,12 +487,6 @@ pageHeader ({ activePage, toMsg } as config) =
                     , text "Ecobalyse"
                     ]
                 ]
-            , select
-                [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
-                , attribute "data-testid" "version-selector"
-                , onInput <| toMsg << App.SwitchVersion
-                ]
-                [ option [ selected True ] [ text "Version courante" ], option [ value "v7.0.0" ] [ text "Version stable textile" ] ]
             , div [ class "HeaderAuthLink flex-fill" ]
                 [ a
                     [ class "d-none d-sm-block flex-fill text-end"
@@ -492,24 +501,29 @@ pageHeader ({ activePage, toMsg } as config) =
                     ]
                 ]
             ]
-        , Container.fluid [ class "border-top" ]
+        , Container.fluid [ class "border-top position-relative" ]
             [ div [ class "container" ]
                 [ nav
                     [ class "text-end text-sm-start"
                     , attribute "role" "navigation"
                     , attribute "aria-label" "Menu principal"
                     ]
-                    [ headerMenuLinks config
-                        |> List.map (viewNavigationLink activePage)
+                    [ headerNavigation
+                        |> List.map (viewNavigationElement InHeader config)
                         |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
                     ]
                 ]
+            , if config.sectorMenuOpened then
+                Navigation.sectorMenuPanel (sectorMenuConfig config)
+
+              else
+                text ""
             ]
         ]
 
 
-viewNavigationLink : ActivePage -> MenuLink msg -> Html msg
-viewNavigationLink activePage link =
+viewNavigationElement : NavigationPlacement -> Config msg -> MenuLink msg -> Html msg
+viewNavigationElement placement ({ activePage } as config) link =
     case link of
         External label url ->
             Link.external [ class "nav-link link-external-muted", href url ]
@@ -531,6 +545,14 @@ viewNavigationLink activePage link =
 
         MailTo label email ->
             a [ class "nav-link", href <| "mailto:" ++ email ] [ text label ]
+
+        SectorMenu ->
+            case placement of
+                InHeader ->
+                    Navigation.desktopSectorMenu (sectorMenuConfig config)
+
+                InMobileMenu ->
+                    Navigation.mobileSectorMenu (sectorMenuConfig config)
 
 
 notificationListView : Config msg -> Html msg
@@ -654,8 +676,8 @@ loading progress =
         ]
 
 
-mobileNavigation : Config msg -> Html msg
-mobileNavigation ({ activePage, toMsg } as config) =
+mobileNavigationView : Config msg -> Html msg
+mobileNavigationView ({ toMsg } as config) =
     div []
         [ div
             [ class "offcanvas offcanvas-start show"
@@ -678,17 +700,11 @@ mobileNavigation ({ activePage, toMsg } as config) =
                     []
                 ]
             , div [ class "offcanvas-body" ]
-                [ mobileMenuLinks config
-                    |> List.map (viewNavigationLink activePage)
-                    |> div [ class "nav nav-pills flex-column" ]
+                [ mobileNavigation config
+                    |> List.map (viewNavigationElement InMobileMenu config)
+                    |> div [ class "MobileNavigation nav nav-pills flex-column" ]
                 , h4 [ class "h6 mt-3" ] [ text "Versions" ]
                 , versionLink config.currentVersion
-                , a
-                    [ class "nav-link"
-                    , href <| Env.stableTextileVersionPath
-                    , onClick (toMsg <| App.LoadUrl <| Env.stableTextileVersionPath)
-                    ]
-                    [ text "Version stable textile" ]
                 ]
             ]
         , div [ class "offcanvas-backdrop fade show" ] []

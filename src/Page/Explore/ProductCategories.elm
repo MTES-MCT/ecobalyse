@@ -3,7 +3,7 @@ module Page.Explore.ProductCategories exposing (table)
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Dataset as Dataset
 import Data.Process as Process
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Session exposing (Session)
 import Data.Text as Text
 import Html exposing (..)
@@ -11,11 +11,11 @@ import Page.Explore.Table as Table exposing (Table)
 import Route
 
 
-table : Session -> Scope.GenericScope -> { detailed : Bool, scope : Scope } -> Table ProductCategory String msg
-table { db } genericScope _ =
-    { filename = Scope.toStringGeneric genericScope ++ "-product-categories"
+table : Session -> Sector.GenericSector -> { detailed : Bool, sector : Sector } -> Table ProductCategory String msg
+table { db } genericSector _ =
+    { filename = Sector.toStringGeneric genericSector ++ "-product-categories"
     , toId = .id >> ProductCategory.idToString
-    , toRoute = \{ id } -> Route.Explore (Scope.Generic genericScope) (Dataset.ProductCategory genericScope (Just id))
+    , toRoute = \{ id } -> Route.Explore (Sector.Generic genericSector) (Dataset.ProductCategory genericSector (Just id))
     , toSearchableText = ProductCategory.toSearchableString >> Text.toSearchable
     , facets =
         [ { key = "Assemblage"

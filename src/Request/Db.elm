@@ -11,6 +11,7 @@ module Request.Db exposing
 
 import Data.Db as Db exposing (Db)
 import Http
+import List.Extra as LE
 import RemoteData exposing (WebData)
 import Request.Common as RequestCommon
 
@@ -51,8 +52,7 @@ getProgress : LoadingState -> { loaded : Int, total : Int }
 getProgress state =
     { loaded =
         Db.propGetters
-            |> List.filter (\getter -> getter state |> RemoteData.isSuccess)
-            |> List.length
+            |> LE.count (\getter -> getter state |> RemoteData.isSuccess)
     , total = List.length Db.propGetters
     }
 
@@ -69,6 +69,9 @@ initLoadingState =
     , food2ProductCategories = RemoteData.NotAsked
     , foodIngredients = RemoteData.NotAsked
     , foodProductExamples = RemoteData.NotAsked
+    , furnitureComponents = RemoteData.NotAsked
+    , furnitureExamples = RemoteData.NotAsked
+    , furnitureProductCategories = RemoteData.NotAsked
     , objectComponents = RemoteData.NotAsked
     , objectExamples = RemoteData.NotAsked
     , objectProductCategories = RemoteData.NotAsked
@@ -97,6 +100,9 @@ resolve data =
         |> RemoteData.andMap data.food2ProductCategories
         |> RemoteData.andMap data.foodIngredients
         |> RemoteData.andMap data.foodProductExamples
+        |> RemoteData.andMap data.furnitureComponents
+        |> RemoteData.andMap data.furnitureExamples
+        |> RemoteData.andMap data.furnitureProductCategories
         |> RemoteData.andMap data.objectComponents
         |> RemoteData.andMap data.objectExamples
         |> RemoteData.andMap data.objectProductCategories

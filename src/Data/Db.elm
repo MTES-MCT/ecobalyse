@@ -17,6 +17,7 @@ import Data.Generic.Db as GenericDb
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
+import Data.Sector as Sector exposing (Sector)
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport exposing (Distances)
 import Json.Decode as Decode
@@ -47,6 +48,9 @@ type alias Properties a =
     , food2ProductCategories : a
     , foodIngredients : a
     , foodProductExamples : a
+    , furnitureComponents : a
+    , furnitureExamples : a
+    , furnitureProductCategories : a
     , objectComponents : a
     , objectExamples : a
     , objectProductCategories : a
@@ -79,12 +83,8 @@ build json =
             (\processes ->
                 Ok Db
                     |> RE.andMap
-                        ([ json.apparelComponents
-                         , json.food2Components
-                         , json.objectComponents
-                         , json.textileComponents
-                         , json.veliComponents
-                         ]
+                        (Sector.all
+                            |> List.filterMap (sectorComponents json)
                             |> List.map (extractJsonString >> Component.decodeListFromJsonString)
                             |> RE.combine
                             -- A missing country inherits the process default origin. Resolve it once here at build
@@ -115,20 +115,20 @@ build json =
                                 (extractJsonString json.foodIngredients)
                         )
                     |> RE.andMap
-                        (processes
-                            |> GenericDb.buildFromJson
-                                (extractJsonString json.apparelExamples)
-                                (extractJsonString json.food2Examples)
-                                (extractJsonString json.objectExamples)
-                                (extractJsonString json.veliExamples)
+                        (Sector.allGeneric
+                            |> List.map (\sector -> extractJsonString (sectorGenericExamples json sector))
+                            |> GenericDb.buildFromJson processes
                         )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap
-                        ([ json.food2ProductCategories
-                         , json.objectProductCategories
-                         , json.veliProductCategories
-                         ]
-                            |> List.map (extractJsonString >> ProductCategory.decodeListFromJsonString)
+                        (Sector.allGeneric
+                            |> List.map
+                                (\sector ->
+                                    sector
+                                        |> sectorGenericProductCategories json
+                                        |> extractJsonString
+                                        |> ProductCategory.decodeListFromJsonString
+                                )
                             |> RE.combine
                             |> Result.map List.concat
                         )
@@ -140,6 +140,76 @@ build json =
                                 (extractJsonString json.textileProducts)
                         )
             )
+
+
+sectorComponents : RawJsonStrings -> Sector -> Maybe RawJsonString
+sectorComponents json sector =
+    case sector of
+        Sector.Food ->
+            Nothing
+
+        Sector.Generic genericSector ->
+            Just (sectorGenericComponents json genericSector)
+
+        Sector.Textile ->
+            Just json.textileComponents
+
+
+sectorGenericComponents : RawJsonStrings -> Sector.GenericSector -> RawJsonString
+sectorGenericComponents json sector =
+    case sector of
+        Sector.Apparel ->
+            json.apparelComponents
+
+        Sector.Food2 ->
+            json.food2Components
+
+        Sector.Furniture ->
+            json.furnitureComponents
+
+        Sector.Object ->
+            json.objectComponents
+
+        Sector.Veli ->
+            json.veliComponents
+
+
+sectorGenericExamples : RawJsonStrings -> Sector.GenericSector -> RawJsonString
+sectorGenericExamples json sector =
+    case sector of
+        Sector.Apparel ->
+            json.apparelExamples
+
+        Sector.Food2 ->
+            json.food2Examples
+
+        Sector.Furniture ->
+            json.furnitureExamples
+
+        Sector.Object ->
+            json.objectExamples
+
+        Sector.Veli ->
+            json.veliExamples
+
+
+sectorGenericProductCategories : RawJsonStrings -> Sector.GenericSector -> RawJsonString
+sectorGenericProductCategories json sector =
+    case sector of
+        Sector.Apparel ->
+            json.apparelProductCategories
+
+        Sector.Food2 ->
+            json.food2ProductCategories
+
+        Sector.Furniture ->
+            json.furnitureProductCategories
+
+        Sector.Object ->
+            json.objectProductCategories
+
+        Sector.Veli ->
+            json.veliProductCategories
 
 
 buildFromStrings : Properties String -> Result String Db
@@ -155,6 +225,9 @@ buildFromStrings strings =
         , food2ProductCategories = rawJsonString strings.food2ProductCategories
         , foodIngredients = rawJsonString strings.foodIngredients
         , foodProductExamples = rawJsonString strings.foodProductExamples
+        , furnitureComponents = rawJsonString strings.furnitureComponents
+        , furnitureExamples = rawJsonString strings.furnitureExamples
+        , furnitureProductCategories = rawJsonString strings.furnitureProductCategories
         , objectComponents = rawJsonString strings.objectComponents
         , objectExamples = rawJsonString strings.objectExamples
         , objectProductCategories = rawJsonString strings.objectProductCategories
@@ -177,28 +250,64 @@ extractJsonString (RawJsonString string) =
 
 propGetters : List (Properties a -> a)
 propGetters =
-    [ .apparelProductCategories
-    , .apparelComponents
-    , .apparelExamples
-    , .countries
-    , .definitions
-    , .food2ProductCategories
-    , .food2Examples
-    , .foodIngredients
-    , .foodProductExamples
-    , .objectProductCategories
-    , .objectComponents
-    , .objectExamples
-    , .processes
-    , .textileComponents
-    , .textileMaterials
-    , .textileProductExamples
-    , .textileProducts
-    , .transports
-    , .veliProductCategories
-    , .veliComponents
-    , .veliExamples
-    ]
+    .countries
+        :: .definitions
+        :: .transports
+        :: .processes
+        :: List.concatMap sectorPropGetters Sector.all
+
+
+sectorPropGetters : Sector -> List (Properties a -> a)
+sectorPropGetters sector =
+    case sector of
+        Sector.Food ->
+            [ .foodIngredients
+            , .foodProductExamples
+            ]
+
+        Sector.Generic genericSector ->
+            sectorGenericPropGetters genericSector
+
+        Sector.Textile ->
+            [ .textileComponents
+            , .textileMaterials
+            , .textileProductExamples
+            , .textileProducts
+            ]
+
+
+sectorGenericPropGetters : Sector.GenericSector -> List (Properties a -> a)
+sectorGenericPropGetters sector =
+    case sector of
+        Sector.Apparel ->
+            [ .apparelProductCategories
+            , .apparelComponents
+            , .apparelExamples
+            ]
+
+        Sector.Food2 ->
+            [ .food2ProductCategories
+            , .food2Components
+            , .food2Examples
+            ]
+
+        Sector.Furniture ->
+            [ .furnitureProductCategories
+            , .furnitureComponents
+            , .furnitureExamples
+            ]
+
+        Sector.Object ->
+            [ .objectProductCategories
+            , .objectComponents
+            , .objectExamples
+            ]
+
+        Sector.Veli ->
+            [ .veliProductCategories
+            , .veliComponents
+            , .veliExamples
+            ]
 
 
 rawJsonString : String -> RawJsonString

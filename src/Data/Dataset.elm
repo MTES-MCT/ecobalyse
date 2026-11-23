@@ -17,10 +17,11 @@ import Data.Country.Code as CountryCode
 import Data.Food.Ingredient as Ingredient
 import Data.Impact.Definition as Definition
 import Data.Process as Process
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
 import Data.Uuid as Uuid exposing (Uuid)
+import Dict exposing (Dict)
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -30,178 +31,235 @@ It's used by Page.Explore and related routes.
 
 -}
 type Dataset
-    = Components Scope (Maybe Component.Id)
+    = Components Sector (Maybe Component.Id)
     | Countries (Maybe CountryCode.Code)
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
-    | GenericExamples Scope.GenericScope (Maybe Uuid)
+    | GenericExamples Sector.GenericSector (Maybe Uuid)
     | Impacts (Maybe Definition.Trigram)
-    | Processes Scope (Maybe Process.Id)
-    | ProductCategory Scope.GenericScope (Maybe ProductCategory.Id)
+    | Processes Sector (Maybe Process.Id)
+    | ProductCategory Sector.GenericSector (Maybe ProductCategory.Id)
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
     | TextileProducts (Maybe Product.Id)
 
 
-datasets : Scope -> List Dataset
-datasets scope =
-    case scope of
-        Scope.Food ->
+datasets : Sector -> List Dataset
+datasets sector =
+    case sector of
+        Sector.Food ->
             [ FoodExamples Nothing
             , Impacts Nothing
             , FoodIngredients Nothing
             , Countries Nothing
-            , Processes Scope.Food Nothing
+            , Processes Sector.Food Nothing
             ]
 
-        Scope.Generic Scope.Apparel ->
-            [ GenericExamples Scope.Apparel Nothing
-            , Components (Scope.Generic Scope.Apparel) Nothing
-            , Countries Nothing
-            , Processes (Scope.Generic Scope.Apparel) Nothing
-            , Impacts Nothing
-            , ProductCategory Scope.Apparel Nothing
-            ]
+        Sector.Generic genericSector ->
+            datasetsGeneric genericSector
 
-        Scope.Generic Scope.Food2 ->
-            [ GenericExamples Scope.Food2 Nothing
-            , Impacts Nothing
-            , Countries Nothing
-            , Processes (Scope.Generic Scope.Food2) Nothing
-            , ProductCategory Scope.Food2 Nothing
-            ]
-
-        Scope.Generic Scope.Object ->
-            [ GenericExamples Scope.Object Nothing
-            , Components (Scope.Generic Scope.Object) Nothing
-            , Countries Nothing
-            , Processes (Scope.Generic Scope.Object) Nothing
-            , Impacts Nothing
-            , ProductCategory Scope.Object Nothing
-            ]
-
-        Scope.Generic Scope.Veli ->
-            [ GenericExamples Scope.Veli Nothing
-            , Components (Scope.Generic Scope.Veli) Nothing
-            , Countries Nothing
-            , Impacts Nothing
-            , Processes (Scope.Generic Scope.Veli) Nothing
-            , ProductCategory Scope.Veli Nothing
-            ]
-
-        Scope.Textile ->
+        Sector.Textile ->
             [ TextileExamples Nothing
-            , Components Scope.Textile Nothing
+            , Components Sector.Textile Nothing
             , Impacts Nothing
             , TextileMaterials Nothing
             , Countries Nothing
-            , Processes Scope.Textile Nothing
+            , Processes Sector.Textile Nothing
             , TextileProducts Nothing
             ]
 
 
-defaultDatasetFor : Scope -> Dataset
-defaultDatasetFor scope =
-    case scope of
-        Scope.Food ->
+datasetsGeneric : Sector.GenericSector -> List Dataset
+datasetsGeneric sector =
+    [ GenericExamples sector Nothing
+    , Components (Sector.Generic sector) Nothing
+    , Countries Nothing
+    , Processes (Sector.Generic sector) Nothing
+    , Impacts Nothing
+    , ProductCategory sector Nothing
+    ]
+
+
+defaultDatasetFor : Sector -> Dataset
+defaultDatasetFor sector =
+    case sector of
+        Sector.Food ->
             FoodExamples Nothing
 
-        Scope.Generic Scope.Apparel ->
-            GenericExamples Scope.Apparel Nothing
+        Sector.Generic genericSector ->
+            GenericExamples genericSector Nothing
 
-        Scope.Generic Scope.Food2 ->
-            GenericExamples Scope.Food2 Nothing
-
-        Scope.Generic Scope.Object ->
-            GenericExamples Scope.Object Nothing
-
-        Scope.Generic Scope.Veli ->
-            GenericExamples Scope.Veli Nothing
-
-        Scope.Textile ->
+        Sector.Textile ->
             TextileExamples Nothing
 
 
 fromSlug : String -> Dataset
 fromSlug string =
-    case string of
-        "apparel-components" ->
-            Components (Scope.Generic Scope.Apparel) Nothing
+    case Dict.get string datasetSlugDict of
+        Just dataset ->
+            dataset
 
-        "apparel-examples" ->
-            GenericExamples Scope.Apparel Nothing
-
-        "apparel-processes" ->
-            Processes (Scope.Generic Scope.Apparel) Nothing
-
-        "apparel-product-categories" ->
-            ProductCategory Scope.Apparel Nothing
-
-        "countries" ->
-            Countries Nothing
-
-        "food-examples" ->
-            FoodExamples Nothing
-
-        "food-processes" ->
-            Processes Scope.Food Nothing
-
-        "food2-examples" ->
-            GenericExamples Scope.Food2 Nothing
-
-        "food2-processes" ->
-            Processes (Scope.Generic Scope.Food2) Nothing
-
-        "food2-product-categories" ->
-            ProductCategory Scope.Food2 Nothing
-
-        "impacts" ->
-            Impacts Nothing
-
-        "ingredients" ->
-            FoodIngredients Nothing
-
-        "materials" ->
-            TextileMaterials Nothing
-
-        "object-components" ->
-            Components (Scope.Generic Scope.Object) Nothing
-
-        "object-examples" ->
-            GenericExamples Scope.Object Nothing
-
-        "object-processes" ->
-            Processes (Scope.Generic Scope.Object) Nothing
-
-        "object-product-categories" ->
-            ProductCategory Scope.Object Nothing
-
-        "processes" ->
-            Processes Scope.Textile Nothing
-
-        "products" ->
-            TextileProducts Nothing
-
-        "textile-components" ->
-            Components Scope.Textile Nothing
-
-        "textile-processes" ->
-            Processes Scope.Textile Nothing
-
-        "veli-components" ->
-            Components (Scope.Generic Scope.Veli) Nothing
-
-        "veli-examples" ->
-            GenericExamples Scope.Veli Nothing
-
-        "veli-processes" ->
-            Processes (Scope.Generic Scope.Veli) Nothing
-
-        "veli-product-categories" ->
-            ProductCategory Scope.Veli Nothing
-
-        _ ->
+        Nothing ->
             TextileExamples Nothing
+
+
+datasetSlugDict : Dict String Dataset
+datasetSlugDict =
+    List.concat
+        [ [ Countries Nothing
+          , FoodExamples Nothing
+          , FoodIngredients Nothing
+          , Impacts Nothing
+          , TextileExamples Nothing
+          , TextileMaterials Nothing
+          , TextileProducts Nothing
+          ]
+        , List.map (\s -> Components s Nothing) Sector.all
+        , List.map (\s -> Processes s Nothing) Sector.all
+        , List.map (\s -> GenericExamples s Nothing) Sector.allGeneric
+        , List.map (\s -> ProductCategory s Nothing) Sector.allGeneric
+        ]
+        |> List.foldl (\dataset dict -> Dict.insert (datasetToString dataset) dataset dict) Dict.empty
+        |> Dict.insert "textile-processes" (Processes Sector.Textile Nothing)
+
+
+datasetToString : Dataset -> String
+datasetToString string =
+    case string of
+        Components sector _ ->
+            componentDatasetToString sector
+
+        Countries _ ->
+            "countries"
+
+        FoodExamples _ ->
+            "food-examples"
+
+        FoodIngredients _ ->
+            "ingredients"
+
+        GenericExamples sector _ ->
+            examplesDatasetToString sector
+
+        Impacts _ ->
+            "impacts"
+
+        Processes sector _ ->
+            processesDatasetToString sector
+
+        ProductCategory sector _ ->
+            productCategoryDatasetToString sector
+
+        TextileExamples _ ->
+            "textile-examples"
+
+        TextileMaterials _ ->
+            "materials"
+
+        TextileProducts _ ->
+            "products"
+
+
+componentDatasetToString : Sector -> String
+componentDatasetToString sector =
+    case sector of
+        Sector.Food ->
+            "food-components"
+
+        Sector.Generic genericSector ->
+            componentGenericDatasetToString genericSector
+
+        Sector.Textile ->
+            "textile-components"
+
+
+componentGenericDatasetToString : Sector.GenericSector -> String
+componentGenericDatasetToString sector =
+    case sector of
+        Sector.Apparel ->
+            "apparel-components"
+
+        Sector.Food2 ->
+            "food2-components"
+
+        Sector.Furniture ->
+            "furniture-components"
+
+        Sector.Object ->
+            "object-components"
+
+        Sector.Veli ->
+            "veli-components"
+
+
+processesDatasetToString : Sector -> String
+processesDatasetToString sector =
+    case sector of
+        Sector.Food ->
+            "food-processes"
+
+        Sector.Generic genericSector ->
+            processesDatasetGenericToString genericSector
+
+        Sector.Textile ->
+            "processes"
+
+
+processesDatasetGenericToString : Sector.GenericSector -> String
+processesDatasetGenericToString sector =
+    case sector of
+        Sector.Apparel ->
+            "apparel-processes"
+
+        Sector.Food2 ->
+            "food2-processes"
+
+        Sector.Furniture ->
+            "furniture-processes"
+
+        Sector.Object ->
+            "object-processes"
+
+        Sector.Veli ->
+            "veli-processes"
+
+
+examplesDatasetToString : Sector.GenericSector -> String
+examplesDatasetToString sector =
+    case sector of
+        Sector.Apparel ->
+            "apparel-examples"
+
+        Sector.Food2 ->
+            "food2-examples"
+
+        Sector.Furniture ->
+            "furniture-examples"
+
+        Sector.Object ->
+            "object-examples"
+
+        Sector.Veli ->
+            "veli-examples"
+
+
+productCategoryDatasetToString : Sector.GenericSector -> String
+productCategoryDatasetToString sector =
+    case sector of
+        Sector.Apparel ->
+            "apparel-product-categories"
+
+        Sector.Food2 ->
+            "food2-product-categories"
+
+        Sector.Furniture ->
+            "furniture-product-categories"
+
+        Sector.Object ->
+            "object-product-categories"
+
+        Sector.Veli ->
+            "veli-product-categories"
 
 
 isDetailed : Dataset -> Bool
@@ -257,8 +315,8 @@ parseSlug =
 reset : Dataset -> Dataset
 reset dataset =
     case dataset of
-        Components scope _ ->
-            Components scope Nothing
+        Components sector _ ->
+            Components sector Nothing
 
         Countries _ ->
             Countries Nothing
@@ -269,17 +327,17 @@ reset dataset =
         FoodIngredients _ ->
             FoodIngredients Nothing
 
-        GenericExamples scope _ ->
-            GenericExamples scope Nothing
+        GenericExamples sector _ ->
+            GenericExamples sector Nothing
 
         Impacts _ ->
             Impacts Nothing
 
-        Processes scope _ ->
-            Processes scope Nothing
+        Processes sector _ ->
+            Processes sector Nothing
 
-        ProductCategory scope _ ->
-            ProductCategory scope Nothing
+        ProductCategory sector _ ->
+            ProductCategory sector Nothing
 
         TextileExamples _ ->
             TextileExamples Nothing
@@ -303,11 +361,11 @@ same a b =
         ( FoodIngredients _, FoodIngredients _ ) ->
             True
 
-        ( Processes scope1 _, Processes scope2 _ ) ->
-            scope1 == scope2
+        ( Processes sector1 _, Processes sector2 _ ) ->
+            sector1 == sector2
 
-        ( ProductCategory scope1 _, ProductCategory scope2 _ ) ->
-            scope1 == scope2
+        ( ProductCategory sector1 _, ProductCategory sector2 _ ) ->
+            sector1 == sector2
 
         ( Impacts _, Impacts _ ) ->
             True
@@ -315,11 +373,11 @@ same a b =
         ( TextileExamples _, TextileExamples _ ) ->
             True
 
-        ( Components scope1 _, Components scope2 _ ) ->
-            scope1 == scope2
+        ( Components sector1 _, Components sector2 _ ) ->
+            sector1 == sector2
 
-        ( GenericExamples scope1 _, GenericExamples scope2 _ ) ->
-            scope1 == scope2
+        ( GenericExamples sector1 _, GenericExamples sector2 _ ) ->
+            sector1 == sector2
 
         ( TextileMaterials _, TextileMaterials _ ) ->
             True
@@ -334,8 +392,8 @@ same a b =
 setIdFromString : String -> Dataset -> Dataset
 setIdFromString idString dataset =
     case dataset of
-        Components scope _ ->
-            Components scope (Component.idFromString idString |> Result.toMaybe)
+        Components sector _ ->
+            Components sector (Component.idFromString idString |> Result.toMaybe)
 
         Countries _ ->
             Countries (Just (CountryCode.fromString idString))
@@ -346,17 +404,17 @@ setIdFromString idString dataset =
         FoodIngredients _ ->
             FoodIngredients (idString |> Ingredient.idFromString |> Result.toMaybe)
 
-        GenericExamples scope _ ->
-            GenericExamples scope (idString |> Uuid.fromString |> Result.toMaybe)
+        GenericExamples sector _ ->
+            GenericExamples sector (idString |> Uuid.fromString |> Result.toMaybe)
 
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
 
-        Processes scope _ ->
-            Processes scope (Process.idFromString idString |> Result.toMaybe)
+        Processes sector _ ->
+            Processes sector (Process.idFromString idString |> Result.toMaybe)
 
-        ProductCategory scope _ ->
-            ProductCategory scope (ProductCategory.idFromString idString |> Result.toMaybe)
+        ProductCategory sector _ ->
+            ProductCategory sector (ProductCategory.idFromString idString |> Result.toMaybe)
 
         TextileExamples _ ->
             TextileExamples (idString |> Uuid.fromString |> Result.toMaybe)
@@ -376,8 +434,8 @@ slug =
 strings : Dataset -> { label : String, slug : String }
 strings dataset =
     case dataset of
-        Components scope _ ->
-            { label = "Composants", slug = Scope.toString scope ++ "-components" }
+        Components sector _ ->
+            { label = "Composants", slug = Sector.toString sector ++ "-components" }
 
         Countries _ ->
             { label = "Pays", slug = "countries" }
@@ -388,17 +446,17 @@ strings dataset =
         FoodIngredients _ ->
             { label = "Ingrédients", slug = "ingredients" }
 
-        GenericExamples genericScope _ ->
-            { label = "Exemples", slug = Scope.toString (Scope.Generic genericScope) ++ "-examples" }
+        GenericExamples genericSector _ ->
+            { label = "Exemples", slug = Sector.toString (Sector.Generic genericSector) ++ "-examples" }
 
         Impacts _ ->
             { label = "Impacts", slug = "impacts" }
 
-        Processes scope _ ->
-            { label = "Procédés", slug = Scope.toString scope ++ "-processes" }
+        Processes sector _ ->
+            { label = "Procédés", slug = Sector.toString sector ++ "-processes" }
 
-        ProductCategory genericScope _ ->
-            { label = "Produits", slug = Scope.toString (Scope.Generic genericScope) ++ "-product-categories" }
+        ProductCategory genericSector _ ->
+            { label = "Produits", slug = Sector.toString (Sector.Generic genericSector) ++ "-product-categories" }
 
         TextileExamples _ ->
             { label = "Exemples", slug = "textile-examples" }

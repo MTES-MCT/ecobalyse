@@ -5,7 +5,7 @@ import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Gitbook as Gitbook
 import Data.Process as Process
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split
 import Data.Text as Text
 import Data.Transport as Transport
@@ -20,11 +20,11 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-table : Transport.Distances -> List Country.Country -> { detailed : Bool, scope : Scope } -> Table Country String msg
-table distances countries { detailed, scope } =
+table : Transport.Distances -> List Country.Country -> { detailed : Bool, sector : Sector } -> Table Country String msg
+table distances countries { detailed, sector } =
     { filename = "countries"
     , toId = .code >> CountryCode.toString
-    , toRoute = .code >> Just >> Dataset.Countries >> Route.Explore scope
+    , toRoute = .code >> Just >> Dataset.Countries >> Route.Explore sector
     , toSearchableText = Country.toSearchableString >> Text.toSearchable
     , facets =
         [ Table.Facet "Mix électrique" (.electricityProcess >> Process.getDisplayName >> List.singleton)
@@ -61,7 +61,7 @@ table distances countries { detailed, scope } =
                 , toValue = Table.StringValue <| .heatProcess >> Process.getDisplayName
                 , toCell = .heatProcess >> Process.getDisplayName >> text
                 }
-            , if scope == Scope.Textile then
+            , if sector == Sector.Textile then
                 Just
                     { label = "Taux de pollution aquatique"
                     , toValue = Table.FloatValue (.aquaticPollutionScenario >> Country.getAquaticPollutionRatio >> Split.toPercent)

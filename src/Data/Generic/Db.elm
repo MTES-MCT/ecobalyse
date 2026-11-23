@@ -3,7 +3,7 @@ module Data.Generic.Db exposing
     , buildFromJson
     )
 
-{-| Note: The generic database holds examples all generic scopes
+{-| Note: The generic database holds examples all generic sectors
 -}
 
 import Data.Component as Component
@@ -17,13 +17,9 @@ type alias Db =
     }
 
 
-buildFromJson : String -> String -> String -> String -> List Process -> Result String Db
-buildFromJson apparelExamplesJson food2ExamplesJson objectExamplesJson veliExamplesJson processes =
-    [ apparelExamplesJson
-    , food2ExamplesJson
-    , objectExamplesJson
-    , veliExamplesJson
-    ]
+buildFromJson : List Process -> List String -> Result String Db
+buildFromJson processes examplesJson =
+    examplesJson
         |> RE.combineMap
             (Example.decodeListFromJsonString <|
                 Component.decodeQuery processes
