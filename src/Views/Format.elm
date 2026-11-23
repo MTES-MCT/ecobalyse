@@ -3,10 +3,11 @@ module Views.Format exposing
     , complement
     , cubicMeters
     , days
+    , float
     , hours
     , impact
     , impactAsFloat
-    , kg
+    , kilograms
     , kilowattHours
     , km
     , massPerUnit
@@ -16,7 +17,6 @@ module Views.Format exposing
     , priceInEUR
     , qtyVariationRatio
     , qtyVariationRatioAsWastePercent
-    , richFloat
     , splitAsFloat
     , splitAsPercentage
     , squareMeters
@@ -27,7 +27,7 @@ module Views.Format exposing
 
 import Area exposing (Area)
 import Data.Component.Amount as Amount exposing (Amount)
-import Data.Format as Format
+import Data.Format as DataFormat
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
@@ -54,7 +54,7 @@ amount { unit } amount_ =
             cubicMeters <| Volume.cubicMeters floatAmount
 
         Process.Kilogram ->
-            kg <| Mass.kilograms floatAmount
+            kilograms <| Mass.kilograms floatAmount
 
         Process.Liter ->
             liters <| Volume.liters floatAmount
@@ -75,7 +75,7 @@ complement impact_ =
         formatted =
             impact_
                 |> Unit.impactToFloat
-                |> Format.float 2
+                |> DataFormat.float 2
     in
     span []
         [ text <|
@@ -90,49 +90,59 @@ complement impact_ =
 
 cubicMeters : Volume -> Html msg
 cubicMeters =
-    Volume.inCubicMeters >> richFloat 3 "m³"
+    Volume.inCubicMeters >> float 3 "m³"
 
 
 days : Duration -> Html msg
 days =
-    Duration.inDays >> richFloat 0 "j"
+    Duration.inDays >> float 0 "j"
+
+
+float : Int -> String -> Float -> Html msg
+float decimals unit value =
+    span []
+        [ value
+            |> DataFormat.float decimals
+            |> text
+        , span [ class "fs-unit" ] [ text "\u{202F}", text unit ]
+        ]
 
 
 hours : Duration -> Html msg
 hours =
-    Duration.inHours >> richFloat 2 "h"
+    Duration.inHours >> float 2 "h"
 
 
 impact : Definition -> Impacts -> Html msg
 impact { decimals, trigram, unit } =
     Impact.getImpact trigram
         >> Unit.impactToFloat
-        >> richFloat decimals unit
+        >> float decimals unit
 
 
 impactAsFloat : { a | decimals : Int, unit : String } -> Float -> Html msg
 impactAsFloat { decimals, unit } =
-    richFloat decimals unit
+    float decimals unit
 
 
-kg : Mass -> Html msg
-kg =
-    Mass.inKilograms >> richFloat 3 "kg"
+kilograms : Mass -> Html msg
+kilograms =
+    Mass.inKilograms >> float 3 "kg"
 
 
 kilowattHours : Energy -> Html msg
 kilowattHours =
-    Energy.inKilowattHours >> richFloat 2 "kWh"
+    Energy.inKilowattHours >> float 2 "kWh"
 
 
 km : Length -> Html msg
 km =
-    Length.inKilometers >> richFloat 0 "km"
+    Length.inKilometers >> float 0 "km"
 
 
 liters : Volume -> Html msg
 liters =
-    Volume.inLiters >> richFloat 3 "L"
+    Volume.inLiters >> float 3 "L"
 
 
 massPerUnit : { a | massPerUnit : Maybe Float, unit : Process.Unit } -> Html msg
@@ -140,7 +150,7 @@ massPerUnit process =
     case process.massPerUnit of
         Just value ->
             if process.unit /= Process.Kilogram then
-                richFloat 2 ("kg/" ++ Process.unitToString process.unit) value
+                float 2 ("kg/" ++ Process.unitToString process.unit) value
 
             else
                 text "N/A"
@@ -151,22 +161,22 @@ massPerUnit process =
 
 megajoules : Energy -> Html msg
 megajoules =
-    Energy.inMegajoules >> richFloat 2 "MJ"
+    Energy.inMegajoules >> float 2 "MJ"
 
 
 minutes : Duration -> Html msg
 minutes =
-    Duration.inMinutes >> richFloat 0 "min"
+    Duration.inMinutes >> float 0 "min"
 
 
 percent : Float -> Html msg
 percent =
-    richFloat 2 "%"
+    float 2 "%"
 
 
 priceInEUR : Economics.Price -> Html msg
 priceInEUR =
-    Economics.priceToFloat >> richFloat 2 "€"
+    Economics.priceToFloat >> float 2 "€"
 
 
 qtyVariationRatio : Unit.QuantityVariationRatio -> Html msg
@@ -179,20 +189,10 @@ qtyVariationRatioAsWastePercent ratio =
     percent <| (1 - Unit.qtyVariationRatioToFloat ratio) * 100
 
 
-richFloat : Int -> String -> Float -> Html msg
-richFloat decimals unit value =
-    span []
-        [ value
-            |> Format.float decimals
-            |> text
-        , span [ class "fs-unit" ] [ text "\u{202F}", text unit ]
-        ]
-
-
 splitAsFloat : Int -> Split -> Html msg
 splitAsFloat int value =
     Split.toFloat value
-        |> Format.float int
+        |> DataFormat.float int
         |> text
 
 
@@ -205,19 +205,19 @@ splitAsPercentage decimals value =
 
 squareMeters : Area -> Html msg
 squareMeters =
-    Area.inSquareMeters >> richFloat 3 "m²"
+    Area.inSquareMeters >> float 3 "m²"
 
 
 surfaceMass : Unit.SurfaceMass -> Html msg
 surfaceMass =
-    Unit.surfaceMassInGramsPerSquareMeters >> toFloat >> richFloat 0 "g/m²"
+    Unit.surfaceMassInGramsPerSquareMeters >> toFloat >> float 0 "g/m²"
 
 
 threadDensity : Unit.ThreadDensity -> Html msg
 threadDensity (Unit.ThreadDensity density_) =
-    density_ |> richFloat 0 "#/cm"
+    density_ |> float 0 "#/cm"
 
 
 yarnSize : Unit.YarnSize -> Html msg
 yarnSize =
-    Unit.yarnSizeInKilometers >> richFloat 0 "Nm"
+    Unit.yarnSizeInKilometers >> float 0 "Nm"

@@ -3,7 +3,7 @@ module Views.ComplementsDetails exposing (view)
 import Data.Complement as Complement
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Views.Format as Format
+import Views.Format as RichFormat
 
 
 type alias Config =
@@ -21,7 +21,7 @@ view { complementsImpacts, label } detailedImpacts =
                 , span [ class "text-muted text-end", title "Total des compléments" ]
                     [ complementsImpacts
                         |> Complement.getTotalComplementsImpacts
-                        |> Format.complement
+                        |> RichFormat.complement
                     ]
                 ]
             ]

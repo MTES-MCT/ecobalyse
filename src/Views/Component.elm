@@ -49,7 +49,7 @@ import Views.Component.DownArrow as DownArrow
 import Views.Component.ProductionTable as ProductionTable
 import Views.Component.RegionSelector as RegionSelector
 import Views.FloatInput as FloatInput
-import Views.Format as Format
+import Views.Format as RichFormat
 import Views.Icon as Icon
 import Views.Transport as TransportView
 
@@ -323,7 +323,7 @@ lifeCycleView ({ impact, query, sector } as config) lifeCycle =
                     ]
                     [ div [ class "d-flex gap-2" ]
                         [ lifeCycle.transports.toAssembly.impacts
-                            |> Format.impact impact
+                            |> RichFormat.impact impact
                         , smallDocumentationLink config "transport"
                         ]
                     ]
@@ -387,7 +387,7 @@ packagingView ({ query } as config) lifeCycle =
             , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.packaging
                     |> Impact.sumImpacts
-                    |> Format.impact config.impact
+                    |> RichFormat.impact config.impact
                 ]
             , documentationLink config "packaging"
             ]
@@ -470,7 +470,7 @@ quantifiedProcessList { db, floatInputState, impact, noOp } lifeCycle listConfig
                                             [ listConfig.impactsList
                                                 |> LE.getAt index
                                                 |> Maybe.withDefault Impact.empty
-                                                |> Format.impact impact
+                                                |> RichFormat.impact impact
                                             ]
                                         , td [ class "align-middle pe-3 pt-2" ]
                                             [ button
@@ -523,7 +523,7 @@ transportToDistributionView ({ componentConfig, impact, sector } as config) mass
         [ div [ class "d-flex justify-content-end align-items-center gap-2" ]
             [ text "Transport"
             , Icon.package
-            , Format.kg mass
+            , RichFormat.kilograms mass
             , if transportCoolingAvailable then
                 cooledTransportToggler config
 
@@ -548,7 +548,7 @@ transportToDistributionView ({ componentConfig, impact, sector } as config) mass
                     }
                 |> div [ class "d-flex gap-2" ]
             , transport.impacts
-                |> Format.impact impact
+                |> RichFormat.impact impact
             , smallDocumentationLink config "transport"
             ]
         ]
@@ -636,7 +636,7 @@ assemblyView ({ db, impact, query, sector } as config) lifeCycle =
             , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.assembly
                     |> Component.extractImpacts
-                    |> Format.impact impact
+                    |> RichFormat.impact impact
                 ]
             , documentationLink config "assembly"
             ]
@@ -704,17 +704,17 @@ assemblyView ({ db, impact, query, sector } as config) lifeCycle =
                                                 [ td [ class "ps-3 align-middle w-100" ]
                                                     [ text <| Process.getDisplayName process ]
                                                 , td [ class "align-middle text-end text-nowrap" ]
-                                                    [ Format.qtyVariationRatioAsWastePercent process.qtyVariationRatio
+                                                    [ RichFormat.qtyVariationRatioAsWastePercent process.qtyVariationRatio
                                                     ]
                                                 , td [ class "align-middle text-end text-nowrap" ]
                                                     [ operationResult
                                                         |> Component.extractMass
-                                                        |> Format.kg
+                                                        |> RichFormat.kilograms
                                                     ]
                                                 , td [ class "align-middle text-end text-nowrap" ]
                                                     [ operationResult
                                                         |> Component.extractImpacts
-                                                        |> Format.impact impact
+                                                        |> RichFormat.impact impact
                                                     ]
                                                 , td [ class "align-middle pe-3 text-end" ]
                                                     [ button
@@ -773,7 +773,7 @@ distributionView ({ componentConfig, db, impact, query, sector, updateDistributi
                 [ text "Distribution" ]
             , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.distribution.impacts
-                    |> Format.impact impact
+                    |> RichFormat.impact impact
                 ]
             , documentationLink config "distribution"
             ]
@@ -783,7 +783,7 @@ distributionView ({ componentConfig, db, impact, query, sector, updateDistributi
           , div [ class "d-flex align-items-center w-33 justify-content-end gap-1" ]
                 [ Icon.package
                 , lifeCycle.distribution.volume
-                    |> Format.cubicMeters
+                    |> RichFormat.cubicMeters
                 ]
                 |> Just
           , -- only render distribution process selector if any is available
@@ -827,7 +827,7 @@ useStageView ({ impact, query } as config) lifeCycle =
             , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.use
                     |> Impact.sumImpacts
-                    |> Format.impact impact
+                    |> RichFormat.impact impact
                 ]
             , documentationLink config "use"
             ]
@@ -920,7 +920,7 @@ endOfLifeView ({ componentConfig, query, sector, updateRecyclable } as config) l
                     ]
                 ]
             , lifeCycle.endOfLife
-                |> Format.impact config.impact
+                |> RichFormat.impact config.impact
             , documentationLink config "eol"
             ]
         , div [ class "card-body table-responsive p-0" ]
@@ -979,7 +979,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
                         impacts |> Impact.getImpact config.impact.trigram
 
                     formatted =
-                        impacts |> Format.impact config.impact
+                        impacts |> RichFormat.impact config.impact
                 in
                 div []
                     [ if isRecycling && Unit.impactToFloat impact == 0 then
@@ -995,7 +995,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
                             Nothing ->
                                 formatted
                     , small []
-                        [ text "\u{00A0}(", split |> Format.splitAsPercentage 0, text ")" ]
+                        [ text "\u{00A0}(", split |> RichFormat.splitAsPercentage 0, text ")" ]
                     ]
     in
     [ tr [ class "table-active" ]
@@ -1010,12 +1010,12 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
               , nonCollected |> Tuple.second |> .landfilling |> .impacts
               ]
                 |> Impact.sumImpacts
-                |> Format.impact config.impact
+                |> RichFormat.impact config.impact
             ]
         ]
     , tr []
-        [ td [ class "text-end" ] [ text "Collecté à ", Format.splitAsPercentage 0 collectionShare ]
-        , td [ class "text-end" ] [ collected |> Tuple.first |> Format.kg ]
+        [ td [ class "text-end" ] [ text "Collecté à ", RichFormat.splitAsPercentage 0 collectionShare ]
+        , td [ class "text-end" ] [ collected |> Tuple.first |> RichFormat.kilograms ]
         , td [ class "text-end" ] [ collected |> Tuple.second |> .recycling |> formatShareImpacts True ]
         , td [ class "text-end" ] [ collected |> Tuple.second |> .incinerating |> formatShareImpacts False ]
         , td [ class "text-end" ] [ collected |> Tuple.second |> .landfilling |> formatShareImpacts False ]
@@ -1025,12 +1025,12 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
               , collected |> Tuple.second |> .landfilling |> .impacts
               ]
                 |> Impact.sumImpacts
-                |> Format.impact config.impact
+                |> RichFormat.impact config.impact
             ]
         ]
     , tr []
-        [ td [ class "text-end" ] [ text "Non-collecté à ", Format.splitAsPercentage 0 nonCollectionShare ]
-        , td [ class "text-end" ] [ nonCollected |> Tuple.first |> Format.kg ]
+        [ td [ class "text-end" ] [ text "Non-collecté à ", RichFormat.splitAsPercentage 0 nonCollectionShare ]
+        , td [ class "text-end" ] [ nonCollected |> Tuple.first |> RichFormat.kilograms ]
         , td [ class "text-end" ] [ nonCollected |> Tuple.second |> .recycling |> formatShareImpacts True ]
         , td [ class "text-end" ] [ nonCollected |> Tuple.second |> .incinerating |> formatShareImpacts False ]
         , td [ class "text-end" ] [ nonCollected |> Tuple.second |> .landfilling |> formatShareImpacts False ]
@@ -1040,7 +1040,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
               , nonCollected |> Tuple.second |> .landfilling |> .impacts
               ]
                 |> Impact.sumImpacts
-                |> Format.impact config.impact
+                |> RichFormat.impact config.impact
             ]
         ]
     ]

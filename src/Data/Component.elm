@@ -150,7 +150,7 @@ import Data.Component.Consumption as Consumption exposing (Consumption)
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
-import Data.Format as Format
+import Data.Format as DataFormat
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
 import Data.Process as Process exposing (Process)
@@ -572,7 +572,7 @@ addResults (Results results) (Results acc) =
 
 amountProcessToString : Amount -> Process -> String
 amountProcessToString amount process =
-    Format.float 5 (Amount.toFloat amount)
+    DataFormat.float 5 (Amount.toFloat amount)
         ++ Process.unitToString process.unit
         ++ " "
         ++ Process.getDisplayName process

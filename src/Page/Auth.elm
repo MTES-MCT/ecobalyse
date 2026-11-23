@@ -12,7 +12,7 @@ import App exposing (PageUpdate)
 import Browser.Navigation as Nav
 import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
 import Data.Env as Env
-import Data.Format as Format
+import Data.Format as DataFormat
 import Data.Plausible as Plausible
 import Data.Sector as Sector
 import Data.Session as Session exposing (Session)
@@ -813,7 +813,7 @@ viewApiTokens session apiTokens =
                                             [ td [ class "align-middle" ] [ text apiToken.id ]
                                             , td [ class "align-middle text-end" ]
                                                 [ apiToken.lastAccessedAt
-                                                    |> Maybe.map Format.frenchDatetime
+                                                    |> Maybe.map DataFormat.frenchDatetime
                                                     |> Maybe.withDefault "Jamais utilisé"
                                                     |> text
                                                 ]
@@ -878,7 +878,7 @@ viewApiTokenDelete apiToken =
                 p [ class "alert alert-warning d-flex align-items-center gap-1" ]
                     [ Icon.warning
                     , text "Dernière utilisation\u{00A0}:\u{00A0}"
-                    , text <| Format.frenchDatetime lastAccessedAt
+                    , text <| DataFormat.frenchDatetime lastAccessedAt
                     ]
 
             Nothing ->

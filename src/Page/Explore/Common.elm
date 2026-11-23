@@ -2,7 +2,7 @@ module Page.Explore.Common exposing (impactBarGraph)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Views.Format as Format
+import Views.Format as RichFormat
 
 
 impactBarGraph : Bool -> Float -> Float -> Html msg
@@ -19,7 +19,7 @@ impactBarGraph detailed max score =
             [ classList [ ( "text-end", not detailed ) ]
             , style "min-width" "76px"
             ]
-            [ Format.richFloat 2 "Pts" score
+            [ RichFormat.float 2 "Pts" score
             ]
         , div [ class "progress", style "min-width" "calc(100% - 76px)" ]
             [ div

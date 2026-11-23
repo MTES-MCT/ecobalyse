@@ -5,7 +5,7 @@ import Expect
 import Html exposing (text)
 import Test exposing (..)
 import TestUtils exposing (asTest)
-import Views.Format as Format
+import Views.Format as RichFormat
 
 
 suite : Test
@@ -14,12 +14,12 @@ suite =
         [ describe "Format.percentage"
             [ 0.12
                 |> Split.fromFloat
-                |> Result.map (Format.splitAsPercentage 0)
+                |> Result.map (RichFormat.splitAsPercentage 0)
                 |> Expect.equal (Ok (text "12\u{202F}%"))
                 |> asTest "should properly format a Split as percentage"
             , 0.12
                 |> Split.fromFloat
-                |> Result.map (Format.splitAsFloat 1)
+                |> Result.map (RichFormat.splitAsFloat 1)
                 |> Expect.equal (Ok (text "0,1"))
                 |> asTest "should properly format a Split as float"
             ]

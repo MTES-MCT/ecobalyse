@@ -23,7 +23,7 @@ import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Example as Example exposing (Example)
-import Data.Format as Format
+import Data.Format as DataFormat
 import Data.Generic.Simulator as Simulator
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
@@ -1510,7 +1510,7 @@ durabilityView componentConfig sector maybeDurability =
                 , div [ class "col-sm-2 col-md-2" ]
                     [ currentDurability
                         |> Unit.ratioToFloat
-                        |> Format.float 2
+                        |> DataFormat.float 2
                         |> text
                     ]
                 , div [ class "col-sm-4 col-md-6 text-nowrap d-flex align-items-center gap-2" ]

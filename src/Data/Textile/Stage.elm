@@ -27,7 +27,7 @@ import Data.Complement as Complement
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
-import Data.Format as Format
+import Data.Format as DataFormat
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -457,7 +457,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                             -- Note: Much better expressing electricity consumption in kWh than in MJ
                             inputs.product.use.ironingElec
                                 |> Energy.inKilowattHours
-                                |> Format.float 4
+                                |> DataFormat.float 4
                                 |> (\x -> "Repassage\u{00A0}: " ++ x ++ "\u{00A0}kWh")
                                 |> Just
                         , useNonIroning = Just <| Process.getDisplayName inputs.product.use.nonIroningProcess
@@ -538,7 +538,7 @@ yarnSizeToString yarnSize =
 
 yarnSizeToDtexString : Unit.YarnSize -> String
 yarnSizeToDtexString yarnSize =
-    Format.float 2 (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
+    DataFormat.float 2 (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
 
 
 encode : Stage -> Encode.Value
