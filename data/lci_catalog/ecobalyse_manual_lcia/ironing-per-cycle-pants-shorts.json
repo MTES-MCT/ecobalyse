@@ -1,0 +1,36 @@
+{
+  "categories": ["use"],
+  "comment": "Repassage pour la catégorie « Pantalon / Short ». Unité : 1 cycle d'entretien (le nombre de cycles par défaut de la catégorie est 23) ; valeur indépendante de la masse du produit. Calcul : ironingElecInMJ = 0,2438 MJ ; 0,2438 / 3,6 = 0,0677 kWh par cycle. Pas d'impact propre (ecs = 0) : l'impact vient de l'électricité du pays d'utilisation.",
+  "displayName": "Repassage, par cycle d'entretien (Pantalon / Short)",
+  "elecKwh": 0.0677,
+  "heatMJ": 0,
+  "id": "7731740e-345e-5137-b56b-1b7e5a4f4a43",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "e6ecfb85-9423-47ca-9758-761d189024f9", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 1.0,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "item"
+}

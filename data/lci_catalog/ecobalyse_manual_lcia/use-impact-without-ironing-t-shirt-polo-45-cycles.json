@@ -1,0 +1,36 @@
+{
+  "categories": ["productmassdependent", "use"],
+  "comment": "Utilisation hors repassage pour la catégorie « T-shirt / Polo », par kg de produit, sur les 45 cycles d'entretien par défaut. Dérivé du procédé « Utilisation : Impact hors repassage (T-shirt) » (par cycle), dont l'électricité et l'impact sont multipliés par le nombre de cycles. Électricité : 0,2852 × 45 = 12,834 kWh/kg. Impact (ecs, recalculé depuis les 19 indicateurs : somme de impact / normalisation × pondération × 10^6) : 15,1335 × 45 = 681,0091 µPt/kg. Impacts détaillés : valeurs du procédé d'origine (par cycle) multipliées par le nombre de cycles.",
+  "displayName": "Utilisation hors repassage (T-shirt / Polo, 45 cycles d'entretien)",
+  "elecKwh": 12.834,
+  "heatMJ": 0,
+  "id": "6e514c81-31c7-5053-8bd3-a2dd36abf27e",
+  "impacts": {
+    "acd": 0.0042273,
+    "cch": 1.53087,
+    "etf": 0.0,
+    "etf-c": 0.0,
+    "fru": 32.2828,
+    "fwe": 0.000498875,
+    "htc": 0.0,
+    "htc-c": 0.0,
+    "htn": 0.0,
+    "htn-c": 0.0,
+    "ior": 60.6974,
+    "ldu": 47.6874,
+    "mru": 5.66361e-06,
+    "ozd": 3.79457e-07,
+    "pco": 0.00254965,
+    "pma": 8.69427e-08,
+    "swe": 0.000903424,
+    "tre": 0.00492291,
+    "wtu": 0.0
+  },
+  "metadata": [
+    { "id": "2c57ab85-b6cb-423d-b01a-e5ffcbd4d0cf", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 1.0,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}

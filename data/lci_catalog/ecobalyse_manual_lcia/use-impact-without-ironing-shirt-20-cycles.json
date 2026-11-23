@@ -1,0 +1,36 @@
+{
+  "categories": ["productmassdependent", "use"],
+  "comment": "Utilisation hors repassage pour la catégorie « Chemise », par kg de produit, sur les 20 cycles d'entretien par défaut. Dérivé du procédé « Utilisation : Impact hors repassage (Chemisier) » (par cycle), dont l'électricité et l'impact sont multipliés par le nombre de cycles. Électricité : 0,2249 × 20 = 4,498 kWh/kg. Impact (ecs, recalculé depuis les 19 indicateurs : somme de impact / normalisation × pondération × 10^6) : 15,1335 × 20 = 302,6707 µPt/kg. Impacts détaillés : valeurs du procédé d'origine (par cycle) multipliées par le nombre de cycles.",
+  "displayName": "Utilisation hors repassage (Chemise, 20 cycles d'entretien)",
+  "elecKwh": 4.498,
+  "heatMJ": 0,
+  "id": "b7776009-9daa-5ed2-a441-ca56437e43e1",
+  "impacts": {
+    "acd": 0.0018788,
+    "cch": 0.680386,
+    "etf": 0.0,
+    "etf-c": 0.0,
+    "fru": 14.3479,
+    "fwe": 0.000221722,
+    "htc": 0.0,
+    "htc-c": 0.0,
+    "htn": 0.0,
+    "htn-c": 0.0,
+    "ior": 26.9766,
+    "ldu": 21.1944,
+    "mru": 2.51716e-06,
+    "ozd": 1.68647e-07,
+    "pco": 0.00113318,
+    "pma": 3.86412e-08,
+    "swe": 0.000401522,
+    "tre": 0.00218796,
+    "wtu": 0.0
+  },
+  "metadata": [
+    { "id": "4b98b1e1-9f39-4c07-9c3c-c26af31e0a58", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 1.0,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}
