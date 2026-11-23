@@ -19,6 +19,11 @@ updates:
     target-branch: "main"
     schedule:
       interval: "monthly"
+    ignore:
+      # advanced-alchemy relies on `sqlalchemy.util.portable_instancemethod`,
+      # removed in SQLAlchemy 2.1. Remove once advanced-alchemy supports 2.1.
+      - dependency-name: "sqlalchemy"
+        versions: [">=2.1"]
     cooldown:
       semver-major-days: 90 # it’s the maximum allowed by dependabot, 3 months
     groups:

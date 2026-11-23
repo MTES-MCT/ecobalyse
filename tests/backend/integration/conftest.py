@@ -47,7 +47,7 @@ async def fx_engine(postgres_service: PostgresService) -> AsyncEngine:
             host=postgres_service.host,
             port=postgres_service.port,
             database=postgres_service.database,
-            query={},
+            query={},  # ty: ignore[invalid-argument-type]
         ),
         # echo=True,
         future=True,
