@@ -2,7 +2,7 @@
 hidden: true
 ---
 
-# ⚡ Electricité
+# ⚡ OLD TEXTILE - Electricité
 
 ## Généralités
 
@@ -19,7 +19,7 @@ Dans ce cas précis, la quantité d'électricité nécessaire pour actionner le 
 
 Le flux externe d'électricité mobilisé correspond au mix électrique de la zone géographique sélectionnée par l'utilisateur.
 
-<figure><img src="../../.gitbook/assets/image (293).png" alt=""><figcaption><p>Illustration de la zone géographique à préciser par l'utilisateur</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (293).png" alt=""><figcaption><p>Illustration de la zone géographique à préciser par l'utilisateur</p></figcaption></figure>
 
 ### Procédés mobilisés
 
@@ -50,7 +50,7 @@ Au total, 20 scénarios sont proposés dans Ecobalyse afin de répondre aux diff
 |                   | Bangladesh |
 |                   | Myanmar    |
 
-<figure><img src="../../.gitbook/assets/Coût environnemental des mix électriques mobilisés dans Ecobalyse (uPts _ kWh) (4).png" alt=""><figcaption><p>Mix électriques mobilisés dans Ecobalyse</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Coût environnemental des mix électriques mobilisés dans Ecobalyse (uPts _ kWh) (4).png" alt=""><figcaption><p>Mix électriques mobilisés dans Ecobalyse</p></figcaption></figure>
 
 {% hint style="info" %}
 Ces scénarios par défaut permettent de couvrir le Niveau 1 du dispositif d'affichage environnemental.

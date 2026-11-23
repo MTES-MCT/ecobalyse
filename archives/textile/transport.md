@@ -2,13 +2,13 @@
 hidden: true
 ---
 
-# 🚢 Transport
+# 🚢 OLD - Transport
 
 ## Vue d'ensemble
 
 Le transport considéré correspond à l'ensemble des transports mobilisés sur la chaîne de valeur du vêtement.
 
-Entre chaque étape, la masse à considérer est ajustée en fonction des [Pertes et rebut](../precisions-methodologiques/pertes-et-rebus.md).
+Entre chaque étape, la masse à considérer est ajustée en fonction des [Pertes et rebut](../../textile/precisions-methodologiques/pertes-et-rebus.md).
 
 <table><thead><tr><th width="117">#Etape</th><th width="169">De</th><th width="213">Vers</th><th>Masse de produit considéré</th></tr></thead><tbody><tr><td>1.</td><td>Matière<br>Pays*</td><td>Filature<br>Pays*</td><td>Matière première</td></tr><tr><td>2.</td><td>Filature<br>Pays*</td><td><p>Tissage/tricotage</p><p>Pays*</p></td><td>Fil</td></tr><tr><td>3.</td><td><p>Tissage/tricotage</p><p>Pays*</p></td><td><p>Teinture</p><p>Pays*</p></td><td>Etoffe</td></tr><tr><td>4.</td><td><p>Teinture</p><p>Pays*</p></td><td><p>Confection</p><p>Pays*</p></td><td>Etoffe</td></tr><tr><td>5.</td><td><p>Confection</p><p>Pays*</p></td><td><p>Entrepôt</p><p>Pays : France</p></td><td>Vêtement</td></tr><tr><td>6.</td><td><p>Entrepôt</p><p>Pays : France</p></td><td><p>Magasin ou Point de retrait</p><p>Pays : France</p></td><td>Vêtement</td></tr></tbody></table>
 
@@ -87,7 +87,7 @@ Une part de transport aérien est considérée, comme paramètre optionnel :
 * Seulement pour le transport entre la confection et l'entrepôt (étape #5 ci-dessus)
 * Cette part n'est considérée que lorsque la confection est réalisée hors Europe (ou Turquie). Pour mémo, il est considéré que l'entrepôt est en France (cf. [Distribution](etape-6-distribution-old-archive.md))
 
-La part de **transport aérien (`a`)**, par rapport au transport "aérien + terrestre + maritime" est considérée comme suit pour la **valeur par défaut**: &#x20;
+La part de **transport aérien (`a`)**, par rapport au transport "aérien + terrestre + maritime" est considérée comme suit pour la **valeur par défaut**:
 
 **Si le coefficient de durabilité est > 1**
 
@@ -110,7 +110,7 @@ Le curseur "part du transport aérien", proposé sous l'étape "confection" perm
 
 Une récente [étude de l'ONG suisse "Public Eye" parue fin 2023 ](https://www.publiceye.ch/fr/thematiques/industrie-textile/en-mode-avion-zara-attise-la-crise-climatique)met en lumière l'importance du secteur Textile dans le fret aérien. De manière générale, peu de données précises sont disponibles sur ces pratiques car les entreprises Textile sont discrètes à ce sujet.
 
-Quelques enseignements clés de l'étude :&#x20;
+Quelques enseignements clés de l'étude :
 
 * le fret aérien est utilisé au sein même de l'UE alors que l'avantage en termes de temps reste faible (c. 42,658 tonnes de vêtements transportées par avion au sein de l'UE en 2022 d'après les estimations de l'étude),
 * Shein a signé un partenariat stratégique avec China Southern Airlines afin d'optimiser ses flux logistiques aériens,
@@ -144,26 +144,24 @@ Pour la distribution, il est considéré une distance par défaut de 500 km, eff
 
 Cette hypothèse est conforme à la méthodologie ADEME (cf. méthodologie d'évaluation des impacts environnementaux des articles d'habillement - section A.2.b.2 p30).
 
-## Pays par défaut (étapes de Transformation)&#x20;
+## Pays par défaut (étapes de Transformation)
 
-Pour les étapes de transformation (filature, tissage/tricotage, ennoblissement et confection), des scénarios par défaut sont proposés pour répondre aux différents cas d'usage :&#x20;
+Pour les étapes de transformation (filature, tissage/tricotage, ennoblissement et confection), des scénarios par défaut sont proposés pour répondre aux différents cas d'usage :
 
 <details>
 
-<summary>Je connais le pays où a lieu l'étape </summary>
+<summary>Je connais le pays où a lieu l'étape</summary>
 
 Option 1 => le pays est proposé dans Ecobalyse => je le sélectionne
 
 Option 2 => le pays n'est pas proposé dans Ecobalyse => je sélectionne la région (ex : _Europe de l'Ouest_ pour _Allemagne_)
 
-
-
-Afin de définir les distances et modes de transport utilisés pour chaque région, un pays est défini en arrière plan :&#x20;
+Afin de définir les distances et modes de transport utilisés pour chaque région, un pays est défini en arrière plan :
 
 * Europe de l'Ouest = Espagne
 * Europe de l'Est = République Tchèque
 * Asie = Chine
-* Afrique = Ethiopie&#x20;
+* Afrique = Ethiopie
 * Amérique du Nord = Etats-Unis
 * Amérique latine = Brésil
 * Océanie = Australie
@@ -175,7 +173,7 @@ Afin de définir les distances et modes de transport utilisés pour chaque régi
 
 <summary>Je ne connais pas le lieu où a lieu l'étape</summary>
 
-Je sélectionne l'option _Inconnu (par défaut)._&#x20;
+Je sélectionne l'option _Inconnu (par défaut)._
 
 L'Inde est utilisé en arrière plan pour définir les distances et modes de transport utilisés pour cette option.
 
@@ -183,9 +181,9 @@ L'Inde est utilisé en arrière plan pour définir les distances et modes de tra
 
 ## Procédés
 
-Les procédés utilisés pour modéliser les impacts des différents modes de transport sont les suivants :&#x20;
+Les procédés utilisés pour modéliser les impacts des différents modes de transport sont les suivants :
 
-<table><thead><tr><th width="198">Type de transport</th><th>Procédé</th></tr></thead><tbody><tr><td>Terrestre</td><td>transport, freight, lorry, unspecified, RoW </td></tr><tr><td>Maritime</td><td>transport, freight, sea, container ship, GLO</td></tr><tr><td>Aérien</td><td>transport, freight, aircraft, long haul, GLO </td></tr><tr><td>Ferroviaire</td><td>transport, freight train, GLO</td></tr></tbody></table>
+<table><thead><tr><th width="198">Type de transport</th><th>Procédé</th></tr></thead><tbody><tr><td>Terrestre</td><td>transport, freight, lorry, unspecified, RoW</td></tr><tr><td>Maritime</td><td>transport, freight, sea, container ship, GLO</td></tr><tr><td>Aérien</td><td>transport, freight, aircraft, long haul, GLO</td></tr><tr><td>Ferroviaire</td><td>transport, freight train, GLO</td></tr></tbody></table>
 
 ## Coût environnemental
 

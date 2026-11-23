@@ -70,7 +70,7 @@ La modélisation des impacts de toxicité humaine (toxicité humaine cancer et t
 
 En revanche, l'indicateur d'écotoxicité (écotoxicité eau douce), est lui considéré comme plus robuste par la communauté scientifique, bien que partiel puisque ne prend pas en compte l'ensemble des impacts écotoxiques, notamment sur les milieux terrestres. Par ailleurs, l'absence d'un indicateur de "biodiversité locale" dans le cadre ACV actuellement justifie de considérer temporairement cet indicateur d'écotoxicité comme un "proxy" de la biodiversité locale. Il est donc proposé de réhausser sa pondération à hauteur de 21%, c'est-à-dire au même niveau que l'impact changement climatique.
 
-Pour les produits textiles, il est également proposé d'enrichir les inventaires de l'étape [Ennoblissement](../../../textile/cycle-de-vie-des-produits-textiles/ennoblissement/) afin de mieux prendre en compte l'impact des substances chimiques mobilisées lors du traitement des fibres (plus de détails dans la [partie dédiée](../../../textile/cycle-de-vie-des-produits-textiles/ennoblissement/inventaires-enrichis.md)).
+Pour les produits textiles, il est également proposé d'enrichir les inventaires de l'étape [Ennoblissement](../../textile/ennoblissement/) afin de mieux prendre en compte l'impact des substances chimiques mobilisées lors du traitement des fibres (plus de détails dans la [partie dédiée](../../textile/ennoblissement/inventaires-enrichis.md)).
 
 ## Compléments hors ACV
 
@@ -85,4 +85,4 @@ Pour les _**produits alimentaires**_, ces compléments hors ACV visent à prendr
 
 ## Durabilité
 
-La [**durabilité**](../../../textile/durabilite.md) **non-physique des produits textiles** est intégrée au calcul au moyen d'un coefficient compris entre 0,67 et 1,45 (0,67 pour les produits les moins durables, et 1,45 pour les produits les plus durables), venant **moduler le coût environnemental** . Il vise à refléter la propension qu'a un vêtement à être porté plus longtemps en fonction d'autres critères : réparabilité, attachement...
+La [**durabilité**](../../textile/durabilite.md) **non-physique des produits textiles** est intégrée au calcul au moyen d'un coefficient compris entre 0,67 et 1,45 (0,67 pour les produits les moins durables, et 1,45 pour les produits les plus durables), venant **moduler le coût environnemental** . Il vise à refléter la propension qu'a un vêtement à être porté plus longtemps en fonction d'autres critères : réparabilité, attachement...

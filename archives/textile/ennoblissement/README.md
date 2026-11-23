@@ -2,7 +2,7 @@
 hidden: true
 ---
 
-# 🌈 Etape 4 - Ennoblissement - ancienne page
+# 🌈 OLD - Etape 4 - Ennoblissement
 
 L’ennoblissement consiste à donner aux tissus l'aspect visuel et les propriétés physiques et esthétiques exigées par les consommateurs. Il peut s'agir d'opérations mécaniques ou chimiques.
 
@@ -66,7 +66,7 @@ L'impact global de l''étape Ennoblissement se comprend comme la somme des impac
 
 #### Etape 1 = Modélisation des flux externes des procédés
 
-L'impact de chaque procédé pris séparément correspond au produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](../../pages-textiles-old/impacts-consideres.md)).
+L'impact de chaque procédé pris séparément correspond au produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](../pages-textiles-old/impacts-consideres.md)).
 
 $$
 ImpactProcédé = MasseSortante(kg) * CoefImpactProcédé
@@ -77,7 +77,7 @@ Le CoefImpactProcédé correspond à la somme des impacts des flux externes mobi
 * :zap:électricité (exprimé en kWh / kg),
 * :fire: chaleur (exprimé en MJ / kg).
 
-Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../../precisions-methodologiques/pertes-et-rebus.md).
+Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../../../textile/precisions-methodologiques/pertes-et-rebus.md).
 
 #### Etape 2 = Ajout des inventaires enrichis (impacts Ecotox/Tox)
 

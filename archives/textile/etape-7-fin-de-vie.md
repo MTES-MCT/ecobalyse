@@ -2,7 +2,7 @@
 hidden: true
 ---
 
-# ♻️ Etape 8 - Fin de vie - old
+# ♻️ OLD - Etape 8 - Fin de vie
 
 L'impact de la fin de vie se décompose en deux modules :
 
@@ -13,7 +13,7 @@ Jusqu'à l'introduction du complément, la fin de vie pesait entre 0% et 1% de l
 
 ## Complément Fin de vie Hors Europe
 
-Cf. la [page](../complements-hors-acv/export-hors-europe.md) dédiée dans la rubrique "Compléments hors ACV"
+Cf. la [page](../../textile/complements-hors-acv/export-hors-europe.md) dédiée dans la rubrique "Compléments hors ACV"
 
 ## Scénario PEFCR Apparel & Footwear
 
@@ -30,7 +30,7 @@ On prend en compte ces 2 scénarios :
 
 <summary>Recyclage</summary>
 
-Pour le recyclage, 2 circuits sont proposés ici : le recyclage en chiffons (wipers) et en matériaux d'isolation (insulation). La prise en compte de ce recyclage se fait via la Circular Footprint Formula (CFF). [Nous avons estimé l'impact de ces circuits de recyclage et trouvé qu'il était négligeable sur cette page.](etape-1-matieres/circular-footprint-formula-cff-matiere-1.md)
+Pour le recyclage, 2 circuits sont proposés ici : le recyclage en chiffons (wipers) et en matériaux d'isolation (insulation). La prise en compte de ce recyclage se fait via la Circular Footprint Formula (CFF). [Nous avons estimé l'impact de ces circuits de recyclage et trouvé qu'il était négligeable sur cette page.](circular-footprint-formula-cff-matiere-1.md)
 
 </details>
 

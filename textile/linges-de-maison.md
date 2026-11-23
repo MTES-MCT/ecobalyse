@@ -3,7 +3,7 @@ description: 🚧 WORK IN PROGRESS
 hidden: true
 ---
 
-# 🚧 Linges de maison
+# 🛏️ EN PROGRESSION - Linges de maison
 
 ## Catégories de produits
 

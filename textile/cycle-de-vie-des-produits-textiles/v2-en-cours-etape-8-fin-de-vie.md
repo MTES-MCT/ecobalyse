@@ -1,8 +1,11 @@
 ---
+description: >-
+  Cette page est en cours de développement, et correspondra aux spécifications
+  de la fin de vie du secteur textile sur le modèle générique.
 hidden: true
 ---
 
-# ♻️ \[V2 EN COURS] Etape 8 - Fin de vie
+# ♻️ EN PROGRESSION - Etape 8 - Fin de vie V2
 
 ## Contexte
 

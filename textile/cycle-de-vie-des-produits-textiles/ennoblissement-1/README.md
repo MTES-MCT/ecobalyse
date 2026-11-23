@@ -121,7 +121,7 @@ Avec :
 
 #### Etape 2 = Ajout des inventaires enrichis (impacts Ecotox/Tox)
 
-Lorsque des procédés mobilisés dans la modélisation d'un vêtement font l'objet d'inventaires enrichis (ex : Blanchiment), l'impact de ces inventaires enrichis sont intégrés (plus d'info [ici](../ennoblissement/inventaires-enrichis.md)).
+Lorsque des procédés mobilisés dans la modélisation d'un vêtement font l'objet d'inventaires enrichis (ex : Blanchiment), l'impact de ces inventaires enrichis sont intégrés (plus d'info [ici](../../../archives/textile/ennoblissement/inventaires-enrichis.md)).
 
 {% hint style="info" %}
 La modélisation des substances chimiques mobilisées sur les étapes d'ennoblissement (ainsi que leurs impacts) est aujourd'hui très difficile via la méthode ACV[^1] pour diverses raisons.
@@ -174,7 +174,7 @@ Non applicable (un scénario par défaut applicable à tous les vêtements est p
 </details>
 
 {% hint style="info" %}
-Pour rappel, des inventaires enrichis ont été construits et intégrés dans le référentiel afin de mieux prendre en compte l'impact des substances chimiques mobilisées lors de l'étape Ennoblissement (cf. la section [Inventaires enrichis](../ennoblissement/inventaires-enrichis.md) pour plus de détails).
+Pour rappel, des inventaires enrichis ont été construits et intégrés dans le référentiel afin de mieux prendre en compte l'impact des substances chimiques mobilisées lors de l'étape Ennoblissement (cf. la section [Inventaires enrichis](../../../archives/textile/ennoblissement/inventaires-enrichis.md) pour plus de détails).
 {% endhint %}
 
 ### Application des procédés
