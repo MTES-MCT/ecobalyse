@@ -30,7 +30,7 @@ view config amount =
             , noOp = config.noOp
             , onInput = config.onInput
             , state = config.state
-            , value = Amount.toFloat amount
+            , value = Just (Amount.toFloat amount)
             , writeAccess = config.writeAccess
             }
         , small [ class "input-group-text fs-8" ]

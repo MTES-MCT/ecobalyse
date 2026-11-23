@@ -27,7 +27,7 @@ type alias Config msg =
     , noOp : msg
     , onInput : State -> msg
     , state : Maybe State
-    , value : Float
+    , value : Maybe Float
     , writeAccess : WriteAccess
     }
 
@@ -68,13 +68,23 @@ displayText ({ id, value } as config) =
         Just state ->
             if state.id == id then
                 state.draft
-                    |> Maybe.withDefault (format value)
+                    |> Maybe.withDefault (formatMaybe value)
 
             else
-                format value
+                formatMaybe value
 
         Nothing ->
-            format value
+            formatMaybe value
+
+
+formatMaybe : Maybe Float -> String
+formatMaybe maybeFloat =
+    case maybeFloat of
+        Just float ->
+            format float
+
+        Nothing ->
+            ""
 
 
 format : Float -> String
@@ -93,7 +103,7 @@ fromInput { id, value } text =
                 parse text
                     |> Maybe.andThen
                         (\float ->
-                            if float > 0 && float /= value then
+                            if float > 0 && Just float /= value then
                                 Just float
 
                             else
@@ -112,7 +122,7 @@ getAttributes config =
             [ class "cursor-not-allowed"
             , readonly True
             , title readonlyTitle
-            , value (format config.value)
+            , value (formatMaybe config.value)
             ]
 
         Writeable ->
@@ -139,12 +149,16 @@ isValidDraft config =
             if state.id == config.id then
                 case state.draft of
                     Just text ->
-                        case parse text of
-                            Just float ->
-                                float > 0
+                        if String.isEmpty text && config.value == Nothing then
+                            True
 
-                            Nothing ->
-                                False
+                        else
+                            case parse text of
+                                Just float ->
+                                    float > 0
+
+                                Nothing ->
+                                    False
 
                     Nothing ->
                         True
