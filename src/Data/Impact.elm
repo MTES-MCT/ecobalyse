@@ -37,7 +37,7 @@ fromFloat value =
 
 none : Impact
 none =
-    fromFloat 0
+    Quantity.zero
 
 
 toFloat : Impact -> Float
