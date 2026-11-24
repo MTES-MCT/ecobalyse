@@ -1174,13 +1174,23 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "zinc-coating-wo-energy",
-    "comment": "65µm Zn, 2mm Fe (60m²/t Fe). Adapted from 'zinc coating, pieces, RER', BAFU:2026. Heat and electricity consumptions are not included.",
+    "alias": "zinc-coating-wo-energy-1l",
+    "comment": "65µm Zn, 2mm Fe (60m²/t Fe), 1 side. Adapted from 'zinc coating, pieces, RER', BAFU:2026. Heat and electricity consumptions are not included.",
+    "database": "Ecobalyse_custom_lci",
+    "exchanges": [
+      { "amount": 0.03, "name": "zinc coat, pieces, without energy, per m2, RER" }
+    ],
+    "newName": "zinc coating, 1 layer, adapted from BAFU"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "zinc-coating-wo-energy-2l",
+    "comment": "65µm Zn, 2mm Fe (60m²/t Fe), 2 sides. Adapted from 'zinc coating, pieces, RER', BAFU:2026. Heat and electricity consumptions are not included.",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
       { "amount": 0.06, "name": "zinc coat, pieces, without energy, per m2, RER" }
     ],
-    "newName": "zinc coating, adapted from BAFU"
+    "newName": "zinc coating, 2 layers, adapted from BAFU"
   },
   {
     "activityCreationType": "from_existing",
@@ -1197,13 +1207,23 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "powder-coating-steel-wo-energy",
-    "comment": "80µm coating, 2mm Fe (65m²/t Fe). Adapted from 'Powder coating, steel, RER', BAFU:2026 (65µm Zn). Heat and electricity consumptions are not included.",
+    "alias": "powder-coating-steel-wo-energy-1l",
+    "comment": "80µm coating, 2mm Fe (65m²/t Fe). Adapted from 'Powder coating, steel, RER', BAFU:2026. Heat and electricity consumptions are not included.",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
       { "amount": 0.065, "name": "powder coat, steel, without energy, per m2, RER" }
     ],
-    "newName": "powder coating, steel, adapted from BAFU"
+    "newName": "powder coating, steel, 1 layer, adapted from BAFU"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "powder-coating-steel-wo-energy-2l",
+    "comment": "80µm coating, 2mm Fe (65m²/t Fe). Adapted from 'Powder coating, steel, RER', BAFU:2026. Heat and electricity consumptions are not included.",
+    "database": "Ecobalyse_custom_lci",
+    "exchanges": [
+      { "amount": 0.13, "name": "powder coat, steel, without energy, per m2, RER" }
+    ],
+    "newName": "powder coating, steel, 2 layers, adapted from BAFU"
   },
   {
     "activityCreationType": "from_existing",
@@ -1220,13 +1240,23 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "powder-coating-alu-wo-energy",
-    "comment": "80µm coating, 2mm Al (185m²/t Fe). Adapted from 'Powder coating, aluminium sheet, RER', BAFU:2026 (65µm Zn). Heat and electricity consumptions are not included.",
+    "alias": "powder-coating-alu-wo-energy-1l",
+    "comment": "80µm coating, 2mm Al (185m²/t Al). Adapted from 'Powder coating, aluminium sheet, RER', BAFU:2026. Heat and electricity consumptions are not included.",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
       { "amount": 0.185, "name": "powder coat, aluminium, without energy, per m2, RER" }
     ],
-    "newName": "powder coating, aluminium, adapted from BAFU"
+    "newName": "powder coating, aluminium, 1 layer, adapted from BAFU"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "powder-coating-alu-wo-energy-2l",
+    "comment": "80µm coating, 2mm Al (185m²/t Al). Adapted from 'Powder coating, aluminium sheet, RER', BAFU:2026. Heat and electricity consumptions are not included.",
+    "database": "Ecobalyse_custom_lci",
+    "exchanges": [
+      { "amount": 0.37, "name": "powder coat, aluminium, without energy, per m2, RER" }
+    ],
+    "newName": "powder coating, aluminium, 2 layers, adapted from BAFU"
   },
   {
     "activityCreationType": "from_scratch",
