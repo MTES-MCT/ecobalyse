@@ -262,25 +262,25 @@ decodeImpacts =
 
     -- Non-detailed process impacts (featuring only ecs)
     , Decode.succeed Trigrams
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
-        |> Pipe.hardcoded (Impact.fromFloat 0)
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
+        |> Pipe.hardcoded Impact.none
         |> Pipe.required "ecs" Impact.decoder
     ]
         |> Decode.oneOf
@@ -381,7 +381,7 @@ computeAggregatedScore definitions getter (Impacts impacts) =
                         )
                     |> Maybe.withDefault Quantity.zero
             )
-        |> Definition.foldl (\_ -> Quantity.plus) Quantity.zero
+        |> Definition.foldl (\_ -> Quantity.plus) Impact.none
 
 
 
