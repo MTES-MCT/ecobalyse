@@ -18,7 +18,7 @@ import Maybe.Extra as Maybe
 import Page.Explore.Table as Table exposing (Table)
 import Route
 import Views.Alert as Alert
-import Views.Format as Format
+import Views.Format as RichFormat
 import Views.Icon as Icon
 import Views.Link as Link
 
@@ -97,7 +97,7 @@ table db { detailed, sector } =
                 .origin
                     >> Origin.toMicrofibersComplement
                     >> Unit.impactToFloat
-                    >> Format.formatImpactFloat { unit = "\u{202F}Pts/kg", decimals = 2 }
+                    >> RichFormat.impactAsFloat { unit = "\u{202F}Pts/kg", decimals = 2 }
                     >> withPill Gitbook.TextileComplementMicrofibers
           }
         , { label = "Procédé de fabrication du fil"
@@ -149,7 +149,7 @@ table db { detailed, sector } =
                 .cffData
                     >> Maybe.map
                         (.manufacturerAllocation
-                            >> Format.splitAsFloat 1
+                            >> RichFormat.splitAsFloat 1
                             >> withPill Gitbook.TextileCircularFootprintFormula
                         )
                     >> Maybe.withDefault (text Table.emptyLabel)
@@ -164,7 +164,7 @@ table db { detailed, sector } =
                 .cffData
                     >> Maybe.map
                         (.recycledQualityRatio
-                            >> Format.splitAsFloat 1
+                            >> RichFormat.splitAsFloat 1
                             >> withPill Gitbook.TextileCircularFootprintFormula
                         )
                     >> Maybe.withDefault (text Table.emptyLabel)

@@ -4,11 +4,12 @@ module Views.Table exposing
     , responsiveDefault
     )
 
+import Data.Format as DataFormat
 import Data.Impact.Definition exposing (Definition)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Table as SortableTable
-import Views.Format as Format
+import Views.Format as RichFormat
 
 
 type alias DataPoint msg =
@@ -76,9 +77,9 @@ percentageTable impactDefinition data =
                                 entryTitle =
                                     name
                                         ++ ": "
-                                        ++ Format.formatFloat 2 percent
+                                        ++ DataFormat.float 2 percent
                                         ++ "\u{202F}% ("
-                                        ++ Format.formatFloat 2 impact
+                                        ++ DataFormat.float 2 impact
                                         ++ "\u{202F}"
                                         ++ impactDefinition.unit
                                         ++ ")"
@@ -112,7 +113,7 @@ percentageTable impactDefinition data =
                                         ]
                                     ]
                                 , td [ class "text-end text-nowrap fs-8" ]
-                                    [ Format.percent percent
+                                    [ RichFormat.percent percent
                                     ]
                                 ]
                         )

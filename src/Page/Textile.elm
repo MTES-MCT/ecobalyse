@@ -22,6 +22,7 @@ import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Example as Example
+import Data.Format as DataFormat
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -68,7 +69,7 @@ import Views.Component.Context as Context
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Example as ExampleView
-import Views.Format as Format
+import Views.Format as RichFormat
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
 import Views.Markdown as Markdown
@@ -1088,7 +1089,7 @@ simulatorFormView session model ({ inputs } as simulator) =
                 [ span [ class "d-none d-sm-flex text-truncate" ] [ text "Coefficient de durabilité\u{00A0}:" ]
                 , simulator.durability
                     |> Unit.floatDurabilityFromHolistic
-                    |> Format.formatFloat 2
+                    |> DataFormat.float 2
                     |> text
                 , Button.docsPillLink
                     [ class "bg-secondary"
@@ -1244,7 +1245,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                             [ text "Pour 100g\u{00A0}:\u{00A0}"
                             , impacts
                                 |> Impact.per100grams inputs.mass
-                                |> Format.formatImpact model.impact
+                                |> RichFormat.impact model.impact
                             ]
                         )
                 , productMass = inputs.mass

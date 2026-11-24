@@ -10,7 +10,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Route
-import Views.Format as Format
+import Views.Format as RichFormat
 import Views.Markdown as Markdown
 
 
@@ -50,7 +50,7 @@ table { detailed, sector } =
           , toCell =
                 \def ->
                     def.ecoscoreData
-                        |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
+                        |> Maybe.map (.normalization >> Unit.impactToFloat >> RichFormat.float 2 def.unit)
                         |> Maybe.withDefault (text Table.emptyLabel)
           }
         , { label = "Pondération (Coût Evt)"
@@ -59,7 +59,7 @@ table { detailed, sector } =
                     .ecoscoreData
                         >> Maybe.map (.weighting >> Split.toFloat)
                         >> Maybe.withDefault 0
-          , toCell = .ecoscoreData >> Maybe.map (.weighting >> Format.splitAsPercentage 2) >> Maybe.withDefault (text Table.emptyLabel)
+          , toCell = .ecoscoreData >> Maybe.map (.weighting >> RichFormat.splitAsPercentage 2) >> Maybe.withDefault (text Table.emptyLabel)
           }
         , { label = "Description"
           , toValue = Table.StringValue .description

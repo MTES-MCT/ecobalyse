@@ -6,7 +6,7 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Mass exposing (Mass)
-import Views.Format as Format
+import Views.Format as RichFormat
 
 
 type alias Config msg =
@@ -30,13 +30,13 @@ view { customInfo, impactDefinition, mass, score, scoreWithoutDurability } =
             |> attribute "data-score"
         ]
         [ div [ class "card-body text-center text-nowrap text-white" ]
-            [ div [ class "display-3 lh-1" ] [ Format.formatImpact impactDefinition score ]
+            [ div [ class "display-3 lh-1" ] [ RichFormat.impact impactDefinition score ]
             , div []
                 [ scoreWithoutDurability
-                    |> Maybe.map (\s -> span [] [ Format.formatImpact impactDefinition s, text " hors durabilité" ])
+                    |> Maybe.map (\s -> span [] [ RichFormat.impact impactDefinition s, text " hors durabilité" ])
                     |> Maybe.withDefault (text "")
                 ]
-            , small [] [ text "Pour ", Format.kg mass ]
+            , small [] [ text "Pour ", RichFormat.kilograms mass ]
             ]
         , case customInfo of
             Just html ->

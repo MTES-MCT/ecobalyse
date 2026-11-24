@@ -10,6 +10,7 @@ module Data.Impact exposing
     , encodeAggregatedScoreChartEntry
     , encodeExcept
     , encodeSingleImpact
+    , formatImpacts
     , getAggregatedScoreData
     , getImpact
     , insertWithoutAggregateComputation
@@ -27,6 +28,7 @@ module Data.Impact exposing
     )
 
 import Data.Color as Color
+import Data.Format as DataFormat
 import Data.Impact.Definition as Definition exposing (Definition, Definitions, Trigram, Trigrams)
 import Data.Stages as Stages exposing (Stages)
 import Data.Unit as Unit
@@ -199,6 +201,13 @@ insertWithoutAggregateComputation trigram impact (Impacts impacts) =
 getImpact : Trigram -> Impacts -> Unit.Impact
 getImpact trigram (Impacts impacts) =
     Definition.get trigram impacts
+
+
+formatImpacts : Definition -> Impacts -> String
+formatImpacts { decimals, trigram } =
+    getImpact trigram
+        >> Unit.impactToFloat
+        >> DataFormat.float decimals
 
 
 mapImpacts : (Trigram -> Unit.Impact -> Unit.Impact) -> Impacts -> Impacts

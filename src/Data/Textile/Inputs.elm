@@ -19,6 +19,7 @@ import Data.Component as Component exposing (Item)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
+import Data.Format as DataFormat
 import Data.Impact as Impact
 import Data.Process as Process
 import Data.Split as Split exposing (Split)
@@ -40,7 +41,6 @@ import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
-import Views.Format as Format
 
 
 type alias MaterialInput =
@@ -278,12 +278,12 @@ stagesToStrings wellKnown inputs =
                )
             ++ (case inputs.physicalDurability of
                     Just physicalDurability ->
-                        ", durabilité physique " ++ Format.formatFloat 3 (Unit.physicalDurabilityToFloat physicalDurability)
+                        ", durabilité physique " ++ DataFormat.float 3 (Unit.physicalDurabilityToFloat physicalDurability)
 
                     Nothing ->
                         ""
                )
-      , Format.kgToString inputs.mass
+      , DataFormat.kilograms inputs.mass
       ]
     , ifStageEnabled Label.Material
         [ "matière"
@@ -295,7 +295,7 @@ stagesToStrings wellKnown inputs =
         ]
     , case inputs.yarnSize of
         Just yarnSize ->
-            [ "titrage", Format.formatFloat 3 (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
+            [ "titrage", DataFormat.float 3 (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
 
         Nothing ->
             []

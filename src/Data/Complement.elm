@@ -12,6 +12,7 @@ module Data.Complement exposing
     , emptyComplementsResultsImpacts
     , encodeComplementsImpacts
     , encodeComplementsResultsAs
+    , formatComplementsResultsImpacts
     , getTotalComplementsImpacts
     , impactsWithComplements
     , labels
@@ -26,7 +27,7 @@ module Data.Complement exposing
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition as Definition
+import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -176,6 +177,21 @@ encodeComplementsResultsAs trigram =
     allComplementsToList
         >> List.map2 encodeTuple (allComplementsToList identifiers)
         >> EU.optionalPropertiesObject
+
+
+formatComplement : Definition -> Maybe Impacts -> String -> Maybe String
+formatComplement definition maybeComplement label =
+    maybeComplement
+        |> Maybe.map (Impact.formatImpacts definition >> (++) (label ++ "\u{00A0}: "))
+
+
+formatComplementsResultsImpacts : Definition -> ComplementsResultsImpacts -> String
+formatComplementsResultsImpacts impact complementsResultsImpacts =
+    List.map2 (formatComplement impact)
+        (allComplementsToList complementsResultsImpacts)
+        (allComplementsToList labels)
+        |> List.filterMap identity
+        |> String.join "\n"
 
 
 getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact

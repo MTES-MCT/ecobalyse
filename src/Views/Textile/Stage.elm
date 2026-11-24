@@ -7,6 +7,7 @@ import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Env as Env
+import Data.Format as DataFormat
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -43,7 +44,7 @@ import Views.ComplementsDetails as ComplementsDetails
 import Views.Component.SplitInput as SplitInput
 import Views.Component.StagesBorder as StagesBorder
 import Views.CountrySelect as CountrySelect
-import Views.Format as Format
+import Views.Format as RichFormat
 import Views.Icon as Icon
 import Views.Link as Link
 import Views.RangeSlider as RangeSlider
@@ -508,7 +509,7 @@ viewStageImpacts selectedImpact { complementsImpacts, impacts } =
         div []
             [ span [ class "flex-fill" ]
                 [ totalImpacts
-                    |> Format.formatImpact selectedImpact
+                    |> RichFormat.impact selectedImpact
                 ]
             ]
 
@@ -557,7 +558,7 @@ viewMaterials config =
                                     , title "Impact du transport pour cette matière"
                                     ]
                                     [ text "(+ "
-                                    , Format.formatImpact config.selectedImpact transport.impacts
+                                    , RichFormat.impact config.selectedImpact transport.impacts
                                     , text ")"
                                     ]
                               ]
@@ -653,7 +654,7 @@ viewMaterialComplements finalProductMass materialInput =
             , div [ class "ComplementValue d-flex" ] []
             , div [ class "ComplementImpact text-black-50 text-muted text-end" ]
                 [ text "("
-                , Format.complement materialComplement
+                , RichFormat.complement materialComplement
                 , text ")"
                 ]
             ]
@@ -730,7 +731,7 @@ viewTransport { current, inputs, selectedImpact } =
     div []
         [ span []
             [ text "Masse\u{00A0}: "
-            , current |> Stage.getTransportedMass inputs |> Format.kg
+            , current |> Stage.getTransportedMass inputs |> RichFormat.kilograms
             ]
         , showIf (Transport.totalKm current.transport > 0) <|
             div [ class "d-flex justify-content-between gap-3 align-items-center" ]
@@ -747,7 +748,7 @@ viewTransport { current, inputs, selectedImpact } =
                     )
                 , span []
                     [ current.transport.impacts
-                        |> Format.formatImpact selectedImpact
+                        |> RichFormat.impact selectedImpact
                     , inlineDocumentationLink Gitbook.TextileTransport
                     ]
                 ]
@@ -776,7 +777,7 @@ daysOfWearInfo { daysOfWear, useNbCycles } =
         , title "Nombre dépendant de la catégorie de vêtement et du coefficient de durabilité"
         ]
         [ span [ class "pe-1 text-muted" ] [ Icon.info ]
-        , Format.days daysOfWear
+        , RichFormat.days daysOfWear
         , text "\u{00A0}portés, "
         , text <| String.fromInt useNbCycles
         , text <|
@@ -818,7 +819,7 @@ surfaceInfoView inputs current =
         Just ( dir, surface ) ->
             li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
                 [ span [] [ text <| "Surface étoffe (" ++ dir ++ ")\u{00A0}:" ]
-                , span [] [ Format.squareMeters surface ]
+                , span [] [ RichFormat.squareMeters surface ]
                 ]
 
         Nothing ->
@@ -882,7 +883,7 @@ ennoblingToxicityView db { inputs, selectedImpact } current =
                         , toxicityDetails
                             |> List.map Tuple.second
                             |> Impact.sumImpacts
-                            |> Format.formatImpact selectedImpact
+                            |> RichFormat.impact selectedImpact
                         , text ")"
                         , inlineDocumentationLink Gitbook.TextileEnnoblingToxicity
                         ]
@@ -895,7 +896,7 @@ ennoblingToxicityView db { inputs, selectedImpact } current =
                                 , impacts
                                     |> Impact.getImpact Definition.Ecs
                                     |> Unit.impactToFloat
-                                    |> Format.formatRichFloat 2 "Pts"
+                                    |> RichFormat.float 2 "Pts"
                                 ]
                         )
                     |> div []
@@ -911,7 +912,7 @@ pickingView maybePicking =
                 [ text "Duitage\u{00A0}:\u{00A0}"
                 , picking
                     |> Unit.pickPerMeterToFloat
-                    |> Format.formatRichFloat 0 "duites.m"
+                    |> RichFormat.float 0 "duites.m"
                 ]
 
         Nothing ->
@@ -930,7 +931,7 @@ threadDensityView threadDensity =
                 [ span [ class "d-flex justify-content-center gap-2" ]
                     [ text "Densité de fils (approx.)\u{00A0}:\u{00A0}"
                     , value
-                        |> Format.formatRichFloat 0 "fils/cm"
+                        |> RichFormat.float 0 "fils/cm"
                     ]
                 , if round value < Unit.threadDensityToInt Unit.threadDensityLow then
                     text "⚠️ la densité de fils semble très faible"
@@ -952,7 +953,7 @@ deadstockView config deadstock =
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
             (if deadstock /= Quantity.zero then
                 [ text "Dont stocks dormants\u{00A0}:\u{00A0}"
-                , Format.kgToString deadstock |> text
+                , DataFormat.kilograms deadstock |> text
                 , inlineDocumentationLink Gitbook.TextileMakingDeadStock
                 ]
 
@@ -967,7 +968,7 @@ wasteView { current } waste =
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
             (if waste /= Quantity.zero then
                 [ text "Pertes\u{00A0}:\u{00A0}"
-                , Format.kgToString waste |> text
+                , DataFormat.kilograms waste |> text
                 , inlineDocumentationLink
                     (if current.label == Label.Fabric then
                         Gitbook.TextileFabricWaste
@@ -1142,12 +1143,12 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                     li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
                         [ span [ class "d-flex align-items-center" ]
                             [ span [ class "me-1" ] [ text "Chaleur" ]
-                            , Format.megajoules current.heat
+                            , RichFormat.megajoules current.heat
                             , inlineDocumentationLink Gitbook.TextileHeat
                             ]
                         , span [ class "d-flex align-items-center" ]
                             [ span [ class "me-1" ] [ text "Électricité" ]
-                            , Format.kilowattHours current.kwh
+                            , RichFormat.kilowattHours current.kwh
                             , inlineDocumentationLink Gitbook.TextileElectricity
                             ]
                         ]
@@ -1161,21 +1162,21 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                     li [ class "list-group-item text-muted" ]
                         [ div [ class "d-flex justify-content-between" ]
                             [ text "Fin de vie"
-                            , Format.formatImpact selectedImpact current.impacts
+                            , RichFormat.impact selectedImpact current.impacts
                             ]
                         , showIf (selectedImpact.trigram == Definition.Ecs) <|
                             div [ class "text-start mt-2" ]
                                 [ span [ class "fw-bold" ] [ text "Complément" ]
                                 , div [ class "d-flex justify-content-between" ]
                                     [ text "-\u{00A0}Export hors-Europe"
-                                    , Format.complement (current.complementsImpacts.outOfEuropeEOL |> Maybe.withDefault Unit.noImpacts)
+                                    , RichFormat.complement (current.complementsImpacts.outOfEuropeEOL |> Maybe.withDefault Unit.noImpacts)
                                     ]
                                 , div [ class "d-flex justify-content-between" ]
                                     [ span [ class "me-2 text-truncate" ] [ text "-\u{00A0}Probabilité de fin de vie hors-Europe" ]
                                     , span [ class "text-nowrap" ]
                                         [ inputs.materials
                                             |> Inputs.getOutOfEuropeEOLProbability
-                                            |> Format.splitAsPercentage 2
+                                            |> RichFormat.splitAsPercentage 2
                                         , inlineDocumentationLink Gitbook.TextileEndOfLifeOutOfEuropeComplement
                                         ]
                                     ]

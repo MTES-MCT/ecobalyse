@@ -9,7 +9,7 @@ import Data.Impact.Definition exposing (Definition, Definitions)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
-import Views.Format as Format
+import Views.Format as RichFormat
 import Views.Icon as Icon
 
 
@@ -113,7 +113,7 @@ view ({ baseElement, db, impact } as config) =
             ]
     , span [ class "text-end ImpactDisplay fs-7" ]
         [ impact
-            |> Format.formatImpact config.selectedImpact
+            |> RichFormat.impact config.selectedImpact
         ]
     , deleteItemButton { disabled = not (canDeleteItem config) } deleteEvent
     ]

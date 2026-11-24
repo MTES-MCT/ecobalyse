@@ -199,6 +199,22 @@ commonNoticesForGeneric genericPage =
                 ]
 
 
+notificationToAlertLevel : Notification.Level -> Alert.Level
+notificationToAlertLevel level =
+    case level of
+        Notification.Error ->
+            Alert.Danger
+
+        Notification.Info ->
+            Alert.Info
+
+        Notification.Success ->
+            Alert.Success
+
+        Notification.Warning ->
+            Alert.Warning
+
+
 toastListView : Config msg -> Html msg
 toastListView ({ toMsg, tray } as config) =
     Toast.config (App.ToastMsg >> toMsg)
@@ -216,7 +232,7 @@ viewToast { toMsg } attributes { content, id } =
             [ content.message
                 |> Markdown.simple [ class "mb-1" ]
             ]
-        , level = Notification.toAlertLevel content.level
+        , level = notificationToAlertLevel content.level
         , title = content.title
         }
 
