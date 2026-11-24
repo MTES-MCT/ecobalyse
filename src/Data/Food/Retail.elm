@@ -17,10 +17,10 @@ module Data.Food.Retail exposing
 -}
 
 import Data.Food.WellKnown exposing (WellKnown)
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impact as Impact
+import Data.ImpactSet as ImpactSet exposing (Impacts)
 import Data.Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
-import Data.Unit as Unit
 import Energy exposing (Joules, kilowattHours)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -163,30 +163,30 @@ decode =
 waterImpact : Float -> Volume -> Process -> Impacts
 waterImpact waterNeeds volume =
     .impacts
-        >> Impact.mapImpacts
+        >> ImpactSet.mapImpacts
             (\_ impact ->
                 impact
-                    |> Unit.impactToFloat
+                    |> Impact.toFloat
                     |> (*) (Quantity.multiplyBy waterNeeds volume |> Volume.inLiters)
-                    |> Unit.impact
+                    |> Impact.fromFloat
             )
 
 
 elecImpact : Quantity Float (Rate Joules CubicMeters) -> Volume -> Process -> Impacts
 elecImpact elecNeeds volume =
     .impacts
-        >> Impact.mapImpacts
+        >> ImpactSet.mapImpacts
             (\_ impact ->
                 impact
-                    |> Unit.impactToFloat
+                    |> Impact.toFloat
                     |> (*) (Quantity.at elecNeeds volume |> Energy.inKilowattHours)
-                    |> Unit.impact
+                    |> Impact.fromFloat
             )
 
 
 distributionTransport : Distribution -> Bool -> Transport
 distributionTransport (Distribution _ needs) needsCooling =
-    Transport.default Impact.empty
+    Transport.default ImpactSet.empty
         |> Transport.addRoadWithCooling needs.transport needsCooling
 
 
@@ -196,4 +196,4 @@ computeImpacts volume (Distribution _ needs) wellknown =
     , elecImpact needs.cooling volume wellknown.lowVoltageElectricity
     , elecImpact needs.energy volume wellknown.lowVoltageElectricity
     ]
-        |> Impact.sumImpacts
+        |> ImpactSet.sumImpacts

@@ -12,13 +12,13 @@ module Views.ImpactTabs exposing
 import Data.Complement as Complement
 import Data.Component as Component
 import Data.Food.Recipe as Recipe
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
+import Data.ImpactSet as ImpactSet exposing (Impacts)
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Session as Session exposing (Session)
 import Data.Stages as Stages
 import Data.Textile.Simulator as TextileSimulator exposing (Simulator)
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -41,7 +41,7 @@ type alias Config msg =
     , onStageClick : String -> msg
     , scoring : Scoring
     , session : Session
-    , stagesImpacts : Impact.StagesImpacts
+    , stagesImpacts : ImpactSet.StagesImpacts
     , switchImpactsTab : Tab -> msg
     , total : Impacts
     }
@@ -89,13 +89,13 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
             [ case ( activeImpactsTab, Session.hasAccessToDetailedImpacts session ) of
                 ( DetailedImpactsTab, True ) ->
                     total
-                        |> Impact.getAggregatedScoreData definitions .ecoscoreData
+                        |> ImpactSet.getAggregatedScoreData definitions .ecoscoreData
                         |> List.map (\{ name, value } -> { entryAttributes = [], name = name, value = value })
                         |> (++)
                             [ -- Food ecosystemic services
                               { entryAttributes = []
                               , name = "Services écosystémiques"
-                              , value = Unit.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact)
+                              , value = Impact.toFloat (Complement.sumEcosystemicImpacts complementsImpact)
                               }
 
                             -- Textile complements
@@ -103,22 +103,22 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                               , name = "Complément " ++ String.toLower Complement.labels.outOfEuropeEOL
                               , value =
                                     complementsImpact.outOfEuropeEOL
-                                        |> Maybe.withDefault Unit.noImpacts
-                                        |> Unit.impactToFloat
+                                        |> Maybe.withDefault Impact.none
+                                        |> Impact.toFloat
                               }
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.microfibers
                               , value =
                                     complementsImpact.microfibers
-                                        |> Maybe.withDefault Unit.noImpacts
-                                        |> Unit.impactToFloat
+                                        |> Maybe.withDefault Impact.none
+                                        |> Impact.toFloat
                               }
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.forest
                               , value =
                                     complementsImpact.forest
-                                        |> Maybe.withDefault Unit.noImpacts
-                                        |> Unit.impactToFloat
+                                        |> Maybe.withDefault Impact.none
+                                        |> Impact.toFloat
                               }
                             ]
                         |> List.sortBy .value
@@ -130,63 +130,63 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
 
                 ( StagesImpactsTab, _ ) ->
                     [ { entryAttributes =
-                            [ StagesBorder.style Impact.stagesColors.trims
+                            [ StagesBorder.style ImpactSet.stagesColors.trims
                             , onClick <| onStageClick "trims-stage"
                             ]
                       , name = "Accessoires"
                       , value = stagesImpacts.trims
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impact.stagesColors.materials
+                            [ StagesBorder.style ImpactSet.stagesColors.materials
                             , onClick <| onStageClick "materials-stage"
                             ]
                       , name = "Matières premières"
                       , value = stagesImpacts.materials
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impact.stagesColors.transform
+                            [ StagesBorder.style ImpactSet.stagesColors.transform
                             , onClick <| onStageClick "transform-stage"
                             ]
                       , name = "Transformation"
                       , value = stagesImpacts.transform
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impact.stagesColors.assembly
+                            [ StagesBorder.style ImpactSet.stagesColors.assembly
                             , onClick <| onStageClick "assembly-stage"
                             ]
                       , name = "Assemblage"
                       , value = stagesImpacts.assembly
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impact.stagesColors.packaging
+                            [ StagesBorder.style ImpactSet.stagesColors.packaging
                             , onClick <| onStageClick "packaging-stage"
                             ]
                       , name = "Emballage"
                       , value = stagesImpacts.packaging
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impact.stagesColors.transports
+                            [ StagesBorder.style ImpactSet.stagesColors.transports
                             , onClick <| onStageClick "transport-stage"
                             ]
                       , name = "Transports"
                       , value = stagesImpacts.transports
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impact.stagesColors.distribution
+                            [ StagesBorder.style ImpactSet.stagesColors.distribution
                             , onClick <| onStageClick "distribution-stage"
                             ]
                       , name = "Distribution"
                       , value = stagesImpacts.distribution
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impact.stagesColors.usage
+                            [ StagesBorder.style ImpactSet.stagesColors.usage
                             , onClick <| onStageClick "usage-stage"
                             ]
                       , name = "Utilisation"
                       , value = stagesImpacts.usage
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impact.stagesColors.endOfLife
+                            [ StagesBorder.style ImpactSet.stagesColors.endOfLife
                             , onClick <| onStageClick "end-of-life-stage"
                             ]
                       , name = "Fin de vie"
@@ -199,7 +199,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                                 , name = name
                                 , value =
                                     value
-                                        |> Maybe.map Unit.impactToFloat
+                                        |> Maybe.map Impact.toFloat
                                         |> Maybe.withDefault 0
                                 }
                             )
@@ -207,13 +207,13 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
 
                 ( SubscoresTab, True ) ->
                     Table.percentageTable impactDefinition
-                        [ { entryAttributes = [], name = "Climat", value = Unit.impactToFloat scoring.climate }
-                        , { entryAttributes = [], name = "Biodiversité", value = Unit.impactToFloat scoring.biodiversity }
-                        , { entryAttributes = [], name = "Santé environnementale", value = Unit.impactToFloat scoring.health }
-                        , { entryAttributes = [], name = "Ressource", value = Unit.impactToFloat scoring.resources }
+                        [ { entryAttributes = [], name = "Climat", value = Impact.toFloat scoring.climate }
+                        , { entryAttributes = [], name = "Biodiversité", value = Impact.toFloat scoring.biodiversity }
+                        , { entryAttributes = [], name = "Santé environnementale", value = Impact.toFloat scoring.health }
+                        , { entryAttributes = [], name = "Ressource", value = Impact.toFloat scoring.resources }
                         , { entryAttributes = []
                           , name = "Compléments"
-                          , value = Unit.impactToFloat scoring.complements
+                          , value = Impact.toFloat scoring.complements
                           }
                         ]
 
@@ -240,9 +240,9 @@ createConfig session impactDefinition activeImpactsTab onStageClick switchImpact
     , onStageClick = onStageClick
     , scoring = Scoring.empty
     , session = session
-    , stagesImpacts = Impact.noStagesImpacts
+    , stagesImpacts = ImpactSet.noStagesImpacts
     , switchImpactsTab = switchImpactsTab
-    , total = Impact.empty
+    , total = ImpactSet.empty
     }
 
 
@@ -262,12 +262,12 @@ forGeneric definitions lifeCycle config =
         | complementsImpact =
             lifeCycle.production
                 |> Component.extractComplementsImpacts
-                |> Complement.mapComplements (Maybe.map (Impact.getImpact config.impactDefinition.trigram))
+                |> Complement.mapComplements (Maybe.map (ImpactSet.getImpact config.impactDefinition.trigram))
         , scoring = Component.computeScoring definitions lifeCycle
         , stagesImpacts =
             lifeCycle
                 |> Component.stagesImpacts
-                |> Stages.map (Maybe.map (Impact.getImpact config.impactDefinition.trigram))
+                |> Stages.map (Maybe.map (ImpactSet.getImpact config.impactDefinition.trigram))
         , total = Component.sumLifeCycleImpacts lifeCycle
     }
 

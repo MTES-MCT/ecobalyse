@@ -1,7 +1,5 @@
 module Data.Unit exposing
     ( HolisticDurability
-    , Impact
-    , ImpactUnit
     , NonPhysicalDurability(..)
     , PhysicalDurability(..)
     , PickPerMeter(..)
@@ -11,14 +9,11 @@ module Data.Unit exposing
     , ThreadDensity(..)
     , YarnSize
     , applyQtyVariationRatioToMass
-    , decodeAndNegateImpact
-    , decodeImpact
     , decodePhysicalDurability
     , decodeQuantityVariationRatio
     , decodeRatio
     , decodeSurfaceMass
     , decodeYarnSize
-    , encodeImpact
     , encodeNonPhysicalDurability
     , encodePhysicalDurability
     , encodePickPerMeter
@@ -34,16 +29,12 @@ module Data.Unit exposing
     , forMJ
     , forSquareMeter
     , gramsPerSquareMeter
-    , impact
-    , impactAggregateScore
-    , impactToFloat
     , maxDurability
     , maxSurfaceMass
     , maxYarnSize
     , minDurability
     , minSurfaceMass
     , minYarnSize
-    , noImpacts
     , nonPhysicalDurability
     , nonPhysicalDurabilityToFloat
     , physicalDurability
@@ -79,7 +70,7 @@ import Json.Decode.Extra as DE
 import Json.Encode as Encode
 import Length exposing (Length)
 import Mass exposing (Mass)
-import Quantity exposing (Quantity(..))
+import Quantity exposing (Quantity)
 import Regex
 
 
@@ -429,56 +420,6 @@ decodeSurfaceMass =
 encodeSurfaceMass : SurfaceMass -> Encode.Value
 encodeSurfaceMass surfaceMass =
     Encode.int (surfaceMassInGramsPerSquareMeters surfaceMass)
-
-
-
--- Abstract Impact
-
-
-type ImpactUnit
-    = ImpactUnit Never
-
-
-type alias Impact =
-    Quantity Float ImpactUnit
-
-
-impact : Float -> Impact
-impact value =
-    Quantity value
-
-
-noImpacts : Impact
-noImpacts =
-    impact 0
-
-
-impactToFloat : Impact -> Float
-impactToFloat (Quantity value) =
-    value
-
-
-impactAggregateScore : Impact -> Split -> Impact -> Impact
-impactAggregateScore normalization weighting =
-    Quantity.divideBy (impactToFloat normalization)
-        >> Quantity.multiplyBy (Split.toFloat weighting)
-        -- Raw aggregate scores like PEF are expressed in Pt (points); we want Pts (micropoints)
-        >> Quantity.multiplyBy 1000000
-
-
-decodeAndNegateImpact : Decoder Impact
-decodeAndNegateImpact =
-    Decode.map Quantity.negate decodeImpact
-
-
-decodeImpact : Decoder Impact
-decodeImpact =
-    Decode.map impact Decode.float
-
-
-encodeImpact : Impact -> Encode.Value
-encodeImpact =
-    impactToFloat >> Encode.float
 
 
 

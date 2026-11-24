@@ -9,8 +9,8 @@ import Data.Component as Component
 import Data.Dataset as Dataset exposing (Dataset)
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
-import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.ImpactSet as ImpactSet
 import Data.Sector as Sector exposing (Sector)
 import Data.Textile.Query as TextileQuery
 import Data.Uuid as Uuid exposing (Uuid)
@@ -69,7 +69,7 @@ parser =
         , Parser.map FoodBuilderHome (Parser.s "food")
         , Parser.map FoodBuilder
             (Parser.s "food"
-                </> Impact.parseTrigram
+                </> ImpactSet.parseTrigram
                 </> FoodQuery.parseBase64Query
             )
         , Parser.map FoodBuilderExample
@@ -98,7 +98,7 @@ parseGenericSimulatorRoutes =
         , Parser.map GenericSimulator <|
             sectorParser
                 </> Parser.s "simulator"
-                </> Impact.parseTrigram
+                </> ImpactSet.parseTrigram
                 </> Component.parseBase64Query
         , Parser.map GenericSimulatorExample
             (sectorParser
@@ -128,7 +128,7 @@ parseTextileSimulator =
         , Parser.map TextileSimulator <|
             Parser.s "textile"
                 </> Parser.s "simulator"
-                </> Impact.parseTrigram
+                </> ImpactSet.parseTrigram
                 </> TextileQuery.parseBase64Query
         ]
 
@@ -141,7 +141,7 @@ deprecatedTextileRouteParser =
     Parser.map (\trigram _ _ query -> TextileSimulator trigram query) <|
         Parser.s "textile"
             </> Parser.s "simulator"
-            </> Impact.parseTrigram
+            </> ImpactSet.parseTrigram
             -- This is the unused "functional unit" parameter
             </> Parser.string
             -- This is the unused "viewmode" parameter

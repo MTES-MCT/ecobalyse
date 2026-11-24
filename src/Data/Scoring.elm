@@ -4,33 +4,33 @@ module Data.Scoring exposing
     , empty
     )
 
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impact as Impact exposing (Impact)
 import Data.Impact.Definition as Definition exposing (Definitions)
-import Data.Unit as Unit
+import Data.ImpactSet as ImpactSet exposing (Impacts)
 import Quantity
 
 
 type alias Scoring =
-    { all : Unit.Impact
-    , allWithoutComplements : Unit.Impact
-    , biodiversity : Unit.Impact
-    , climate : Unit.Impact
-    , complements : Unit.Impact
-    , health : Unit.Impact
-    , resources : Unit.Impact
+    { all : Impact
+    , allWithoutComplements : Impact
+    , biodiversity : Impact
+    , climate : Impact
+    , complements : Impact
+    , health : Impact
+    , resources : Impact
     }
 
 
-compute : Definitions -> Unit.Impact -> Impacts -> Scoring
+compute : Definitions -> Impact -> Impacts -> Scoring
 compute definitions totalComplementsImpactPerKg perKgWithoutComplements =
     let
         ecsPerKgWithoutComplements =
             perKgWithoutComplements
-                |> Impact.getImpact Definition.Ecs
+                |> ImpactSet.getImpact Definition.Ecs
 
         subScores =
             perKgWithoutComplements
-                |> Impact.toProtectionAreas definitions
+                |> ImpactSet.toProtectionAreas definitions
     in
     { all =
         -- Reminder: complements are stored using the same convention as impacts and therefore must be **added** not substracted
@@ -48,11 +48,11 @@ compute definitions totalComplementsImpactPerKg perKgWithoutComplements =
 
 empty : Scoring
 empty =
-    { all = Unit.noImpacts
-    , allWithoutComplements = Unit.noImpacts
-    , biodiversity = Unit.noImpacts
-    , climate = Unit.noImpacts
-    , complements = Unit.noImpacts
-    , health = Unit.noImpacts
-    , resources = Unit.noImpacts
+    { all = Impact.none
+    , allWithoutComplements = Impact.none
+    , biodiversity = Impact.none
+    , climate = Impact.none
+    , complements = Impact.none
+    , health = Impact.none
+    , resources = Impact.none
     }

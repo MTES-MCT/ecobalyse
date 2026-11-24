@@ -8,8 +8,8 @@ import Data.Component as Component
 import Data.Db exposing (Db)
 import Data.Food.Query as FoodQuery
 import Data.Food.Validation as FoodValidation
-import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.ImpactSet as ImpactSet
 import Data.Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Sector as Sector exposing (GenericSector)
@@ -182,6 +182,6 @@ parser db config body =
             |> Parser.map (TextilePostSimulator (decodeTextileQueryBody db body))
         , (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
             |> Parser.map (TextilePostSimulatorDetailed (decodeTextileQueryBody db body))
-        , (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
+        , (s "POST" </> s "textile" </> s "simulator" </> ImpactSet.parseTrigram)
             |> Parser.map (TextilePostSimulatorSingle (decodeTextileQueryBody db body))
         ]

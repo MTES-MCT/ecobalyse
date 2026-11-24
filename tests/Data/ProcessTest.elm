@@ -4,8 +4,8 @@ import Data.Country as Country
 import Data.Country.Code as CountryCode
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.ImpactSet as ImpactSet
 import Data.Process as Process
-import Data.Unit as Unit
 import Energy
 import Expect
 import Test exposing (..)
@@ -26,11 +26,11 @@ suite =
                         ({ process
                             | elec = Energy.kilowattHours 1
                             , heat = Energy.megajoules 1
-                            , impacts = Impact.empty |> Impact.updateImpact db.definitions Definition.Ecs (Unit.impact 1)
+                            , impacts = ImpactSet.empty |> ImpactSet.update db.definitions Definition.Ecs (Impact.fromFloat 1)
                          }
                             |> Process.impactsPerUnit france
-                            |> Impact.getImpact Definition.Ecs
-                            |> Unit.impactToFloat
+                            |> ImpactSet.getImpact Definition.Ecs
+                            |> Impact.toFloat
                             |> Expect.greaterThan 0
                         )
                     ]

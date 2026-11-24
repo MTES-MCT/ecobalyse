@@ -20,8 +20,8 @@ module Data.Impact.Definition exposing
     , update
     )
 
+import Data.Impact as Impact exposing (Impact)
 import Data.Split as Split exposing (Split)
-import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as JDP
@@ -34,7 +34,7 @@ import Json.Encode as Encode
 
 type alias AggregatedScoreData =
     { color : String
-    , normalization : Unit.Impact
+    , normalization : Impact
     , weighting : Split
     }
 
@@ -76,7 +76,7 @@ type alias Definition =
 type alias Trigrams a =
     {- We use a type variable here because this type is used for both
        * impact definitions (Definition.Definition)
-       * processes impacts (Data.Impacts)
+       * processes impacts (Data.ImpactSet)
     -}
     { acd : a
     , cch : a
@@ -538,7 +538,7 @@ decodeAggregatedScoreData : Decoder AggregatedScoreData
 decodeAggregatedScoreData =
     Decode.map3 AggregatedScoreData
         (Decode.field "color" Decode.string)
-        (Decode.field "normalization" Unit.decodeImpact)
+        (Decode.field "normalization" Impact.decoder)
         (Decode.field "weighting" Split.decodeFloat)
 
 

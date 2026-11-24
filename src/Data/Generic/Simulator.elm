@@ -5,8 +5,8 @@ module Data.Generic.Simulator exposing
 
 import Data.Component as Component exposing (LifeCycle)
 import Data.Db exposing (Db)
-import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.ImpactSet as ImpactSet
 import Data.Stages as Stages
 
 
@@ -16,7 +16,7 @@ compute requirements =
         >> Result.andThen (Component.compute requirements)
 
 
-toStagesImpacts : Definition.Trigram -> LifeCycle -> Impact.StagesImpacts
+toStagesImpacts : Definition.Trigram -> LifeCycle -> ImpactSet.StagesImpacts
 toStagesImpacts trigram =
     Component.stagesImpacts
-        >> Stages.map (Maybe.map (Impact.getImpact trigram))
+        >> Stages.map (Maybe.map (ImpactSet.getImpact trigram))

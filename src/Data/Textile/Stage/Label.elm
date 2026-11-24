@@ -12,7 +12,7 @@ module Data.Textile.Stage.Label exposing
     )
 
 import Data.Gitbook as Gitbook
-import Data.Impact as Impact
+import Data.ImpactSet as ImpactSet
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
@@ -47,28 +47,28 @@ toColor : Label -> String
 toColor label =
     case label of
         Distribution ->
-            Impact.stagesColors.distribution
+            ImpactSet.stagesColors.distribution
 
         EndOfLife ->
-            Impact.stagesColors.endOfLife
+            ImpactSet.stagesColors.endOfLife
 
         Ennobling ->
-            Impact.stagesColors.transform
+            ImpactSet.stagesColors.transform
 
         Fabric ->
-            Impact.stagesColors.transform
+            ImpactSet.stagesColors.transform
 
         Making ->
-            Impact.stagesColors.transform
+            ImpactSet.stagesColors.transform
 
         Material ->
-            Impact.stagesColors.materials
+            ImpactSet.stagesColors.materials
 
         Spinning ->
-            Impact.stagesColors.transform
+            ImpactSet.stagesColors.transform
 
         Use ->
-            Impact.stagesColors.usage
+            ImpactSet.stagesColors.usage
 
 
 toId : Label -> String

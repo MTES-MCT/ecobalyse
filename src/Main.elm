@@ -10,7 +10,7 @@ import Data.Db exposing (Db, RawJsonString)
 import Data.Env as Env
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
-import Data.Impact as Impact
+import Data.ImpactSet as ImpactSet
 import Data.Key as Key
 import Data.Notification as Notification exposing (Notification)
 import Data.Plausible as Plausible
@@ -334,7 +334,7 @@ setRoute url session currentPage ( model, cmds ) =
                 |> toPage model cmds FoodBuilderPage FoodBuilderMsg
 
         Just Route.FoodBuilderHome ->
-            FoodBuilder.init session Impact.default Nothing
+            FoodBuilder.init session ImpactSet.default Nothing
                 |> toPage model cmds FoodBuilderPage FoodBuilderMsg
 
         Just (Route.GenericSimulator genericSector trigram maybeQuery) ->
@@ -350,7 +350,7 @@ setRoute url session currentPage ( model, cmds ) =
                 |> toPage model cmds HomePage HomeMsg
 
         Just (Route.GenericSimulatorHome genericSector) ->
-            GenericSimulator.init genericSector Impact.default Nothing session
+            GenericSimulator.init genericSector ImpactSet.default Nothing session
                 |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
 
         Just Route.Stats ->
@@ -366,7 +366,7 @@ setRoute url session currentPage ( model, cmds ) =
                 |> toPage model cmds TextileSimulatorPage TextileSimulatorMsg
 
         Just Route.TextileSimulatorHome ->
-            TextileSimulator.init Impact.default Nothing session
+            TextileSimulator.init ImpactSet.default Nothing session
                 |> toPage model cmds TextileSimulatorPage TextileSimulatorMsg
 
         Nothing ->

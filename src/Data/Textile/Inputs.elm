@@ -19,7 +19,8 @@ import Data.Component as Component exposing (Item)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impact)
+import Data.ImpactSet as ImpactSet
 import Data.Process as Process
 import Data.Split as Split exposing (Split)
 import Data.Textile.Dyeing as Dyeing exposing (ProcessType)
@@ -418,7 +419,7 @@ countryList inputs =
     ]
 
 
-getMaterialMicrofibersComplement : Mass -> MaterialInput -> Unit.Impact
+getMaterialMicrofibersComplement : Mass -> MaterialInput -> Impact
 getMaterialMicrofibersComplement finalProductMass { material, share } =
     -- Note: Impact is computed against the final product mass, because microfibers
     --       are always released in the environment from finished products.
@@ -432,7 +433,7 @@ getMaterialMicrofibersComplement finalProductMass { material, share } =
         |> Quantity.multiplyBy materialMassInKg
 
 
-getTotalMicrofibersComplement : Inputs -> Maybe Unit.Impact
+getTotalMicrofibersComplement : Inputs -> Maybe Impact
 getTotalMicrofibersComplement { mass, materials } =
     let
         impact =
@@ -440,7 +441,7 @@ getTotalMicrofibersComplement { mass, materials } =
                 |> List.map (getMaterialMicrofibersComplement mass)
                 |> Quantity.sum
     in
-    if impact == Unit.noImpacts then
+    if impact == Impact.none then
         Nothing
 
     else
@@ -481,17 +482,17 @@ getOutOfEuropeEOLProbability materialInputs =
         |> Result.withDefault Split.zero
 
 
-getOutOfEuropeEOLComplement : Inputs -> Maybe Unit.Impact
+getOutOfEuropeEOLComplement : Inputs -> Maybe Impact
 getOutOfEuropeEOLComplement { mass, materials } =
     let
         impact =
-            Unit.impact
+            Impact.fromFloat
                 (Split.toFloat (getOutOfEuropeEOLProbability materials)
                     * Mass.inKilograms mass
                     * 5000
                 )
     in
-    if impact == Unit.noImpacts then
+    if impact == Impact.none then
         Nothing
 
     else
@@ -503,7 +504,7 @@ computeMaterialTransport distances nextCountryCode { country, material, share } 
     if share /= Split.zero then
         let
             emptyImpacts =
-                Impact.empty
+                ImpactSet.empty
 
             countryCode =
                 country
@@ -514,7 +515,7 @@ computeMaterialTransport distances nextCountryCode { country, material, share } 
             |> Transport.getTransportBetweenLegacy emptyImpacts countryCode nextCountryCode
 
     else
-        Transport.default Impact.empty
+        Transport.default ImpactSet.empty
 
 
 isFabricOfType : Fabric -> Inputs -> Bool

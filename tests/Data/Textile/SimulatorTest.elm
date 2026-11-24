@@ -4,6 +4,7 @@ import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.ImpactSet as ImpactSet
 import Data.Split as Split
 import Data.Textile.Economics as Economics
 import Data.Textile.LifeCycle as LifeCycle
@@ -26,8 +27,8 @@ getImpact db trigram query =
                     |> Simulator.compute db config
                     |> Result.map
                         (.impacts
-                            >> Impact.getImpact trigram
-                            >> Unit.impactToFloat
+                            >> ImpactSet.getImpact trigram
+                            >> Impact.toFloat
                         )
             )
 
@@ -221,8 +222,8 @@ suite =
                                 )
                             |> Result.map
                                 (Simulator.getTotalImpactsWithoutComplements
-                                    >> Impact.getImpact Definition.Ecs
-                                    >> Unit.impactToFloat
+                                    >> ImpactSet.getImpact Definition.Ecs
+                                    >> Impact.toFloat
                                 )
                             |> Result.withDefault 0
                             |> Expect.greaterThan 0
@@ -240,8 +241,8 @@ suite =
                                 |> Result.andThen (computeWithDefaultComponentConfig db)
                                 |> Result.map
                                     (\simulator ->
-                                        ( simulator.impacts |> Impact.getImpact Definition.Ecs |> Unit.impactToFloat
-                                        , Simulator.getTotalImpactsWithoutDurability simulator |> Impact.getImpact Definition.Ecs |> Unit.impactToFloat
+                                        ( simulator.impacts |> ImpactSet.getImpact Definition.Ecs |> Impact.toFloat
+                                        , Simulator.getTotalImpactsWithoutDurability simulator |> ImpactSet.getImpact Definition.Ecs |> Impact.toFloat
                                         )
                                     )
                         of
