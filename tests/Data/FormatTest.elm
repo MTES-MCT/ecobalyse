@@ -2,6 +2,7 @@ module Data.FormatTest exposing (..)
 
 import Data.Format as DataFormat
 import Expect
+import Mass
 import Quantity
 import Test exposing (..)
 import TestUtils exposing (asTest)
@@ -73,5 +74,25 @@ suite =
                 |> DataFormat.float 2
                 |> Expect.equal "N/A"
                 |> asTest "should format NaN"
+            ]
+        , describe "Format.roundedMassShare"
+            [ DataFormat.roundedMassShare 2 (Mass.kilograms 0.5) (Mass.kilograms 1)
+                |> Expect.equal 50
+                |> asTest "should be below 100 when the finished mass is lighter than the target"
+            , DataFormat.roundedMassShare 2 (Mass.kilograms 1.5) (Mass.kilograms 1.5)
+                |> Expect.equal 100
+                |> asTest "should be 100 when the finished mass matches the target"
+            , DataFormat.roundedMassShare 2 (Mass.kilograms 0.99996) (Mass.kilograms 1)
+                |> Expect.equal 100
+                |> asTest "should round 99.996 to 100 so the share matches the displayed percentage"
+            , DataFormat.roundedMassShare 2 (Mass.kilograms 0.190809) (Mass.kilograms 0.191)
+                |> Expect.equal 100
+                |> asTest "should be 100 when both masses display as 0,191 kg"
+            , DataFormat.roundedMassShare 2 (Mass.kilograms 1.5) (Mass.kilograms 1)
+                |> Expect.equal 150
+                |> asTest "should be above 100 when the finished mass is heavier than the target"
+            , DataFormat.roundedMassShare 3 (Mass.kilograms 1.5) (Mass.kilograms 1)
+                |> Expect.equal 150
+                |> asTest "should be above 100 when the finished mass is heavier than the target 2"
             ]
         ]

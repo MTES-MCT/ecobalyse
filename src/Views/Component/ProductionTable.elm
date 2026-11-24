@@ -15,6 +15,7 @@ import Data.Component as Component
         , TargetItem
         )
 import Data.Component.Amount as Amount
+import Data.Format as DataFormat
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process
 import Data.Process.Category as Category
@@ -434,7 +435,7 @@ massShareSummary config =
                 Just target ->
                     let
                         share =
-                            RichFormat.roundedMassShare 2 config.finishedMass target
+                            DataFormat.roundedMassShare 2 config.finishedMass target
                     in
                     div [ class "px-3 pt-2 pb-1 d-flex flex-column gap-1" ]
                         [ div [ class "d-flex justify-content-between align-items-baseline gap-3" ]

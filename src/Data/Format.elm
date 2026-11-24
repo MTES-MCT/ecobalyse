@@ -2,6 +2,7 @@ module Data.Format exposing
     ( float
     , frenchDatetime
     , kilograms
+    , roundedMassShare
     )
 
 import DateFormat
@@ -84,3 +85,29 @@ kilograms : Mass -> String
 kilograms mass =
     float 3 (Mass.inKilograms mass)
         ++ "kg"
+
+
+{-| source mass as a percentage of a target one, rounded to n decimals
+-}
+roundedMassShare : Int -> Mass -> Mass -> Float
+roundedMassShare decimals source target =
+    let
+        ( sourceKg, targetKg ) =
+            ( source |> Mass.inKilograms |> roundTo (decimals + 1)
+            , target |> Mass.inKilograms |> roundTo (decimals + 1)
+            )
+    in
+    if targetKg == 0 then
+        0
+
+    else
+        sourceKg / targetKg * 100 |> roundTo decimals
+
+
+roundTo : Int -> Float -> Float
+roundTo decimals value =
+    let
+        factor =
+            10 ^ decimals |> toFloat
+    in
+    toFloat (round (value * factor)) / factor
