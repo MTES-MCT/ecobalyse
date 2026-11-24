@@ -16,7 +16,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "green-cabbage-organic-2025",
@@ -30,7 +30,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "brussels-sprout-organic-2025",
@@ -44,7 +44,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "curly-kale-organic-2025",
@@ -59,7 +59,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": ["food", "food2"],

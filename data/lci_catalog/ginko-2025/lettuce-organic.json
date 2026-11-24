@@ -48,7 +48,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "endive-organic",

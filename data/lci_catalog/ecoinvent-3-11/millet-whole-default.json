@@ -24,7 +24,7 @@
       "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": ["food", "food2"],

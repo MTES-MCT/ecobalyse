@@ -1,0 +1,36 @@
+{
+  "categories": ["productmassdependent", "use"],
+  "comment": "Utilisation hors repassage pour la catégorie « Jean », par kg de produit, sur les 23 cycles d'entretien par défaut. Dérivé du procédé « Utilisation : Impact hors repassage (Jean) » (par cycle), dont l'électricité et l'impact sont multipliés par le nombre de cycles. Électricité : 0,2852 × 23 = 6,5596 kWh/kg. Impact (ecs, recalculé depuis les 19 indicateurs : somme de impact / normalisation × pondération × 10^6) : 15,1335 × 23 = 348,0713 µPt/kg. Impacts détaillés : valeurs du procédé d'origine (par cycle) multipliées par le nombre de cycles.",
+  "displayName": "Utilisation hors repassage (Jean, 23 cycles d'entretien)",
+  "elecKwh": 6.5596,
+  "heatMJ": 0,
+  "id": "0e432e3d-1cc8-5073-bdcc-be86209bf277",
+  "impacts": {
+    "acd": 0.00216062,
+    "cch": 0.782444,
+    "etf": 0.0,
+    "etf-c": 0.0,
+    "fru": 16.5001,
+    "fwe": 0.00025498,
+    "htc": 0.0,
+    "htc-c": 0.0,
+    "htn": 0.0,
+    "htn-c": 0.0,
+    "ior": 31.0231,
+    "ldu": 24.3736,
+    "mru": 2.89473e-06,
+    "ozd": 1.93945e-07,
+    "pco": 0.00130315,
+    "pma": 4.44374e-08,
+    "swe": 0.00046175,
+    "tre": 0.00251615,
+    "wtu": 0.0
+  },
+  "metadata": [
+    { "id": "a98ace3a-dea7-4b8d-8b6c-6a752b4fb236", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 1.0,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}

@@ -20,7 +20,7 @@ table.
 2. Make a tunnel to the Scalingo score database
 
    ```bash
-   scalingo --app ecobalyse db-tunnel DATABASE_URL
+   scalingo --app ecobalyse-data db-tunnel DATABASE_URL
    ```
 
 3. Build the SCORE_DB_URL from the Scalingo `DATABASE_URL`
@@ -36,7 +36,7 @@ uv run --group score_history python bin/score_history/score_history.py \
     http://localhost:8001 \
     "$(git branch --show-current)" \
     "$(git rev-parse HEAD)" \
-    "$SCORE_DB_URL"
+    "$SCORE_DB_URL" \
     --dry-run
 ```
 

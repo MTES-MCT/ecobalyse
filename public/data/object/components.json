@@ -1267,45 +1267,6 @@
     "comment": null,
     "elements": [
       {
-        "amount": 0.055,
-        "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
-        "transforms": ["e232270f-3a08-4536-8d8d-dcb4a2031e7b"]
-      }
-    ],
-    "id": "c845482e-8347-4a3c-9dd4-392d8fc2cb3f",
-    "name": "Bac + Pieds (jardinière pin 80 * 40 * 28)",
-    "scopes": ["furniture", "object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 0.055,
-        "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
-        "transforms": ["baf8cc1a-767e-452d-b86e-e9399a99cb55"]
-      }
-    ],
-    "id": "6ff284b4-976d-4cf4-a4be-164f1c46ede2",
-    "name": "Bac + Pieds (jardinière pin 80 * 40 * 28 / séchage du bois au four)",
-    "scopes": ["furniture", "object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 0.35,
-        "material": "7cd80a58-6d07-4abc-ab41-624c0d1487c7",
-        "transforms": ["ea284007-49a8-4be1-95fc-452ea180285a", "7319ac9c-5796-412f-a1eb-58e01afa7708"]
-      }
-    ],
-    "id": "3aaebbee-a087-404b-bce8-3a710245b0fa",
-    "name": "Barre penderie 60cm (acier)",
-    "scopes": ["furniture", "object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
         "amount": 1.26,
         "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
         "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
@@ -1326,7 +1287,7 @@
     ],
     "id": "329b27b1-9f4b-47fd-a009-52ee4ed1e8d1",
     "name": "Pile AAA",
-    "scopes": ["furniture", "object"]
+    "scopes": ["object"]
   },
   {
     "comment": "Câble électrique de type H05VVF 3G1.5mm², section 7.4mm, 110g/m (isolant PVC). Adapté pour une puissance jusqu'à 2.5kW pour 20m max",
@@ -1783,19 +1744,6 @@
     "comment": null,
     "elements": [
       {
-        "amount": 0.4,
-        "material": "7cd80a58-6d07-4abc-ab41-624c0d1487c7",
-        "transforms": ["ea284007-49a8-4be1-95fc-452ea180285a", "7319ac9c-5796-412f-a1eb-58e01afa7708"]
-      }
-    ],
-    "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
-    "name": "Pied chaise acier",
-    "scopes": ["furniture", "object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
         "amount": 0.016,
         "material": "dc58fc13-b036-46ed-ab5f-fd0a112e8b78",
         "transforms": ["e232270f-3a08-4536-8d8d-dcb4a2031e7b"]
@@ -1941,19 +1889,6 @@
     "comment": null,
     "elements": [
       {
-        "amount": 0.2,
-        "material": "b87b7c27-6d51-4890-bc41-604586feda5e",
-        "transforms": ["7319ac9c-5796-412f-a1eb-58e01afa7708"]
-      }
-    ],
-    "id": "01181ac8-bb9e-431d-aee4-f1ca97737d88",
-    "name": "Poignée de porte (laiton)",
-    "scopes": ["furniture", "object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
         "amount": 29.0,
         "material": "7cd80a58-6d07-4abc-ab41-624c0d1487c7",
         "transforms": [
@@ -2029,19 +1964,6 @@
     ],
     "id": "b99b2141-12c8-4a33-bd16-4f9fa10eb3ae",
     "name": "Tissu 1kg (50%coton 50%polyester)",
-    "scopes": ["furniture", "object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 0.11,
-        "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      }
-    ],
-    "id": "c5d86519-e56a-4ad7-aada-d4f7fffd5628",
-    "name": "Toile protection PP (jardinière pin 80 * 40 * 28)",
     "scopes": ["furniture", "object"]
   }
 ]

@@ -24,6 +24,7 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -42,9 +43,7 @@ import Views.Icon as Icon
 {-| Config required by the composition modal.
 -}
 type alias Config db msg =
-    { componentConfig : Component.Config
-    , db : Component.DataContainer db
-    , floatInputState : Maybe FloatInput.State
+    { floatInputState : Maybe FloatInput.State
     , impact : Definition
     , labels :
         { addElement : String
@@ -59,7 +58,7 @@ type alias Config db msg =
     , query : Query
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
-    , sector : Sector
+    , requirements : Component.Requirements db
     , updateElementAmount : TargetElement -> FloatInput.State -> msg
     , updateElementMaterialCountry : TargetElement -> Maybe CountryCode.Code -> msg
     , updateElementTransformCountry : TargetElement -> Index -> Maybe CountryCode.Code -> msg
@@ -73,7 +72,7 @@ addElementButton config targetItem =
         [ type_ "button"
         , class "btn btn-primary"
         , class "d-flex justify-content-center align-items-center gap-1"
-        , createElementMaterialAutocomplete config.db config.sector
+        , createElementMaterialAutocomplete config.requirements.db config.requirements.sector
             |> config.openSelectProcessModal Category.Material targetItem Nothing
             |> onClick
         ]
@@ -83,12 +82,12 @@ addElementButton config targetItem =
 
 
 addElementTransformButton : Config db msg -> Process -> TargetElement -> Html msg
-addElementTransformButton { db, openSelectProcessModal, query, sector } material ( targetItem, elementIndex ) =
+addElementTransformButton { openSelectProcessModal, query, requirements } material ( targetItem, elementIndex ) =
     let
         availableTransformProcesses =
-            db.processes
+            requirements.db.processes
                 |> List.filter .visible
-                |> Sector.anyOf [ sector ]
+                |> Sector.anyOf [ requirements.sector ]
                 |> Process.listAvailableMaterialTransforms material
                 |> List.sortBy Process.getDisplayName
                 |> Process.available (Component.elementTransforms ( targetItem, elementIndex ) query.items)
@@ -109,6 +108,45 @@ addElementTransformButton { db, openSelectProcessModal, query, sector } material
         [ Icon.plus
         , text "Ajouter une transformation"
         ]
+
+
+assemblyLossProcessRows : Mass -> List Process -> List (Html msg)
+assemblyLossProcessRows enteringMass operations =
+    case operations of
+        [] ->
+            []
+
+        operation :: nextOperations ->
+            ProcessRow.view [ class "fs-7" ]
+                { emptyProcessRow
+                    | amount = Format.kg enteringMass
+                    , label = text ("Assemblage\u{00A0}: " ++ Process.getDisplayName operation)
+                    , waste = Format.qtyVariationRatioAsWastePercent operation.qtyVariationRatio
+                }
+                :: assemblyLossProcessRows
+                    (enteringMass |> Unit.applyQtyVariationRatioToMass operation.qtyVariationRatio)
+                    nextOperations
+
+
+assemblyLossRows : Config db msg -> Mass -> List (Html msg)
+assemblyLossRows config elementMass =
+    case
+        config.query
+            |> Component.getAssemblyOperations config.requirements
+            |> Component.expandAssembly config.requirements.db.processes
+    of
+        Err error ->
+            [ ("Erreur de récupération des opérations d’assemblage\u{00A0}: " ++ error)
+                |> Alert.simpleError (Just "Erreur")
+            ]
+
+        Ok operations ->
+            if List.isEmpty operations then
+                []
+
+            else
+                compositionSectionHeading "Autres pertes" Nothing
+                    :: assemblyLossProcessRows elementMass operations
 
 
 createElementMaterialAutocomplete : Component.DataContainer db -> Sector -> Autocomplete Process
@@ -150,7 +188,7 @@ deleteElementButton config targetElement =
 
 elementAmountInput : Config db msg -> TargetElement -> Process -> Amount -> Html msg
 elementAmountInput config (( ( _, itemIndex ), elementIndex ) as targetElement) process amount =
-    if config.sector == Sector.Textile then
+    if config.requirements.sector == Sector.Textile then
         Format.amount process amount
 
     else
@@ -166,10 +204,10 @@ elementAmountInput config (( ( _, itemIndex ), elementIndex ) as targetElement) 
                 }
 
 
-{-| Renders a single item element's composition rows (header, summary, raw material, transforms, transport)
+{-| Renders a single item element's composition rows (header, summary, raw material, transforms, transport, assembly losses)
 -}
 elementCompositionRows : Config db msg -> TargetElement -> ExpandedElement -> Results -> Results -> List (Html msg)
-elementCompositionRows config targetElement ({ material, transforms } as expandedElement) itemResults elementResults =
+elementCompositionRows config targetElement ({ amount, material, transforms } as expandedElement) itemResults elementResults =
     let
         elementCooling =
             Process.isTransportedCooled material.process
@@ -189,6 +227,10 @@ elementCompositionRows config targetElement ({ material, transforms } as expande
         elementMass =
             Component.extractMass elementResults
 
+        assembledElementMass =
+            elementMass
+                |> Component.assembledMass config.requirements config.query
+
         share =
             Component.extractUnitMass itemResults
                 |> Component.elementMassShare elementMass
@@ -206,7 +248,7 @@ elementCompositionRows config targetElement ({ material, transforms } as expande
             ProcessRow.view [ class "fs-7" ]
                 { emptyProcessRow
                     | amount =
-                        Component.extractAmount elementResults
+                        amount
                             |> elementAmountInput config targetElement material.process
                     , impact =
                         if transportImpacts == Impact.empty then
@@ -224,7 +266,7 @@ elementCompositionRows config targetElement ({ material, transforms } as expande
                     , label =
                         span [ class "text-muted" ]
                             [ text <| "Poids du " ++ String.toLower config.labels.elementNoun ++ "\u{00A0}: "
-                            , span [ class "fw-bold" ] [ Format.kg elementMass ]
+                            , span [ class "fw-bold" ] [ Format.kg assembledElementMass ]
                             , text " ("
                             , share |> Format.splitAsPercentage 0
                             , text ")"
@@ -264,6 +306,7 @@ elementCompositionRows config targetElement ({ material, transforms } as expande
                 (Just <| addElementTransformButton config material.process targetElement)
                 :: transformRows
            )
+        ++ assemblyLossRows config elementMass
 
 
 elementHeader : Config db msg -> TargetElement -> Html msg
@@ -291,7 +334,7 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
 
         displayElementTransport =
             transportedMass
-                |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
+                |> Component.computeTransportedMassImpacts config.requirements
                     -- Notes:
                     --   - air transport is always disabled before assembly (see Component.computeTransports)
                     --   - cooling before assembly is driven by the material process, not the transport option
@@ -352,9 +395,9 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
 {-| Render transports from the last transform step of an element to the assembly or distribution stage
 -}
 finalElementTransportView : Config db msg -> Bool -> Maybe Country -> Mass -> List (Html msg)
-finalElementTransportView ({ db, query, sector } as config) cooling elementCountry mass =
-    db.countries
-        |> Sector.anyOf [ sector ]
+finalElementTransportView ({ query, requirements } as config) cooling elementCountry mass =
+    requirements.db.countries
+        |> Sector.anyOf [ requirements.sector ]
         |> Country.resolveMaybe query.assembly.country
         |> Result.map (elementTransportView config [ class "subdued" ] cooling mass elementCountry)
         |> Result.map List.singleton
@@ -415,6 +458,7 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
                 [ text <| String.fromInt elementCount ]
             , compositionStat "masse unitaire"
                 [ Component.extractUnitMass itemResults
+                    |> Component.assembledMass config.requirements config.query
                     |> Format.kg
                 ]
             , compositionStat "impact total"
@@ -508,13 +552,13 @@ materialCompositionRows config targetElement materialResults material =
                         RegionSelector.view
                             { attrs = []
                             , classes = "RegionSelector form-select-sm w-100"
-                            , countries = config.db.countries
+                            , countries = config.requirements.db.countries
                             , disabled = False
                             , domId = "material-country-" ++ Component.targetElementToString targetElement
                             , emptyLabel = "---"
                             , hideLabel = True
                             , label = Just "Région"
-                            , sector = config.sector
+                            , sector = config.requirements.sector
                             , select = config.updateElementMaterialCountry targetElement
                             , selected = material.country |> Maybe.map .code
                             , showCode = True
@@ -558,8 +602,8 @@ modifyMaterialButton config ( targetItem, elementIndex ) =
         [ type_ "button"
         , class "btn btn-sm btn-outline-primary text-nowrap"
         , attribute "aria-label" "Changer de matière première"
-        , config.db.processes
-            |> Process.listAvailableByCategory config.sector Category.Material
+        , config.requirements.db.processes
+            |> Process.listAvailableByCategory config.requirements.sector Category.Material
             |> AutocompleteSelector.init Process.getDisplayName
             |> config.openSelectProcessModal Category.Material targetItem (Just elementIndex)
             |> onClick
@@ -611,7 +655,7 @@ transformProcessRows config cooling targetElement transformsResults transforms =
                         "Procédé\u{00A0}: "
                             ++ Process.getDisplayName transform.process
                             ++ (transform.country
-                                    |> Component.loadEnergyMixes config.componentConfig
+                                    |> Component.loadEnergyMixes config.requirements.config
                                     |> Result.map
                                         (\{ elec, heat } ->
                                             "\nÉlectricité\u{00A0}: "
@@ -642,7 +686,7 @@ transformProcessRows config cooling targetElement transformsResults transforms =
                                     RegionSelector.view
                                         { attrs = []
                                         , classes = "RegionSelector form-select-sm w-100"
-                                        , countries = config.db.countries
+                                        , countries = config.requirements.db.countries
                                         , disabled = False
                                         , domId =
                                             "transform-country-"
@@ -652,7 +696,7 @@ transformProcessRows config cooling targetElement transformsResults transforms =
                                         , emptyLabel = "---"
                                         , hideLabel = True
                                         , label = Just "Région"
-                                        , sector = config.sector
+                                        , sector = config.requirements.sector
                                         , select = config.updateElementTransformCountry targetElement transformIndex
                                         , selected = transform.country |> Maybe.map .code
                                         , showCode = True
@@ -671,19 +715,11 @@ transformProcessRows config cooling targetElement transformsResults transforms =
         |> List.concat
 
 
-requirementsFromConfig : Config db msg -> Component.Requirements db
-requirementsFromConfig config =
-    { config = config.componentConfig
-    , db = config.db
-    , sector = config.sector
-    }
-
-
 {-| Production item composition editor modal body.
 -}
 view : Config db msg -> TargetItem -> Html msg
 view ({ lifeCycle, query } as config) ( _, itemIndex ) =
-    case Component.expandItems config.db query.items of
+    case Component.expandItems config.requirements.db query.items of
         Err error ->
             Alert.simpleError (Just "Erreur") error
 

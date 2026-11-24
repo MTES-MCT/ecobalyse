@@ -291,7 +291,6 @@ lifeCycleView ({ impact, query, sector } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
         [ ProductionTable.view
             { context = config.context
-            , db = config.db
             , detailed = config.detailed
             , docsUrl = config.docsUrl
             , documentationLink = documentationLink config "production"
@@ -309,7 +308,7 @@ lifeCycleView ({ impact, query, sector } as config) lifeCycle =
             , openSelectProductionItem = config.openSelectProductionItem
             , query = config.query
             , removeItem = config.removeItem
-            , sector = config.sector
+            , requirements = requirementsFromConfig config
             , setDetailed = config.setDetailed
             , unitMassLocked = config.unitMassLocked
             , updateItemQuantity = config.updateItemQuantity
@@ -604,9 +603,7 @@ itemEditorView config targetItem =
 
         Ok lifeCycle ->
             CompositionModal.view
-                { componentConfig = config.componentConfig
-                , db = config.db
-                , floatInputState = config.floatInputState
+                { floatInputState = config.floatInputState
                 , impact = config.impact
                 , labels =
                     { addElement = config.labels.addElement
@@ -621,7 +618,7 @@ itemEditorView config targetItem =
                 , query = config.query
                 , removeElement = config.removeElement
                 , removeElementTransform = config.removeElementTransform
-                , sector = config.sector
+                , requirements = requirementsFromConfig config
                 , updateElementAmount = config.updateElementAmount
                 , updateElementMaterialCountry = config.updateElementMaterialCountry
                 , updateElementTransformCountry = config.updateElementTransformCountry
@@ -678,7 +675,15 @@ assemblyView ({ db, impact, query, sector } as config) lifeCycle =
                             [ thead []
                                 [ tr [ class "fs-7 text-muted bg-light" ]
                                     [ th [ class "bg-light ps-3 align-middle", Attr.scope "col" ] [ text "Opération" ]
-                                    , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Pertes" ]
+                                    , th [ class "bg-light align-middle text-end", Attr.scope "col" ]
+                                        [ span
+                                            [ class "d-inline-flex align-items-center gap-1 cursor-help"
+                                            , title "Les pertes à l'assemblage sont incluses dans vos matériaux, hors accessoires."
+                                            ]
+                                            [ text "Pertes"
+                                            , Icon.info
+                                            ]
+                                        ]
                                     , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Masse" ]
                                     , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Impact" ]
                                     , th [ class "bg-light align-middle", Attr.scope "col" ] []

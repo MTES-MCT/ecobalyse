@@ -1,0 +1,36 @@
+{
+  "categories": ["use"],
+  "comment": "Repassage pour la catégorie « T-shirt / Polo ». Unité : 1 cycle d'entretien (le nombre de cycles par défaut de la catégorie est 45) ; valeur indépendante de la masse du produit. Calcul : ironingElecInMJ = 0,0936 MJ ; 0,0936 / 3,6 = 0,026 kWh par cycle. Pas d'impact propre (ecs = 0) : l'impact vient de l'électricité du pays d'utilisation.",
+  "displayName": "Repassage, par cycle d'entretien (T-shirt / Polo)",
+  "elecKwh": 0.026,
+  "heatMJ": 0,
+  "id": "fd7bddf6-41c2-56c8-b855-c4bf35342e4c",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "db09819b-0dac-4e67-b65b-09ad5a30c317", "scopes": ["apparel"] }
+  ],
+  "qtyVariationRatio": 1.0,
+  "scopes": ["apparel"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "item"
+}

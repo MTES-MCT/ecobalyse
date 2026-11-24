@@ -34,6 +34,7 @@ module Data.Component exposing
     , applyDefaultOrigins
     , applyDurability
     , applyTransforms
+    , assembledMass
     , compute
     , computeElementResults
     , computeImpacts
@@ -792,6 +793,17 @@ applyTransportedMassImpacts requirements transportOptions mass maybeFrom maybeTo
             )
 
 
+{-| Given a pre-assembly stage mass, computes a post-assembly one with assembly operations losses applied.
+-}
+assembledMass : Requirements db -> Query -> Mass -> Mass
+assembledMass requirements query mass =
+    query
+        |> getAssemblyOperations requirements
+        |> expandAssembly requirements.db.processes
+        |> Result.map (List.foldl (.qtyVariationRatio >> Unit.applyQtyVariationRatioToMass) mass)
+        |> Result.withDefault mass
+
+
 assemblyResultsFromMass : Mass -> Results
 assemblyResultsFromMass mass =
     Results
@@ -836,17 +848,23 @@ componentFromCustom maybeComponent maybeCustom =
 -}
 compute : Requirements db -> Query -> Result String LifeCycle
 compute requirements query =
-    query.items
-        |> List.map (computeItemResults requirements query.transportOptions)
-        |> RE.combine
-        |> Result.map (List.foldr addResults emptyResults)
-        |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
-        |> Result.andThen (computeAssemblyImpacts requirements query)
-        |> Result.andThen (computePackagingImpacts requirements query)
-        |> Result.andThen (computeDistributionImpacts requirements query)
-        |> Result.map (computeEndOfLifeResults requirements query)
-        |> Result.andThen (computeTransports requirements query)
-        |> Result.andThen (computeUseImpacts requirements query)
+    getAssemblyOperations requirements query
+        |> expandAssembly requirements.db.processes
+        |> Result.map (List.map .qtyVariationRatio)
+        |> Result.andThen
+            (\assemblyQtyVariationRatios ->
+                query.items
+                    |> List.map (computeItemResults requirements query.transportOptions assemblyQtyVariationRatios)
+                    |> RE.combine
+                    |> Result.map (List.foldr addResults emptyResults)
+                    |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
+                    |> Result.andThen (computeAssemblyImpacts requirements query)
+                    |> Result.andThen (computePackagingImpacts requirements query)
+                    |> Result.andThen (computeDistributionImpacts requirements query)
+                    |> Result.map (computeEndOfLifeResults requirements query)
+                    |> Result.andThen (computeTransports requirements query)
+                    |> Result.andThen (computeUseImpacts requirements query)
+            )
 
 
 {-| Compute assembly stage impacts
@@ -981,8 +999,8 @@ computeImpacts requirements transportOptions =
         >> Result.map (List.foldr addResults emptyResults)
 
 
-computeItemResults : Requirements db -> TransportOptions -> Item -> Result String Results
-computeItemResults requirements transportOptions { custom, id, quantity, unitMass } =
+computeItemResults : Requirements db -> TransportOptions -> List QuantityVariationRatio -> Item -> Result String Results
+computeItemResults requirements transportOptions assemblyQtyVariationRatios { custom, id, quantity, unitMass } =
     let
         component_ =
             case id of
@@ -998,6 +1016,17 @@ computeItemResults requirements transportOptions { custom, id, quantity, unitMas
                 custom
                     |> customElements component
                     |> scaleElementsToUnitMass requirements.db unitMass
+                    -- amount input is the *post-assembly* component amount; assembly losses increase
+                    -- what must be produced *before* that stage, the same way transform losses do
+                    |> Result.andThen
+                        (List.map
+                            (\element ->
+                                element.amount
+                                    |> computeInitialAmount assemblyQtyVariationRatios
+                                    |> Result.map (\amount -> { element | amount = amount })
+                            )
+                            >> RE.combine
+                        )
                     |> Result.andThen
                         (List.map (computeElementResults requirements transportOptions)
                             >> RE.combine
@@ -2394,9 +2423,9 @@ getEndOfLifeDetailedImpacts { config, sector } recyclable lifeCycle =
         productionMass =
             extractMass lifeCycle.production
 
-        -- Note: Assembly waste is modeled as a global mass reduction, without per-material losses,
-        -- while EoL impacts are computed per material category; so we need to scale each by the same
-        -- factor so their masses sum back to `productMass`
+        -- Note: Assembly losses increase each element's incoming mass, so `productionMass` is the
+        -- pre-assembly mass. End-of-life impacts are per material category, so scale every category
+        -- by the same factor to bring those masses back to `productMass`
         massScaleRatio =
             if lifeCycle.productMass == Quantity.zero then
                 1
@@ -2424,7 +2453,7 @@ getEndOfLifeDetailedImpacts { config, sector } recyclable lifeCycle =
         |> AnyDict.map
             (\materialCategory mass ->
                 let
-                    -- Apply assembly mass loss ratio back to every material category
+                    -- Bring this category's pre-assembly mass back to the finished product
                     scaledMass =
                         mass |> Quantity.multiplyBy massScaleRatio
                 in
