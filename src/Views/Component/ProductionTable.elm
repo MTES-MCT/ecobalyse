@@ -434,12 +434,12 @@ massShareSummary config =
                 Just target ->
                     let
                         share =
-                            Format.roundedMassShare 2 config.finishedMass target
+                            RichFormat.roundedMassShare 2 config.finishedMass target
                     in
                     div [ class "px-3 pt-2 pb-1 d-flex flex-column gap-1" ]
                         [ div [ class "d-flex justify-content-between align-items-baseline gap-3" ]
                             [ span [] [ text "Somme des masses de matériaux\u{00A0}:" ]
-                            , span [ class "fw-bold text-nowrap" ] [ Format.kg config.finishedMass ]
+                            , span [ class "fw-bold text-nowrap" ] [ RichFormat.kilograms config.finishedMass ]
                             ]
                         , div [ class "d-flex justify-content-between align-items-center gap-3" ]
                             [ span [ class "text-muted" ]
