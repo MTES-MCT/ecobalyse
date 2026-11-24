@@ -1139,8 +1139,7 @@
         "material": { "country": "REO", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
         "transforms": [
           { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-          { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
-          { "country": "REO", "id": "f28c972f-0c99-4c02-b24b-78578288f890" }
+          { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
         ]
       },
       {
