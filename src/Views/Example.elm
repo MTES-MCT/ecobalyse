@@ -36,12 +36,13 @@ view config =
                 |> AutocompleteSelector.init (Example.toName config.examples)
     in
     div [ class "row align-items-center gx-2 gy-0 g-md-2" ]
-        [ label
-            [ for "selector-example"
-            , class "SimulatorFiedlLabel col-12 col-md-auto col-form-label"
-            , class "text-start text-md-end fw-bold mb-1 mb-md-0"
+        [ div [ class "SimulatorFiedlLabel col-12 col-md-auto d-flex justify-content-md-end" ]
+            [ label
+                [ for "selector-example"
+                , class "col-form-label w-auto text-start fw-bold mb-1 mb-md-0"
+                ]
+                [ text "Exemples" ]
             ]
-            [ text "Exemples" ]
         , div [ class "col-12 col-md d-flex align-items-center min-w-0" ]
             [ button
                 [ class "form-select ElementSelector text-start text-truncate flex-fill"

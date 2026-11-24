@@ -1515,12 +1515,13 @@ simulatorView ({ componentConfig } as session) ({ genericSector } as model) =
 productWeightView : Model -> Html Msg
 productWeightView model =
     div [ class "row align-items-center gx-2 gy-0 g-md-2 mt-2" ]
-        [ label
-            [ for "product-weight"
-            , class "SimulatorFiedlLabel col-12 col-md-auto col-form-label"
-            , class "text-start text-md-end fw-bold mb-1 mb-md-0"
+        [ div [ class "SimulatorFiedlLabel col-12 col-md-auto d-flex justify-content-md-end" ]
+            [ label
+                [ for "product-weight"
+                , class "col-form-label w-auto text-start fw-bold mb-1 mb-md-0"
+                ]
+                [ text "Poids du produit" ]
             ]
-            [ text "Poids du produit" ]
         , div [ class "col-12 col-md-4 min-w-0" ]
             [ div [ class "input-group w-100" ]
                 [ FloatInput.view

@@ -1070,12 +1070,13 @@ productCategorySelectorView { onSelect, products, query, sector } =
 
     else
         div [ class "row align-items-center gx-2 gy-0 g-md-2 mt-2" ]
-            [ label
-                [ Attr.for "product-category"
-                , class "SimulatorFiedlLabel col-12 col-md-auto col-form-label"
-                , class "text-start text-md-end fw-bold mb-1 mb-md-0"
+            [ div [ class "SimulatorFiedlLabel col-12 col-md-auto d-flex justify-content-md-end" ]
+                [ label
+                    [ Attr.for "product-category"
+                    , class "col-form-label w-auto text-start fw-bold mb-1 mb-md-0"
+                    ]
+                    [ text "Catégorie de produit" ]
                 ]
-                [ text "Catégorie de produit" ]
             , div [ class "col-12 col-md min-w-0" ]
                 [ select
                     [ Attr.id "product-category"
