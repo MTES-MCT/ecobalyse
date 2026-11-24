@@ -1,4 +1,4 @@
-module Data.ImpactTest exposing (..)
+module Data.ImpactsTest exposing (..)
 
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
@@ -13,7 +13,7 @@ import TestUtils exposing (asTest, suiteWithDb)
 
 suite : Test
 suite =
-    suiteWithDb "Data.Impact"
+    suiteWithDb "Data.Impacts"
         (\db ->
             let
                 defaultImpacts =
