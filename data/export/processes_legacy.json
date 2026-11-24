@@ -10640,22 +10640,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Zinc, primary, at regional storage {RER} U",
-    "categories": ["material", "material_type:aluminium"],
-    "comment": "Translated name: Zink, prim r, ab Regionallager\nIncluded processes: The module includes the production of high grade (SHG) primary zinc by pyro- and hydrometallurgical processes, the disposal of the slag and the treatment of the waste water. No secondary production - which amounts to 30% in Europe - is considered.\nRemark: The module describes the primary production of zinc in Europe. The multi-output-process \"smelting, primary zinc production\" delivers the co-products \"zinc, primary, at regional storage\", \"cadmium sludge, from zinc electrolysis, at plant\" and \"leaching residues, indium rich, from zinc circuit, at smelter\". The flow \"zinc,  \" represents the European supply mix of primary zinc. The by-products \"leaching residues,  \" and \"zinc,  \" receive part of the burden and enter the primary production chain.;\nUUID: 4335cd04-b42d-3f4b-b940-b641081bf59c This inventory is part of the BAFU:2025 database. Its use is permitted under the database s terms and conditions.; Geography: <null>\nTechnology: A mix of 80% hydrometallurgical and 20% pyrometallurgical production is chosen. For emission control 80% improved (hydro) and 20% limited control (pyro) is chosen.\nTime period: undefined\nVersion: 2023\nEnergy values: Undefined\nProduction volume: 10'000'000 t in 2006\nLocal category: metals\nLocal subcategory: non ferro\nSource file: process_4335cd04-b42d-3f4b-b940-b641081bf59c.xml",
-    "displayName": "Zinc",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "dc154194-9d16-48fd-a1d7-65ec5030a3dd",
-    "impacts": { "ecs": 902.2 },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
-    "source": "BAFU 2025v2",
-    "unit": "kg"
-  },
-  {
     "activityName": "Almond, shelled with skin, CMAPS {GLO} U",
     "categories": ["ingredient", "material"],
     "comment": "",
