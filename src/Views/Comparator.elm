@@ -14,7 +14,7 @@ import Data.Food.Recipe as Recipe
 import Data.Generic.Simulator as GenericSimulator
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
-import Data.Impacts as Impacts
+import Data.ImpactSet as ImpactSet
 import Data.Sector as Sector
 import Data.Session as Session exposing (Session)
 import Data.Textile.Simulator as TextileSimulator
@@ -55,9 +55,9 @@ type ComparisonType
 
 type alias ChartsData =
     { complementsImpact : Complement.ComplementsImpacts
-    , impacts : Impacts.Impacts
+    , impacts : ImpactSet.Impacts
     , label : String
-    , stagesImpacts : Impacts.StagesImpacts
+    , stagesImpacts : ImpactSet.StagesImpacts
     }
 
 
@@ -166,7 +166,7 @@ addToComparison { componentConfig, db } { name, query } =
                         { complementsImpact =
                             lifeCycle.production
                                 |> Component.extractComplementsImpacts
-                                |> Complement.mapComplements (Maybe.map (Impacts.getImpact Definition.Ecs))
+                                |> Complement.mapComplements (Maybe.map (ImpactSet.getImpact Definition.Ecs))
                         , impacts = Component.sumLifeCycleImpacts lifeCycle
                         , label = name
                         , stagesImpacts =
@@ -353,7 +353,7 @@ entriesForIndividualImpacts definitions { complementsImpact, impacts } =
     in
     Complement.complementsImpactAsChartEntries complementsImpact
         ++ (impacts
-                |> Impacts.getAggregatedScoreData definitions .ecoscoreData
+                |> ImpactSet.getAggregatedScoreData definitions .ecoscoreData
                 |> List.sortWith labelComparison
            )
         |> List.reverse
@@ -362,14 +362,14 @@ entriesForIndividualImpacts definitions { complementsImpact, impacts } =
 entriesForStages : ChartsData -> List ChartEntry
 entriesForStages { stagesImpacts } =
     stagesImpacts
-        |> Impacts.stagesImpactsAsChartEntries
+        |> ImpactSet.stagesImpactsAsChartEntries
         |> List.reverse
 
 
 entriesForSubscores : Definitions -> ChartsData -> List ChartEntry
 entriesForSubscores definitions { complementsImpact, impacts } =
     impacts
-        |> Impacts.toProtectionAreas definitions
+        |> ImpactSet.toProtectionAreas definitions
         |> (\{ biodiversity, climate, health, resources } ->
                 List.reverse
                     [ Complement.totalComplementsImpactAsChartEntry complementsImpact
@@ -387,7 +387,7 @@ entriesForTotal { impacts } =
       , name = "Impact total"
       , value =
             impacts
-                |> Impacts.getImpact Definition.Ecs
+                |> ImpactSet.getImpact Definition.Ecs
                 |> Impact.toFloat
       }
     ]

@@ -1,4 +1,4 @@
-module Data.Impacts exposing
+module Data.ImpactSet exposing
     ( Impacts
     , empty
     , multiplyBy, divideBy

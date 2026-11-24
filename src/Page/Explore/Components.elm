@@ -5,7 +5,7 @@ import Data.Component.Amount as Amount
 import Data.Dataset as Dataset
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Impacts as Impacts
+import Data.ImpactSet as ImpactSet
 import Data.Process as Process
 import Data.Sector exposing (Sector)
 import Data.Session exposing (Session)
@@ -114,6 +114,6 @@ getComponentEcoscore { componentConfig, db } sector =
         Component.defaultTransportOptions
         >> Result.map
             (Component.extractImpacts
-                >> Impacts.getImpact Definition.Ecs
+                >> ImpactSet.getImpact Definition.Ecs
                 >> Impact.toFloat
             )

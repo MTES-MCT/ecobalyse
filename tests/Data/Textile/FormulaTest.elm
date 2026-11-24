@@ -2,7 +2,7 @@ module Data.Textile.FormulaTest exposing (..)
 
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Impacts as Impacts
+import Data.ImpactSet as ImpactSet
 import Data.Split as Split
 import Data.Textile.Formula as Formula
 import Data.Textile.MakingComplexity as MakingComplexity
@@ -29,9 +29,9 @@ suite =
                     db.textile.wellKnown.fading
 
                 defaultImpacts =
-                    Impacts.empty
-                        |> Impacts.update db.definitions Definition.Cch Quantity.zero
-                        |> Impacts.update db.definitions Definition.Fwe Quantity.zero
+                    ImpactSet.empty
+                        |> ImpactSet.update db.definitions Definition.Cch Quantity.zero
+                        |> ImpactSet.update db.definitions Definition.Fwe Quantity.zero
             in
             [ describe "Formula.genericWaste"
                 [ kg 1
@@ -56,26 +56,26 @@ suite =
                                 , countryElecProcess =
                                     { sampleProcess
                                         | impacts =
-                                            Impacts.empty
-                                                |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 0.5)
-                                                |> Impacts.update db.definitions Definition.Fwe (Impact.fromFloat 1.5)
+                                            ImpactSet.empty
+                                                |> ImpactSet.update db.definitions Definition.Cch (Impact.fromFloat 0.5)
+                                                |> ImpactSet.update db.definitions Definition.Fwe (Impact.fromFloat 1.5)
                                     }
                                 , countryHeatProcess =
                                     { sampleProcess
                                         | impacts =
-                                            Impacts.empty
-                                                |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 0.5)
-                                                |> Impacts.update db.definitions Definition.Fwe (Impact.fromFloat 1.5)
+                                            ImpactSet.empty
+                                                |> ImpactSet.update db.definitions Definition.Cch (Impact.fromFloat 0.5)
+                                                |> ImpactSet.update db.definitions Definition.Fwe (Impact.fromFloat 1.5)
                                     }
                                 }
                  in
                  [ res.impacts
-                    |> Impacts.getImpact Definition.Cch
+                    |> ImpactSet.getImpact Definition.Cch
                     |> Impact.toFloat
                     |> Expect.within (Expect.Absolute 0.01) 0.435
                     |> asTest "should compute Making stage cch from process and country data"
                  , res.impacts
-                    |> Impacts.getImpact Definition.Fwe
+                    |> ImpactSet.getImpact Definition.Fwe
                     |> Impact.toFloat
                     |> Expect.within (Expect.Absolute 0.01) 1.305
                     |> asTest "should compute Making stage fwe from process and country data"
@@ -93,9 +93,9 @@ suite =
                             { countryElecProcess =
                                 { sampleProcess
                                     | impacts =
-                                        Impacts.empty
-                                            |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 8.13225e-2)
-                                            |> Impacts.update db.definitions Definition.Fwe (Impact.fromFloat 3.26897e-8)
+                                        ImpactSet.empty
+                                            |> ImpactSet.update db.definitions Definition.Cch (Impact.fromFloat 8.13225e-2)
+                                            |> ImpactSet.update db.definitions Definition.Fwe (Impact.fromFloat 3.26897e-8)
                                 }
                             , outputMass = kg 0.478
                             , pickingElec = 1
@@ -133,19 +133,19 @@ suite =
                                 , countryElecProcess =
                                     { sampleProcess
                                         | impacts =
-                                            Impacts.empty
-                                                |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 0.2)
-                                                |> Impacts.update db.definitions Definition.Fwe (Impact.fromFloat 0.5)
+                                            ImpactSet.empty
+                                                |> ImpactSet.update db.definitions Definition.Cch (Impact.fromFloat 0.2)
+                                                |> ImpactSet.update db.definitions Definition.Fwe (Impact.fromFloat 0.5)
                                     }
                                 }
                  in
                  [ res.impacts
-                    |> Impacts.getImpact Definition.Cch
+                    |> ImpactSet.getImpact Definition.Cch
                     |> Impact.toFloat
                     |> Expect.within (Expect.Absolute 0.01) 1
                     |> asTest "should compute KnittingWeaving stage cch from process and product data"
                  , res.impacts
-                    |> Impacts.getImpact Definition.Fwe
+                    |> ImpactSet.getImpact Definition.Fwe
                     |> Impact.toFloat
                     |> Expect.within (Expect.Absolute 0.01) 2.5
                     |> asTest "should compute KnittingWeaving stage fwe from process and product data"

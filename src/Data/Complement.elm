@@ -27,7 +27,7 @@ import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Impact as Impact exposing (Impact)
 import Data.Impact.Definition as Definition
-import Data.Impacts as Impacts exposing (Impacts)
+import Data.ImpactSet as ImpactSet exposing (Impacts)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Quantity
@@ -106,10 +106,10 @@ applyComplementsToImpacts : Impact -> Impacts -> Impacts
 applyComplementsToImpacts complement impacts =
     let
         ecoScore =
-            Impacts.getImpact Definition.Ecs impacts
+            ImpactSet.getImpact Definition.Ecs impacts
     in
     impacts
-        |> Impacts.insertWithoutAggregateComputation Definition.Ecs
+        |> ImpactSet.insertWithoutAggregateComputation Definition.Ecs
             (Quantity.plus ecoScore complement)
 
 
@@ -170,7 +170,7 @@ encodeComplementsResultsAs trigram =
         encodeTuple label maybeImpacts =
             ( label
             , maybeImpacts
-                |> Maybe.map (Impacts.getImpact trigram >> Impact.encode)
+                |> Maybe.map (ImpactSet.getImpact trigram >> Impact.encode)
             )
     in
     allComplementsToList
@@ -192,12 +192,12 @@ impactsWithComplements complementsImpacts impacts =
             getTotalComplementsImpacts complementsImpacts
 
         ecsWithComplements =
-            Impacts.getImpact Definition.Ecs impacts
+            ImpactSet.getImpact Definition.Ecs impacts
                 -- Reminder: substracting a malus — a.k.a negative complement — adds to the total impact
                 |> Quantity.plus complementsImpact
     in
     impacts
-        |> Impacts.insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
+        |> ImpactSet.insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
 
 
 identifiers : ComplementsIdentifiers
@@ -252,7 +252,7 @@ mergeComplementsResultsImpacts : ComplementsResultsImpacts -> Impacts
 mergeComplementsResultsImpacts =
     allComplementsToList
         >> List.filterMap identity
-        >> Impacts.sumImpacts
+        >> ImpactSet.sumImpacts
 
 
 noComplementsImpacts : ComplementsImpacts
@@ -271,10 +271,10 @@ sumComplementsResultsImpacts : List ComplementsResultsImpacts -> ComplementsResu
 sumComplementsResultsImpacts =
     let
         sumImpacts complementsResultsImpacts complement =
-            Impacts.mapImpacts
+            ImpactSet.mapImpacts
                 (\trigram impact ->
                     Quantity.sum
-                        [ Impacts.getImpact trigram (complementsResultsImpacts |> complement |> Maybe.withDefault Impacts.empty)
+                        [ ImpactSet.getImpact trigram (complementsResultsImpacts |> complement |> Maybe.withDefault ImpactSet.empty)
                         , impact
                         ]
                 )
@@ -284,10 +284,10 @@ sumComplementsResultsImpacts =
                 newImpact =
                     acc
                         |> complement
-                        |> Maybe.withDefault Impacts.empty
+                        |> Maybe.withDefault ImpactSet.empty
                         |> sumImpacts results complement
             in
-            if newImpact == Impacts.empty then
+            if newImpact == ImpactSet.empty then
                 Nothing
 
             else

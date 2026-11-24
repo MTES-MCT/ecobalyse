@@ -17,7 +17,7 @@ import Data.Db exposing (Db)
 import Data.Env as Env
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Impacts as Impacts exposing (Impacts)
+import Data.ImpactSet as ImpactSet exposing (Impacts)
 import Data.Sector as Sector
 import Data.Split as Split
 import Data.Textile.Dyeing as Dyeing
@@ -63,12 +63,12 @@ encode webUrl v =
         [ ( "complementsImpacts", Complement.encodeComplementsImpacts v.complementsImpacts |> Just )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int |> Just )
         , ( "durability", v.durability |> Unit.floatDurabilityFromHolistic |> Encode.float |> Just )
-        , ( "impacts", Impacts.encode v.impacts |> Just )
-        , ( "impactsWithoutDurability", Impacts.encode (getTotalImpactsWithoutDurability v) |> Just )
+        , ( "impacts", ImpactSet.encode v.impacts |> Just )
+        , ( "impactsWithoutDurability", ImpactSet.encode (getTotalImpactsWithoutDurability v) |> Just )
         , ( "inputs", Inputs.encode v.inputs |> Just )
         , ( "lifeCycle", LifeCycle.encode v.inputs v.lifeCycle |> Just )
         , ( "transport", Transport.encode v.transport |> Just )
-        , ( "trimsImpacts", Impacts.encode v.trimsImpacts |> Just )
+        , ( "trimsImpacts", ImpactSet.encode v.trimsImpacts |> Just )
         , ( "useNbCycles", Encode.int v.useNbCycles |> Just )
         , ( "webUrl", webUrl |> Maybe.map Encode.string )
         ]
@@ -90,11 +90,11 @@ init db componentConfig =
                                 { nonPhysical = Unit.standardDurability Unit.NonPhysicalDurability
                                 , physical = inputs.physicalDurability |> Maybe.withDefault (Unit.maxDurability Unit.PhysicalDurability)
                                 }
-                            , impacts = Impacts.empty
+                            , impacts = ImpactSet.empty
                             , inputs = inputs
                             , lifeCycle = lifeCycle
-                            , transport = Transport.default Impacts.empty
-                            , trimsImpacts = Impacts.empty
+                            , transport = Transport.default ImpactSet.empty
+                            , trimsImpacts = ImpactSet.empty
                             , useNbCycles = Product.customDaysOfWear product.use
                             }
                        )
@@ -388,7 +388,7 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
                                         stage.outputMass
                                         share
                                 )
-                            |> Impacts.sumImpacts
+                            |> ImpactSet.sumImpacts
 
                     preTreatments =
                         stage |> Stage.computePreTreatments textile.wellKnown inputs.materials
@@ -402,7 +402,7 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
                 in
                 { stage
                     | heat = Quantity.sum [ stage.heat, heat, preTreatments.heat ]
-                    , impacts = Impacts.sumImpacts [ stage.impacts, impacts, dyeingToxicity, preTreatments.energy, preTreatments.toxicity ]
+                    , impacts = ImpactSet.sumImpacts [ stage.impacts, impacts, dyeingToxicity, preTreatments.energy, preTreatments.toxicity ]
                     , kwh = Quantity.sum [ stage.kwh, kwh, preTreatments.kwh ]
                     , preTreatments = preTreatments
                 }
@@ -442,7 +442,7 @@ computePrintingImpacts { textile } ({ inputs } as simulator) =
                         in
                         { stage
                             | heat = stage.heat |> Quantity.plus heat
-                            , impacts = Impacts.sumImpacts [ stage.impacts, impacts, printingToxicity ]
+                            , impacts = ImpactSet.sumImpacts [ stage.impacts, impacts, printingToxicity ]
                             , kwh = stage.kwh |> Quantity.plus kwh
                         }
 
@@ -467,7 +467,7 @@ computeFinishingImpacts { textile } simulator =
                 in
                 { stage
                     | heat = stage.heat |> Quantity.plus heat
-                    , impacts = Impacts.sumImpacts [ stage.impacts, impacts ]
+                    , impacts = ImpactSet.sumImpacts [ stage.impacts, impacts ]
                     , kwh = stage.kwh |> Quantity.plus kwh
                 }
             )
@@ -503,9 +503,9 @@ computeMaterialImpacts db ({ inputs } as simulator) =
                                 (\{ material, share } ->
                                     stage
                                         |> stageMaterialImpacts db material
-                                        |> Impacts.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat share))
+                                        |> ImpactSet.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat share))
                                 )
-                            |> Impacts.sumImpacts
+                            |> ImpactSet.sumImpacts
                 }
             )
 
@@ -545,9 +545,9 @@ computeSpinningImpacts ({ inputs } as simulator) =
                                     stage
                                         |> stageSpinningImpacts material spinning inputs.product
                                         |> .impacts
-                                        |> Impacts.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat share))
+                                        |> ImpactSet.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat share))
                                 )
-                            |> Impacts.sumImpacts
+                            |> ImpactSet.sumImpacts
                     , kwh =
                         inputs.materials
                             |> List.map
@@ -763,10 +763,10 @@ computeTrims db ({ componentConfig, durability, inputs } as simulator) =
             (\trimsImpacts ->
                 { simulator
                     | impacts =
-                        Impacts.sumImpacts
+                        ImpactSet.sumImpacts
                             [ simulator.impacts
                             , trimsImpacts
-                                |> Impacts.divideBy (Unit.floatDurabilityFromHolistic durability)
+                                |> ImpactSet.divideBy (Unit.floatDurabilityFromHolistic durability)
                             ]
                     , trimsImpacts = trimsImpacts
                 }
@@ -785,11 +785,11 @@ computeFinalImpacts ({ durability, lifeCycle } as simulator) =
     { simulator
         | complementsImpacts = complementsImpacts
         , impacts =
-            Impacts.sumImpacts
+            ImpactSet.sumImpacts
                 [ simulator.impacts
                 , lifeCycle
                     |> LifeCycle.computeFinalImpacts
-                    |> Impacts.divideBy (Unit.floatDurabilityFromHolistic durability)
+                    |> ImpactSet.divideBy (Unit.floatDurabilityFromHolistic durability)
                     |> Complement.impactsWithComplements complementsImpacts
                 ]
     }
@@ -801,8 +801,8 @@ getTotalImpactsWithoutComplements { durability, lifeCycle } =
         |> Array.filter .enabled
         |> Array.map Stage.getTotalImpactsWithoutComplements
         |> Array.toList
-        |> Impacts.sumImpacts
-        |> Impacts.divideBy (Unit.floatDurabilityFromHolistic durability)
+        |> ImpactSet.sumImpacts
+        |> ImpactSet.divideBy (Unit.floatDurabilityFromHolistic durability)
 
 
 getTotalImpactsWithoutDurability : Simulator -> Impacts
@@ -813,7 +813,7 @@ getTotalImpactsWithoutDurability { lifeCycle, trimsImpacts } =
                 |> Array.filter .enabled
                 |> LifeCycle.sumComplementsImpacts
     in
-    Impacts.sumImpacts
+    ImpactSet.sumImpacts
         [ lifeCycle
             |> LifeCycle.computeFinalImpacts
             |> Complement.impactsWithComplements complementsImpactsWithoutDurability
@@ -836,7 +836,7 @@ updateLifeCycleStages labels update =
     updateLifeCycle (LifeCycle.updateStages labels update)
 
 
-toStagesImpacts : Definition.Trigram -> Simulator -> Impacts.StagesImpacts
+toStagesImpacts : Definition.Trigram -> Simulator -> ImpactSet.StagesImpacts
 toStagesImpacts trigram simulator =
     let
         getImpacts label =
@@ -844,10 +844,10 @@ toStagesImpacts trigram simulator =
                 |> Array.filter .enabled
                 |> LifeCycle.getStage label
                 |> Maybe.map .impacts
-                |> Maybe.withDefault Impacts.empty
+                |> Maybe.withDefault ImpactSet.empty
 
         getImpact =
-            Impacts.getImpact trigram
+            ImpactSet.getImpact trigram
                 >> Just
 
         applyComplement complementImpact =
@@ -880,10 +880,10 @@ toStagesImpacts trigram simulator =
         , getImpacts Label.Ennobling
         , getImpacts Label.Making
         ]
-            |> Impacts.sumImpacts
+            |> ImpactSet.sumImpacts
             |> getImpact
     , transports = getImpact simulator.transport.impacts
     , trims = getImpact simulator.trimsImpacts
     , usage = getImpacts Label.Use |> getImpact
     }
-        |> Impacts.divideStagesImpactsBy (Unit.floatDurabilityFromHolistic simulator.durability)
+        |> ImpactSet.divideStagesImpactsBy (Unit.floatDurabilityFromHolistic simulator.durability)

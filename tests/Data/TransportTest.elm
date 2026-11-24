@@ -3,7 +3,7 @@ module Data.TransportTest exposing (..)
 import Data.Country.Code as CountryCode
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Impacts as Impacts
+import Data.ImpactSet as ImpactSet
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport, getTransportBetweenLegacy)
 import Dict.Any as AnyDict
@@ -28,7 +28,7 @@ chinaToFrance =
     , sea = km 19930
     , seaCooled = km 0
     , air = km 8598
-    , impacts = Impacts.empty
+    , impacts = ImpactSet.empty
     }
 
 
@@ -91,7 +91,7 @@ suite =
                         (chinaToFrance
                             |> Transport.computeImpacts transports.modeProcesses Mass.kilogram
                             |> .impacts
-                            |> Impacts.getImpact Definition.Ecs
+                            |> ImpactSet.getImpact Definition.Ecs
                             |> Impact.toFloat
                             |> Expect.greaterThan 0
                         )
@@ -99,11 +99,11 @@ suite =
                 )
             , describe "getTransportBetween"
                 [ db.distances
-                    |> Transport.getTransportBetweenLegacy Impacts.empty CountryCode.france CountryCode.china
+                    |> Transport.getTransportBetweenLegacy ImpactSet.empty CountryCode.france CountryCode.china
                     |> Expect.equal chinaToFrance
                     |> asTest "should retrieve distance between two countries"
                 , db.distances
-                    |> Transport.getTransportBetweenLegacy Impacts.empty CountryCode.china CountryCode.france
+                    |> Transport.getTransportBetweenLegacy ImpactSet.empty CountryCode.china CountryCode.france
                     |> Expect.equal chinaToFrance
                     |> asTest "should retrieve distance between two swapped countries"
                 , db.countries
@@ -112,7 +112,7 @@ suite =
                     |> List.map
                         (\( cA, cB ) ->
                             db.distances
-                                |> getTransportBetweenLegacy Impacts.empty cA cB
+                                |> getTransportBetweenLegacy ImpactSet.empty cA cB
                         )
                     |> List.filter
                         (\{ road, sea, air } ->
@@ -133,7 +133,7 @@ testTransportRatio airTransportRatio { road, sea, air } =
     , sea = km sea
     , seaCooled = km 0
     , air = km air
-    , impacts = Impacts.empty
+    , impacts = ImpactSet.empty
     }
         |> Transport.applyTransportRatios airTransportRatio
         |> (\t ->

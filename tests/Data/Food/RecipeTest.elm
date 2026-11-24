@@ -10,7 +10,7 @@ import Data.Food.Retail as Retail
 import Data.Food.Transport as FoodTransport
 import Data.Impact as Impact exposing (Impact)
 import Data.Impact.Definition as Definition
-import Data.Impacts as Impacts
+import Data.ImpactSet as ImpactSet
 import Expect
 import Length
 import Mass
@@ -110,7 +110,7 @@ suite =
                              in
                              [ royalPizzaResults
                                 |> Result.map (Tuple.second >> .total)
-                                |> Result.withDefault Impacts.empty
+                                |> Result.withDefault ImpactSet.empty
                                 |> TestUtils.expectImpactsEqual
                                     { acd = Expect.greaterThan 0
                                     , cch = Expect.greaterThan 0
@@ -140,7 +140,7 @@ suite =
                                 |> Expect.within (Expect.Absolute 0.01) 0.3425
                                 |> asTest "should compute ingredients total edible mass"
                              , asTest "should have the total ecs impact with the complement taken into account"
-                                (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .total >> Impacts.getImpact Definition.Ecs) of
+                                (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .total >> ImpactSet.getImpact Definition.Ecs) of
                                     Err err ->
                                         Expect.fail err
 
@@ -149,7 +149,7 @@ suite =
                                             |> Expect.within (Expect.Absolute 0.1) 136.48
                                 )
                              , asTest "should have the ingredients' total ecs impact with the complement taken into account"
-                                (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impacts.getImpact Definition.Ecs) of
+                                (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> ImpactSet.getImpact Definition.Ecs) of
                                     Err err ->
                                         Expect.fail err
 
@@ -202,7 +202,7 @@ suite =
                                 (royalPizzaResults |> Result.map Tuple.second)
                                 (\{ perKg, scoring } ->
                                     perKg
-                                        |> Impacts.getImpact Definition.Ecs
+                                        |> ImpactSet.getImpact Definition.Ecs
                                         |> Impact.toFloat
                                         |> Expect.within (Expect.Absolute 0.01) (Impact.toFloat scoring.all)
                                 )

@@ -38,7 +38,7 @@ import Data.Food.Transport as FoodTransport
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impact)
 import Data.Impact.Definition as Definition
-import Data.Impacts as Impacts exposing (Impacts)
+import Data.ImpactSet as ImpactSet exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scoring as Scoring exposing (Scoring)
@@ -139,7 +139,7 @@ compute ({ food } as db) =
                     ingredientsTotalImpacts =
                         ingredientsImpacts
                             |> List.map Tuple.second
-                            |> Impacts.sumImpacts
+                            |> ImpactSet.sumImpacts
 
                     ingredientsTransport =
                         ingredients
@@ -150,7 +150,7 @@ compute ({ food } as db) =
                     transformImpacts =
                         transform
                             |> Maybe.map computeProcessImpacts
-                            |> Maybe.withDefault Impacts.empty
+                            |> Maybe.withDefault ImpactSet.empty
 
                     distributionImpacts =
                         distribution
@@ -162,7 +162,7 @@ compute ({ food } as db) =
                                     in
                                     Retail.computeImpacts volume distrib food.wellKnown
                                 )
-                            |> Maybe.withDefault Impacts.empty
+                            |> Maybe.withDefault ImpactSet.empty
 
                     distributionTransportNeedsCooling =
                         ingredients
@@ -179,7 +179,7 @@ compute ({ food } as db) =
                                         (\distrib ->
                                             Retail.distributionTransport distrib distributionTransportNeedsCooling
                                         )
-                                    |> Maybe.withDefault (Transport.default Impacts.empty)
+                                    |> Maybe.withDefault (Transport.default ImpactSet.empty)
 
                             modes =
                                 convertWellKnownToTransportModes db.food.wellKnown
@@ -187,7 +187,7 @@ compute ({ food } as db) =
                         Transport.computeImpacts modes mass transport
 
                     recipeImpacts =
-                        Impacts.sumImpacts
+                        ImpactSet.sumImpacts
                             [ ingredientsTotalImpacts
                             , transformImpacts
                             , ingredientsTransport.impacts
@@ -199,12 +199,12 @@ compute ({ food } as db) =
                     packagingImpacts =
                         packaging
                             |> List.map computePackagingImpacts
-                            |> Impacts.sumImpacts
+                            |> ImpactSet.sumImpacts
 
                     preparationImpacts =
                         preparation
                             |> List.map (Preparation.apply food.wellKnown transformedIngredientsMass)
-                            |> Impacts.sumImpacts
+                            |> ImpactSet.sumImpacts
 
                     preparedMass =
                         getPreparedMassAtConsumer food.wellKnown recipe
@@ -221,7 +221,7 @@ compute ({ food } as db) =
                             |> Complement.mapComplements (Maybe.map (Quantity.divideBy (Mass.inKilograms preparedMass)))
 
                     totalImpactsWithoutComplements =
-                        Impacts.sumImpacts
+                        ImpactSet.sumImpacts
                             [ recipeImpacts
                             , packagingImpacts
                             , distributionImpacts
@@ -236,11 +236,11 @@ compute ({ food } as db) =
                     --       product mass at consumer, excluding packaging
                     impactsPerKg =
                         totalImpacts
-                            |> Impacts.perKg preparedMass
+                            |> ImpactSet.perKg preparedMass
 
                     impactsPerKgWithoutComplements =
                         totalImpactsWithoutComplements
-                            |> Impacts.perKg preparedMass
+                            |> ImpactSet.perKg preparedMass
 
                     scoring =
                         impactsPerKgWithoutComplements
@@ -315,19 +315,19 @@ computeImpact mass _ =
 computePackagingImpacts : { a | amount : PackagingAmount, process : Process } -> Impacts
 computePackagingImpacts item =
     item.process.impacts
-        |> Impacts.multiplyBy (packagingAmountToFloat item.amount)
+        |> ImpactSet.multiplyBy (packagingAmountToFloat item.amount)
 
 
 computeProcessImpacts : { a | mass : Mass, process : Process } -> Impacts
 computeProcessImpacts item =
     item.process.impacts
-        |> Impacts.mapImpacts (computeImpact item.mass)
+        |> ImpactSet.mapImpacts (computeImpact item.mass)
 
 
 computeIngredientImpacts : RecipeIngredient -> Impacts
 computeIngredientImpacts { ingredient, mass } =
     ingredient.process.impacts
-        |> Impacts.mapImpacts (computeImpact mass)
+        |> ImpactSet.mapImpacts (computeImpact mass)
 
 
 computeIngredientsTotalComplements : List RecipeIngredient -> Complement.ComplementsImpacts
@@ -345,7 +345,7 @@ computeIngredientTransportForCountry : Db -> Ingredient.PlaneTransport -> Countr
 computeIngredientTransportForCountry db planeTransport { code } =
     let
         emptyImpacts =
-            Impacts.empty
+            ImpactSet.empty
 
         default =
             Transport.default emptyImpacts
@@ -465,26 +465,26 @@ deletePackaging id query =
 encodeResults : Results -> Encode.Value
 encodeResults results =
     Encode.object
-        [ ( "total", Impacts.encode results.total )
-        , ( "perKg", Impacts.encode results.perKg )
+        [ ( "total", ImpactSet.encode results.total )
+        , ( "perKg", ImpactSet.encode results.perKg )
         , ( "scoring", encodeScoring results.scoring )
         , ( "totalMass", results.totalMass |> Mass.inKilograms |> Encode.float )
         , ( "preparedMass", results.preparedMass |> Mass.inKilograms |> Encode.float )
         , ( "recipe"
           , Encode.object
-                [ ( "total", Impacts.encode results.recipe.total )
-                , ( "ingredientsTotal", Impacts.encode results.recipe.ingredientsTotal )
+                [ ( "total", ImpactSet.encode results.recipe.total )
+                , ( "ingredientsTotal", ImpactSet.encode results.recipe.ingredientsTotal )
                 , ( "totalBonusImpact", Complement.encodeComplementsImpacts results.recipe.totalComplementsImpact )
-                , ( "transform", Impacts.encode results.recipe.transform )
+                , ( "transform", ImpactSet.encode results.recipe.transform )
                 , ( "transports", Transport.encode results.recipe.transports )
                 ]
           )
-        , ( "packaging", Impacts.encode results.packaging )
-        , ( "preparation", Impacts.encode results.preparation )
+        , ( "packaging", ImpactSet.encode results.packaging )
+        , ( "preparation", ImpactSet.encode results.preparation )
         , ( "transports", Transport.encode results.transports )
         , ( "distribution"
           , Encode.object
-                [ ( "total", Impacts.encode results.distribution.total )
+                [ ( "total", ImpactSet.encode results.distribution.total )
                 , ( "transports", Transport.encode results.distribution.transports )
                 ]
           )
@@ -681,11 +681,11 @@ resetDistribution query =
     { query | distribution = Nothing }
 
 
-toStagesImpacts : Definition.Trigram -> Results -> Impacts.StagesImpacts
+toStagesImpacts : Definition.Trigram -> Results -> ImpactSet.StagesImpacts
 toStagesImpacts trigram results =
     let
         getImpact =
-            Impacts.getImpact trigram
+            ImpactSet.getImpact trigram
                 >> Just
     in
     { assembly = Nothing

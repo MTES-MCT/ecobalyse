@@ -12,7 +12,7 @@ module Data.Food.Preparation exposing
 
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact
-import Data.Impacts as Impacts exposing (Impacts)
+import Data.ImpactSet as ImpactSet exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
@@ -85,9 +85,9 @@ all =
 
 apply : WellKnown -> Mass -> Preparation -> Impacts
 apply wellKnown mass preparation =
-    Impacts.sumImpacts
+    ImpactSet.sumImpacts
         [ wellKnown.lowVoltageElectricity.impacts
-            |> Impacts.mapImpacts
+            |> ImpactSet.mapImpacts
                 (\_ ->
                     Impact.toFloat
                         >> (*) (Energy.inKilowattHours (Tuple.first preparation.elec))
@@ -96,7 +96,7 @@ apply wellKnown mass preparation =
                         >> Impact.fromFloat
                 )
         , wellKnown.domesticGasHeat.impacts
-            |> Impacts.mapImpacts
+            |> ImpactSet.mapImpacts
                 (\_ ->
                     Impact.toFloat
                         >> (*) (Energy.inMegajoules (Tuple.first preparation.heat))

@@ -76,7 +76,7 @@ type alias Definition =
 type alias Trigrams a =
     {- We use a type variable here because this type is used for both
        * impact definitions (Definition.Definition)
-       * processes impacts (Data.Impacts)
+       * processes impacts (Data.ImpactSet)
     -}
     { acd : a
     , cch : a

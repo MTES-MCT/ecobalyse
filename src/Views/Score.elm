@@ -2,7 +2,7 @@ module Views.Score exposing (view)
 
 import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definition)
-import Data.Impacts as Impacts exposing (Impacts)
+import Data.ImpactSet as ImpactSet exposing (Impacts)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Mass exposing (Mass)
@@ -24,7 +24,7 @@ view { customInfo, impactDefinition, mass, score, scoreWithoutDurability } =
         [ class "Score card bg-secondary shadow-sm"
         , attribute "data-testid" "score-card"
         , score
-            |> Impacts.getImpact impactDefinition.trigram
+            |> ImpactSet.getImpact impactDefinition.trigram
             |> Impact.toFloat
             |> String.fromFloat
             |> attribute "data-score"

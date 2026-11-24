@@ -24,7 +24,7 @@ import Data.Food.Ingredient.CropGroup as CropGroup exposing (CropGroup)
 import Data.Food.Ingredient.Scenario as Scenario exposing (Scenario)
 import Data.Food.Origin as Origin exposing (Origin)
 import Data.Food.Transport as FoodTransport
-import Data.Impacts as Impacts
+import Data.ImpactSet as ImpactSet
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
@@ -191,7 +191,7 @@ getDefaultOriginTransport : PlaneTransport -> Origin -> Transport
 getDefaultOriginTransport planeTransport origin =
     let
         default =
-            Transport.default Impacts.empty
+            Transport.default ImpactSet.empty
     in
     case origin of
         Origin.EuropeAndMaghreb ->

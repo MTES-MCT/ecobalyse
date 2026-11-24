@@ -1,8 +1,8 @@
-module Data.ImpactsTest exposing (..)
+module Data.ImpactSetTest exposing (..)
 
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Impacts as Impacts
+import Data.ImpactSet as ImpactSet
 import Data.Split as Split
 import Expect
 import Mass
@@ -13,11 +13,11 @@ import TestUtils exposing (asTest, suiteWithDb)
 
 suite : Test
 suite =
-    suiteWithDb "Data.Impacts"
+    suiteWithDb "Data.ImpactSet"
         (\db ->
             let
                 defaultImpacts =
-                    Impacts.empty
+                    ImpactSet.empty
 
                 expectScoreEquals expectedValue testValue =
                     testValue
@@ -26,56 +26,56 @@ suite =
             in
             [ describe "update"
                 [ defaultImpacts
-                    |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 1)
-                    |> Impacts.mapImpacts (\_ -> Quantity.multiplyBy 2)
-                    |> Impacts.getImpact Definition.Cch
+                    |> ImpactSet.update db.definitions Definition.Cch (Impact.fromFloat 1)
+                    |> ImpactSet.mapImpacts (\_ -> Quantity.multiplyBy 2)
+                    |> ImpactSet.getImpact Definition.Cch
                     |> Expect.equal (Impact.fromFloat 2)
                     |> asTest "should map impacts"
                 ]
             , describe "per100grams"
                 [ defaultImpacts
-                    |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 1)
-                    |> Impacts.per100grams (Mass.kilograms 2)
-                    |> Impacts.getImpact Definition.Cch
+                    |> ImpactSet.update db.definitions Definition.Cch (Impact.fromFloat 1)
+                    |> ImpactSet.per100grams (Mass.kilograms 2)
+                    |> ImpactSet.getImpact Definition.Cch
                     |> Expect.equal (Impact.fromFloat 0.05)
                     |> asTest "should compute impacts per 100g of product"
                 ]
             , describe "perKg"
                 [ defaultImpacts
-                    |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 1)
-                    |> Impacts.perKg (Mass.kilograms 2)
-                    |> Impacts.getImpact Definition.Cch
+                    |> ImpactSet.update db.definitions Definition.Cch (Impact.fromFloat 1)
+                    |> ImpactSet.perKg (Mass.kilograms 2)
+                    |> ImpactSet.getImpact Definition.Cch
                     |> Expect.equal (Impact.fromFloat 0.5)
                     |> asTest "should compute impacts per kg of product"
                 ]
             , describe "sumImpacts"
                 [ []
-                    |> Impacts.sumImpacts
+                    |> ImpactSet.sumImpacts
                     |> Expect.equal defaultImpacts
                     |> asTest "should sum an empty impacts list"
-                , [ defaultImpacts |> Impacts.mapImpacts (\_ _ -> Impact.fromFloat 1)
-                  , defaultImpacts |> Impacts.mapImpacts (\_ _ -> Impact.fromFloat 2)
+                , [ defaultImpacts |> ImpactSet.mapImpacts (\_ _ -> Impact.fromFloat 1)
+                  , defaultImpacts |> ImpactSet.mapImpacts (\_ _ -> Impact.fromFloat 2)
                   ]
-                    |> Impacts.sumImpacts
-                    |> Expect.equal (defaultImpacts |> Impacts.mapImpacts (\_ _ -> Impact.fromFloat 3))
+                    |> ImpactSet.sumImpacts
+                    |> Expect.equal (defaultImpacts |> ImpactSet.mapImpacts (\_ _ -> Impact.fromFloat 3))
                     |> asTest "should sum a non-empty impacts list"
                 ]
             , describe "updateImpact"
                 [ defaultImpacts
-                    |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 9)
-                    |> Impacts.getImpact Definition.Cch
+                    |> ImpactSet.update db.definitions Definition.Cch (Impact.fromFloat 9)
+                    |> ImpactSet.getImpact Definition.Cch
                     |> Expect.equal (Impact.fromFloat 9)
                     |> asTest "should update a given impact"
                 ]
             , let
                 impacts =
                     defaultImpacts
-                        |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 1)
-                        |> Impacts.update db.definitions Definition.Fwe (Impact.fromFloat 1)
+                        |> ImpactSet.update db.definitions Definition.Cch (Impact.fromFloat 1)
+                        |> ImpactSet.update db.definitions Definition.Fwe (Impact.fromFloat 1)
               in
               describe "updateAggregatedScores"
                 [ impacts
-                    |> Impacts.getImpact Definition.Ecs
+                    |> ImpactSet.getImpact Definition.Ecs
                     |> expectScoreEquals 13843.73355346908
                     |> asTest "should update EcoScore"
                 ]

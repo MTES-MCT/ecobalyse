@@ -19,7 +19,7 @@ import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impact)
 import Data.Impact.Definition as Definition
-import Data.Impacts as Impacts exposing (Impacts)
+import Data.ImpactSet as ImpactSet exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category
 import Data.Sector as Sector
@@ -333,7 +333,7 @@ suite =
                                 Component.Results
                                     { amount = Amount.fromFloat 1
                                     , complementsImpacts = Complement.emptyComplementsResultsImpacts
-                                    , impacts = Impacts.empty
+                                    , impacts = ImpactSet.empty
                                     , items = []
                                     , label = Nothing
                                     , mass = Mass.kilogram
@@ -376,7 +376,7 @@ suite =
                                 Component.Results
                                     { amount = Amount.fromFloat 1
                                     , complementsImpacts = Complement.emptyComplementsResultsImpacts
-                                    , impacts = Impacts.empty
+                                    , impacts = ImpactSet.empty
                                     , items = []
                                     , label = Nothing
                                     , mass = Mass.kilogram
@@ -410,7 +410,7 @@ suite =
                                     [ { fading
                                         | impacts =
                                             fading.impacts
-                                                |> Impacts.insertWithoutAggregateComputation Definition.Ecs (Impact.fromFloat 10)
+                                                |> ImpactSet.insertWithoutAggregateComputation Definition.Ecs (Impact.fromFloat 10)
                                       }
                                     ]
                                     |> Expect.within (Expect.Absolute 1) 505
@@ -433,7 +433,7 @@ suite =
                                             Component.Results
                                                 { amount = Amount.fromFloat 1
                                                 , complementsImpacts = Complement.emptyComplementsResultsImpacts
-                                                , impacts = Impacts.empty
+                                                , impacts = ImpactSet.empty
                                                 , items = []
                                                 , label = Nothing
                                                 , mass = Mass.kilogram
@@ -478,7 +478,7 @@ suite =
                                     (Component.Results
                                         { amount = Amount.fromFloat 1
                                         , complementsImpacts = Complement.emptyComplementsResultsImpacts
-                                        , impacts = Impacts.empty
+                                        , impacts = ImpactSet.empty
                                         , items = []
                                         , label = Nothing
                                         , mass = Mass.kilogram
@@ -500,7 +500,7 @@ suite =
                                 Component.Results
                                     { amount = Amount.fromFloat 1
                                     , complementsImpacts = Complement.emptyComplementsResultsImpacts
-                                    , impacts = Impacts.empty |> Impacts.insertWithoutAggregateComputation Definition.Ecs (Impact.fromFloat 100)
+                                    , impacts = ImpactSet.empty |> ImpactSet.insertWithoutAggregateComputation Definition.Ecs (Impact.fromFloat 100)
                                     , items = []
                                     , label = Nothing
                                     , mass = Mass.kilogram
@@ -588,7 +588,7 @@ suite =
                                     Component.Results
                                         { amount = Amount.fromFloat 1
                                         , complementsImpacts = Complement.emptyComplementsResultsImpacts
-                                        , impacts = Impacts.empty
+                                        , impacts = ImpactSet.empty
                                         , items = []
                                         , label = Nothing
                                         , mass = Mass.kilogram
@@ -743,7 +743,7 @@ suite =
                                             )
                                         , it "should compute empty impacts"
                                             (lifeCycle.distribution.impacts
-                                                |> Expect.equal Impacts.empty
+                                                |> Expect.equal ImpactSet.empty
                                             )
                                         ]
                                     )
@@ -794,7 +794,7 @@ suite =
                                                     )
                                                 , it "should compute non-empty impacts"
                                                     (distribution.impacts
-                                                        |> Impacts.getImpact Definition.Ecs
+                                                        |> ImpactSet.getImpact Definition.Ecs
                                                         |> Impact.toFloat
                                                         |> Expect.greaterThan 0
                                                     )
@@ -1413,7 +1413,7 @@ suite =
                             (Expect.equal [])
                          , itFromResult2 "should compute packaging impacts from their amount"
                             (fixtures.chipsBag
-                                |> Result.map (.impacts >> Impacts.getImpact Definition.Ecs >> Impact.toFloat)
+                                |> Result.map (.impacts >> ImpactSet.getImpact Definition.Ecs >> Impact.toFloat)
                             )
                             (fixtures.chipsBag
                                 |> Result.andThen
@@ -1737,7 +1737,7 @@ suite =
                                         |> .transports
                                         |> .toAssembly
                                         |> .impacts
-                                        |> Impacts.getImpact Definition.Ecs
+                                        |> ImpactSet.getImpact Definition.Ecs
                                         |> Impact.toFloat
                                         |> Expect.greaterThan 0
                                     )
@@ -1746,7 +1746,7 @@ suite =
                                         |> .transports
                                         |> .toAssembly
                                         |> .impacts
-                                        |> Impacts.getImpact Definition.Ecs
+                                        |> ImpactSet.getImpact Definition.Ecs
                                         |> Impact.toFloat
                                         |> Expect.greaterThan 0
                                     )
@@ -2593,7 +2593,7 @@ suite =
                                             >> Tuple.second
                                             >> .incinerating
                                             >> .impacts
-                                            >> Impacts.getImpact Definition.Ecs
+                                            >> ImpactSet.getImpact Definition.Ecs
                                             >> Impact.toFloat
                                         )
                                     |> List.all (\x -> x > 0)
@@ -2607,7 +2607,7 @@ suite =
                                             >> Tuple.second
                                             >> .incinerating
                                             >> .impacts
-                                            >> Impacts.getImpact Definition.Ecs
+                                            >> ImpactSet.getImpact Definition.Ecs
                                             >> Impact.toFloat
                                         )
                                     |> List.all (\x -> x > 0)
@@ -2802,14 +2802,14 @@ suite =
                             , it "should have total stages impacts equal total impacts"
                                 ([ stagesImpacts.materials, stagesImpacts.transform, stagesImpacts.transports ]
                                     |> List.filterMap identity
-                                    |> Impacts.sumImpacts
+                                    |> ImpactSet.sumImpacts
                                     |> getEcsImpact
                                     |> expectFloatMostlyEqual
                                         ([ Component.extractImpacts lifeCycle.production
                                          , lifeCycle.transports.toAssembly.impacts
                                          , lifeCycle.transports.toDistribution.impacts
                                          ]
-                                            |> Impacts.sumImpacts
+                                            |> ImpactSet.sumImpacts
                                             |> getEcsImpact
                                         )
                                 )
@@ -3679,7 +3679,7 @@ findProductCategoryByLabel { db } label =
 
 getEcsImpact : Impacts -> Float
 getEcsImpact =
-    Impacts.getImpact Definition.Ecs >> Impact.toFloat
+    ImpactSet.getImpact Definition.Ecs >> Impact.toFloat
 
 
 decodeAndComputeQueryThen : Requirements db -> String -> Result String LifeCycle
@@ -3724,7 +3724,7 @@ setProcessEcsImpact ecs process =
     { process
         | impacts =
             process.impacts
-                |> Impacts.insertWithoutAggregateComputation Definition.Ecs ecs
+                |> ImpactSet.insertWithoutAggregateComputation Definition.Ecs ecs
     }
 
 

@@ -5,7 +5,7 @@ import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Impact.Definition exposing (Definition, Definitions)
-import Data.Impacts exposing (Impacts)
+import Data.ImpactSet exposing (Impacts)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)

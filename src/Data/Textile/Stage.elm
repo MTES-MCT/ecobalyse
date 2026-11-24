@@ -27,7 +27,7 @@ import Data.Complement as Complement
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
-import Data.Impacts as Impacts exposing (Impacts)
+import Data.ImpactSet as ImpactSet exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as Textile
@@ -112,7 +112,7 @@ create : { country : Country, editable : Bool, enabled : Bool, label : Label } -
 create { country, editable, enabled, label } =
     let
         defaultImpacts =
-            Impacts.empty
+            ImpactSet.empty
     in
     { airTransportRatio = Split.zero -- Note: this depends on next stage country, so we can't set an accurate default value initially
     , complementsImpacts = Complement.noComplementsImpacts
@@ -145,11 +145,11 @@ create { country, editable, enabled, label } =
 
 emptyPreTreatments : PreTreatments
 emptyPreTreatments =
-    { energy = Impacts.empty
+    { energy = ImpactSet.empty
     , heat = Quantity.zero
     , kwh = Quantity.zero
     , operations = []
-    , toxicity = Impacts.empty
+    , toxicity = ImpactSet.empty
     }
 
 
@@ -184,7 +184,7 @@ computeMaterialTransportAndImpact { distances, textile } country outputMass mate
     materialInput
         |> Inputs.computeMaterialTransport distances country.code
         |> Transport.applyTransportRatios Split.zero
-        |> computeTransportImpacts Impacts.empty textile.wellKnown textile.wellKnown.roadTransport materialMass
+        |> computeTransportImpacts ImpactSet.empty textile.wellKnown textile.wellKnown.roadTransport materialMass
 
 
 computePreTreatment : Country -> Mass -> Process -> PreTreatments
@@ -199,18 +199,18 @@ computePreTreatment country mass process =
             )
     in
     { energy =
-        Impacts.sumImpacts
+        ImpactSet.sumImpacts
             [ country.electricityProcess.impacts
-                |> Impacts.multiplyBy (Energy.inKilowattHours consumedElec)
+                |> ImpactSet.multiplyBy (Energy.inKilowattHours consumedElec)
             , country.heatProcess.impacts
-                |> Impacts.multiplyBy (Energy.inMegajoules consumedHeat)
+                |> ImpactSet.multiplyBy (Energy.inMegajoules consumedHeat)
             ]
     , heat = consumedHeat
     , kwh = consumedElec
     , operations = List.singleton process
     , toxicity =
         process.impacts
-            |> Impacts.multiplyBy
+            |> ImpactSet.multiplyBy
                 (country.aquaticPollutionScenario
                     |> Country.getAquaticPollutionRatio
                     |> Split.apply massInKg
@@ -234,11 +234,11 @@ computePreTreatments wellKnown materials { country, inputMass } =
         |> List.foldl
             (\{ energy, heat, kwh, operations, toxicity } acc ->
                 { acc
-                    | energy = Impacts.sumImpacts [ acc.energy, energy ]
+                    | energy = ImpactSet.sumImpacts [ acc.energy, energy ]
                     , heat = acc.heat |> Quantity.plus heat
                     , kwh = acc.kwh |> Quantity.plus kwh
                     , operations = LE.unique <| acc.operations ++ operations
-                    , toxicity = Impacts.sumImpacts [ acc.toxicity, toxicity ]
+                    , toxicity = ImpactSet.sumImpacts [ acc.toxicity, toxicity ]
                 }
             )
             emptyPreTreatments
@@ -283,7 +283,7 @@ computeTransportImpacts impacts { airTransport, seaTransport } roadProcess mass 
     { air = air
     , impacts =
         impacts
-            |> Impacts.mapImpacts
+            |> ImpactSet.mapImpacts
                 (\trigram _ ->
                     let
                         ( roadImpact, seaImpact, airImpact ) =
@@ -553,7 +553,7 @@ encode v =
         , ( "elecKwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "enabled", Encode.bool v.enabled )
         , ( "heatMJ", Encode.float (Energy.inMegajoules v.heat) )
-        , ( "impacts", v.impacts |> Complement.applyComplementsToImpacts (Complement.getTotalComplementsImpacts v.complementsImpacts) |> Impacts.encode )
+        , ( "impacts", v.impacts |> Complement.applyComplementsToImpacts (Complement.getTotalComplementsImpacts v.complementsImpacts) |> ImpactSet.encode )
         , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
         , ( "label", Encode.string (Label.toString v.label) )
         , ( "makingDeadStock", v.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
@@ -575,9 +575,9 @@ encodePreTreatments v =
     Encode.object
         [ ( "elecKwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "heatMJ", Encode.float (Energy.inMegajoules v.heat) )
-        , ( "energy", Impacts.encode v.energy )
-        , ( "impacts", Impacts.sumImpacts [ v.energy, v.toxicity ] |> Impacts.encode )
-        , ( "toxicity", Impacts.encode v.toxicity )
+        , ( "energy", ImpactSet.encode v.energy )
+        , ( "impacts", ImpactSet.sumImpacts [ v.energy, v.toxicity ] |> ImpactSet.encode )
+        , ( "toxicity", ImpactSet.encode v.toxicity )
         , ( "operations", v.operations |> List.map Process.getDisplayName |> Encode.list Encode.string )
         ]
 
@@ -608,4 +608,4 @@ encodeProcessInfo v =
 
 getTotalImpactsWithoutComplements : Stage -> Impacts
 getTotalImpactsWithoutComplements { impacts, transport } =
-    Impacts.sumImpacts [ impacts, transport.impacts ]
+    ImpactSet.sumImpacts [ impacts, transport.impacts ]

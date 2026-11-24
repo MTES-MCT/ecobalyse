@@ -6,7 +6,7 @@ module Data.Impact exposing
     , decoder, encode
     )
 
-{-| A single impact score, as opposed to `Data.Impacts` which tallies the score across several metrics.
+{-| A single impact score, as opposed to `Data.ImpactSet` which tallies the score across several metrics.
 
 @docs Impact, ImpactUnit
 @docs none, fromFloat

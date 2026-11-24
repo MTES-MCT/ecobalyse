@@ -7,7 +7,7 @@ import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impact)
 import Data.Impact.Definition as Definition exposing (Definitions)
-import Data.Impacts as Impacts
+import Data.ImpactSet as ImpactSet
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Sector exposing (Sector)
@@ -150,7 +150,7 @@ complementsColumns { db } =
 impactCell : Definitions -> Definition.Trigram -> Column Process String msg
 impactCell definitions trigram =
     { label = Definition.toString trigram
-    , toValue = Table.FloatValue <| .impacts >> Impacts.getImpact trigram >> Impact.toFloat
+    , toValue = Table.FloatValue <| .impacts >> ImpactSet.getImpact trigram >> Impact.toFloat
     , toCell = .impacts >> Format.formatImpact (Definition.get trigram definitions)
     }
 

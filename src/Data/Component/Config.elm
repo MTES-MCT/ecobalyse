@@ -11,7 +11,7 @@ module Data.Component.Config exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Country as Country exposing (Country)
-import Data.Impacts as Impacts exposing (Impacts)
+import Data.ImpactSet as ImpactSet exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (MaterialDict)
 import Data.Sector as Sector exposing (Sector)
@@ -160,7 +160,7 @@ decodeEndOfLifeStrategies : List Process -> Decoder EndOfLifeStrategies
 decodeEndOfLifeStrategies processes =
     let
         noStrategy =
-            { impacts = Impacts.empty, process = Nothing, split = Split.zero }
+            { impacts = ImpactSet.empty, process = Nothing, split = Split.zero }
     in
     Decode.succeed EndOfLifeStrategies
         |> DU.strictOptionalWithDefault "incinerating" (decodeEndOfLifeStrategy processes) noStrategy
@@ -186,7 +186,7 @@ validateEndOfLifeStrategies ({ incinerating, landfilling, recycling } as strateg
 decodeEndOfLifeStrategy : List Process -> Decoder EndOfLifeStrategy
 decodeEndOfLifeStrategy processes =
     Decode.succeed EndOfLifeStrategy
-        |> Decode.hardcoded Impacts.empty
+        |> Decode.hardcoded ImpactSet.empty
         |> DU.strictOptional "processId" (Process.decodeFromId processes)
         |> Decode.required "percent" Split.decodePercent
 

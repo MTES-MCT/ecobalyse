@@ -14,7 +14,7 @@ import Data.Component as Component
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
-import Data.Impacts as Impacts exposing (Impacts)
+import Data.ImpactSet as ImpactSet exposing (Impacts)
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Session as Session exposing (Session)
 import Data.Stages as Stages
@@ -41,7 +41,7 @@ type alias Config msg =
     , onStageClick : String -> msg
     , scoring : Scoring
     , session : Session
-    , stagesImpacts : Impacts.StagesImpacts
+    , stagesImpacts : ImpactSet.StagesImpacts
     , switchImpactsTab : Tab -> msg
     , total : Impacts
     }
@@ -89,7 +89,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
             [ case ( activeImpactsTab, Session.hasAccessToDetailedImpacts session ) of
                 ( DetailedImpactsTab, True ) ->
                     total
-                        |> Impacts.getAggregatedScoreData definitions .ecoscoreData
+                        |> ImpactSet.getAggregatedScoreData definitions .ecoscoreData
                         |> List.map (\{ name, value } -> { entryAttributes = [], name = name, value = value })
                         |> (++)
                             [ -- Food ecosystemic services
@@ -130,63 +130,63 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
 
                 ( StagesImpactsTab, _ ) ->
                     [ { entryAttributes =
-                            [ StagesBorder.style Impacts.stagesColors.trims
+                            [ StagesBorder.style ImpactSet.stagesColors.trims
                             , onClick <| onStageClick "trims-stage"
                             ]
                       , name = "Accessoires"
                       , value = stagesImpacts.trims
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impacts.stagesColors.materials
+                            [ StagesBorder.style ImpactSet.stagesColors.materials
                             , onClick <| onStageClick "materials-stage"
                             ]
                       , name = "Matières premières"
                       , value = stagesImpacts.materials
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impacts.stagesColors.transform
+                            [ StagesBorder.style ImpactSet.stagesColors.transform
                             , onClick <| onStageClick "transform-stage"
                             ]
                       , name = "Transformation"
                       , value = stagesImpacts.transform
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impacts.stagesColors.assembly
+                            [ StagesBorder.style ImpactSet.stagesColors.assembly
                             , onClick <| onStageClick "assembly-stage"
                             ]
                       , name = "Assemblage"
                       , value = stagesImpacts.assembly
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impacts.stagesColors.packaging
+                            [ StagesBorder.style ImpactSet.stagesColors.packaging
                             , onClick <| onStageClick "packaging-stage"
                             ]
                       , name = "Emballage"
                       , value = stagesImpacts.packaging
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impacts.stagesColors.transports
+                            [ StagesBorder.style ImpactSet.stagesColors.transports
                             , onClick <| onStageClick "transport-stage"
                             ]
                       , name = "Transports"
                       , value = stagesImpacts.transports
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impacts.stagesColors.distribution
+                            [ StagesBorder.style ImpactSet.stagesColors.distribution
                             , onClick <| onStageClick "distribution-stage"
                             ]
                       , name = "Distribution"
                       , value = stagesImpacts.distribution
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impacts.stagesColors.usage
+                            [ StagesBorder.style ImpactSet.stagesColors.usage
                             , onClick <| onStageClick "usage-stage"
                             ]
                       , name = "Utilisation"
                       , value = stagesImpacts.usage
                       }
                     , { entryAttributes =
-                            [ StagesBorder.style Impacts.stagesColors.endOfLife
+                            [ StagesBorder.style ImpactSet.stagesColors.endOfLife
                             , onClick <| onStageClick "end-of-life-stage"
                             ]
                       , name = "Fin de vie"
@@ -240,9 +240,9 @@ createConfig session impactDefinition activeImpactsTab onStageClick switchImpact
     , onStageClick = onStageClick
     , scoring = Scoring.empty
     , session = session
-    , stagesImpacts = Impacts.noStagesImpacts
+    , stagesImpacts = ImpactSet.noStagesImpacts
     , switchImpactsTab = switchImpactsTab
-    , total = Impacts.empty
+    , total = ImpactSet.empty
     }
 
 
@@ -262,12 +262,12 @@ forGeneric definitions lifeCycle config =
         | complementsImpact =
             lifeCycle.production
                 |> Component.extractComplementsImpacts
-                |> Complement.mapComplements (Maybe.map (Impacts.getImpact config.impactDefinition.trigram))
+                |> Complement.mapComplements (Maybe.map (ImpactSet.getImpact config.impactDefinition.trigram))
         , scoring = Component.computeScoring definitions lifeCycle
         , stagesImpacts =
             lifeCycle
                 |> Component.stagesImpacts
-                |> Stages.map (Maybe.map (Impacts.getImpact config.impactDefinition.trigram))
+                |> Stages.map (Maybe.map (ImpactSet.getImpact config.impactDefinition.trigram))
         , total = Component.sumLifeCycleImpacts lifeCycle
     }
 

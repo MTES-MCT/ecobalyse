@@ -26,7 +26,7 @@ import Data.Component.ProductCategory as ProductCategory exposing (ProductCatego
 import Data.Country.Code as CountryCode
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
-import Data.Impacts as Impacts exposing (Impacts)
+import Data.ImpactSet as ImpactSet exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Sector as Sector exposing (Sector)
@@ -386,7 +386,7 @@ packagingView ({ query } as config) lifeCycle =
                 [ text "Emballage" ]
             , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.packaging
-                    |> Impacts.sumImpacts
+                    |> ImpactSet.sumImpacts
                     |> Format.formatImpact config.impact
                 ]
             , documentationLink config "packaging"
@@ -469,7 +469,7 @@ quantifiedProcessList { db, floatInputState, impact, noOp } lifeCycle listConfig
                                         , td [ class "align-middle text-end text-nowrap" ]
                                             [ listConfig.impactsList
                                                 |> LE.getAt index
-                                                |> Maybe.withDefault Impacts.empty
+                                                |> Maybe.withDefault ImpactSet.empty
                                                 |> Format.formatImpact impact
                                             ]
                                         , td [ class "align-middle pe-3 pt-2" ]
@@ -826,7 +826,7 @@ useStageView ({ impact, query } as config) lifeCycle =
                 [ text "Utilisation" ]
             , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.use
-                    |> Impacts.sumImpacts
+                    |> ImpactSet.sumImpacts
                     |> Format.formatImpact impact
                 ]
             , documentationLink config "use"
@@ -976,7 +976,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
             else
                 let
                     impact =
-                        impacts |> Impacts.getImpact config.impact.trigram
+                        impacts |> ImpactSet.getImpact config.impact.trigram
 
                     formatted =
                         impacts |> Format.formatImpact config.impact
@@ -1009,7 +1009,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
               , nonCollected |> Tuple.second |> .incinerating |> .impacts
               , nonCollected |> Tuple.second |> .landfilling |> .impacts
               ]
-                |> Impacts.sumImpacts
+                |> ImpactSet.sumImpacts
                 |> Format.formatImpact config.impact
             ]
         ]
@@ -1024,7 +1024,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
               , collected |> Tuple.second |> .incinerating |> .impacts
               , collected |> Tuple.second |> .landfilling |> .impacts
               ]
-                |> Impacts.sumImpacts
+                |> ImpactSet.sumImpacts
                 |> Format.formatImpact config.impact
             ]
         ]
@@ -1039,7 +1039,7 @@ endOfLifeMaterialRow ({ componentConfig, query, sector } as config) ( materialTy
               , nonCollected |> Tuple.second |> .incinerating |> .impacts
               , nonCollected |> Tuple.second |> .landfilling |> .impacts
               ]
-                |> Impacts.sumImpacts
+                |> ImpactSet.sumImpacts
                 |> Format.formatImpact config.impact
             ]
         ]

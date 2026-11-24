@@ -4,7 +4,7 @@ import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Impacts as Impacts
+import Data.ImpactSet as ImpactSet
 import Data.Split as Split
 import Data.Textile.Economics as Economics
 import Data.Textile.LifeCycle as LifeCycle
@@ -27,7 +27,7 @@ getImpact db trigram query =
                     |> Simulator.compute db config
                     |> Result.map
                         (.impacts
-                            >> Impacts.getImpact trigram
+                            >> ImpactSet.getImpact trigram
                             >> Impact.toFloat
                         )
             )
@@ -222,7 +222,7 @@ suite =
                                 )
                             |> Result.map
                                 (Simulator.getTotalImpactsWithoutComplements
-                                    >> Impacts.getImpact Definition.Ecs
+                                    >> ImpactSet.getImpact Definition.Ecs
                                     >> Impact.toFloat
                                 )
                             |> Result.withDefault 0
@@ -241,8 +241,8 @@ suite =
                                 |> Result.andThen (computeWithDefaultComponentConfig db)
                                 |> Result.map
                                     (\simulator ->
-                                        ( simulator.impacts |> Impacts.getImpact Definition.Ecs |> Impact.toFloat
-                                        , Simulator.getTotalImpactsWithoutDurability simulator |> Impacts.getImpact Definition.Ecs |> Impact.toFloat
+                                        ( simulator.impacts |> ImpactSet.getImpact Definition.Ecs |> Impact.toFloat
+                                        , Simulator.getTotalImpactsWithoutDurability simulator |> ImpactSet.getImpact Definition.Ecs |> Impact.toFloat
                                         )
                                     )
                         of

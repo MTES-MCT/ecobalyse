@@ -4,7 +4,7 @@ import Data.Country as Country
 import Data.Country.Code as CountryCode
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Impacts as Impacts
+import Data.ImpactSet as ImpactSet
 import Data.Process as Process
 import Energy
 import Expect
@@ -26,10 +26,10 @@ suite =
                         ({ process
                             | elec = Energy.kilowattHours 1
                             , heat = Energy.megajoules 1
-                            , impacts = Impacts.empty |> Impacts.update db.definitions Definition.Ecs (Impact.fromFloat 1)
+                            , impacts = ImpactSet.empty |> ImpactSet.update db.definitions Definition.Ecs (Impact.fromFloat 1)
                          }
                             |> Process.impactsPerUnit france
-                            |> Impacts.getImpact Definition.Ecs
+                            |> ImpactSet.getImpact Definition.Ecs
                             |> Impact.toFloat
                             |> Expect.greaterThan 0
                         )

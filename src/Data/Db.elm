@@ -15,7 +15,7 @@ import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
 import Data.Generic.Db as GenericDb
 import Data.Impact.Definition as Definition exposing (Definitions)
-import Data.Impacts as Impacts
+import Data.ImpactSet as ImpactSet
 import Data.Process as Process exposing (Process)
 import Data.Sector as Sector exposing (Sector)
 import Data.Textile.Db as TextileDb
@@ -77,7 +77,7 @@ type alias RawJsonStrings =
 build : RawJsonStrings -> Result String Db
 build json =
     extractJsonString json.processes
-        |> Decode.decodeString (Process.decodeList Impacts.decodeImpacts)
+        |> Decode.decodeString (Process.decodeList ImpactSet.decodeImpacts)
         |> Result.mapError Decode.errorToString
         |> Result.andThen
             (\processes ->

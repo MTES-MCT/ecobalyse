@@ -10,7 +10,7 @@ import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
-import Data.Impacts as Impacts
+import Data.ImpactSet as ImpactSet
 import Data.Process as Process
 import Data.Sector as Sector
 import Data.Split as Split exposing (Split)
@@ -496,7 +496,7 @@ isStageUpcycled upcycled label =
 
 viewStageImpacts : Definition -> Stage -> Html msg
 viewStageImpacts selectedImpact { complementsImpacts, impacts } =
-    showIf (Quantity.greaterThanZero (Impacts.getImpact selectedImpact.trigram impacts)) <|
+    showIf (Quantity.greaterThanZero (ImpactSet.getImpact selectedImpact.trigram impacts)) <|
         let
             stageComplementsImpact =
                 complementsImpacts
@@ -685,7 +685,7 @@ createElementSelectorConfig cfg materialInput =
         impacts =
             cfg.current
                 |> stageMaterialImpacts cfg.db materialInput.material
-                |> Impacts.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat materialInput.share))
+                |> ImpactSet.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat materialInput.share))
     in
     { allowEmptyList = False
     , baseElement = baseElement
@@ -847,7 +847,7 @@ ennoblingToxicityView db { inputs, selectedImpact } current =
                                 current.outputMass
                                 share
                         )
-                    |> Impacts.sumImpacts
+                    |> ImpactSet.sumImpacts
 
             -- FIXME: this should be computed and exposed only once in the simulator
             printingToxicity =
@@ -866,7 +866,7 @@ ennoblingToxicityView db { inputs, selectedImpact } current =
                                 ratio
 
                     Nothing ->
-                        Impacts.empty
+                        ImpactSet.empty
 
             toxicityDetails =
                 [ ( "Pré-traitements", current.preTreatments.toxicity )
@@ -882,7 +882,7 @@ ennoblingToxicityView db { inputs, selectedImpact } current =
                         [ text "\u{00A0}(+\u{00A0}"
                         , toxicityDetails
                             |> List.map Tuple.second
-                            |> Impacts.sumImpacts
+                            |> ImpactSet.sumImpacts
                             |> Format.formatImpact selectedImpact
                         , text ")"
                         , inlineDocumentationLink Gitbook.TextileEnnoblingToxicity
@@ -894,7 +894,7 @@ ennoblingToxicityView db { inputs, selectedImpact } current =
                             div []
                                 [ text <| label ++ "\u{00A0}: "
                                 , impacts
-                                    |> Impacts.getImpact Definition.Ecs
+                                    |> ImpactSet.getImpact Definition.Ecs
                                     |> Impact.toFloat
                                     |> Format.formatRichFloat 2 "Pts"
                                 ]

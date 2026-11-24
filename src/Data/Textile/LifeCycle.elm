@@ -17,7 +17,7 @@ module Data.Textile.LifeCycle exposing
 import Array exposing (Array)
 import Data.Complement as Complement
 import Data.Db exposing (Db)
-import Data.Impacts as Impacts exposing (Impacts)
+import Data.ImpactSet as ImpactSet exposing (Impacts)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Query exposing (Query)
 import Data.Textile.Stage as Stage exposing (Stage)
@@ -59,18 +59,18 @@ computeTotalTransportImpacts =
                 | air = acc.air |> Quantity.plus transport.air
                 , impacts =
                     acc.impacts
-                        |> Impacts.mapImpacts
+                        |> ImpactSet.mapImpacts
                             (\trigram impact ->
                                 Quantity.sum
                                     [ impact
-                                    , Impacts.getImpact trigram transport.impacts
+                                    , ImpactSet.getImpact trigram transport.impacts
                                     ]
                             )
                 , road = acc.road |> Quantity.plus transport.road
                 , sea = acc.sea |> Quantity.plus transport.sea
             }
         )
-        (Transport.default Impacts.empty)
+        (Transport.default ImpactSet.empty)
 
 
 computeFinalImpacts : LifeCycle -> Impacts
@@ -79,19 +79,19 @@ computeFinalImpacts =
         (\{ enabled, impacts, transport } finalImpacts ->
             if enabled then
                 finalImpacts
-                    |> Impacts.mapImpacts
+                    |> ImpactSet.mapImpacts
                         (\trigram impact ->
                             Quantity.sum
-                                [ Impacts.getImpact trigram impacts
+                                [ ImpactSet.getImpact trigram impacts
                                 , impact
-                                , Impacts.getImpact trigram transport.impacts
+                                , ImpactSet.getImpact trigram transport.impacts
                                 ]
                         )
 
             else
                 finalImpacts
         )
-        Impacts.empty
+        ImpactSet.empty
 
 
 sumComplementsImpacts : LifeCycle -> Complement.ComplementsImpacts

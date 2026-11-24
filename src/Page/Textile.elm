@@ -24,7 +24,7 @@ import Data.Db exposing (Db)
 import Data.Example as Example
 import Data.Gitbook as Gitbook
 import Data.Impact.Definition as Definition exposing (Definition)
-import Data.Impacts as Impacts
+import Data.ImpactSet as ImpactSet
 import Data.Key as Key
 import Data.Plausible as Plausible
 import Data.Sector as Sector
@@ -1243,7 +1243,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                         (div [ class "fs-8" ]
                             [ text "Pour 100g\u{00A0}:\u{00A0}"
                             , impacts
-                                |> Impacts.per100grams inputs.mass
+                                |> ImpactSet.per100grams inputs.mass
                                 |> Format.formatImpact model.impact
                             ]
                         )
