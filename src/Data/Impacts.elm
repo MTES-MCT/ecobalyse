@@ -1,29 +1,38 @@
 module Data.Impacts exposing
     ( Impacts
-    , StagesImpacts
-    , decodeImpacts
-    , default
-    , divideBy
-    , divideStagesImpactsBy
     , empty
-    , encode
-    , encodeExcept
-    , encodeSingleImpact
-    , getAggregatedScoreData
-    , getImpact
-    , insertWithoutAggregateComputation
-    , mapImpacts
-    , multiplyBy
-    , noStagesImpacts
-    , parseTrigram
-    , per100grams
-    , perKg
-    , stagesColors
-    , stagesImpactsAsChartEntries
-    , sumImpacts
+    , multiplyBy, divideBy
+    , mapImpacts, update, sumImpacts, insertWithoutAggregateComputation
+    , per100grams, perKg
+    , getImpact, getAggregatedScoreData
     , toProtectionAreas
-    , update
+    , decodeImpacts, encode, encodeExcept, encodeSingleImpact
+    , StagesImpacts
+    , noStagesImpacts
+    , divideStagesImpactsBy
+    , stagesColors, stagesImpactsAsChartEntries
+    , parseTrigram, default
     )
+
+{-| Represents the evaluated impacts as a set of impact scores.
+
+@docs Impacts
+@docs empty
+@docs multiplyBy, divideBy
+@docs mapImpacts, update, sumImpacts, insertWithoutAggregateComputation
+@docs per100grams, perKg
+@docs getImpact, getAggregatedScoreData
+@docs toProtectionAreas
+@docs decodeImpacts, encode, encodeExcept, encodeSingleImpact
+
+@docs StagesImpacts
+@docs noStagesImpacts
+@docs divideStagesImpactsBy
+@docs stagesColors, stagesImpactsAsChartEntries
+
+@docs parseTrigram, default
+
+-}
 
 import Data.Color as Color
 import Data.Impact as Impact exposing (Impact)
