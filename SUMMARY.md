@@ -28,7 +28,7 @@
 
 * [⚠️ Précisions sur les méthodes "Tous secteurs"](methodes-tous-secteurs/precisions-sur-les-methodes-transverses.md)
 * [🧩 Production des matériaux (ou ingrédients)](methodes-tous-secteurs/production/README.md)
-  * [◻️ Procédés Acier et Aluminium](methodes-tous-secteurs/production/procedes-acier-et-aluminium.md)
+  * [Modélisation des revêtements](methodes-tous-secteurs/production/modelisation-des-revetements.md)
 * [🪛 Assemblage](methodes-tous-secteurs/assemblage.md)
 * [📦 Emballages](methodes-tous-secteurs/emballages.md)
 * [🏪 Distribution](methodes-tous-secteurs/distribution.md)
@@ -299,6 +299,7 @@
     * [Compléments hors ACV - old](archives/pages-generiques/impacts-consideres/complements-hors-acv.md)
     * [♻️ OLD - Modèle d'impact de la fin de vie](archives/pages-generiques/impacts-consideres/old-modele-dimpact-de-la-fin-de-vie.md)
     * [🚚 OLD Transport](archives/pages-generiques/impacts-consideres/old-transport.md)
+  * [◻️ Procédés Acier et Aluminium](archives/pages-generiques/procedes-acier-et-aluminium.md)
 * [Textile](archives/textile/README.md)
   * [\[Négligé\] Recyclage des vêtements en fin de vie - M3](archives/textile/circular-footprint-formula-cff-matiere-1.md)
   * [🧶 OLD - Etape 2 - Fabrication du fil](archives/textile/etape-2-fabrication-du-fil.md)
