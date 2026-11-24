@@ -24,9 +24,9 @@ suite =
                         |> Impact.toFloat
                         |> Expect.within (Expect.Absolute 0.01) expectedValue
             in
-            [ describe "mapImpacts"
+            [ describe "update"
                 [ defaultImpacts
-                    |> Impacts.updateImpact db.definitions Definition.Cch (Impact.fromFloat 1)
+                    |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 1)
                     |> Impacts.mapImpacts (\_ -> Quantity.multiplyBy 2)
                     |> Impacts.getImpact Definition.Cch
                     |> Expect.equal (Impact.fromFloat 2)
@@ -34,7 +34,7 @@ suite =
                 ]
             , describe "per100grams"
                 [ defaultImpacts
-                    |> Impacts.updateImpact db.definitions Definition.Cch (Impact.fromFloat 1)
+                    |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 1)
                     |> Impacts.per100grams (Mass.kilograms 2)
                     |> Impacts.getImpact Definition.Cch
                     |> Expect.equal (Impact.fromFloat 0.05)
@@ -42,7 +42,7 @@ suite =
                 ]
             , describe "perKg"
                 [ defaultImpacts
-                    |> Impacts.updateImpact db.definitions Definition.Cch (Impact.fromFloat 1)
+                    |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 1)
                     |> Impacts.perKg (Mass.kilograms 2)
                     |> Impacts.getImpact Definition.Cch
                     |> Expect.equal (Impact.fromFloat 0.5)
@@ -62,7 +62,7 @@ suite =
                 ]
             , describe "updateImpact"
                 [ defaultImpacts
-                    |> Impacts.updateImpact db.definitions Definition.Cch (Impact.fromFloat 9)
+                    |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 9)
                     |> Impacts.getImpact Definition.Cch
                     |> Expect.equal (Impact.fromFloat 9)
                     |> asTest "should update a given impact"
@@ -70,8 +70,8 @@ suite =
             , let
                 impacts =
                     defaultImpacts
-                        |> Impacts.updateImpact db.definitions Definition.Cch (Impact.fromFloat 1)
-                        |> Impacts.updateImpact db.definitions Definition.Fwe (Impact.fromFloat 1)
+                        |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 1)
+                        |> Impacts.update db.definitions Definition.Fwe (Impact.fromFloat 1)
               in
               describe "updateAggregatedScores"
                 [ impacts

@@ -22,7 +22,7 @@ module Data.Impacts exposing
     , stagesImpactsAsChartEntries
     , sumImpacts
     , toProtectionAreas
-    , updateImpact
+    , update
     )
 
 import Data.Color as Color
@@ -228,8 +228,8 @@ sumImpacts =
         empty
 
 
-updateImpact : Definitions -> Trigram -> Impact -> Impacts -> Impacts
-updateImpact definitions trigram value =
+update : Definitions -> Trigram -> Impact -> Impacts -> Impacts
+update definitions trigram value =
     insertWithoutAggregateComputation trigram value
         >> updateAggregatedScores definitions
 

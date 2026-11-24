@@ -30,8 +30,8 @@ suite =
 
                 defaultImpacts =
                     Impacts.empty
-                        |> Impacts.updateImpact db.definitions Definition.Cch Quantity.zero
-                        |> Impacts.updateImpact db.definitions Definition.Fwe Quantity.zero
+                        |> Impacts.update db.definitions Definition.Cch Quantity.zero
+                        |> Impacts.update db.definitions Definition.Fwe Quantity.zero
             in
             [ describe "Formula.genericWaste"
                 [ kg 1
@@ -57,15 +57,15 @@ suite =
                                     { sampleProcess
                                         | impacts =
                                             Impacts.empty
-                                                |> Impacts.updateImpact db.definitions Definition.Cch (Impact.fromFloat 0.5)
-                                                |> Impacts.updateImpact db.definitions Definition.Fwe (Impact.fromFloat 1.5)
+                                                |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 0.5)
+                                                |> Impacts.update db.definitions Definition.Fwe (Impact.fromFloat 1.5)
                                     }
                                 , countryHeatProcess =
                                     { sampleProcess
                                         | impacts =
                                             Impacts.empty
-                                                |> Impacts.updateImpact db.definitions Definition.Cch (Impact.fromFloat 0.5)
-                                                |> Impacts.updateImpact db.definitions Definition.Fwe (Impact.fromFloat 1.5)
+                                                |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 0.5)
+                                                |> Impacts.update db.definitions Definition.Fwe (Impact.fromFloat 1.5)
                                     }
                                 }
                  in
@@ -94,8 +94,8 @@ suite =
                                 { sampleProcess
                                     | impacts =
                                         Impacts.empty
-                                            |> Impacts.updateImpact db.definitions Definition.Cch (Impact.fromFloat 8.13225e-2)
-                                            |> Impacts.updateImpact db.definitions Definition.Fwe (Impact.fromFloat 3.26897e-8)
+                                            |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 8.13225e-2)
+                                            |> Impacts.update db.definitions Definition.Fwe (Impact.fromFloat 3.26897e-8)
                                 }
                             , outputMass = kg 0.478
                             , pickingElec = 1
@@ -134,8 +134,8 @@ suite =
                                     { sampleProcess
                                         | impacts =
                                             Impacts.empty
-                                                |> Impacts.updateImpact db.definitions Definition.Cch (Impact.fromFloat 0.2)
-                                                |> Impacts.updateImpact db.definitions Definition.Fwe (Impact.fromFloat 0.5)
+                                                |> Impacts.update db.definitions Definition.Cch (Impact.fromFloat 0.2)
+                                                |> Impacts.update db.definitions Definition.Fwe (Impact.fromFloat 0.5)
                                     }
                                 }
                  in
