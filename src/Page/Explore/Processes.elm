@@ -17,7 +17,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Column, Table)
 import Route
-import Views.Format as Format
+import Views.Format as RichFormat
 
 
 table : Session -> { detailed : Bool, sector : Sector } -> Table Process String msg
@@ -89,19 +89,19 @@ baseColumns session detailed =
       }
     , { label = "Électricité"
       , toValue = Table.FloatValue <| .elec >> Energy.inKilowattHours
-      , toCell = .elec >> Format.kilowattHours
+      , toCell = .elec >> RichFormat.kilowattHours
       }
     , { label = "Chaleur"
       , toValue = Table.FloatValue <| .heat >> Energy.inMegajoules
-      , toCell = .heat >> Format.megajoules
+      , toCell = .heat >> RichFormat.megajoules
       }
     , { label = "Ratio de variation de quantité"
       , toValue = Table.FloatValue <| .qtyVariationRatio >> Unit.qtyVariationRatioToFloat
-      , toCell = .qtyVariationRatio >> Format.qtyVariationRatio
+      , toCell = .qtyVariationRatio >> RichFormat.qtyVariationRatio
       }
     , { label = "Masse par unité"
       , toValue = Table.StringValue <| .massPerUnit >> Maybe.map String.fromFloat >> Maybe.withDefault Table.emptyLabel
-      , toCell = Format.massPerUnit
+      , toCell = RichFormat.massPerUnit
       }
     , { label = "Commentaire"
       , toValue = Table.StringValue .comment
@@ -138,7 +138,7 @@ complementsColumns { db } =
                         >> Maybe.withDefault 0
             , toCell =
                 complementToMaybeFloat a
-                    >> Maybe.map (Format.formatImpactFloat (Definition.get Definition.Ecs db.definitions))
+                    >> Maybe.map (RichFormat.impactAsFloat (Definition.get Definition.Ecs db.definitions))
                     >> Maybe.withDefault (text Table.emptyLabel)
             }
         )
@@ -150,7 +150,7 @@ impactCell : Definitions -> Definition.Trigram -> Column Process String msg
 impactCell definitions trigram =
     { label = Definition.toString trigram
     , toValue = Table.FloatValue <| .impacts >> Impact.getImpact trigram >> Unit.impactToFloat
-    , toCell = .impacts >> Format.formatImpact (Definition.get trigram definitions)
+    , toCell = .impacts >> RichFormat.impact (Definition.get trigram definitions)
     }
 
 

@@ -15,7 +15,7 @@ import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Quantity
 import Route
-import Views.Format as Format
+import Views.Format as RichFormat
 import Views.Icon as Icon
 import Views.Link as Link
 
@@ -68,7 +68,7 @@ table distances countries { detailed, sector } =
                     , toCell =
                         \country ->
                             div [ classList [ ( "text-end", not detailed ) ] ]
-                                [ Format.splitAsPercentage 2 (Country.getAquaticPollutionRatio country.aquaticPollutionScenario)
+                                [ RichFormat.splitAsPercentage 2 (Country.getAquaticPollutionRatio country.aquaticPollutionScenario)
                                 , Link.smallPillExternal
                                     [ href (Gitbook.publicUrlFromPath Gitbook.TextileEnnoblingCountriesAquaticPollution) ]
                                     [ Icon.info ]
@@ -129,7 +129,7 @@ transportToRow countryCode countries transport =
                 text Table.emptyLabel
 
             else
-                Format.km length
+                RichFormat.km length
     in
     tr []
         [ td

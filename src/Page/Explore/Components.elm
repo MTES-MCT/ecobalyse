@@ -15,7 +15,7 @@ import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Route
 import Views.Alert as Alert
-import Views.Format as Format
+import Views.Format as RichFormat
 
 
 table : Session -> { detailed : Bool, sector : Sector } -> Table Component.Component String msg
@@ -80,7 +80,7 @@ table ({ db } as session) { sector } =
                                 |> List.map
                                     (\{ amount, material, transforms } ->
                                         li []
-                                            [ Format.amount material.process amount
+                                            [ RichFormat.amount material.process amount
                                             , text <| " de " ++ Process.getDisplayName material.process
                                             , transforms
                                                 |> List.map (.process >> Process.getDisplayName >> text >> List.singleton >> li [])
@@ -97,7 +97,7 @@ table ({ db } as session) { sector } =
           , toValue = Table.FloatValue <| getComponentEcoscore session sector >> Result.withDefault 0
           , toCell =
                 getComponentEcoscore session sector
-                    >> Result.map (Format.formatImpactFloat { decimals = 2, unit = "Pts par composant" })
+                    >> Result.map (RichFormat.impactAsFloat { decimals = 2, unit = "Pts par composant" })
                     >> Result.withDefault (text Table.emptyLabel)
           }
         ]

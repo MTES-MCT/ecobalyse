@@ -31,7 +31,7 @@ import Views.Component.AmountInput as AmountInput
 import Views.Component.Context as Context exposing (Context)
 import Views.Component.ItemRow as ItemRow exposing (emptyItemRow)
 import Views.FloatInput as FloatInput
-import Views.Format as Format
+import Views.Format as RichFormat
 import Views.Icon as Icon
 import Views.Link as Link
 
@@ -125,20 +125,20 @@ elementSummaryRow config itemResults { material, transforms } elementResults =
         amountInfo =
             span [ class "d-flex text-muted fs-8" ]
                 [ if material.process.unit /= Process.Kilogram then
-                    span [] [ text "(", Format.amount material.process effectiveAmount, text ")\u{00A0}" ]
+                    span [] [ text "(", RichFormat.amount material.process effectiveAmount, text ")\u{00A0}" ]
 
                   else
                     text ""
                 , elementMass
                     |> Component.assembledMass config.requirements config.query
-                    |> Format.kg
+                    |> RichFormat.kilograms
                 ]
     in
     ItemRow.view [ class "fs-7 border-top" ]
         { emptyItemRow
             | impacts =
                 Component.getTotalImpacts elementResults
-                    |> Format.formatImpact config.impact
+                    |> RichFormat.impact config.impact
             , label =
                 div [ class "d-flex flex-column" ]
                     [ div [ title <| materialLabel material ]
@@ -159,7 +159,7 @@ elementSummaryRow config itemResults { material, transforms } elementResults =
                 div [ class "d-flex flex-column align-items-end" ]
                     [ Component.extractUnitMass itemResults
                         |> Component.elementMassShare elementMass
-                        |> Format.splitAsPercentage 1
+                        |> RichFormat.splitAsPercentage 1
                     , amountInfo
                     ]
         }
@@ -300,18 +300,18 @@ itemView config itemIndex { component, elements, quantity } itemResults =
                     expandToggler config itemIndex collapsed
             , impacts =
                 Component.getTotalImpacts itemResults
-                    |> Format.formatImpact config.impact
+                    |> RichFormat.impact config.impact
             , label = span [ title component.name ] [ text component.name ]
             , quantity = quantity |> quantityInput config itemIndex
             , totalMass =
                 Component.extractMass itemResults
                     |> Component.assembledMass config.requirements config.query
-                    |> Format.kg
+                    |> RichFormat.kilograms
             , unitMass =
                 if config.context == Context.TextileTrims then
                     Component.extractUnitMass itemResults
                         |> Component.assembledMass config.requirements config.query
-                        |> Format.kg
+                        |> RichFormat.kilograms
 
                 else
                     itemResults
@@ -411,7 +411,7 @@ view ({ docsUrl, explorerRoute, query } as config) productionResults =
                 [ span [ class "cursor-help", Attr.title "Hors transports" ]
                     [ productionResults
                         |> Component.getTotalImpacts
-                        |> Format.formatImpact config.impact
+                        |> RichFormat.impact config.impact
                     ]
                 , case docsUrl of
                     Just url ->

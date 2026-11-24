@@ -20,7 +20,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Route
-import Views.Format as Format
+import Views.Format as RichFormat
 import Volume
 
 
@@ -77,14 +77,14 @@ table { db } { detailed, sector } =
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ product.yarnSize |> Format.yarnSize ]
+                        [ product.yarnSize |> RichFormat.yarnSize ]
           }
         , { label = "Grammage*"
           , toValue = Table.IntValue <| .surfaceMass >> Unit.surfaceMassInGramsPerSquareMeters
           , toCell =
                 \{ surfaceMass } ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.surfaceMass surfaceMass
+                        [ RichFormat.surfaceMass surfaceMass
                         ]
           }
         , let
@@ -93,14 +93,14 @@ table { db } { detailed, sector } =
           in
           { label = "Densité de fils**"
           , toValue = Table.FloatValue <| computeThreadDensity >> Unit.threadDensityToFloat
-          , toCell = computeThreadDensity >> Format.threadDensity
+          , toCell = computeThreadDensity >> RichFormat.threadDensity
           }
         , { label = "Volume*"
           , toValue = Table.FloatValue <| .endOfLife >> .volume >> Volume.inCubicMeters
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.cubicMeters product.endOfLife.volume ]
+                        [ RichFormat.cubicMeters product.endOfLife.volume ]
           }
         , { label = "Étoffe*"
           , toValue = Table.StringValue (.fabric >> Fabric.toLabel)
@@ -110,7 +110,7 @@ table { db } { detailed, sector } =
           , toValue = Table.FloatValue (Split.toPercent Env.defaultDeadStock |> always)
           , toCell =
                 div [ classList [ ( "text-center", not detailed ) ] ]
-                    [ Format.splitAsPercentage 0 Env.defaultDeadStock ]
+                    [ RichFormat.splitAsPercentage 0 Env.defaultDeadStock ]
                     |> always
           }
         , { label = "Confection (complexité)*"
@@ -122,21 +122,21 @@ table { db } { detailed, sector } =
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Product.getMakingDurationInMinutes product |> Format.minutes ]
+                        [ Product.getMakingDurationInMinutes product |> RichFormat.minutes ]
           }
         , { label = "Confection (taux de perte)*"
           , toValue = Table.FloatValue <| .making >> .pcrWaste >> Split.toPercent
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.splitAsPercentage 2 product.making.pcrWaste ]
+                        [ RichFormat.splitAsPercentage 2 product.making.pcrWaste ]
           }
         , { label = "Nombre de jours porté*"
           , toValue = Table.FloatValue <| .use >> .daysOfWear >> Duration.inDays
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.days product.use.daysOfWear ]
+                        [ RichFormat.days product.use.daysOfWear ]
           }
         , { label = "Utilisations avant lavage*"
           , toValue = Table.IntValue <| .use >> .wearsPerCycle
@@ -156,7 +156,7 @@ table { db } { detailed, sector } =
 
           -- Note: Much better expressing electricity consumption in kWh than in MJ
           , toValue = Table.FloatValue <| .use >> .ironingElec >> Energy.inKilowattHours
-          , toCell = .use >> .ironingElec >> Format.kilowattHours
+          , toCell = .use >> .ironingElec >> RichFormat.kilowattHours
           }
         , { label = "Procédé d'utilisation hors-repassage**"
           , toValue = Table.StringValue <| .use >> .nonIroningProcess >> Process.getDisplayName
@@ -167,35 +167,35 @@ table { db } { detailed, sector } =
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.splitAsPercentage 0 product.use.ratioDryer ]
+                        [ RichFormat.splitAsPercentage 0 product.use.ratioDryer ]
           }
         , { label = "Repassage (part)*"
           , toValue = Table.FloatValue <| .use >> .ratioIroning >> Split.toPercent
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.splitAsPercentage 0 product.use.ratioIroning ]
+                        [ RichFormat.splitAsPercentage 0 product.use.ratioIroning ]
           }
         , { label = "Repassage (temps)*"
           , toValue = Table.FloatValue <| .use >> .timeIroning >> Duration.inHours
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.hours product.use.timeIroning ]
+                        [ RichFormat.hours product.use.timeIroning ]
           }
         , { label = "Prix par défaut"
           , toValue = Table.FloatValue <| .economics >> .price >> Economics.priceToFloat
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.priceInEUR product.economics.price ]
+                        [ RichFormat.priceInEUR product.economics.price ]
           }
         , { label = "Coût de réparation par défaut*"
           , toValue = Table.FloatValue <| .economics >> .repairCost >> Economics.priceToFloat
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.priceInEUR product.economics.repairCost ]
+                        [ RichFormat.priceInEUR product.economics.repairCost ]
           }
         , { label = "Type d'entreprise"
           , toValue = Table.StringValue <| .economics >> .business >> Economics.businessToLabel

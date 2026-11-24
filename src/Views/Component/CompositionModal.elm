@@ -36,7 +36,7 @@ import Views.Component.AmountInput as AmountInput
 import Views.Component.ProcessRow as ProcessRow exposing (emptyProcessRow)
 import Views.Component.RegionSelector as RegionSelector
 import Views.FloatInput as FloatInput
-import Views.Format as Format
+import Views.Format as RichFormat
 import Views.Icon as Icon
 
 
@@ -119,9 +119,9 @@ assemblyLossProcessRows enteringMass operations =
         operation :: nextOperations ->
             ProcessRow.view [ class "fs-7" ]
                 { emptyProcessRow
-                    | amount = Format.kg enteringMass
+                    | amount = RichFormat.kilograms enteringMass
                     , label = text ("Assemblage\u{00A0}: " ++ Process.getDisplayName operation)
-                    , waste = Format.qtyVariationRatioAsWastePercent operation.qtyVariationRatio
+                    , waste = RichFormat.qtyVariationRatioAsWastePercent operation.qtyVariationRatio
                 }
                 :: assemblyLossProcessRows
                     (enteringMass |> Unit.applyQtyVariationRatioToMass operation.qtyVariationRatio)
@@ -189,7 +189,7 @@ deleteElementButton config targetElement =
 elementAmountInput : Config db msg -> TargetElement -> Process -> Amount -> Html msg
 elementAmountInput config (( ( _, itemIndex ), elementIndex ) as targetElement) process amount =
     if config.requirements.sector == Sector.Textile then
-        Format.amount process amount
+        RichFormat.amount process amount
 
     else
         amount
@@ -259,16 +259,16 @@ elementCompositionRows config targetElement ({ amount, material, transforms } as
                                 [ totalImpact
                                 , span [ class "text-muted fw-normal" ]
                                     [ text " (dont transport "
-                                    , transportImpacts |> Format.formatImpact config.impact
+                                    , transportImpacts |> RichFormat.impact config.impact
                                     , text ")"
                                     ]
                                 ]
                     , label =
                         span [ class "text-muted" ]
                             [ text <| "Poids du " ++ String.toLower config.labels.elementNoun ++ "\u{00A0}: "
-                            , span [ class "fw-bold" ] [ Format.kg assembledElementMass ]
+                            , span [ class "fw-bold" ] [ RichFormat.kilograms assembledElementMass ]
                             , text " ("
-                            , share |> Format.splitAsPercentage 0
+                            , share |> RichFormat.splitAsPercentage 0
                             , text ")"
                             ]
                 }
@@ -361,7 +361,7 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
 
                 renderModeIfAny icon distance =
                     if distance |> Quantity.greaterThan Quantity.zero then
-                        [ icon, Format.km distance ]
+                        [ icon, RichFormat.km distance ]
 
                     else
                         []
@@ -377,11 +377,11 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
                                 ++ renderModeIfAny Icon.bus transport.road
                                 ++ renderModeIfAny Icon.busCooled transport.roadCooled
                                 ++ [ Icon.package
-                                   , Format.kg transportedMass
+                                   , RichFormat.kilograms transportedMass
                                    ]
                     , impact =
                         transport.impacts
-                            |> Format.formatImpact config.impact
+                            |> RichFormat.impact config.impact
                     , label =
                         div [ class "d-flex align-items-center gap-1 text-nowrap text-muted" ]
                             [ text "Transport\u{00A0}"
@@ -407,7 +407,7 @@ finalElementTransportView ({ query, requirements } as config) cooling elementCou
 impactPill : Config db msg -> Impacts -> Html msg
 impactPill config impacts =
     span [ class "ImpactPill bg-info-subtle" ]
-        [ impacts |> Format.formatImpact config.impact
+        [ impacts |> RichFormat.impact config.impact
         ]
 
 
@@ -459,11 +459,11 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
             , compositionStat "masse unitaire"
                 [ Component.extractUnitMass itemResults
                     |> Component.assembledMass config.requirements config.query
-                    |> Format.kg
+                    |> RichFormat.kilograms
                 ]
             , compositionStat "impact total"
                 [ Component.getTotalImpacts itemResults
-                    |> Format.formatImpact config.impact
+                    |> RichFormat.impact config.impact
                 ]
             ]
         , div [ class "d-flex justify-content-between align-items-center gap-2" ]
@@ -547,7 +547,7 @@ materialCompositionRows config targetElement materialResults material =
                     | actions = modifyMaterialButton config targetElement
                     , amount =
                         Component.extractAmount materialResults
-                            |> Format.amount material.process
+                            |> RichFormat.amount material.process
                     , country =
                         RegionSelector.view
                             { attrs = []
@@ -578,11 +578,11 @@ materialCompositionRows config targetElement materialResults material =
                         | impact =
                             complementsImpacts
                                 |> Complement.mergeComplementsResultsImpacts
-                                |> Format.formatImpact config.impact
+                                |> RichFormat.impact config.impact
                         , label =
                             span
                                 [ class "cursor-help fs-8"
-                                , title (Format.formatComplementsResultsImpactsToString config.impact complementsImpacts)
+                                , title (Complement.formatComplementsResultsImpacts config.impact complementsImpacts)
                                 ]
                                 [ span [ class "ComponentElementIcon" ] [ Icon.calculator ]
                                 , text "Dont compléments"
@@ -681,7 +681,7 @@ transformProcessRows config cooling targetElement transformsResults transforms =
                                         [ Icon.trash ]
                                 , amount =
                                     Component.extractAmount transformResult
-                                        |> Format.amount transform.process
+                                        |> RichFormat.amount transform.process
                                 , country =
                                     RegionSelector.view
                                         { attrs = []
@@ -708,7 +708,7 @@ transformProcessRows config cooling targetElement transformsResults transforms =
                                         [ text <| Process.getDisplayName transform.process
                                         ]
                                 , waste =
-                                    Format.qtyVariationRatioAsWastePercent transform.process.qtyVariationRatio
+                                    RichFormat.qtyVariationRatioAsWastePercent transform.process.qtyVariationRatio
                             }
                        ]
             )

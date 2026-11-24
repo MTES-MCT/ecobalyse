@@ -4,7 +4,7 @@ import Data.Transport exposing (Transport)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Length exposing (Length)
-import Views.Format as Format
+import Views.Format as RichFormat
 import Views.Icon as Icon
 
 
@@ -53,5 +53,5 @@ entry { distance, icon, label, onlyIcons } =
             text ""
 
           else
-            Format.km distance
+            RichFormat.km distance
         ]

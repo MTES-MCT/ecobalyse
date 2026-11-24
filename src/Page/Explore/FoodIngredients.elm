@@ -7,6 +7,7 @@ import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Ingredient.CropGroup as CropGroup
 import Data.Food.Ingredient.Scenario as Scenario
 import Data.Food.Origin as Origin
+import Data.Format as DataFormat
 import Data.Gitbook as Gitbook
 import Data.Process as Process
 import Data.Sector exposing (Sector)
@@ -17,7 +18,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Route
-import Views.Format as Format
+import Views.Format as RichFormat
 import Views.Icon as Icon
 import Views.Link as Link
 
@@ -63,7 +64,7 @@ table { detailed, sector } =
           }
         , { label = "Surface mobilisée"
           , toValue = Table.FloatValue <| .landOccupation
-          , toCell = .landOccupation >> (\v -> Format.formatFloat 2 v ++ " m2.an") >> text
+          , toCell = .landOccupation >> (\v -> DataFormat.float 2 v ++ " m2.an") >> text
           }
         , { label = "Part non-comestible"
           , toValue = Table.FloatValue <| .inediblePart >> Split.toPercent
@@ -72,7 +73,7 @@ table { detailed, sector } =
                     div [ classList [ ( "text-end", not detailed ) ] ]
                         [ inediblePart
                             |> Split.toPercent
-                            |> Format.percent
+                            |> RichFormat.percent
                         , Link.smallPillExternal
                             [ href (Gitbook.publicUrlFromPath Gitbook.FoodInediblePart) ]
                             [ Icon.question ]
@@ -136,7 +137,7 @@ table { detailed, sector } =
                                     span []
                                         [ text <| label ++ ": "
                                         , Unit.impactToFloat impact
-                                            |> Format.formatImpactFloat { unit = "Pts/kg", decimals = 2 }
+                                            |> RichFormat.impactAsFloat { unit = "Pts/kg", decimals = 2 }
                                         ]
                                 )
                             |> div [ class "d-flex gap-2" ]
