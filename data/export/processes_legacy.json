@@ -14897,7 +14897,7 @@
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:organic_fibers"],
+    "categories": ["transformation", "material_type:organic_fibers", "aquaticPollutionDependent"],
     "comment": "corr3 et corr2 (cf doc). Corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%. corr2 : valeur d'écotox issue d'inventaires enrichis.",
     "displayName": "Blanchiment",
     "elecKwh": 0.2,
