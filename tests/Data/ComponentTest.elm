@@ -68,6 +68,7 @@ suite =
                 fixtures =
                     { chairBack = findComponentById db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973"
                     , chipsBag = findProcessById db "4a80c078-9f86-4a7d-b402-73db3381e33b"
+                    , confection = findProcessById db "dc05647f-1dbd-4bf8-a89d-18c5b47aad2d"
                     , dryDistribution = findProcessById db "29118025-efa0-47bb-94e2-f5ccba31a903"
                     , injectionMoulding = findProcessById db "111539de-deea-588a-9581-6f6ceaa2dfa9"
                     , lowVoltageElec = findProcessById db "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
@@ -645,6 +646,37 @@ suite =
                                 )
                             ]
                         ]
+                    , describe "assembledMass"
+                        [ itFromResult2 "should keep the displayed component mass as post-assembly mass"
+                            fixtures.confection
+                            (Process.idFromString nonExistentUuid)
+                            (\confection missingId ->
+                                let
+                                    preAssemblyMass =
+                                        Mass.kilograms 1.25
+
+                                    queryWith operations =
+                                        { emptyQuery
+                                            | assembly = { emptyAssembly | operations = Just operations }
+                                        }
+                                in
+                                expectAllSucceed
+                                    [ preAssemblyMass
+                                        |> Component.assembledMass requirements (queryWith [ confection.id ])
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual
+                                            (1.25 * Unit.qtyVariationRatioToFloat confection.qtyVariationRatio)
+                                    , preAssemblyMass
+                                        |> Component.assembledMass requirements (queryWith [ missingId ])
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual 1.25
+                                    , preAssemblyMass
+                                        |> Component.assembledMass requirements emptyQuery
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual 1.25
+                                    ]
+                            )
+                        ]
                     , describe "compute"
                         [ it "should compute results from decoded component items"
                             (chair
@@ -910,7 +942,7 @@ suite =
                         (let
                             toComputedResults =
                                 decodeJsonThen Component.decodeItem
-                                    (Component.computeItemResults requirements defaultTransportOptions)
+                                    (Component.computeItemResults requirements defaultTransportOptions [])
 
                             combineMapBoth_ fn =
                                 -- RE.combineMapBoth with fn applied to the two tuple members
@@ -1079,7 +1111,7 @@ suite =
                         let
                             toComputedResults =
                                 decodeJsonThen Component.decodeItem
-                                    (Component.computeItemResults requirements defaultTransportOptions)
+                                    (Component.computeItemResults requirements defaultTransportOptions [])
 
                             twoKilogramElements maybeUnitMass quantity =
                                 let
@@ -1178,7 +1210,7 @@ suite =
                                 |> decodeJsonThen Component.decodeItem
                                     (\item ->
                                         item
-                                            |> Component.computeItemResults requirements defaultTransportOptions
+                                            |> Component.computeItemResults requirements defaultTransportOptions []
                                             |> Result.andThen
                                                 (\unscaled ->
                                                     let
@@ -1186,7 +1218,7 @@ suite =
                                                             Mass.inKilograms (Component.extractMass unscaled) / 2
                                                     in
                                                     { item | unitMass = Just (Mass.kilograms half) }
-                                                        |> Component.computeItemResults requirements defaultTransportOptions
+                                                        |> Component.computeItemResults requirements defaultTransportOptions []
                                                         |> Result.map
                                                             (\halved ->
                                                                 ( Mass.inKilograms (Component.extractMass unscaled)
@@ -1238,6 +1270,7 @@ suite =
                                                                 (\process -> { process | massPerUnit = Nothing })
                                                         )
                                                         defaultTransportOptions
+                                                        []
 
                                             Err error ->
                                                 Err error
@@ -1259,7 +1292,7 @@ suite =
                                                         |> Result.andThen
                                                             (\updated ->
                                                                 updated
-                                                                    |> Component.computeItemResults requirements defaultTransportOptions
+                                                                    |> Component.computeItemResults requirements defaultTransportOptions []
                                                                     |> Result.map (\results -> ( updated, results ))
                                                             )
                                                 )
@@ -1305,7 +1338,7 @@ suite =
                                                         |> Result.andThen
                                                             (\withExtra ->
                                                                 withExtra
-                                                                    |> Component.computeItemResults requirements defaultTransportOptions
+                                                                    |> Component.computeItemResults requirements defaultTransportOptions []
                                                                     |> Result.map (\results -> ( withExtra, results ))
                                                             )
                                                 )
@@ -1532,6 +1565,58 @@ suite =
                                 |> Result.map .assembly
                             )
                             (.country >> Expect.equal (Just CountryCode.france))
+                        , itFromResult2 "should apply assembly losses backwards onto the element amount"
+                            fixtures.confection
+                            -- Cotton, woven then assembled as confection (20% waste)
+                            ("""{
+                                  "components": [{
+                                    "quantity": 1,
+                                    "elements": [{
+                                      "amount": 1,
+                                      "material": "f0dbe27b-1e74-55d0-88a2-bda812441744",
+                                      "transforms": ["235b3488-6157-50ed-b74a-45e5d447dd85"]
+                                    }]
+                                  }],
+                                  "assembly": { "operations": ["dc05647f-1dbd-4bf8-a89d-18c5b47aad2d"] }
+                                }"""
+                                |> decodeAndComputeQueryThen requirements
+                            )
+                            (\confectionProcess lifeCycle ->
+                                let
+                                    confectionRatio =
+                                        Unit.qtyVariationRatioToFloat confectionProcess.qtyVariationRatio
+
+                                    weavingRatio =
+                                        Unit.qtyVariationRatioToFloat weaving.qtyVariationRatio
+
+                                    element =
+                                        Component.extractItems lifeCycle.production
+                                            |> List.head
+                                            |> Maybe.andThen (Component.extractItems >> List.head)
+                                in
+                                case element of
+                                    Just elementResults ->
+                                        case elementResults |> Component.extractItems |> List.head of
+                                            Just material ->
+                                                expectAllSucceed
+                                                    [ material
+                                                        |> Component.extractAmount
+                                                        |> Amount.toFloat
+                                                        |> expectFloatMostlyEqual (1 / weavingRatio / confectionRatio)
+                                                    , Component.extractMass elementResults
+                                                        |> Mass.inKilograms
+                                                        |> expectFloatMostlyEqual (1 / confectionRatio)
+                                                    , lifeCycle.productMass
+                                                        |> Mass.inKilograms
+                                                        |> expectFloatMostlyEqual 1
+                                                    ]
+
+                                            Nothing ->
+                                                Expect.fail "missing material amount"
+
+                                    Nothing ->
+                                        Expect.fail "missing element results"
+                            )
                         , suiteFromResult2 "should propagate assembly waste down to distribution and EoL stages"
                             -- no assembly operations, hence no assembly waste
                             ("""{
@@ -1563,9 +1648,13 @@ suite =
                             )
                             (\lifeCycle withAssemblyWaste ->
                                 let
-                                    -- 50% * 50% = 25% expected assembly waste from accumulated operations
-                                    massScaleRatio =
-                                        0.25
+                                    -- Two 50% waste operations: post-assembly mass stays, incoming mass x4
+                                    incomingMassRatio =
+                                        4
+
+                                    baseProductionMass =
+                                        Component.extractMass lifeCycle.production
+                                            |> Mass.inKilograms
 
                                     baseDistributionVolume =
                                         Volume.inCubicMeters lifeCycle.distribution.volume
@@ -1582,30 +1671,44 @@ suite =
                                     baseToDistributionImpact =
                                         getEcsImpact lifeCycle.transports.toDistribution.impacts
                                 in
-                                [ it "should scale EoL stage material masses with assembly waste"
+                                [ it "should keep the post-assembly product mass equal to the case without assembly waste"
+                                    (withAssemblyWaste.productMass
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual (Mass.inKilograms lifeCycle.productMass)
+                                    )
+                                , it "should grow production mass by the inverse combined assembly ratio"
+                                    (withAssemblyWaste.production
+                                        |> Component.extractMass
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual (baseProductionMass * incomingMassRatio)
+                                    )
+                                , it "should keep EoL stage material masses equal to the case without assembly waste"
                                     (withAssemblyWaste
                                         |> Component.getEndOfLifeTotalMass requirements
-                                        |> expectFloatMostlyEqual (baseEndOfLifeMass * massScaleRatio)
+                                        |> expectFloatMostlyEqual baseEndOfLifeMass
                                     )
-                                , it "should scale EoL stage impacts with assembly waste"
+                                , it "should keep EoL stage impacts equal to the case without assembly waste"
                                     (withAssemblyWaste.endOfLife
                                         |> getEcsImpact
-                                        |> expectFloatMostlyEqual (baseEndOfLifeImpact * massScaleRatio)
+                                        |> expectFloatMostlyEqual baseEndOfLifeImpact
                                     )
-                                , it "should scale distribution stage volume with assembly waste"
+                                , it "should keep distribution stage volume equal to the case without assembly waste"
                                     (withAssemblyWaste.distribution.volume
                                         |> Volume.inCubicMeters
-                                        |> expectFloatMostlyEqual (baseDistributionVolume * massScaleRatio)
+                                        |> expectFloatMostlyEqual baseDistributionVolume
                                     )
-                                , it "should scale transport to distribution stage impacts with assembly waste"
+                                , it "should keep transport to distribution impacts equal to the case without assembly waste"
                                     (withAssemblyWaste.transports.toDistribution.impacts
                                         |> getEcsImpact
-                                        |> expectFloatMostlyEqual (baseToDistributionImpact * massScaleRatio)
+                                        |> expectFloatMostlyEqual baseToDistributionImpact
                                     )
-                                , it "should keep transport to assembly stage impacts unchanged with assembly waste"
-                                    (withAssemblyWaste.transports.toAssembly.impacts
-                                        |> getEcsImpact
-                                        |> expectFloatMostlyEqual baseToAssemblyImpact
+                                , it "should grow transport to assembly impacts by the inverse combined assembly ratio"
+                                    (expectAllSucceed
+                                        [ baseToAssemblyImpact |> Expect.greaterThan 0
+                                        , withAssemblyWaste.transports.toAssembly.impacts
+                                            |> getEcsImpact
+                                            |> expectFloatMostlyEqual (baseToAssemblyImpact * incomingMassRatio)
+                                        ]
                                     )
                                 , it "should keep EoL stage masses consistent with product mass"
                                     (withAssemblyWaste

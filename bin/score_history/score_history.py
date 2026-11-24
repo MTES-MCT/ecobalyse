@@ -276,17 +276,19 @@ def process_response_food(branch_name, example, normalization_factors, last_comm
 
     results_per_life_cycle = []
     for lifecycle_step, path in lifecycle_step_impact_paths.items():
-        impacts = get_nested_value(example["response"]["results"], path)
-        results_per_life_cycle.append(
-            create_df_food(
-                branch_name,
-                last_commit,
-                example,
-                lifecycle_step,
-                impacts,
-                normalization_factors,
+        example_response = example["response"]
+        if "results" in example_response:
+            impacts = get_nested_value(example_response["results"], path)
+            results_per_life_cycle.append(
+                create_df_food(
+                    branch_name,
+                    last_commit,
+                    example,
+                    lifecycle_step,
+                    impacts,
+                    normalization_factors,
+                )
             )
-        )
 
     # Concatenate all DataFrames into a single DataFrame
     if results_per_life_cycle:

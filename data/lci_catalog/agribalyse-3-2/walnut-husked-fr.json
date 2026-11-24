@@ -18,7 +18,7 @@
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "chestnut-husked-fr-2025",
@@ -34,7 +34,7 @@
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": ["food", "food2"],
