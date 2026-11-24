@@ -108,7 +108,7 @@ viewHero { enabledSections } =
                 , { label = "Calculer l’impact de l’alimentation"
                   , subLabel = Just "Méthodologie stabilisée"
                   , callToAction = False
-                  , link = RouteLink Route.FoodBuilderHome
+                  , link = RouteLink <| Route.GenericSimulatorHome Sector.Food2
                   , testId = "food-callout-button"
                   }
                 )
