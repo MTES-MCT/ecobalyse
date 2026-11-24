@@ -13,7 +13,7 @@
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["apparel", "textile", "furniture", "object", "veli"],
+  "scopes": ["furniture", "object", "veli"],
   "source": "BAFU 2025v2",
   "unit": "kg"
 }
