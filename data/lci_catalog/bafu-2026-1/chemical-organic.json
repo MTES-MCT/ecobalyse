@@ -1,0 +1,21 @@
+{
+  "activityName": "Chemicals organic, at plant {GLO} U",
+  "categories": ["material", "material_type:rubber"],
+  "comment": "Natural rubber is approximated by the dataset 'Chemicals, organic' in BAFU:2026",
+  "displayName": "Produit chimique, organique",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "00d37805-bed9-4404-99b9-ad1307c36368",
+  "metadata": [
+    {
+      "categories": ["material", "material_type:rubber"],
+      "displayName": "Natural rubber",
+      "id": "37fb6a7e-87cc-46d1-8384-6f9fd89a5826",
+      "scopes": ["veli"]
+    }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["veli"],
+  "source": "BAFU 2025v2",
+  "unit": "kg"
+}
