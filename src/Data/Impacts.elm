@@ -7,7 +7,6 @@ module Data.Impacts exposing
     , divideStagesImpactsBy
     , empty
     , encode
-    , encodeAggregatedScoreChartEntry
     , encodeExcept
     , encodeSingleImpact
     , getAggregatedScoreData
@@ -355,16 +354,6 @@ getAggregatedScoreData definitions getter (Impacts impacts) =
         )
         []
         impacts
-
-
-encodeAggregatedScoreChartEntry : { color : String, name : String, value : Float } -> Encode.Value
-encodeAggregatedScoreChartEntry entry =
-    -- This is to be easily used with Highcharts.js in a Web Component
-    Encode.object
-        [ ( "name", Encode.string entry.name )
-        , ( "y", Encode.float entry.value )
-        , ( "color", Encode.string entry.color )
-        ]
 
 
 computeAggregatedScore : Definitions -> (Definition -> Maybe Definition.AggregatedScoreData) -> Impacts -> Impact

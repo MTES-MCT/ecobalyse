@@ -271,11 +271,21 @@ encodeChartSeries toEntries =
                 [ ( "label", Encode.string chartEntry.label )
                 , ( "data"
                   , toEntries chartEntry
-                        |> Encode.list Impacts.encodeAggregatedScoreChartEntry
+                        |> Encode.list encodeAggregatedScoreChartEntry
                   )
                 ]
         )
         >> Encode.encode 0
+
+
+encodeAggregatedScoreChartEntry : { color : String, name : String, value : Float } -> Encode.Value
+encodeAggregatedScoreChartEntry entry =
+    -- This is to be easily used with Highcharts.js in a Web Component
+    Encode.object
+        [ ( "name", Encode.string entry.name )
+        , ( "y", Encode.float entry.value )
+        , ( "color", Encode.string entry.color )
+        ]
 
 
 entriesFor : ComparisonType -> Definitions -> ChartsData -> List ChartEntry
