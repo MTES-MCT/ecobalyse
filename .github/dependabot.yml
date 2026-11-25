@@ -13,11 +13,29 @@ updates:
       minor-patch:
         patterns: ["*"]
         update-types: ["minor", "patch"]
+    # Ignore a dependency in Dependabot without blocking its security updates
+    # @see https://pydevtools.com/handbook/how-to/how-to-ignore-a-dependency-in-dependabot-without-blocking-security-updates/#scope-the-ignore-rule-to-version-updates
     ignore:
     - dependency-name: "glob"
+      update-types:
+        - "version-update:semver-major"
+        - "version-update:semver-minor"
+        - "version-update:semver-patch"
     - dependency-name: "minimatch"
+      update-types:
+        - "version-update:semver-major"
+        - "version-update:semver-minor"
+        - "version-update:semver-patch"
     - dependency-name: "nodemailer"
+      update-types:
+        - "version-update:semver-major"
+        - "version-update:semver-minor"
+        - "version-update:semver-patch"
     - dependency-name: "zod"
+      update-types:
+        - "version-update:semver-major"
+        - "version-update:semver-minor"
+        - "version-update:semver-patch"
 
   - package-ecosystem: "uv"
     directory: "/"
@@ -54,11 +72,29 @@ updates:
       minor-patch:
         patterns: ["*"]
         update-types: ["minor", "patch"]
+    # Ignore a dependency in Dependabot without blocking its security updates
+    # @see https://pydevtools.com/handbook/how-to/how-to-ignore-a-dependency-in-dependabot-without-blocking-security-updates/#scope-the-ignore-rule-to-version-updates
     ignore:
     - dependency-name: "glob"
+      update-types:
+        - "version-update:semver-major"
+        - "version-update:semver-minor"
+        - "version-update:semver-patch"
     - dependency-name: "minimatch"
+      update-types:
+        - "version-update:semver-major"
+        - "version-update:semver-minor"
+        - "version-update:semver-patch"
     - dependency-name: "nodemailer"
+      update-types:
+        - "version-update:semver-major"
+        - "version-update:semver-minor"
+        - "version-update:semver-patch"
     - dependency-name: "zod"
+      update-types:
+        - "version-update:semver-major"
+        - "version-update:semver-minor"
+        - "version-update:semver-patch"
 
   - package-ecosystem: "github-actions"
     directories:
