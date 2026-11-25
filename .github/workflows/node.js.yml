@@ -111,3 +111,18 @@ jobs:
 
     - name: Run server tests
       run: npm run test:server && npm run test:backend
+
+    # e2e tests
+    - name: Install Playwright Browsers
+      run: npx playwright install chromium --with-deps
+
+    - name: Run Playwright tests
+      run: NODE_ENV=test npm run test:e2e
+
+    - name: Upload Playwright test artifacts
+      uses: actions/upload-artifact@v7
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 2
