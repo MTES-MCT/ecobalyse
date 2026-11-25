@@ -1,7 +1,7 @@
 {
   "activityName": "Tire",
-  "categories": ["material", "material_type:rubber", "use"],
-  "comment": "",
+  "categories": ["use"],
+  "comment": "Tire made of 50% rubber (80% synthetic, 20% natural), 30% carbon black, 12% PET plastic, 7% stainless steel and 1% brass.",
   "displayName": "Pneu",
   "elecKwh": 0.0,
   "heatMJ": 0,

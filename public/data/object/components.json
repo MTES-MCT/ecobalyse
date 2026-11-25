@@ -1077,7 +1077,7 @@
       }
     ],
     "id": "2ca21a17-7090-4ad0-ab7f-e83e9f48020b",
-    "name": "Acier inoxidable laminé, usiné",
+    "name": "Acier inoxydable laminé, usiné",
     "scopes": ["veli", "furniture", "object"]
   },
   {
@@ -1883,6 +1883,24 @@
     "id": "260bdfe2-1bef-4fd6-bf68-6e6174686d0d",
     "name": "Plateau chêne verni (250 * 110 * 5)",
     "scopes": ["furniture", "object"]
+  },
+  {
+    "comment": "50% caoutchouc (40% synthétique, 10% naturel), 30% noir de carbone, 12% PET, 7% acier inoxydable, 1% laiton",
+    "elements": [
+      { "amount": 0.4, "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
+      { "amount": 0.1, "material": "37fb6a7e-87cc-46d1-8384-6f9fd89a5826" },
+      { "amount": 0.3, "material": "8ba029b3-c247-4fed-b888-537ec535978d" },
+      { "amount": 0.12, "material": "0e4122f6-f1ce-4d80-afbb-5e366402d8e6" },
+      {
+        "amount": 0.07,
+        "material": "30212fbf-5912-40eb-b2ab-87837361c462",
+        "transforms": ["7da5ea9a-8b04-462d-bd02-19ce266dd265"]
+      },
+      { "amount": 0.01, "material": "b87b7c27-6d51-4890-bc41-604586feda5e" }
+    ],
+    "id": "a3a49642-1083-41af-85cb-f47e6770352a",
+    "name": "Pneu",
+    "scopes": ["veli"]
   },
   {
     "comment": null,
