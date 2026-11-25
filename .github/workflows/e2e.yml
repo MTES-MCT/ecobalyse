@@ -14,7 +14,6 @@ env:
   NODE_ENV: test
   TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
   ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
-  BACKEND_API_URL: http://localhost:1234/backend
   ENABLE_APPAREL_SECTION: "True"
   ENABLE_FOOD_SECTION: "True"
   ENABLE_FOOD2_SECTION: "True"
