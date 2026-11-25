@@ -10,10 +10,7 @@
           "elements": [
             {
               "amount": 1.26,
-              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-              "transforms": [
-                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
+              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" }
             }
           ],
           "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",

@@ -15,5 +15,25 @@
       "product": "tshirt"
     },
     "scope": "textile"
+  },
+  {
+    "category": "Pull",
+    "id": "f02b1029-0d04-4239-94d1-b384ab3316cb",
+    "name": "Pull coton (550g) - Chine - Mode \"fast fashion\"",
+    "query": {
+      "business": "large-business-without-services",
+      "countryDyeing": "CN",
+      "countryFabric": "CN",
+      "countryMaking": "CN",
+      "countrySpinning": "CN",
+      "mass": 0.55,
+      "materials": [
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
+      ],
+      "numberOfReferences": 9000,
+      "price": 30,
+      "product": "pull"
+    },
+    "scope": "textile"
   }
 ]
