@@ -116,5 +116,32 @@
     "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
     "name": "Tissu pour canapé",
     "scopes": ["object"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      { "amount": 0.4, "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" }
+    ],
+    "id": "742e7394-29a4-4d2d-aa3e-862474645f12",
+    "name": "Pied chaise acier",
+    "scopes": ["object"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      { "amount": 29, "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" }
+    ],
+    "id": "206277d5-dda7-45d2-a3e8-fd6fe4ec935b",
+    "name": "Structure acier (canapé 3p)",
+    "scopes": ["object"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      { "amount": 15, "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" }
+    ],
+    "id": "4d03fadf-c8b7-4965-97da-6a73eb74d147",
+    "name": "Mousse polyurethane (canapé 3p)",
+    "scopes": ["object"]
   }
 ]

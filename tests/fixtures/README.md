@@ -4,6 +4,7 @@ This folder and json data it contains are solely aimed at being used for tests:
 
 - Unit tests (`*Test.elm`)
 - API server tests (`server.spec.js`)
+- End-to-end tests (`e2e/`)
 
 Notes:
 
