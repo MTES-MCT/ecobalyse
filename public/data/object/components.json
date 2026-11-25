@@ -1887,7 +1887,7 @@
   {
     "comment": "50% caoutchouc (40% synthétique, 10% naturel), 30% noir de carbone, 12% PET, 7% acier inoxydable, 1% laiton",
     "elements": [
-      { "amount": 0.4, "material": "f7cfc0e4-5cee-4726-ac2a-2cb4eb0d551e" },
+      { "amount": 0.4, "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
       { "amount": 0.1, "material": "37fb6a7e-87cc-46d1-8384-6f9fd89a5826" },
       { "amount": 0.3, "material": "8ba029b3-c247-4fed-b888-537ec535978d" },
       { "amount": 0.12, "material": "0e4122f6-f1ce-4d80-afbb-5e366402d8e6" },
