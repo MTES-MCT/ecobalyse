@@ -1891,11 +1891,15 @@
       { "amount": 0.1, "material": "37fb6a7e-87cc-46d1-8384-6f9fd89a5826" },
       { "amount": 0.3, "material": "8ba029b3-c247-4fed-b888-537ec535978d" },
       { "amount": 0.12, "material": "0e4122f6-f1ce-4d80-afbb-5e366402d8e6" },
-      { "amount": 0.07, "material": "30212fbf-5912-40eb-b2ab-87837361c462" },
+      {
+        "amount": 0.07,
+        "material": "30212fbf-5912-40eb-b2ab-87837361c462",
+        "transforms": ["7da5ea9a-8b04-462d-bd02-19ce266dd265"]
+      },
       { "amount": 0.01, "material": "b87b7c27-6d51-4890-bc41-604586feda5e" }
     ],
     "id": "a3a49642-1083-41af-85cb-f47e6770352a",
-    "name": "Pneu, 40% caoutchouc synthétique, 10% caoutchouc naturel",
+    "name": "Pneu",
     "scopes": ["veli"]
   },
   {
