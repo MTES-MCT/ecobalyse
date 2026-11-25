@@ -114,6 +114,7 @@ class Material(EcoModel):
 
 class Complements(EcoModel):
     forest: float | None = None
+    microfibers: float | None = None
     crop_diversity: float | None = None
     hedges: float | None = None
     permanent_pasture: float | None = None

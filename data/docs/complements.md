@@ -1,15 +1,16 @@
 # Complements
 
 [Complements](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/complement-hors-acv?q=foret) are bonuses or maluses added to the ecoscore for things LCA
-doesn't cover. Two kinds are computed by the pipeline and written to
+doesn't cover. Three kinds are computed by the pipeline and written to
 `metadata.complements` in `processes.json`:
 
 - ecosystemic services for food ingredients: `hedges`, `plotSize`,
   `cropDiversity`, `permanentPasture`
 - `forest` for wood processes
+- `microfibers` for textile fiber processes
 
 Code: [`ecobalyse_data/export/complements.py`](../ecobalyse_data/export/complements.py). The generic export
-([`export_generic.py`](../ecobalyse_data/export/export_generic.py)) calls the forest function directly and goes through
+([`export_generic.py`](../ecobalyse_data/export/export_generic.py)) calls the forest and microfibers functions directly and goes through
 `compute_es_for_ingredients` in [`export/food.py`](../ecobalyse_data/export/food.py) for food. The food input files are in
 [`food/ecosystemic_services/`](../food/ecosystemic_services).
 
@@ -175,3 +176,20 @@ flowchart LR
 
 `compute_forest_complement` in [`complements.py`](../ecobalyse_data/export/complements.py), for processes with `forestManagement` in their
 metadata. Coefficients per `forestManagement` type are in `FOREST_MANAGEMENT_COEFFICIENTS` in the same file.
+
+## Microfibers
+
+```mermaid
+flowchart LR
+    origin[origin<br/>variant metadata] --> coef[MICROFIBERS_COEFFICIENTS]
+    coef --> mul[coefficient x MICROFIBERS_RAW_MATERIAL_RATIO]
+    mul --> out[metadata.complements.microfibers]
+```
+
+`compute_microfibers_complement` in [`complements.py`](../ecobalyse_data/export/complements.py), for every variant with an `origin` in its metadata (the same field the textile scope uses: `NaturalFromVegetal`, `NaturalFromAnimal`, `ArtificialFromOrganic`, `Synthetic`). The process must be in kg.
+
+The value is in Pts per kg of fbier. Coefficients are the ones of the textile simulator (`toMicrofibersComplement` in `src/Data/Textile/Material/Origin.elm`), see the [methodology](https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/microfibres). Positive value -> malus.
+
+The textile simulator applies the complement to the mass of the **final product**, whereas the generic engine multiplies it by the quantity of **raw material**, which is higher because of losses along the way (spinning, weaving/knitting, making). `MICROFIBERS_RAW_MATERIAL_RATIO` is there to correct this; it is `1.0` (no correction) until the methodology is settled, see https://github.com/MTES-MCT/ecobalyse/issues/2236.
+
+The value is the same whatever the scope using the process (apparel, furniture, object).
