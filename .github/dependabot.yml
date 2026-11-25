@@ -13,6 +13,11 @@ updates:
       minor-patch:
         patterns: ["*"]
         update-types: ["minor", "patch"]
+    ignore:
+    - dependency-name: "glob"
+    - dependency-name: "minimatch"
+    - dependency-name: "nodemailer"
+    - dependency-name: "zod"
 
   - package-ecosystem: "uv"
     directory: "/"
@@ -49,6 +54,11 @@ updates:
       minor-patch:
         patterns: ["*"]
         update-types: ["minor", "patch"]
+    ignore:
+    - dependency-name: "glob"
+    - dependency-name: "minimatch"
+    - dependency-name: "nodemailer"
+    - dependency-name: "zod"
 
   - package-ecosystem: "github-actions"
     directories:
