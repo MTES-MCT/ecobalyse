@@ -1,1 +1,97 @@
-[]
+[
+  {
+    "consumptions": ["3dfabb67-d30a-4d68-967e-92edc28b4207"],
+    "cooling": false,
+    "id": "5ae57918-cfae-4f9b-b99e-7a7b008bf727",
+    "label": "Caleçon",
+    "scope": "apparel"
+  },
+  {
+    "consumptions": ["bc4c50c0-75b4-4edf-b9e8-780a2a80041e"],
+    "cooling": false,
+    "id": "38a0fbad-cd42-491d-94fd-b44ba424d500",
+    "label": "Chaussettes",
+    "scope": "apparel"
+  },
+  {
+    "consumptions": [
+      { "amount": 20, "processId": "064c646e-826c-4a84-94e7-1fa8c1debea0" },
+      "4b98b1e1-9f39-4c07-9c3c-c26af31e0a58"
+    ],
+    "cooling": false,
+    "id": "db00b4b9-fa5c-400c-b094-e2db7c0422f4",
+    "label": "Chemise",
+    "scope": "apparel"
+  },
+  {
+    "consumptions": [
+      { "amount": 23, "processId": "69085d9c-0cb4-4661-bbdb-f49862db72a0" },
+      "a98ace3a-dea7-4b8d-8b6c-6a752b4fb236"
+    ],
+    "cooling": false,
+    "id": "e0983984-699b-4847-86aa-2935d9e985a8",
+    "label": "Jean",
+    "scope": "apparel"
+  },
+  {
+    "consumptions": [
+      { "amount": 23, "processId": "c5c23993-71cb-4071-96ef-2e19e9ffd610" },
+      "2173977f-11bb-4369-bfee-cc19aaa8faf6"
+    ],
+    "cooling": false,
+    "id": "6246407a-0906-4d78-9935-e8c5fdbc803b",
+    "label": "Jupe/Robe",
+    "scope": "apparel"
+  },
+  {
+    "consumptions": ["8c2219c2-3124-4a97-8280-2c2de3d95450"],
+    "cooling": false,
+    "id": "58e9df41-9da7-4f60-b265-e558ea8fd4bc",
+    "label": "Maillot de bain",
+    "scope": "apparel"
+  },
+  {
+    "consumptions": [
+      { "amount": 5, "processId": "663e6559-8e20-4f04-bd2a-e83aa4e2dd63" },
+      "9a82bc70-6f83-4251-91a7-1d45e35a9ff2"
+    ],
+    "cooling": false,
+    "id": "938a3c8e-3535-4187-b06e-663b7ffd9933",
+    "label": "Manteau/Veste",
+    "scope": "apparel"
+  },
+  {
+    "consumptions": [
+      { "amount": 23, "processId": "e6ecfb85-9423-47ca-9758-761d189024f9" },
+      "fa530a8d-84f9-4b5f-baea-a23ff4493439"
+    ],
+    "cooling": false,
+    "id": "bcf7d152-8eea-4f12-a56a-336834a08dfe",
+    "label": "Pantalon/Short",
+    "scope": "apparel"
+  },
+  {
+    "consumptions": ["35083d9c-7efd-42f8-a216-9ea80bf1fe1c"],
+    "cooling": false,
+    "id": "b956ef45-9251-4f7b-b762-c2c6f6eb2c71",
+    "label": "Pull",
+    "scope": "apparel"
+  },
+  {
+    "consumptions": ["aefea630-e189-4096-bf10-8c37845607c0"],
+    "cooling": false,
+    "id": "ba3a7b5f-c264-4fd0-86ed-4b3a663741d3",
+    "label": "Boxer/Slip (tricoté)",
+    "scope": "apparel"
+  },
+  {
+    "consumptions": [
+      { "amount": 45, "processId": "db09819b-0dac-4e67-b65b-09ad5a30c317" },
+      "2c57ab85-b6cb-423d-b01a-e5ffcbd4d0cf"
+    ],
+    "cooling": false,
+    "id": "22d397f4-ee7c-45d2-b14f-8a76edee6b0d",
+    "label": "T-shirt/Polo",
+    "scope": "apparel"
+  }
+]
