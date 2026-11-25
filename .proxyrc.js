@@ -72,11 +72,18 @@ const staticFixtures = serveStatic(path.join(__dirname, "tests/fixtures"), {
   index: false,
 });
 
+function fixtureRequest(req) {
+  return Object.create(req, {
+    url: {
+      enumerable: true,
+      value: req.url.replace(/^\/data/, "") || "/",
+      writable: true,
+    },
+  });
+}
+
 function serveFixtureData(req, res) {
-  const originalUrl = req.url;
-  req.url = originalUrl.replace(/^\/data/, "") || "/";
-  staticFixtures(req, res, () => {
-    req.url = originalUrl;
+  staticFixtures(fixtureRequest(req), res, () => {
     res.statusCode = 404;
     res.end();
   });
