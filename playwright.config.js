@@ -60,6 +60,8 @@ export default defineConfig({
     command: "./bin/playwright-webserver.sh",
     env: {
       DATABASE_URL: "postgresql+asyncpg://ecobalyse@localhost:5433/ecobalyse_test",
+      // enable mounting tests/fixtures as /data (see `.proxyrc.js`)
+      ECOBALYSE_E2E_FIXTURES: "1",
       NODE_ENV: "test",
     },
     url: "http://localhost:1234",

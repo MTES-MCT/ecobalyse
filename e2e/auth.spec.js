@@ -8,7 +8,7 @@ import {
   registerAndLoginUser,
 } from "./lib";
 
-import impacts from "../public/data/impacts.json";
+import impacts from "../tests/fixtures/impacts.json";
 
 test.describe("auth", () => {
   // One stateful journey: Alice registers once. A retry would replay it against a

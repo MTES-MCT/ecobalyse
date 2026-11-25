@@ -23,5 +23,28 @@
       "transform": { "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf", "mass": 363 }
     },
     "scope": "food"
+  },
+  {
+    "category": "Produit surgelé",
+    "id": "38b6aff0-0c28-4c65-a9e9-246a47465eab",
+    "name": "Pizza bolognese (375g) - 21",
+    "query": {
+      "distribution": "frozen",
+      "ingredients": [
+        { "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa", "mass": 148 },
+        { "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be", "mass": 100 },
+        { "id": "faa513ae-9c32-4e6c-874e-58c13309339e", "mass": 19 },
+        { "id": "5fc8032f-ca1c-4497-844b-f9213075eab3", "mass": 3 },
+        { "id": "96b301d9-d21b-4cea-8903-bd7917e95a30", "mass": 5 },
+        { "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6", "mass": 33 },
+        { "id": "4d5198e7-413a-4ae2-8448-535aa3b302ae", "mass": 6 }
+      ],
+      "packaging": [
+        { "amount": 0.1, "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7" }
+      ],
+      "preparation": ["freezing", "oven"],
+      "transform": { "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf", "mass": 314 }
+    },
+    "scope": "food"
   }
 ]

@@ -26,6 +26,7 @@ test("object simulator", async ({ page }) => {
     .locator(".modal.show")
     .getByRole("button", { name: "Ajouter une transformation" })
     .click();
+  await page.getByRole("option", { name: "Moulage par injection" }).click();
 
   await expect(page.getByTestId("score-card")).toBeVisible();
 
