@@ -76,7 +76,7 @@
     "dotenv": "^17.4.2",
     "express": "^5.3.0",
     "express-body-parser-error-handler": "^1.0.9",
-    "express-rate-limit": "^8.7.2",
+    "express-rate-limit": "^8.7.5",
     "helmet": "^8.3.0",
     "js-yaml": "^5.5.0",
     "piwik": "^1.0.10"
@@ -86,10 +86,10 @@
     "@parcel/transformer-elm": "^2.16.4",
     "@parcel/transformer-image": "^2.16.4",
     "@parcel/transformer-sass": "^2.16.4",
-    "@playwright/test": "^1.64.1",
-    "bootstrap": "^5.3.8",
-    "concurrently": "^10.0.6",
-    "cpx2": "^9.0.3",
+    "@playwright/test": "^1.65.1",
+    "bootstrap": "^5.3.9",
+    "concurrently": "^10.0.7",
+    "cpx2": "^9.1.0",
     "elm": "^0.19.1-6",
     "elm-format": "^0.8.8",
     "elm-review": "^2.13.5",
@@ -99,10 +99,10 @@
     "maildev": "^3.0.0",
     "nodemon": "^3.1.14",
     "parcel": "^2.16.4",
-    "prettier": "^3.9.10",
-    "prettier-plugin-sort-json": "^4.2.0",
+    "prettier": "^3.10.1",
+    "prettier-plugin-sort-json": "^4.3.0",
     "rapidoc": "^9.3.8",
-    "supertest": "^7.3.1"
+    "supertest": "^7.3.2"
   },
   "cacheDirectories": [
     "elm-stuff",
