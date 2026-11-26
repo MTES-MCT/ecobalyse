@@ -23,6 +23,20 @@ def test_microfibers_complement_by_origin(origin, expected):
     )
 
 
+@pytest.mark.parametrize(
+    "origin,expected",
+    [
+        # Values requested in #2236: textile values reduced by 30% for losses
+        ("ArtificialFromOrganic", 231),
+        ("NaturalFromAnimal", 273),
+        ("NaturalFromVegetal", 175),
+        ("Synthetic", 574),
+    ],
+)
+def test_microfibers_complement_expected_values(origin, expected):
+    assert compute_microfibers_complement(origin, "kg") == pytest.approx(expected)
+
+
 def test_microfibers_coefficients_match_textile_origins():
     # Must stay in sync with `Origin` in src/Data/Textile/Material/Origin.elm
     assert set(MICROFIBERS_COEFFICIENTS) == {

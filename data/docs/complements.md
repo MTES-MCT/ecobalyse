@@ -190,6 +190,6 @@ flowchart LR
 
 The value is in Pts per kg of fbier. Coefficients are the ones of the textile simulator (`toMicrofibersComplement` in `src/Data/Textile/Material/Origin.elm`), see the [methodology](https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/microfibres). Positive value -> malus.
 
-The textile simulator applies the complement to the mass of the **final product**, whereas the generic engine multiplies it by the quantity of **raw material**, which is higher because of losses along the way (spinning, weaving/knitting, making). `MICROFIBERS_RAW_MATERIAL_RATIO` is there to correct this; it is `1.0` (no correction) until the methodology is settled, see https://github.com/MTES-MCT/ecobalyse/issues/2236.
+The textile simulator applies the complement to the mass of the **final product**, whereas the generic engine multiplies it by the quantity of **raw material**, which is higher because of losses along the way (spinning, weaving/knitting, making). Since we lose about 30% of mass between the raw material and the final product, `MICROFIBERS_RAW_MATERIAL_RATIO` reduces the complement by 30% (`0.7`), see https://github.com/MTES-MCT/ecobalyse/issues/2236. This gives, per kg of raw material: 574 Pts (synthetic), 273 Pts (animal), 231 Pts (artificial), 175 Pts (vegetal).
 
 The value is the same whatever the scope using the process (apparel, furniture, object).

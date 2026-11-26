@@ -63,11 +63,10 @@ MICROFIBERS_COEFFICIENTS = {
 
 # The textile simulator applies the complement to the mass of the final product,
 # while the generic engine multiplies process complements by the quantity of raw
-# material, which is higher because of losses (spinning, weaving/knitting, making).
-# This ratio converts a value per kg of final product into a value per kg of raw
-# material. 1.0 means no correction. Pending methodology decision, see
-# https://github.com/MTES-MCT/ecobalyse/issues/2236 (option 1 suggests ~0.7).
-MICROFIBERS_RAW_MATERIAL_RATIO = 1.0
+# material, which is ~30% higher because of losses (spinning, weaving/knitting,
+# making). Complements are therefore reduced by 30%, see
+# https://github.com/MTES-MCT/ecobalyse/issues/2236
+MICROFIBERS_RAW_MATERIAL_RATIO = 0.7
 
 
 def compute_microfibers_complement(
