@@ -30,6 +30,10 @@ import-ecoinvent:
 import-bafu:
     {{ python-cmd-data }} data/import_bafu.py
 
+# Import BAFU from its own EcoSpold 1 package (not on S3, so pass the directory)
+import-bafu-ecospold1 source:
+    {{ python-cmd-data }} data/import_bafu_ecospold1.py "{{ source }}"
+
 import-method:
     {{ python-cmd-data }} data/import_method.py
 
