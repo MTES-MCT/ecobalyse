@@ -12,7 +12,7 @@ sample =
     , noOp = ()
     , onInput = \_ -> ()
     , state = Nothing
-    , value = 1
+    , value = Just 1
     , writeAccess = FloatInput.Writeable
     }
 
@@ -96,7 +96,15 @@ suite =
                 { sample | state = Just { draft = Just text, id = sample.id, value = Nothing } }
           in
           describe "isValidDraft"
-            [ it "is true when the field is not being edited"
+            [ it "is true when an empty optional field has no value"
+                (FloatInput.isValidDraft
+                    { sample
+                        | state = Just { draft = Just "", id = sample.id, value = Nothing }
+                        , value = Nothing
+                    }
+                    |> Expect.equal True
+                )
+            , it "is true when the field is not being edited"
                 (FloatInput.isValidDraft sample
                     |> Expect.equal True
                 )

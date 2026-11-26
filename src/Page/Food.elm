@@ -1659,7 +1659,7 @@ mainView ({ db } as session) model =
                 |> Recipe.compute db
     in
     div [ class "row gap-3 gap-lg-0" ]
-        [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
+        [ div [ class "col-lg-8 d-flex flex-column gap-3 min-w-0" ]
             [ h1 [ class "mb-3" ] [ text "Alimentaire" ]
             , ExampleView.view
                 { currentQuery = session.queries.food

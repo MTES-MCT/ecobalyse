@@ -1058,6 +1058,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , openSelectPackagingModal = \_ -> NoOp
         , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
         , openSelectProductionItem = AddTrimModal >> SetModal
+        , productWeight = Nothing
         , query = Component.emptyQuery |> Component.setQueryItems inputs.trims
         , removeAssemblyOperation = \_ -> NoOp
         , removeConsumption = \_ -> NoOp
@@ -1187,7 +1188,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 ]
     in
     div [ class "row" ]
-        [ div [ class "col-lg-8 bg-white" ]
+        [ div [ class "col-lg-8 bg-white min-w-0" ]
             [ h1 [ class "mb-3" ] [ text "Textile" ]
             , div [ class "sticky-md-top bg-white pb-3" ]
                 [ ExampleView.view

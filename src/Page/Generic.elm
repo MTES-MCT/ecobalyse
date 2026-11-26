@@ -81,6 +81,7 @@ type alias Model =
     , examples : List (Example Query)
     , floatInputState : Maybe FloatInput.State
     , impact : Definition
+    , productWeight : Maybe Mass
     , initialQuery : Query
     , modals : List Modal
     , lifeCycle : Result String Component.LifeCycle
@@ -160,6 +161,7 @@ type Msg
     | UpdateItemUnitMass Index FloatInput.State
     | UpdatePackagingAmount Index FloatInput.State
     | UpdateProduct (Maybe Product.Id)
+    | UpdateProductWeight FloatInput.State
     | UpdateRecyclability Bool
     | UpdateRenamedBookmarkName Bookmark String
 
@@ -193,6 +195,7 @@ init genericSector trigram maybeUrlQuery session =
     , examples = examples
     , floatInputState = Nothing
     , impact = Definition.get trigram session.db.definitions
+    , productWeight = Nothing
     , initialQuery = initialQuery
     , modals = []
     , lifeCycle =
@@ -252,6 +255,7 @@ initFromExample session genericSector uuid =
     , examples = examples
     , floatInputState = Nothing
     , impact = Definition.get Definition.Ecs session.db.definitions
+    , productWeight = Nothing
     , initialQuery = exampleQuery
     , modals = []
     , lifeCycle =
@@ -438,6 +442,35 @@ applyItemUnitMass session model query itemIndex mass =
 
     else
         createPageUpdate session model
+
+
+applyProductWeightInput : FloatInput.State -> Model -> Model
+applyProductWeightInput state model =
+    let
+        productWeight =
+            case state.value of
+                Just kilograms ->
+                    Just <| Mass.kilograms kilograms
+
+                Nothing ->
+                    model.productWeight
+
+        newModel =
+            model |> applyFloatInputState state
+    in
+    { newModel
+        | productWeight =
+            case state.draft of
+                Just draft ->
+                    if String.isEmpty draft then
+                        Nothing
+
+                    else
+                        productWeight
+
+                Nothing ->
+                    productWeight
+    }
 
 
 applyUnitMassInputState : Session -> Model -> Query -> Index -> FloatInput.State -> PageUpdate Model Msg
@@ -915,6 +948,11 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> selectProductCategory session query maybeProductId
 
+        UpdateProductWeight state ->
+            model
+                |> applyProductWeightInput state
+                |> createPageUpdate session
+
         UpdateRecyclability recyclable ->
             createPageUpdate session model
                 |> updateQuery (query |> Component.updateRecyclable recyclable)
@@ -1317,6 +1355,9 @@ shouldTrackUsage msg =
         UpdateProduct _ ->
             True
 
+        UpdateProductWeight _ ->
+            False
+
         UpdateRecyclability _ ->
             True
 
@@ -1347,6 +1388,7 @@ editorConfig session ({ genericSector } as model) =
     , openSelectPackagingModal = SelectPackagingModal >> AppendModal
     , openSelectProcessModal = \c ti mi ac -> AppendModal (SelectProcessModal c ti mi ac)
     , openSelectProductionItem = AddProductionItemModal >> AppendModal
+    , productWeight = model.productWeight
     , query = session |> Session.genericQuery genericSector
     , removeAssemblyOperation = RemoveAssemblyOperation
     , removeConsumption = RemoveConsumption
@@ -1384,7 +1426,7 @@ simulatorView ({ componentConfig } as session) ({ genericSector } as model) =
             session |> Session.genericQuery genericSector
     in
     div [ class "row" ]
-        [ div [ class "col-lg-8 bg-white" ]
+        [ div [ class "col-lg-8 bg-white min-w-0" ]
             [ h1 [ class "mb-3" ] [ text <| Sector.toLabelGeneric genericSector ]
             , div [ class "sticky-md-top bg-white pb-3" ]
                 [ ExampleView.view
@@ -1405,6 +1447,7 @@ simulatorView ({ componentConfig } as session) ({ genericSector } as model) =
                     , query = currentQuery
                     , sector = genericSector
                     }
+                , productWeightView model
                 ]
             , durabilityView componentConfig sector currentQuery.durability
             , editorConfig session model
@@ -1465,6 +1508,33 @@ simulatorView ({ componentConfig } as session) ({ genericSector } as model) =
                 , updateContribName = UpdateContributionName
                 , updateContribDescription = UpdateContributionDescription
                 }
+            ]
+        ]
+
+
+productWeightView : Model -> Html Msg
+productWeightView model =
+    div [ class "row align-items-center gx-2 gy-0 g-md-2 mt-2" ]
+        [ div [ class "SimulatorFiedlLabel col-12 col-md-auto d-flex justify-content-md-end" ]
+            [ label
+                [ for "product-weight"
+                , class "col-form-label w-auto text-start fw-bold mb-1 mb-md-0"
+                ]
+                [ text "Poids du produit" ]
+            ]
+        , div [ class "col-12 col-md-4 min-w-0" ]
+            [ div [ class "input-group w-100" ]
+                [ FloatInput.view
+                    { id = "product-weight"
+                    , label = "Poids du produit"
+                    , noOp = NoOp
+                    , onInput = UpdateProductWeight
+                    , state = model.floatInputState
+                    , value = model.productWeight |> Maybe.map Mass.inKilograms
+                    , writeAccess = FloatInput.Writeable
+                    }
+                , span [ class "input-group-text" ] [ text "kg" ]
+                ]
             ]
         ]
 

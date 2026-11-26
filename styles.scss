@@ -529,6 +529,12 @@ q {
   }
 }
 
+// Flex items default to min-width: auto, so a wide table stretches the column
+// past the viewport; this lets the column "stay" on the grid
+.min-w-0 {
+  min-width: 0;
+}
+
 .no {
   &-outline {
     &:focus, &:active {
@@ -1480,6 +1486,21 @@ q {
     &C { color: darken($score-letter-C, 10%) }
     &D { color: darken($score-letter-D, 10%) }
     &E { color: darken($score-letter-E, 10%) }
+  }
+}
+
+// generic simulator top labels sizing, based on longest one ("Catégorie de produit" ~= 13rem)
+.SimulatorFiedlLabel {
+  @include media-breakpoint-up(md) {
+    flex: 0 0 13rem;
+    width: 13rem;
+  }
+
+  .col-form-label {
+    @include media-breakpoint-down(md) {
+      padding-bottom: 0;
+      padding-top: 0;
+    }
   }
 }
 

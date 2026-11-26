@@ -73,6 +73,7 @@ type alias Config db msg =
     , openSelectPackagingModal : Autocomplete Process -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
     , openSelectProductionItem : Autocomplete ProductionItem -> msg
+    , productWeight : Maybe Mass
     , query : Query
     , removeAssemblyOperation : Index -> msg
     , removeConsumption : Index -> msg
@@ -295,6 +296,7 @@ lifeCycleView ({ impact, query, sector } as config) lifeCycle =
             , docsUrl = config.docsUrl
             , documentationLink = documentationLink config "production"
             , explorerRoute = config.explorerRoute
+            , finishedMass = lifeCycle.productMass
             , floatInputState = config.floatInputState
             , impact = config.impact
             , labels =
@@ -306,6 +308,7 @@ lifeCycleView ({ impact, query, sector } as config) lifeCycle =
             , noOp = config.noOp
             , openItemEditModal = config.openItemEditModal
             , openSelectProductionItem = config.openSelectProductionItem
+            , productWeight = config.productWeight
             , query = config.query
             , removeItem = config.removeItem
             , requirements = requirementsFromConfig config
@@ -1066,35 +1069,39 @@ productCategorySelectorView { onSelect, products, query, sector } =
         text ""
 
     else
-        div [ class "d-flex flex-row align-items-center gap-2 my-3" ]
-            [ label
-                [ Attr.for "product-category"
-                , class "form-label fw-bold text-nowrap"
+        div [ class "row align-items-center gx-2 gy-0 g-md-2 mt-2" ]
+            [ div [ class "SimulatorFiedlLabel col-12 col-md-auto d-flex justify-content-md-end" ]
+                [ label
+                    [ Attr.for "product-category"
+                    , class "col-form-label w-auto text-start fw-bold mb-1 mb-md-0"
+                    ]
+                    [ text "Catégorie de produit" ]
                 ]
-                [ text "Catégorie de produit" ]
-            , select
-                [ Attr.id "product-category"
-                , class "form-select"
-                , onInput <|
-                    \str ->
-                        if String.isEmpty str then
-                            onSelect Nothing
+            , div [ class "col-12 col-md min-w-0" ]
+                [ select
+                    [ Attr.id "product-category"
+                    , class "form-select"
+                    , onInput <|
+                        \str ->
+                            if String.isEmpty str then
+                                onSelect Nothing
 
-                        else
-                            ProductCategory.idFromString str
-                                |> Result.map (Just >> onSelect)
-                                |> Result.withDefault (onSelect Nothing)
+                            else
+                                ProductCategory.idFromString str
+                                    |> Result.map (Just >> onSelect)
+                                    |> Result.withDefault (onSelect Nothing)
+                    ]
+                    (option [ value "", selected (query.product == Nothing) ]
+                        [ text "Autres" ]
+                        :: List.map
+                            (\product ->
+                                option
+                                    [ value (ProductCategory.idToString product.id)
+                                    , selected (query.product == Just product.id)
+                                    ]
+                                    [ text product.label ]
+                            )
+                            sectoredProducts
+                    )
                 ]
-                (option [ value "", selected (query.product == Nothing) ]
-                    [ text "Autres" ]
-                    :: List.map
-                        (\product ->
-                            option
-                                [ value (ProductCategory.idToString product.id)
-                                , selected (query.product == Just product.id)
-                                ]
-                                [ text product.label ]
-                        )
-                        sectoredProducts
-                )
             ]
