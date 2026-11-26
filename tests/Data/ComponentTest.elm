@@ -2975,19 +2975,81 @@ suite =
                                     )
                                 ]
                             , describe "durability validation"
-                                [ it "should accept a durability param when it's enabled by config" <|
-                                    (emptyQuery
-                                        |> Component.updateDurability (Unit.ratio 1.42)
-                                        |> Component.validateQuery { requirements | sector = Sector.Generic Sector.Object }
+                                (let
+                                    validateDurability sector durability =
+                                        emptyQuery
+                                            |> Component.updateDurability (Unit.ratio durability)
+                                            |> Component.validateQuery { requirements | sector = Sector.Generic sector }
+                                 in
+                                 [ it "should accept a durability param enabled by config"
+                                    (validateDurability Sector.Object 1.42
                                         |> Expect.ok
                                     )
-                                , it "should reject a durability param when it's disabled by config" <|
-                                    (emptyQuery
-                                        |> Component.updateDurability (Unit.ratio 1.42)
-                                        |> Component.validateQuery { requirements | sector = Sector.Generic Sector.Food2 }
-                                        |> expectResultErrorContains ("La durabilité n'est pas activée pour le périmètre " ++ Sector.toLabel (Sector.Generic Sector.Food2))
+                                 , it "should reject a durability param disabled by config"
+                                    (validateDurability Sector.Food2 1.42
+                                        |> expectResultErrorContains
+                                            ("La durabilité n'est pas activée pour le périmètre "
+                                                ++ Sector.toLabel (Sector.Generic Sector.Food2)
+                                            )
                                     )
-                                ]
+                                 , it "should accept durability at the default bounds for object"
+                                    (validateDurability Sector.Object 0.5
+                                        |> Expect.ok
+                                    )
+                                 , it "should accept durability at the default upper bound for object"
+                                    (validateDurability Sector.Object 1.5
+                                        |> Expect.ok
+                                    )
+                                 , it "should reject durability below the default bounds for object"
+                                    (validateDurability Sector.Object 0.49
+                                        |> expectResultErrorContains "compris(e) entre 0.5 et 1.5"
+                                    )
+                                 , it "should reject durability above the default bounds for object"
+                                    (validateDurability Sector.Object 1.51
+                                        |> expectResultErrorContains "compris(e) entre 0.5 et 1.5"
+                                    )
+                                 , it "should accept durability at the default bounds for veli"
+                                    (validateDurability Sector.Veli 0.5
+                                        |> Expect.ok
+                                    )
+                                 , it "should accept durability at the default upper bound for veli"
+                                    (validateDurability Sector.Veli 1.5
+                                        |> Expect.ok
+                                    )
+                                 , it "should reject durability below the default bounds for veli"
+                                    (validateDurability Sector.Veli 0.49
+                                        |> expectResultErrorContains "compris(e) entre 0.5 et 1.5"
+                                    )
+                                 , it "should reject durability above the default bounds for veli"
+                                    (validateDurability Sector.Veli 1.51
+                                        |> expectResultErrorContains "compris(e) entre 0.5 et 1.5"
+                                    )
+                                 , it "should accept durability at the apparel bounds"
+                                    (validateDurability Sector.Apparel 0.67
+                                        |> Expect.ok
+                                    )
+                                 , it "should accept durability at the apparel upper bound"
+                                    (validateDurability Sector.Apparel 1.45
+                                        |> Expect.ok
+                                    )
+                                 , it "should reject durability below the apparel bounds"
+                                    (validateDurability Sector.Apparel 0.66
+                                        |> expectResultErrorContains "compris(e) entre 0.67 et 1.45"
+                                    )
+                                 , it "should reject durability above the apparel bounds"
+                                    (validateDurability Sector.Apparel 1.46
+                                        |> expectResultErrorContains "compris(e) entre 0.67 et 1.45"
+                                    )
+                                 , it "should accept durability at the furniture upper bound"
+                                    (validateDurability Sector.Furniture 2.5
+                                        |> Expect.ok
+                                    )
+                                 , it "should reject durability above the furniture bounds"
+                                    (validateDurability Sector.Furniture 2.51
+                                        |> expectResultErrorContains "compris(e) entre 0.5 et 2.5"
+                                    )
+                                 ]
+                                )
                             , describe "process validation"
                                 [ it "should reject a consumption referencing a missing process" <|
                                     ({ emptyQuery

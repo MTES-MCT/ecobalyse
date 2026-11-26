@@ -1545,10 +1545,11 @@ durabilityView componentConfig sector maybeDurability =
         text ""
 
     else
-        -- Note: this is considered a temporary implementation for object and veli simulators,
-        -- things might actually want to be factored out and appropriately typed and handled
-        -- when ongoing discussions around holostic durability are completed.
         let
+            bounds =
+                componentConfig.durability
+                    |> Config.durabilityBounds sector
+
             currentDurability =
                 maybeDurability
                     |> Maybe.withDefault Component.defaultDurability
@@ -1589,20 +1590,10 @@ durabilityView componentConfig sector maybeDurability =
                         , fromString =
                             String.toFloat
                                 >> Result.fromMaybe "Durabilité invalide (un nombre est requis)"
-                                >> Result.andThen
-                                    (\float ->
-                                        if float < 0.5 then
-                                            Err "Durabilité trop faible (minimum: 0.5)"
-
-                                        else if float > 1.5 then
-                                            Err "Durabilité trop élevée (maximum: 1.5)"
-
-                                        else
-                                            Ok float
-                                    )
                                 >> Result.map Unit.ratio
-                        , max = Unit.ratio 1.5
-                        , min = Unit.ratio 0.5
+                                >> Result.andThen (Config.validateDurability bounds)
+                        , max = bounds.max
+                        , min = bounds.min
                         , step = "0.01"
                         , toString = Unit.ratioToFloat >> String.fromFloat
                         , update = UpdateDurability
