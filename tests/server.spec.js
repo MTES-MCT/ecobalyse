@@ -922,20 +922,23 @@ describe("API", () => {
         const defaultDurability = await makePostRequest("/api/object/simulator", query);
         expectStatus(defaultDurability, 200);
 
-        const doubledDurability = await makePostRequest("/api/object/simulator", {
+        const increasedDurability = await makePostRequest("/api/object/simulator", {
           ...query,
-          durability: 2,
+          durability: 1.5,
         });
-        expectStatus(doubledDurability, 200);
+        expectStatus(increasedDurability, 200);
 
-        // note: doubled durability = half the impacts
-        expectMostlyEqual(doubledDurability.body.score.ecs * 2, defaultDurability.body.score.ecs);
+        // note: 1.5 durability = impacts / 1.5
         expectMostlyEqual(
-          doubledDurability.body.composition[0].score.ecs * 2,
+          increasedDurability.body.score.ecs * 1.5,
+          defaultDurability.body.score.ecs,
+        );
+        expectMostlyEqual(
+          increasedDurability.body.composition[0].score.ecs * 1.5,
           defaultDurability.body.composition[0].score.ecs,
         );
         expectMostlyEqual(
-          doubledDurability.body.subscores.climate * 2,
+          increasedDurability.body.subscores.climate * 1.5,
           defaultDurability.body.subscores.climate,
         );
       });
