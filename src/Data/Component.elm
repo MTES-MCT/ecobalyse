@@ -3539,20 +3539,18 @@ validateDistribution { db, sector } maybeProcessId =
 
 validateDurability : Requirements db -> Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)
 validateDurability { config, sector } maybeDurability =
-    case ( config.durability |> Config.sectorEnabled sector, maybeDurability ) of
-        ( False, Just _ ) ->
-            Err <| "La durabilité n'est pas activée pour le périmètre " ++ Sector.toLabel sector
+    case maybeDurability of
+        Just durability ->
+            if config.durability |> Config.sectorEnabled sector then
+                durability
+                    |> Config.validateDurability (Config.durabilityBounds sector config.durability)
+                    |> Result.map Just
 
-        ( False, Nothing ) ->
+            else
+                Err <| "La durabilité n'est pas activée pour le périmètre " ++ Sector.toLabel sector
+
+        Nothing ->
             Ok Nothing
-
-        ( True, Nothing ) ->
-            Ok Nothing
-
-        ( True, Just durability ) ->
-            durability
-                |> Config.validateDurability (Config.durabilityBounds sector config.durability)
-                |> Result.map Just
 
 
 validateItem : List Component -> Item -> Result String Item
