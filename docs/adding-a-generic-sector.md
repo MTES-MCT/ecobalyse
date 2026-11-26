@@ -401,7 +401,7 @@ Dans [`public/data/components/config.json`](../public/data/components/config.jso
 
 - `defaultExamples` : UUID d'un exemple du secteur
 - `durability.enabled` : activation du module durabilité
-- `durability.bounds.scoped` : bornes min et max du coefficient de durabilité propre au secteur (par défaut, `durability.bounds.default` est appliqué)
+- `durability.bounds.sectored` : bornes min et max du coefficient de durabilité propre au secteur (par défaut, `durability.bounds.default` est appliqué)
 - `endOfLife.enabled` : activation de l'étape de fin de vie
 - `endOfLife.scopeCollectionRates` : définition des taux de collecte pour recyclage (si la fin de vie est activée)
 - `distribution.defaultProcess` : procédé de distribution par défaut, seulement si le nouveau secteur en dispose

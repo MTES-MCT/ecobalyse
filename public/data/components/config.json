@@ -36,7 +36,7 @@
   "durability": {
     "bounds": {
       "default": { "max": 1.5, "min": 0.5 },
-      "scoped": { "apparel": { "max": 1.45, "min": 0.67 }, "furniture": { "max": 2.5, "min": 0.5 } }
+      "sectored": { "apparel": { "max": 1.45, "min": 0.67 }, "furniture": { "max": 2.5, "min": 0.5 } }
     },
     "enabled": { "apparel": true, "food2": false, "furniture": true, "object": true, "veli": true }
   },

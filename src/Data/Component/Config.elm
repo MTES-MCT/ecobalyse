@@ -165,7 +165,7 @@ decodeDurabilityBoundsConfig : Decoder DurabilityBoundsConfig
 decodeDurabilityBoundsConfig =
     Decode.succeed DurabilityBoundsConfig
         |> Decode.required "default" decodeDurabilityBounds
-        |> Decode.required "scoped" (Sector.decodeDict decodeDurabilityBounds)
+        |> Decode.required "sectored" (Sector.decodeDict decodeDurabilityBounds)
 
 
 decodeDurabilityConfig : Decoder DurabilityConfig
