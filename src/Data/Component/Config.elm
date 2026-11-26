@@ -150,7 +150,7 @@ decodeDocLinksConfig : Decoder DocLinksConfig
 decodeDocLinksConfig =
     Decode.succeed DocLinksConfig
         |> Decode.required "default" (Decode.dict Decode.string)
-        |> Decode.required "scoped" (Sector.decodeDict (Decode.dict Decode.string))
+        |> Decode.required "sectored" (Sector.decodeDict (Decode.dict Decode.string))
 
 
 decodeDurabilityBounds : Decoder Bounds
