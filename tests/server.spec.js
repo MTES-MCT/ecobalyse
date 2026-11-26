@@ -942,6 +942,17 @@ describe("API", () => {
           defaultDurability.body.subscores.climate,
         );
       });
+
+      it("should reject a durability coefficient outside configured sector bounds", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/object/simulator", {
+            components: [{ id: "c5d86519-e56a-4ad7-aada-d4f7fffd5628", quantity: 1 }],
+            durability: 2,
+          }),
+          "general",
+          /coefficient de durabilité(.*)doit être compris\(e\) entre 0\.5 et 1\.5/,
+        );
+      });
     });
 
     describe("unit mass", () => {
