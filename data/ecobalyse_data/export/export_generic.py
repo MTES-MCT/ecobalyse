@@ -11,7 +11,10 @@ from common.infer_metadata import (
     infer_variant_material_type,
 )
 from ecobalyse_data.bw.search import cached_search_one
-from ecobalyse_data.export.complements import compute_forest_complement
+from ecobalyse_data.export.complements import (
+    compute_forest_complement,
+    compute_microfibers_complement,
+)
 from ecobalyse_data.export.land_occupation import compute_land_occupation_batch
 from ecobalyse_data.export.utils import get_metadata_for_scope
 from ecobalyse_data.logging import logger
@@ -32,6 +35,7 @@ def _build_variant_metadata(
     """Build the metadata block for a variant, omitting cross-domain nulls.
 
     - Wood variants get `forestManagement` and `complements.forest` only.
+    - Textile fiber variants (with an `origin`) get `complements.microfibers`.
     - Food variants get `ingredient` plus ECS keys in `complements`. Vegetal
       variants keep `permanentPasture` as null (within-domain
       structural nulls, mirroring ingredients.json).
@@ -49,6 +53,12 @@ def _build_variant_metadata(
         )
 
     try:
+        microfibers = compute_microfibers_complement(
+            variant.get("origin"), activity.get("unit")
+        )
+        if microfibers is not None:
+            complements["microfibers"] = microfibers
+
         metadata["defaultOrigin"] = infer_default_origin(
             food_variant.get("defaultOrigin") if food_variant is not None else None,
             activity.get("categories", []),

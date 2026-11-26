@@ -43,6 +43,54 @@ def compute_forest_complement(
     return land_occupation * coefficient
 
 
+# Microfibers Coefficients
+# ------------------------
+# Formula: microfibersComplement = coefficient[origin] * MICROFIBERS_RAW_MATERIAL_RATIO
+# (in Pts per kg of fiber)
+#
+# Same values as the textile simulator (`toMicrofibersComplement` in
+# src/Data/Textile/Material/Origin.elm), see
+# https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/microfibres
+#
+# Positive value -> malus (same sign convention as impacts).
+
+MICROFIBERS_COEFFICIENTS = {
+    "ArtificialFromOrganic": 330,
+    "NaturalFromAnimal": 390,
+    "NaturalFromVegetal": 250,
+    "Synthetic": 820,
+}
+
+# The textile simulator applies the complement to the mass of the final product,
+# while the generic engine multiplies process complements by the quantity of raw
+# material, which is ~30% higher because of losses (spinning, weaving/knitting,
+# making). Complements are therefore reduced by 30%, see
+# https://github.com/MTES-MCT/ecobalyse/issues/2236
+MICROFIBERS_RAW_MATERIAL_RATIO = 0.7
+
+
+def compute_microfibers_complement(
+    origin: str | None, unit: str | None
+) -> float | None:
+    """Compute microfibers complement for 1 unit of a fiber material process.
+
+    Returns coefficient(origin) * MICROFIBERS_RAW_MATERIAL_RATIO, or None if the
+    process has no textile `origin`.
+    """
+    if origin is None:
+        return None
+
+    if origin not in MICROFIBERS_COEFFICIENTS:
+        raise ValueError(f"Unknown textile origin for microfibers: {origin!r}")
+
+    if unit != "kg":
+        raise ValueError(
+            f"Microfibers complement expects a process in kg, got {unit!r}"
+        )
+
+    return MICROFIBERS_COEFFICIENTS[origin] * MICROFIBERS_RAW_MATERIAL_RATIO
+
+
 # Food Complements Coefficients
 # -----------------------------
 # Each coefficient is calibrated so that the final complement is a fixed
