@@ -1,12 +1,15 @@
 module Data.Component.Config exposing
-    ( Config
+    ( Bounds
+    , Config
     , EndOfLifeConfig
     , EndOfLifeStrategies
     , EndOfLifeStrategiesConfig
     , EndOfLifeStrategy
+    , durabilityBounds
     , getDocLink
     , parse
     , sectorEnabled
+    , validateDurability
     )
 
 import Data.Common.DecodeUtils as DU
@@ -17,7 +20,9 @@ import Data.Process.Category as Category exposing (MaterialDict)
 import Data.Sector as Sector exposing (Sector)
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
+import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
+import Data.Validation as Validation
 import Dict exposing (Dict)
 import Dict.Any as AnyDict
 import Json.Decode as Decode exposing (Decoder)
@@ -57,8 +62,22 @@ type alias DocLinksConfig =
     }
 
 
+type alias Bounds =
+    { min : Unit.Ratio
+    , max : Unit.Ratio
+    }
+
+
+type alias DurabilityBoundsConfig =
+    { default : Bounds
+    , sectored : Sector.Dict Bounds
+    }
+
+
 type alias DurabilityConfig =
-    { enabled : Sector.Dict Bool }
+    { bounds : DurabilityBoundsConfig
+    , enabled : Sector.Dict Bool
+    }
 
 
 type alias EndOfLifeConfig =
@@ -134,9 +153,25 @@ decodeDocLinksConfig =
         |> Decode.required "scoped" (Sector.decodeDict (Decode.dict Decode.string))
 
 
+decodeDurabilityBounds : Decoder Bounds
+decodeDurabilityBounds =
+    Decode.succeed Bounds
+        |> Decode.required "min" Unit.decodeRatio
+        |> Decode.required "max" Unit.decodeRatio
+        |> Decode.andThen validateDurabilityBounds
+
+
+decodeDurabilityBoundsConfig : Decoder DurabilityBoundsConfig
+decodeDurabilityBoundsConfig =
+    Decode.succeed DurabilityBoundsConfig
+        |> Decode.required "default" decodeDurabilityBounds
+        |> Decode.required "scoped" (Sector.decodeDict decodeDurabilityBounds)
+
+
 decodeDurabilityConfig : Decoder DurabilityConfig
 decodeDurabilityConfig =
     Decode.succeed DurabilityConfig
+        |> Decode.required "bounds" decodeDurabilityBoundsConfig
         |> Decode.required "enabled" (Sector.decodeDict Decode.bool)
 
 
@@ -217,6 +252,13 @@ decodeUseConfig processes =
         |> Decode.requiredAt [ "defaultProcesses", "heat" ] (Process.decodeFromId processes)
 
 
+durabilityBounds : Sector -> DurabilityConfig -> Bounds
+durabilityBounds sector { bounds } =
+    bounds.sectored
+        |> Sector.dictGet sector
+        |> Maybe.withDefault bounds.default
+
+
 getDocLink : Config -> Sector -> String -> Maybe String
 getDocLink { docLinks } sector key =
     case docLinks.sectored |> Sector.dictGet sector |> Maybe.andThen (Dict.get key) of
@@ -238,3 +280,32 @@ sectorEnabled sector =
     .enabled
         >> Sector.dictGet sector
         >> Maybe.withDefault False
+
+
+validateDurability : Bounds -> Unit.Ratio -> Result String Unit.Ratio
+validateDurability bounds =
+    Validation.validateWithin "Le coefficient de durabilité"
+        { max = bounds.max
+        , min = bounds.min
+        , toNumber = Unit.ratioToFloat
+        , toString = Unit.ratioToFloat >> String.fromFloat
+        }
+
+
+validateDurabilityBounds : Bounds -> Decoder Bounds
+validateDurabilityBounds ({ min, max } as bounds) =
+    let
+        minFloat =
+            Unit.ratioToFloat min
+
+        maxFloat =
+            Unit.ratioToFloat max
+    in
+    if minFloat <= 0 then
+        Decode.fail "La borne minimale de durabilité doit être strictement positive"
+
+    else if minFloat >= maxFloat then
+        Decode.fail "La borne minimale de durabilité doit être strictement inférieure à la borne maximale"
+
+    else
+        Decode.succeed bounds
