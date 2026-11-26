@@ -92,15 +92,17 @@ kilograms mass =
 roundedMassShare : Int -> Mass -> Mass -> Float
 roundedMassShare decimals source target =
     let
-        ( sourceKg, targetKg ) =
-            ( source |> Mass.inKilograms |> roundTo (decimals + 1)
-            , target |> Mass.inKilograms |> roundTo (decimals + 1)
-            )
+        targetKg =
+            target |> Mass.inKilograms |> roundTo (decimals + 1)
     in
     if targetKg == 0 then
         0
 
     else
+        let
+            sourceKg =
+                source |> Mass.inKilograms |> roundTo (decimals + 1)
+        in
         sourceKg / targetKg * 100 |> roundTo decimals
 
 
