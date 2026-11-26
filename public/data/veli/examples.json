@@ -2092,7 +2092,7 @@
   {
     "category": "Pneu",
     "id": "fc3bf2f9-7a94-4f4f-8100-8f286aea3a70",
-    "name": "Pneu de voiture, 30 000 km",
+    "name": "Pneu de voiture budget, 30 000 km",
     "query": {
       "assembly": { "country": "FR" },
       "components": [
@@ -2115,7 +2115,7 @@
   {
     "category": "Pneu",
     "id": "fc3bf2f9-7a94-4f4f-8100-8f286aea3a71",
-    "name": "Pneu de voiture, 60 000 km",
+    "name": "Pneu de voiture premium, 60 000 km",
     "query": {
       "assembly": { "country": "FR" },
       "components": [
@@ -2173,55 +2173,7 @@
       "assembly": { "country": "FR" },
       "components": [
         {
-          "elements": [
-            {
-              "amount": 154,
-              "material": { "country": "FR", "id": "a1f6f8a2-5398-4b32-a3d6-fc0d88ca7a28" },
-              "transforms": [
-                { "country": "FR", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9" }
-              ]
-            },
-            {
-              "amount": 32,
-              "material": { "country": "FR", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-              "transforms": [
-                { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
-              ]
-            },
-            {
-              "amount": 3.6,
-              "material": { "country": "FR", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
-              "transforms": [
-                { "country": "FR", "id": "d077f06e-4ae9-48b7-8019-64523e577b95" }
-              ]
-            },
-            {
-              "amount": 53,
-              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-              "transforms": [
-                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" }
-              ]
-            },
-            {
-              "amount": 20,
-              "material": { "country": "FR", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-              "transforms": [
-                { "country": "FR", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
-              ]
-            },
-            {
-              "amount": 20,
-              "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-              "transforms": [
-                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 4.7,
-              "material": { "country": "FR", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
-            }
-          ],
-          "name": "Batterie Li-ion 52kWh, NMC811, France",
+          "id": "52e25580-d83a-4de6-9632-da4303d5211d",
           "quantity": 1
         }
       ],
@@ -2233,6 +2185,57 @@
   {
     "category": "Batterie",
     "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767b",
+    "name": "Batterie de 52kWh, NMC811, Chine",
+    "query": {
+      "assembly": { "country": "CN" },
+      "components": [
+        {
+          "id": "7fd8dd70-2807-420f-8637-a1f2b669d0d7",
+          "quantity": 1
+        }
+      ],
+      "durability": 0.56,
+      "recyclable": true
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "Batterie",
+    "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767c",
+    "name": "Batterie de 52kWh, LFP, Chine",
+    "query": {
+      "assembly": { "country": "CN" },
+      "components": [
+        {
+          "id": "652ffb28-2ae1-45a1-a8bf-4a54109ef896",
+          "quantity": 1
+        }
+      ],
+      "durability": 1.5,
+      "recyclable": true
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "Batterie",
+    "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767d",
+    "name": "Batterie de 52kWh, NMC622, Chine",
+    "query": {
+      "assembly": { "country": "CN" },
+      "components": [
+        {
+          "id": "a1cb65d8-d17e-4381-b42f-b82a23feef6a",
+          "quantity": 1
+        }
+      ],
+      "durability": 0.56,
+      "recyclable": true
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "Batterie",
+    "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767m",
     "name": "Batterie de 1.2kWh, NMC811, Chine",
     "query": {
       "assembly": { "country": "CN" },
