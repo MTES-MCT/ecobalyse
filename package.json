@@ -93,7 +93,7 @@
     "elm": "^0.19.1-6",
     "elm-format": "^0.8.8",
     "elm-review": "^2.13.5",
-    "elm-test": "0.19.1-revision17",
+    "elm-test": "0.19.1-revision18",
     "highcharts": "13.1.1",
     "jest": "^30.5.2",
     "maildev": "^3.0.0",
