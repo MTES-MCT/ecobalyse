@@ -400,7 +400,9 @@ La fonction `sectorsMenuView` du module [`Page.Explore`](../src/Page/Explore.elm
 Dans [`public/data/components/config.json`](../public/data/components/config.json), ajouter la clé `flowers` nécessaire aux sections du type [`Data.Component.Config`](../src/Data/Component/Config.elm) :
 
 - `defaultExamples` : UUID d'un exemple du secteur
+- `docLinks.sectored`: links to specific sectored documentations (supported topics: `assembly`, `distribution`, `durability`, `eol`, `packaging`, `production`, `transport`, `use`)
 - `durability.enabled` : activation du module durabilité
+- `durability.bounds.sectored` : bornes min et max du coefficient de durabilité propre au secteur (par défaut, `durability.bounds.default` est appliqué)
 - `endOfLife.enabled` : activation de l'étape de fin de vie
 - `endOfLife.scopeCollectionRates` : définition des taux de collecte pour recyclage (si la fin de vie est activée)
 - `distribution.defaultProcess` : procédé de distribution par défaut, seulement si le nouveau secteur en dispose
