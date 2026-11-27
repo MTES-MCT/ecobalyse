@@ -22,7 +22,7 @@ Cet espace a deux vocation :
 
 ### 📅 Agenda et jalons à venir
 
-<table><thead><tr><th>Date</th><th>Événement  (avec liens)</th><th width="205.6666259765625">Type</th></tr></thead><tbody><tr><td>Jeudi 26/11/2026</td><td><a href="https://events.teams.microsoft.com/event/0de6a065-059d-4d1b-9364-e593d78bb4b6@cb6c2492-4a85-4b15-85a1-ed94d47e5849">Webinaire méthode linge de maison et accessoires</a></td><td>Atelier / Webinaire</td></tr></tbody></table>
+<table><thead><tr><th>Date</th><th>Événement</th><th width="205.6666259765625">Lien</th></tr></thead><tbody><tr><td>[26/11/2026 - 26/01/2027]</td><td><mark style="color:$danger;"><strong>CONSULTATION</strong></mark> méthode linge de maison et accessoires</td><td><a href="https://framaforms.org/cout-environnemental-textile-consultation-methode-linge-de-maison-et-accessoires-1795772102">Support de consultation</a></td></tr><tr><td>XX/02/2027</td><td>Point d'actualité - méthode textile</td><td>-</td></tr></tbody></table>
 
 <details>
 
@@ -30,7 +30,7 @@ Cet espace a deux vocation :
 
 
 
-<table><thead><tr><th width="231">Date</th><th width="286.4444580078125">Événement</th><th>Lien</th></tr></thead><tbody><tr><td>Vendredi 06/11/2026</td><td>Présentation et temps d'échange -  Feuille de route</td><td><a href="https://ademecloud.sharepoint.com/:p:/s/C-GroupeAffichageEnvironnemental/IQAz0B9NKdnuRrzXQj3o7VdDAUU2UkOKKpHbB2TgBYXgugM?e=Ckw2Dp">Support</a><br><a href="https://ademecloud.sharepoint.com/:v:/s/C-GroupeAffichageEnvironnemental/IQBuNLCzhyv4RYoisW0q2LjlAcd6VP6Z38dulcIh0czS8sc?e=XMrUUZ">Replay</a></td></tr><tr><td>Mardi 29/09/2026</td><td>Atelier méthode - Accessoires et lingerie</td><td><a href="https://ademecloud.sharepoint.com/:p:/s/C-GroupeAffichageEnvironnemental/IQBtHZqjhnepSYnmZJ31oBA9AShofHI-OtLmYvugwnq0syg?e=fMvD6o">Support</a></td></tr><tr><td>Lundi 21/09/2026<br></td><td>Atelier méthode - Linge de maison</td><td><a href="https://ademecloud.sharepoint.com/:p:/s/C-GroupeAffichageEnvironnemental/IQA4IKmnGJ4UQ6sYUjUl_HiOAX6MNvreZpPmWZo4c05gtZI?e=Zt3jUn">Support</a></td></tr></tbody></table>
+<table><thead><tr><th width="231">Date</th><th width="274.22216796875">Événement</th><th>Lien</th></tr></thead><tbody><tr><td>Jeudi 26/11/2026</td><td>Webinaire méthode linge de maison et accessoires</td><td><p><a href="https://framaforms.org/cout-environnemental-textile-consultation-methode-linge-de-maison-et-accessoires-1795772102">Consultation en cours (jusqu'au 26/01/27)</a></p><p><a href="https://ademecloud.sharepoint.com/:x:/s/C-GroupeAffichageEnvironnemental/IQDR9RX65T5HRIHvaZgj8zOBAUmULXSIQdxZJxxjBMx0vjw?e=nr2mZw">Replay</a></p><p><a href="https://ademecloud.sharepoint.com/:p:/s/C-GroupeAffichageEnvironnemental/IQA28wmAhYHyQouj10Voqpq2AZVGOh7l2Kc9KGevkPRe0W0?e=8TPmcw">Support 1</a><br><a href="https://ademecloud.sharepoint.com/:x:/s/C-GroupeAffichageEnvironnemental/IQDR9RX65T5HRIHvaZgj8zOBAUmULXSIQdxZJxxjBMx0vjw?e=nr2mZw">Support 2</a></p></td></tr><tr><td>Vendredi 06/11/2026</td><td>Présentation et temps d'échange -  Feuille de route</td><td><a href="https://ademecloud.sharepoint.com/:p:/s/C-GroupeAffichageEnvironnemental/IQAz0B9NKdnuRrzXQj3o7VdDAUU2UkOKKpHbB2TgBYXgugM?e=Ckw2Dp">Support</a><br><a href="https://ademecloud.sharepoint.com/:v:/s/C-GroupeAffichageEnvironnemental/IQBuNLCzhyv4RYoisW0q2LjlAcd6VP6Z38dulcIh0czS8sc?e=XMrUUZ">Replay</a></td></tr><tr><td>Mardi 29/09/2026</td><td>Atelier méthode - Accessoires et lingerie</td><td><a href="https://ademecloud.sharepoint.com/:p:/s/C-GroupeAffichageEnvironnemental/IQBtHZqjhnepSYnmZJ31oBA9AShofHI-OtLmYvugwnq0syg?e=fMvD6o">Support</a></td></tr><tr><td>Lundi 21/09/2026<br></td><td>Atelier méthode - Linge de maison</td><td><a href="https://ademecloud.sharepoint.com/:p:/s/C-GroupeAffichageEnvironnemental/IQA4IKmnGJ4UQ6sYUjUl_HiOAX6MNvreZpPmWZo4c05gtZI?e=Zt3jUn">Support</a></td></tr></tbody></table>
 
 </details>
 
@@ -134,10 +134,14 @@ Données concernées :&#x20;
 
 <summary>📁 Linge de maison</summary>
 
-| **Statut** | 🟡 Proposition de méthode lors du prochain webinaire |
-| ---------- | ---------------------------------------------------- |
+| **Statut** | 🟡 Consultation en cours jusqu'au 26/01/2026 |
+| ---------- | -------------------------------------------- |
 
-Plusieurs webinaires ont déjà été organisés (cf calendrier). Une première proposition de méthode simplifiée, reposant sur les principes du modèle réglementaire actuel, sera présentée le 26 novembre. Les décisions restant à prendre portent sur : la faisabilité technique d'intégration dans Ecobalyse, les hypothèses de modélisation et la prise en compte de la durabilité.&#x20;
+Plusieurs webinaires ont déjà été organisés (cf calendrier). Une proposition de méthode simplifiée, reposant sur les principes du modèle réglementaire actuel, a été présentée le 26 novembre. Une phase de consultation est actuellement en cours, ouverte jusqu'au 26/01/2027.
+
+* [Lien du support de consultation](https://framaforms.org/cout-environnemental-textile-consultation-methode-linge-de-maison-et-accessoires-1795772102)
+* [Lien du support de présentation du webinaire du 26/11/26](https://ademecloud.sharepoint.com/:p:/s/C-GroupeAffichageEnvironnemental/IQA28wmAhYHyQouj10Voqpq2AZVGOh7l2Kc9KGevkPRe0W0?e=8TPmcw)
+* [Lien des hypothèses de modélisation](https://ademecloud.sharepoint.com/:x:/s/C-GroupeAffichageEnvironnemental/IQDR9RX65T5HRIHvaZgj8zOBAUmULXSIQdxZJxxjBMx0vjw?e=nr2mZw)
 
 </details>
 
@@ -147,11 +151,15 @@ Plusieurs webinaires ont déjà été organisés (cf calendrier). Une première 
 
 <summary>📁 Accessoires textiles</summary>
 
-|            |                                                      |
-| ---------- | ---------------------------------------------------- |
-| **Statut** | 🟡 Proposition de méthode lors du prochain webinaire |
+|            |                                              |
+| ---------- | -------------------------------------------- |
+| **Statut** | 🟡 Consultation en cours jusqu'au 26/01/2026 |
 
-Même état d'avancement que le linge de maison. L'hypothèse privilégiée est une intégration sur le modèle actuel, avec une modélisation simplifiée.
+Plusieurs webinaires ont déjà été organisés (cf calendrier). Une proposition de méthode simplifiée, reposant sur les principes du modèle réglementaire actuel, a été présentée le 26 novembre. Une phase de consultation est actuellement en cours, ouverte jusqu'au 26/01/2027.
+
+* [Lien du support de consultation](https://framaforms.org/cout-environnemental-textile-consultation-methode-linge-de-maison-et-accessoires-1795772102)
+* [Lien du support de présentation du webinaire du 26/11/26](https://ademecloud.sharepoint.com/:p:/s/C-GroupeAffichageEnvironnemental/IQA28wmAhYHyQouj10Voqpq2AZVGOh7l2Kc9KGevkPRe0W0?e=8TPmcw)
+* [Lien des hypothèses de modélisation](https://ademecloud.sharepoint.com/:x:/s/C-GroupeAffichageEnvironnemental/IQDR9RX65T5HRIHvaZgj8zOBAUmULXSIQdxZJxxjBMx0vjw?e=nr2mZw)
 
 </details>
 
