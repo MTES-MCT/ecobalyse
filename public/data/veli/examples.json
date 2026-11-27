@@ -36,14 +36,15 @@
         },
         { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 1 },
         {
+          "quantity": 1,
+          "unitMass": 5,
+          "name": "Moteur électrique 1kW",
           "elements": [
             {
-              "amount": 5,
+              "amount": 1,
               "material": { "country": "FR", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
-          ],
-          "id": "059f0f35-099d-4305-8a60-1666222dadb2",
-          "quantity": 1
+          ]
         },
         {
           "elements": [
@@ -202,14 +203,15 @@
           "quantity": 1
         },
         {
+          "quantity": 1,
+          "unitMass": 80,
+          "name": "Moteur",
           "elements": [
             {
-              "amount": 80,
+              "amount": 1,
               "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
-          ],
-          "name": "Moteur",
-          "quantity": 1
+          ]
         },
         {
           "elements": [
@@ -425,14 +427,15 @@
         },
         { "id": "3b15918f-d21c-4251-96a8-548ac8444a04", "quantity": 1 },
         {
+          "quantity": 1,
+          "unitMass": 50,
+          "name": "Moteur électrique 15kW",
           "elements": [
             {
-              "amount": 50,
-              "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+              "amount": 1,
+              "material": { "country": "FR", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
-          ],
-          "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
-          "quantity": 1
+          ]
         },
         {
           "elements": [
@@ -565,14 +568,15 @@
         },
         { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 1 },
         {
+          "quantity": 1,
+          "unitMass": 5,
+          "name": "Moteur électrique 1kW",
           "elements": [
             {
-              "amount": 5,
+              "amount": 1,
               "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
-          ],
-          "id": "059f0f35-099d-4305-8a60-1666222dadb2",
-          "quantity": 1
+          ]
         },
         {
           "elements": [
@@ -777,14 +781,15 @@
           "quantity": 2
         },
         {
+          "quantity": 1,
+          "unitMass": 20,
+          "name": "Moteur électrique 6kW",
           "elements": [
             {
-              "amount": 20,
+              "amount": 1,
               "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
-          ],
-          "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
-          "quantity": 1
+          ]
         },
         {
           "elements": [
@@ -868,15 +873,15 @@
         },
         { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 2 },
         {
+          "quantity": 1,
+          "unitMass": 8,
+          "name": "Moteur électrique",
           "elements": [
             {
-              "amount": 8,
+              "amount": 1,
               "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
-          ],
-          "id": "059f0f35-099d-4305-8a60-1666222dadb2",
-          "name": "Moteur électrique",
-          "quantity": 1
+          ]
         },
         {
           "elements": [
@@ -1009,14 +1014,15 @@
         },
         { "id": "57df64a3-278e-4e93-b836-9ba44b880fb5", "quantity": 1 },
         {
+          "quantity": 1,
+          "unitMass": 50,
+          "name": "Moteur électrique 15kW",
           "elements": [
             {
-              "amount": 50,
+              "amount": 1,
               "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
-          ],
-          "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
-          "quantity": 1
+          ]
         },
         {
           "elements": [
@@ -1657,14 +1663,15 @@
         },
         { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 2 },
         {
+          "quantity": 1,
+          "unitMass": 20,
+          "name": "Moteur électrique 6kW",
           "elements": [
             {
-              "amount": 20,
+              "amount": 1,
               "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
-          ],
-          "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
-          "quantity": 1
+          ]
         },
         {
           "elements": [
@@ -1907,15 +1914,15 @@
           "quantity": 2
         },
         {
+          "quantity": 1,
+          "unitMass": 8,
+          "name": "Moteur électrique",
           "elements": [
             {
-              "amount": 8,
+              "amount": 1,
               "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
-          ],
-          "id": "059f0f35-099d-4305-8a60-1666222dadb2",
-          "name": "Moteur électrique",
-          "quantity": 1
+          ]
         },
         {
           "elements": [
@@ -2235,7 +2242,7 @@
   },
   {
     "category": "Batterie",
-    "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767m",
+    "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767e",
     "name": "Batterie de 1.2kWh, NMC811, Chine",
     "query": {
       "assembly": { "country": "CN" },
