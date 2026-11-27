@@ -1311,41 +1311,22 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Regroupe l'ensemble des composants non détaillés, pour un véhicule de 100kg environ",
+    "comment": "Composition moyenne pour l'ensemble des composants non détaillés",
     "elements": [
       {
-        "amount": 4.0,
+        "amount": 0.4,
         "material": "30212fbf-5912-40eb-b2ab-87837361c462",
         "transforms": ["981e74ea-ef7d-40d1-b25e-c5534446474e", "7319ac9c-5796-412f-a1eb-58e01afa7708"]
       },
       {
-        "amount": 4.0,
+        "amount": 0.4,
         "material": "c5295f47-0307-48a6-8552-3705063af767",
         "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
       },
-      { "amount": 1.0, "material": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+      { "amount": 0.1, "material": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
     ],
     "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
-    "name": "[Composants] Composants non détaillés - veli actif",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Regroupe l'ensemble des composants non détaillés, pour un véhicule de 400kg environ et roulant à 45 ou 90km/h",
-    "elements": [
-      {
-        "amount": 16.0,
-        "material": "30212fbf-5912-40eb-b2ab-87837361c462",
-        "transforms": ["981e74ea-ef7d-40d1-b25e-c5534446474e", "7319ac9c-5796-412f-a1eb-58e01afa7708"]
-      },
-      {
-        "amount": 16.0,
-        "material": "c5295f47-0307-48a6-8552-3705063af767",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      },
-      { "amount": 4.0, "material": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
-    ],
-    "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
-    "name": "[Composants] Composants non détaillés - veli lourd",
+    "name": "Composants non détaillés",
     "scopes": ["veli"]
   },
   {
