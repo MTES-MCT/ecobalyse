@@ -1755,11 +1755,11 @@
   {
     "category": "Batterie",
     "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767c",
-    "name": "Batterie de 52kWh, LFP - Chine",
+    "name": "Batterie de 52kWh, LFP - Chine / UPDATE COMPONENT ID",
     "query": {
       "assembly": { "country": "CN" },
       "components": [
-        { "id": "652ffb28-2ae1-45a1-a8bf-4a54109ef896", "quantity": 1 }
+        { "id": "7fd8dd70-2807-420f-8637-a1f2b669d0d7", "quantity": 1 }
       ],
       "durability": 1.5,
       "recyclable": true
@@ -1769,11 +1769,11 @@
   {
     "category": "Batterie",
     "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767d",
-    "name": "Batterie de 52kWh, NMC622 - Chine",
+    "name": "Batterie de 52kWh, NMC622 - Chine / UPDATE COMPONENT ID",
     "query": {
       "assembly": { "country": "CN" },
       "components": [
-        { "id": "a1cb65d8-d17e-4381-b42f-b82a23feef6a", "quantity": 1 }
+        { "id": "7fd8dd70-2807-420f-8637-a1f2b669d0d7", "quantity": 1 }
       ],
       "durability": 0.56,
       "recyclable": true
