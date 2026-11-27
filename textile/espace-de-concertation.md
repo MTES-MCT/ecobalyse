@@ -22,7 +22,7 @@ Cet espace a deux vocation :
 
 ### 📅 Agenda et jalons à venir
 
-<table><thead><tr><th>Date</th><th>Événement</th><th width="205.6666259765625">Lien</th></tr></thead><tbody><tr><td>[26/11/2026 - 26/01/2027]</td><td><mark style="color:$danger;"><strong>CONSULTATION</strong></mark> méthode linge de maison et accessoires</td><td><a href="https://framaforms.org/cout-environnemental-textile-consultation-methode-linge-de-maison-et-accessoires-1795772102">Support de consultation</a></td></tr><tr><td>XX/02/2027</td><td>Point d'actualité - méthode textile</td><td>-</td></tr></tbody></table>
+<table><thead><tr><th>Date</th><th>Événement</th><th width="205.6666259765625">Lien</th></tr></thead><tbody><tr><td>[26/11/2026 - 26/01/2027]</td><td><mark style="color:$danger;"><strong>CONSULTATION</strong></mark> méthode linge de maison et accessoires</td><td><a href="https://framaforms.org/cout-environnemental-textile-consultation-methode-linge-de-maison-et-accessoires-1795772102">Support de consultation</a></td></tr><tr><td>04/02/2027  15h-16h</td><td>Point d'actualité - méthode textile</td><td><a href="https://events.teams.microsoft.com/event/1da9d8b5-a6c0-4d3f-b7c7-b3405d589f29@cb6c2492-4a85-4b15-85a1-ed94d47e5849">Inscription</a></td></tr></tbody></table>
 
 <details>
 
