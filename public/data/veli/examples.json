@@ -2,37 +2,53 @@
   {
     "category": "Veli",
     "id": "1fd65352-4574-4800-853c-5623dd9eb40c",
-    "name": "Veli actif, 25km/h max, 2.5kWh/100km, fabrication France",
+    "name": "Veli actif, 25km/h max, 2.5kWh/100km - France",
     "query": {
       "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
+          "id": "2285d4ab-9fc6-4aa1-a2b7-2db38fa4e2d1",
+          "quantity": 1,
+          "unitMass": 50,
+          "name": "Chassis - Acier",
           "elements": [
             {
-              "amount": 50,
-              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "amount": 1,
+              "material": {
+                "country": "REO",
+                "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618"
+              },
               "transforms": [
-                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            {
-              "amount": 5,
-              "material": { "country": "FR", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-              "transforms": [
-                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 0.002,
-              "material": { "country": "FR", "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657" },
-              "transforms": [
-                { "country": "FR", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
+                {
+                  "country": "REO",
+                  "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+                },
+                {
+                  "country": "REO",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                },
+                {
+                  "country": "REO",
+                  "id": "0d8c7dc1-83a8-4459-adb7-184dfa832b86"
+                }
               ]
             }
-          ],
-          "id": "f50ff677-3501-49cb-b69d-e826d4114681",
-          "quantity": 1
+          ]
+        },
+        {
+          "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
+          "quantity": 1,
+          "unitMass": 5,
+          "name": "Chassis - Plastique PP",
+          "elements": [
+            {
+              "amount": 1,
+              "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+              "transforms": [
+                "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+              ]
+            }
+          ]
         },
         { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 1 },
         {
@@ -47,95 +63,111 @@
           ]
         },
         {
+          "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
+          "quantity": 2,
+          "unitMass": 3,
+          "name": "Siège 1 place",
           "elements": [
             {
-              "amount": 0.3,
-              "material": { "country": "FR", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
+              "amount": 0.2,
+              "material": {
+                "country": "FR",
+                "id": "c5295f47-0307-48a6-8552-3705063af767"
+              },
               "transforms": [
-                { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
+                {
+                  "country": "FR",
+                  "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                }
               ]
             },
             {
-              "amount": 0.5,
-              "material": { "country": "FR", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
+              "amount": 0.6,
+              "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
               "transforms": [
-                { "country": "FR", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
+                "ea284007-49a8-4be1-95fc-452ea180285a",
+                "7319ac9c-5796-412f-a1eb-58e01afa7708"
               ]
-            }
-          ],
-          "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
-          "quantity": 4
-        },
-        {
-          "elements": [
-            {
-              "amount": 0.8,
-              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
             },
             {
               "amount": 0.2,
-              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
+              "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0"
             }
-          ],
-          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
-          "quantity": 4
+          ]
         },
         {
+          "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
+          "quantity": 1,
+          "unitMass": 10,
+          "name": "Vitrage (PC)",
           "elements": [
-            {
-              "amount": 0.5,
-              "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-              "transforms": [
-                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 2,
-              "material": { "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-              "transforms": [
-                { "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            { "amount": 0.5, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
-          ],
-          "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
-          "quantity": 2
-        },
-        {
-          "elements": [
-            {
-              "amount": 4,
-              "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-              "transforms": [
-                { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            {
-              "amount": 4,
-              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-              "transforms": [
-                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
             {
               "amount": 1,
-              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+              "material": {
+                "country": "FR",
+                "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56"
+              }
             }
-          ],
-          "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
-          "quantity": 1
+          ]
         },
         {
+          "quantity": 1,
+          "unitMass": 0.8,
+          "name": "Roues, Aluminium",
           "elements": [
             {
-              "amount": 10,
-              "material": { "country": "FR", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
+              "amount": 1,
+              "material": {
+                "country": "FR",
+                "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a"
+              },
+              "transforms": [
+                {
+                  "country": "FR",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "FR",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                }
+              ]
             }
-          ],
-          "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
-          "quantity": 1
+          ]
+        },
+        {
+          "id": "a3a49642-1083-41af-85cb-f47e6770352a",
+          "quantity": 1,
+          "unitMass": 0.8
+        },
+        {
+          "quantity": 1,
+          "unitMass": 0.2,
+          "name": "Caoutchouc synthétique",
+          "elements": [
+            {
+              "amount": 1,
+              "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a"
+            }
+          ]
+        },
+        {
+          "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
+          "quantity": 1,
+          "unitMass": 9,
+          "name": "Composants non détaillés",
+          "elements": [
+            {
+              "amount": 0.4,
+              "material": "30212fbf-5912-40eb-b2ab-87837361c462",
+              "transforms": ["981e74ea-ef7d-40d1-b25e-c5534446474e", "7319ac9c-5796-412f-a1eb-58e01afa7708"]
+            },
+            {
+              "amount": 0.4,
+              "material": "c5295f47-0307-48a6-8552-3705063af767",
+              "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+            },
+            { "amount": 0.1, "material": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+          ]
         }
       ],
       "consumptions": [
@@ -149,7 +181,7 @@
   {
     "category": "Voiture",
     "id": "4582eb3a-e6fd-40e2-9c0c-fd65ac222ea8",
-    "name": "Voiture électrique CatB, 15kWh/100km, fabrication Europe de l'Ouest",
+    "name": "Voiture électrique CatB, 15kWh/100km - Europe de l'Ouest",
     "query": {
       "assembly": { "country": "REO", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
@@ -308,7 +340,7 @@
   {
     "category": "Vélo",
     "id": "45c8f837-45ea-48d8-9de7-e9e58ea81acd",
-    "name": "Vélo à assistance électrique, fabrication France",
+    "name": "Vélo à assistance électrique - France",
     "query": {
       "assembly": { "country": "RAS", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
@@ -400,7 +432,7 @@
   {
     "category": "Veli",
     "id": "48545a07-026b-46ca-8440-4bfaa036cce6",
-    "name": "Veli, 90km/h max, 6kWh/100km, fabrication France",
+    "name": "Veli, 90km/h max, 6kWh/100km - France",
     "query": {
       "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
@@ -531,155 +563,6 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
-    "id": "4da7b5bc-ec65-4b58-99b4-48d87cf8fcb0",
-    "name": "Veli actif, 25km/h max, 2.5kWh/100km, Asie",
-    "query": {
-      "assembly": { "country": "RAS", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
-      "components": [
-        {
-          "elements": [
-            {
-              "amount": 50,
-              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-              "transforms": [
-                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            {
-              "amount": 5,
-              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-              "transforms": [
-                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 0.002,
-              "material": { "country": "RAS", "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657" },
-              "transforms": [
-                { "country": "RAS", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
-              ]
-            }
-          ],
-          "id": "f50ff677-3501-49cb-b69d-e826d4114681",
-          "name": "Chassis-carosserie - veli actif (majorité acier, Asie)",
-          "quantity": 1
-        },
-        { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 1 },
-        {
-          "quantity": 1,
-          "unitMass": 5,
-          "name": "Moteur électrique 1kW",
-          "elements": [
-            {
-              "amount": 1,
-              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
-            }
-          ]
-        },
-        {
-          "elements": [
-            {
-              "amount": 0.3,
-              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-              "transforms": [
-                { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            {
-              "amount": 0.5,
-              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-              "transforms": [
-                { "country": "RAS", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
-              ]
-            }
-          ],
-          "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
-          "quantity": 4
-        },
-        {
-          "elements": [
-            {
-              "amount": 0.8,
-              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
-            },
-            {
-              "amount": 0.2,
-              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
-            }
-          ],
-          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
-          "quantity": 4
-        },
-        {
-          "elements": [
-            {
-              "amount": 0.5,
-              "material": { "country": "RAS", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-              "transforms": [
-                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 2,
-              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-              "transforms": [
-                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            { "amount": 0.5, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
-          ],
-          "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
-          "quantity": 2
-        },
-        {
-          "elements": [
-            {
-              "amount": 4,
-              "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-              "transforms": [
-                { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            {
-              "amount": 4,
-              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-              "transforms": [
-                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 1,
-              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
-            }
-          ],
-          "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
-          "quantity": 1
-        },
-        {
-          "elements": [
-            {
-              "amount": 10,
-              "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
-            }
-          ],
-          "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
-          "quantity": 1
-        }
-      ],
-      "consumptions": [
-        { "amount": 2.5, "processId": "9357c6da-88b3-4a71-b1f9-1ffb13efee2e" }
-      ],
-      "product": "7109cf4a-a81c-4b7b-a6fb-1e0ffdc20af1",
-      "recyclable": true
-    },
-    "scope": "veli"
-  },
-  {
     "category": "Vélo",
     "id": "611c25c4-46a8-4f07-acff-b0ce9c99b86c",
     "name": "Vélo de ville, cadre aluminium, majorant par défaut",
@@ -702,7 +585,7 @@
   {
     "category": "Veli",
     "id": "78517d8b-65cb-4205-accc-3bbab581176d",
-    "name": "Veli, 45km/h max, 5kWh/100km, fabrication France",
+    "name": "Veli, 45km/h max, 5kWh/100km - France",
     "query": {
       "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
@@ -777,7 +660,7 @@
             }
           ],
           "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
-          "name": "Batterie Li-ion 1.2kWh, NMC811, France",
+          "name": "Batterie Li-ion 1.2kWh, NMC811 - France",
           "quantity": 2
         },
         {
@@ -828,263 +711,9 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
-    "id": "8d5768cb-dd06-4dbf-a6d8-62c1429beaf7",
-    "name": "Veli actif, 45km/h max, 4kWh/100km, Asie",
-    "query": {
-      "assembly": { "country": "RAS", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
-      "components": [
-        {
-          "elements": [
-            {
-              "amount": 50,
-              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-              "transforms": [
-                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            {
-              "amount": 20,
-              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-              "transforms": [
-                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 0.002,
-              "material": { "country": "RAS", "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657" },
-              "transforms": [
-                { "country": "RAS", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
-              ]
-            },
-            {
-              "amount": 20,
-              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-              "transforms": [
-                { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            }
-          ],
-          "id": "f50ff677-3501-49cb-b69d-e826d4114681",
-          "name": "Chassis-carosserie - veli actif, Asie",
-          "quantity": 1
-        },
-        { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 2 },
-        {
-          "quantity": 1,
-          "unitMass": 8,
-          "name": "Moteur électrique",
-          "elements": [
-            {
-              "amount": 1,
-              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
-            }
-          ]
-        },
-        {
-          "elements": [
-            {
-              "amount": 0.3,
-              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-              "transforms": [
-                { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            {
-              "amount": 0.5,
-              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-              "transforms": [
-                { "country": "RAS", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
-              ]
-            }
-          ],
-          "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
-          "quantity": 4
-        },
-        {
-          "elements": [
-            {
-              "amount": 0.8,
-              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
-            },
-            {
-              "amount": 0.2,
-              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
-            }
-          ],
-          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
-          "quantity": 4
-        },
-        {
-          "elements": [
-            {
-              "amount": 0.5,
-              "material": { "country": "RAS", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-              "transforms": [
-                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 2,
-              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-              "transforms": [
-                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            { "amount": 0.5, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
-          ],
-          "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
-          "quantity": 2
-        },
-        {
-          "elements": [
-            {
-              "amount": 6,
-              "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-              "transforms": [
-                { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            {
-              "amount": 5,
-              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-              "transforms": [
-                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 1.5,
-              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
-            }
-          ],
-          "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
-          "quantity": 1
-        },
-        {
-          "elements": [
-            {
-              "amount": 10,
-              "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
-            }
-          ],
-          "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
-          "quantity": 1
-        }
-      ],
-      "consumptions": [
-        { "amount": 4, "processId": "92ba1245-5c8e-49ad-9336-fdd465c6f822" }
-      ],
-      "product": "ed3b8835-7d3d-422a-a7af-4478a2938766",
-      "recyclable": true
-    },
-    "scope": "veli"
-  },
-  {
-    "category": "Veli",
-    "id": "a6a45e4e-c92c-4382-98b4-76ae7f95d1c5",
-    "name": "Veli, 90km/h max, 6kWh/100km, Asie",
-    "query": {
-      "assembly": { "country": "RAS", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
-      "components": [
-        {
-          "elements": [
-            {
-              "amount": 40,
-              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-              "transforms": [
-                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 180,
-              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-              "transforms": [
-                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            }
-          ],
-          "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
-          "quantity": 1
-        },
-        { "id": "57df64a3-278e-4e93-b836-9ba44b880fb5", "quantity": 1 },
-        {
-          "quantity": 1,
-          "unitMass": 50,
-          "name": "Moteur électrique 15kW",
-          "elements": [
-            {
-              "amount": 1,
-              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
-            }
-          ]
-        },
-        {
-          "elements": [
-            {
-              "amount": 8,
-              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-              "transforms": [
-                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            }
-          ],
-          "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
-          "quantity": 4
-        },
-        { "id": "6b3d7f30-e87b-426c-93ed-3a1179238583", "quantity": 4 },
-        {
-          "elements": [
-            {
-              "amount": 20,
-              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
-            }
-          ],
-          "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
-          "quantity": 1
-        },
-        {
-          "elements": [
-            {
-              "amount": 3,
-              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-              "transforms": [
-                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            {
-              "amount": 3,
-              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-              "transforms": [
-                { "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            { "amount": 1, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
-          ],
-          "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
-          "quantity": 2
-        },
-        { "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c", "quantity": 1 }
-      ],
-      "consumptions": [
-        { "amount": 6, "processId": "f90da3e9-3a58-46b3-93e5-af389217bfc8" }
-      ],
-      "product": "bacd59a6-fdfe-4480-a6df-69f14b323857",
-      "recyclable": true
-    },
-    "scope": "veli"
-  },
-  {
     "category": "Voiture",
     "id": "a6fb87c9-13fa-44d9-a679-d808a70e5546",
-    "name": "Voiture essence CatB, 5.5L/100km, fabrication Europe de l'Ouest",
+    "name": "Voiture essence CatB, 5.5L/100km - Europe de l'Ouest",
     "query": {
       "assembly": { "country": "REO", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
@@ -1268,7 +897,7 @@
   {
     "category": "Voiture",
     "id": "a6fb87c9-13fa-44d9-a679-d808a70e5547",
-    "name": "Voiture diesel CatB, 5L/100km, fabrication Europe de l'Ouest",
+    "name": "Voiture diesel CatB, 5L/100km - Europe de l'Ouest",
     "query": {
       "assembly": { "country": "REO", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
@@ -1452,7 +1081,7 @@
   {
     "category": "Voiture",
     "id": "b13801be-ca81-477c-9fc7-35f906bf7f2e",
-    "name": "Utilitaire léger diesel, 5.5L/100km, fabrication Europe de l'Ouest",
+    "name": "Utilitaire léger diesel, 5.5L/100km - Europe de l'Ouest",
     "query": {
       "assembly": { "country": "REO", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
@@ -1634,103 +1263,6 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
-    "id": "b6791d66-3c1c-4214-9637-aa576cb1ee63",
-    "name": "Veli, 45km/h max, 5kWh/100km, Asie",
-    "query": {
-      "assembly": { "country": "RAS", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
-      "components": [
-        {
-          "elements": [
-            {
-              "amount": 40,
-              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-              "transforms": [
-                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 180,
-              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-              "transforms": [
-                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            }
-          ],
-          "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
-          "quantity": 1
-        },
-        { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 2 },
-        {
-          "quantity": 1,
-          "unitMass": 20,
-          "name": "Moteur électrique 6kW",
-          "elements": [
-            {
-              "amount": 1,
-              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
-            }
-          ]
-        },
-        {
-          "elements": [
-            {
-              "amount": 8,
-              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-              "transforms": [
-                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            }
-          ],
-          "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
-          "quantity": 4
-        },
-        { "id": "6b3d7f30-e87b-426c-93ed-3a1179238583", "quantity": 4 },
-        {
-          "elements": [
-            {
-              "amount": 20,
-              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
-            }
-          ],
-          "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
-          "quantity": 1
-        },
-        {
-          "elements": [
-            {
-              "amount": 3,
-              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-              "transforms": [
-                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            {
-              "amount": 3,
-              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-              "transforms": [
-                { "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            { "amount": 1, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
-          ],
-          "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
-          "quantity": 2
-        },
-        { "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c", "quantity": 1 }
-      ],
-      "consumptions": [
-        { "amount": 5, "processId": "856c13fc-372b-4c21-a171-8b79e6225e8a" }
-      ],
-      "product": "9aa6dc3a-5b0a-4721-8825-2dadab8706ab",
-      "recyclable": true
-    },
-    "scope": "veli"
-  },
-  {
     "category": "Vélo",
     "id": "cefc2585-7125-4610-aadc-69970a3d67d1",
     "name": "Vélo à assistance électrique, majorant par défaut",
@@ -1759,7 +1291,7 @@
   {
     "category": "Veli",
     "id": "cf636ce9-e95b-4e25-9a22-625986f85ef0",
-    "name": "Minibus quadricycle à assistance électrique, 4kWh/100km, France",
+    "name": "Minibus quadricycle à assistance électrique, 4kWh/100km - France",
     "query": {
       "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
@@ -1818,219 +1350,9 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
-    "id": "d60f8f78-fdd0-49b2-ba61-9dfbd7297b96",
-    "name": "Veli actif, 45km/h max, 4kWh/100km, fabrication France",
-    "query": {
-      "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
-      "components": [
-        {
-          "elements": [
-            {
-              "amount": 50,
-              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-              "transforms": [
-                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            {
-              "amount": 20,
-              "material": { "country": "FR", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-              "transforms": [
-                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 0.002,
-              "material": { "country": "FR", "id": "f4a5d1ad-9362-4b18-9555-d5ab58f3b993" },
-              "transforms": [
-                { "country": "FR", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
-              ]
-            },
-            {
-              "amount": 20,
-              "material": { "country": "FR", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
-              "transforms": [
-                { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
-              ]
-            }
-          ],
-          "id": "f50ff677-3501-49cb-b69d-e826d4114681",
-          "name": "Chassis-carosserie - veli actif 150kg, France",
-          "quantity": 1
-        },
-        {
-          "elements": [
-            {
-              "amount": 3.57,
-              "material": { "country": "FR", "id": "a1f6f8a2-5398-4b32-a3d6-fc0d88ca7a28" },
-              "transforms": [
-                { "country": "FR", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9" }
-              ]
-            },
-            {
-              "amount": 1.5,
-              "material": { "country": "FR", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-              "transforms": [
-                { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
-              ]
-            },
-            {
-              "amount": 0.3,
-              "material": { "country": "FR", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
-              "transforms": [
-                { "country": "FR", "id": "d077f06e-4ae9-48b7-8019-64523e577b95" }
-              ]
-            },
-            {
-              "amount": 1.9,
-              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-              "transforms": [
-                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" }
-              ]
-            },
-            {
-              "amount": 0.8,
-              "material": { "country": "FR", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-              "transforms": [
-                { "country": "FR", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
-              ]
-            },
-            {
-              "amount": 0.9,
-              "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-              "transforms": [
-                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 0.6,
-              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
-            }
-          ],
-          "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
-          "name": "Batterie Li-ion 1.2kWh, NMC811, France",
-          "quantity": 2
-        },
-        {
-          "quantity": 1,
-          "unitMass": 8,
-          "name": "Moteur électrique",
-          "elements": [
-            {
-              "amount": 1,
-              "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
-            }
-          ]
-        },
-        {
-          "elements": [
-            {
-              "amount": 0.3,
-              "material": { "country": "FR", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
-              "transforms": [
-                { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
-              ]
-            },
-            {
-              "amount": 0.5,
-              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-              "transforms": [
-                { "country": "RAS", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
-              ]
-            }
-          ],
-          "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
-          "quantity": 4
-        },
-        {
-          "elements": [
-            {
-              "amount": 0.8,
-              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
-            },
-            {
-              "amount": 0.2,
-              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
-            }
-          ],
-          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
-          "quantity": 4
-        },
-        {
-          "elements": [
-            {
-              "amount": 0.5,
-              "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-              "transforms": [
-                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 2,
-              "material": { "country": "REO", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-              "transforms": [
-                { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            {
-              "amount": 0.5,
-              "material": { "country": "REO", "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" }
-            }
-          ],
-          "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
-          "quantity": 2
-        },
-        {
-          "elements": [
-            {
-              "amount": 6,
-              "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-              "transforms": [
-                { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-              ]
-            },
-            {
-              "amount": 5,
-              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-              "transforms": [
-                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-              ]
-            },
-            {
-              "amount": 1.5,
-              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
-            }
-          ],
-          "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
-          "quantity": 1
-        },
-        {
-          "elements": [
-            {
-              "amount": 10,
-              "material": { "country": "FR", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
-            }
-          ],
-          "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
-          "quantity": 1
-        }
-      ],
-      "consumptions": [
-        { "amount": 4, "processId": "92ba1245-5c8e-49ad-9336-fdd465c6f822" }
-      ],
-      "product": "ed3b8835-7d3d-422a-a7af-4478a2938766",
-      "recyclable": true
-    },
-    "scope": "veli"
-  },
-  {
     "category": "Vélo",
     "id": "e5fc4df5-e0be-49a0-a661-10f6e15773f1",
-    "name": "Vélo de ville, cadre aluminium, fabrication France",
+    "name": "Vélo de ville, cadre aluminium - France",
     "query": {
       "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
@@ -2175,7 +1497,7 @@
   {
     "category": "Batterie",
     "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767a",
-    "name": "Batterie de 52kWh, NMC811, France",
+    "name": "Batterie de 52kWh, NMC811 - France",
     "query": {
       "assembly": { "country": "FR" },
       "components": [
@@ -2192,7 +1514,7 @@
   {
     "category": "Batterie",
     "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767b",
-    "name": "Batterie de 52kWh, NMC811, Chine",
+    "name": "Batterie de 52kWh, NMC811 - Chine",
     "query": {
       "assembly": { "country": "CN" },
       "components": [
@@ -2209,7 +1531,7 @@
   {
     "category": "Batterie",
     "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767c",
-    "name": "Batterie de 52kWh, LFP, Chine",
+    "name": "Batterie de 52kWh, LFP - Chine",
     "query": {
       "assembly": { "country": "CN" },
       "components": [
@@ -2226,7 +1548,7 @@
   {
     "category": "Batterie",
     "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767d",
-    "name": "Batterie de 52kWh, NMC622, Chine",
+    "name": "Batterie de 52kWh, NMC622 - Chine",
     "query": {
       "assembly": { "country": "CN" },
       "components": [
@@ -2243,7 +1565,7 @@
   {
     "category": "Batterie",
     "id": "ffdbbb2b-96b0-4356-b83d-9a95436d767e",
-    "name": "Batterie de 1.2kWh, NMC811, Chine",
+    "name": "Batterie de 1.2kWh, NMC811 - Chine",
     "query": {
       "assembly": { "country": "CN" },
       "components": [
@@ -2296,7 +1618,7 @@
               "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
             }
           ],
-          "name": "Batterie Li-ion 1.2kWh, NMC811, Chine",
+          "name": "Batterie Li-ion 1.2kWh, NMC811 - Chine",
           "quantity": 1
         }
       ],
