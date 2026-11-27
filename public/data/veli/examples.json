@@ -1709,14 +1709,9 @@
       "assembly": { "country": "FR" },
       "components": [
         {
-          "elements": [
-            {
-              "amount": 8,
-              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
-            }
-          ],
-          "name": "Pneu",
-          "quantity": 1
+          "id": "a3a49642-1083-41af-85cb-f47e6770352a",
+          "quantity": 1,
+          "unitMass": 8
         }
       ],
       "durability": 0.75,
@@ -1732,14 +1727,9 @@
       "assembly": { "country": "FR" },
       "components": [
         {
-          "elements": [
-            {
-              "amount": 8,
-              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
-            }
-          ],
-          "name": "Pneu",
-          "quantity": 1
+          "id": "a3a49642-1083-41af-85cb-f47e6770352a",
+          "quantity": 1,
+          "unitMass": 8
         }
       ],
       "durability": 1.5,
