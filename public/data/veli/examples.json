@@ -260,11 +260,7 @@
           "quantity": 4,
           "unitMass": 0.2
         },
-        {
-          "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
-          "quantity": 1,
-          "unitMass": 12.5
-        }
+        { "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c", "quantity": 1, "unitMass": 12.5 }
       ],
       "consumptions": [
         { "amount": 4, "processId": "92ba1245-5c8e-49ad-9336-fdd465c6f822" }
@@ -373,11 +369,7 @@
           "unitMass": 8
         },
         { "id": "a3a49642-1083-41af-85cb-f47e6770352a", "quantity": 4, "unitMass": 6 },
-        {
-          "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
-          "quantity": 1,
-          "unitMass": 36
-        }
+        { "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c", "quantity": 1, "unitMass": 36 }
       ],
       "consumptions": [
         { "amount": 5, "processId": "856c13fc-372b-4c21-a171-8b79e6225e8a" }
@@ -486,11 +478,7 @@
           "unitMass": 8
         },
         { "id": "a3a49642-1083-41af-85cb-f47e6770352a", "quantity": 4, "unitMass": 6 },
-        {
-          "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
-          "quantity": 1,
-          "unitMass": 36
-        }
+        { "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c", "quantity": 1, "unitMass": 36 }
       ],
       "consumptions": [
         { "amount": 6, "processId": "f90da3e9-3a58-46b3-93e5-af389217bfc8" }
@@ -2022,7 +2010,7 @@
           "quantity": 1,
           "unitMass": 3.8
         },
-        {"id": "990f4263-3b6c-48ce-92e8-566584edf5b2", "quantity": 1 },
+        { "id": "990f4263-3b6c-48ce-92e8-566584edf5b2", "quantity": 1 },
         {
           "elements": [
             {
@@ -2293,7 +2281,7 @@
           "quantity": 1,
           "unitMass": 3.8
         },
-        {"id": "990f4263-3b6c-48ce-92e8-566584edf5b2", "quantity": 1 },
+        { "id": "990f4263-3b6c-48ce-92e8-566584edf5b2", "quantity": 1 },
         {
           "elements": [
             {
