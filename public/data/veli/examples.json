@@ -563,26 +563,6 @@
     "scope": "veli"
   },
   {
-    "category": "Vélo",
-    "id": "611c25c4-46a8-4f07-acff-b0ce9c99b86c",
-    "name": "Vélo de ville, cadre aluminium, majorant par défaut",
-    "query": {
-      "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
-      "components": [
-        { "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677", "quantity": 1 },
-        { "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc", "quantity": 2 },
-        { "id": "a94918a7-8915-4841-9cdc-deec0536c724", "quantity": 2 },
-        { "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3", "quantity": 1 },
-        { "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424", "quantity": 1 },
-        { "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f", "quantity": 1 },
-        { "id": "658611b7-4b76-4f1d-aed7-55ec11f299e3", "quantity": 1 },
-        { "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a", "quantity": 1 },
-        { "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85", "quantity": 1 }
-      ]
-    },
-    "scope": "veli"
-  },
-  {
     "category": "Veli",
     "id": "78517d8b-65cb-4205-accc-3bbab581176d",
     "name": "Veli, 45km/h max, 5kWh/100km - France",
@@ -1263,32 +1243,6 @@
     "scope": "veli"
   },
   {
-    "category": "Vélo",
-    "id": "cefc2585-7125-4610-aadc-69970a3d67d1",
-    "name": "Vélo à assistance électrique, majorant par défaut",
-    "query": {
-      "components": [
-        { "id": "49a16258-22eb-4700-88c4-5e3d1af071e7", "quantity": 1 },
-        { "id": "990f4263-3b6c-48ce-92e8-566584edf5b2", "quantity": 1 },
-        { "id": "20b35f34-166f-4da7-abc4-54d2a64de367", "quantity": 1 },
-        { "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677", "quantity": 1 },
-        { "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc", "quantity": 2 },
-        { "id": "a94918a7-8915-4841-9cdc-deec0536c724", "quantity": 2 },
-        { "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3", "quantity": 1 },
-        { "id": "b4d552ed-6a9b-4b29-b293-50349c62e1c0", "quantity": 1 },
-        { "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424", "quantity": 1 },
-        { "id": "4a273102-9973-4352-8683-2503aea7bfbb", "quantity": 1 },
-        { "id": "29a80ed1-26c9-419e-9f46-9c9b77d06458", "quantity": 1 },
-        { "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f", "quantity": 1 }
-      ],
-      "consumptions": [
-        { "amount": 150, "processId": "eec31f13-d00a-4741-a84f-85d887026f8c" }
-      ],
-      "product": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60"
-    },
-    "scope": "veli"
-  },
-  {
     "category": "Veli",
     "id": "cf636ce9-e95b-4e25-9a22-625986f85ef0",
     "name": "Minibus quadricycle à assistance électrique, 4kWh/100km - France",
@@ -1354,67 +1308,396 @@
     "id": "e5fc4df5-e0be-49a0-a661-10f6e15773f1",
     "name": "Vélo de ville, cadre aluminium - France",
     "query": {
-      "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
+      "assembly": {
+        "country": "FR",
+        "operations": [
+          "c51ab87d-f368-4704-a5ec-7ea17ba87d46"
+        ]
+      },
       "components": [
         {
-          "country": "FR",
+          "id": "a4d621eb-dee9-4758-8522-fc1746bb08ea",
+          "quantity": 1,
+          "unitMass": 2.8,
+          "name": "Cadre, fourche et cintre, Aluminium",
           "elements": [
             {
-              "amount": 0.5,
-              "material": "baae8572-db4a-4cb8-8f74-e72ba5ef0116",
-              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
+              "amount": 1,
+              "material": {
+                "country": "REO",
+                "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a"
+              },
+              "transforms": [
+                {
+                  "country": "REO",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "REO",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                },
+                {
+                  "country": "REO",
+                  "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+                },
+                {
+                  "country": "REO",
+                  "id": "2e1cabad-3987-4810-84fa-4c752fc10ae0"
+                }
+              ]
             }
-          ],
-          "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
-          "quantity": 1
+          ]
         },
-        { "country": "RAS", "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc", "quantity": 2 },
         {
-          "country": "FR",
+          "quantity": 2,
+          "name": "Roues, Aluminium",
           "elements": [
             {
-              "amount": 0.6,
-              "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
+              "amount": 1,
+              "material": {
+                "country": "FR",
+                "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a"
+              },
+              "transforms": [
+                {
+                  "country": "FR",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "FR",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "a3a49642-1083-41af-85cb-f47e6770352a",
+          "quantity": 2,
+          "unitMass": 0.8,
+          "name": "Pneus",
+          "elements": [
+            {
+              "amount": 0.4,
+              "material": {
+                "country": "RAS",
+                "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a"
+              }
+            },
+            {
+              "amount": 0.1,
+              "material": {
+                "country": "RAS",
+                "id": "37fb6a7e-87cc-46d1-8384-6f9fd89a5826"
+              }
+            },
+            {
+              "amount": 0.3,
+              "material": {
+                "country": "RAS",
+                "id": "8ba029b3-c247-4fed-b888-537ec535978d"
+              }
+            },
+            {
+              "amount": 0.12,
+              "material": {
+                "country": "RAS",
+                "id": "0e4122f6-f1ce-4d80-afbb-5e366402d8e6"
+              }
+            },
+            {
+              "amount": 0.07,
+              "material": {
+                "country": "RAS",
+                "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "7da5ea9a-8b04-462d-bd02-19ce266dd265"
+                }
+              ]
+            },
+            {
+              "amount": 0.01,
+              "material": {
+                "country": "RAS",
+                "id": "b87b7c27-6d51-4890-bc41-604586feda5e"
+              }
+            }
+          ]
+        },
+        {
+          "quantity": 2,
+          "unitMass": 0.2,
+          "name": "Chambres à air",
+          "elements": [
+            {
+              "amount": 1,
+              "material": {
+                "country": "RAS",
+                "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a"
+              }
+            }
+          ]
+        },
+        {
+          "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
+          "quantity": 1,
+          "name": "Selle vélo (dont tige, 60°)",
+          "elements": [
+            {
+              "amount": 0.1,
+              "material": {
+                "country": "REO",
+                "id": "c5295f47-0307-48a6-8552-3705063af767"
+              },
+              "transforms": [
+                {
+                  "country": "REO",
+                  "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                }
+              ]
+            },
+            {
+              "amount": 0.4,
+              "material": {
+                "country": "REO",
+                "id": "ac028973-5dfa-47bc-868c-e49be116f53e"
+              },
+              "transforms": [
+                {
+                  "country": "REO",
+                  "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+                },
+                {
+                  "country": "REO",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                }
+              ]
             },
             {
               "amount": 0.5,
-              "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"]
+              "material": {
+                "country": "REO",
+                "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0"
+              }
             }
-          ],
-          "id": "a94918a7-8915-4841-9cdc-deec0536c724",
-          "quantity": 2
-        },
-        { "country": "RAS", "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3", "quantity": 1 },
-        { "country": "RAS", "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424", "quantity": 1 },
-        {
-          "country": "FR",
-          "elements": [
-            {
-              "amount": 0.8,
-              "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
-            }
-          ],
-          "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
-          "quantity": 1
+          ]
         },
         {
-          "country": "CN",
+          "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a",
+          "quantity": 1,
+          "unitMass": 0.6,
+          "name": "Freins à patins vélo - kit complet",
           "elements": [
             {
-              "amount": 2,
-              "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
+              "amount": 0.4,
+              "material": {
+                "country": "RAS",
+                "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                },
+                {
+                  "country": "RAS",
+                  "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+                }
+              ]
+            },
+            {
+              "amount": 0.3,
+              "material": {
+                "country": "RAS",
+                "id": "3e514eac-185c-449e-bdc2-e1082ca0576d"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                }
+              ]
+            },
+            {
+              "amount": 0.2,
+              "material": {
+                "country": "RAS",
+                "id": "c5295f47-0307-48a6-8552-3705063af767"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "4a08bcab-5c25-4dec-961a-0f7208f40084"
+                }
+              ]
+            },
+            {
+              "amount": 0.1,
+              "material": {
+                "country": "RAS",
+                "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a"
+              }
             }
-          ],
-          "id": "49a16258-22eb-4700-88c4-5e3d1af071e7",
-          "quantity": 1
+          ]
         },
-        { "country": "RAS", "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a", "quantity": 1 },
-        { "country": "RAS", "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85", "quantity": 1 }
-      ]
+        {
+          "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
+          "quantity": 1,
+          "unitMass": 2.6,
+          "name": "Transmission vélo - kit complet AV+AR",
+          "elements": [
+            {
+              "amount": 0.4,
+              "material": {
+                "country": "RAS",
+                "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                },
+                {
+                  "country": "RAS",
+                  "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+                }
+              ]
+            },
+            {
+              "amount": 0.5,
+              "material": {
+                "country": "RAS",
+                "id": "3e514eac-185c-449e-bdc2-e1082ca0576d"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                }
+              ]
+            },
+            {
+              "amount": 0.1,
+              "material": {
+                "country": "RAS",
+                "id": "c5295f47-0307-48a6-8552-3705063af767"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "4a08bcab-5c25-4dec-961a-0f7208f40084"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
+          "quantity": 1,
+          "unitMass": 0.3,
+          "name": "Composants non détaillés",
+          "elements": [
+            {
+              "amount": 0.5,
+              "material": {
+                "country": "RAS",
+                "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                },
+                {
+                  "country": "RAS",
+                  "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+                }
+              ]
+            },
+            {
+              "amount": 0.1,
+              "material": {
+                "country": "RAS",
+                "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0"
+              }
+            },
+            {
+              "amount": 0.4,
+              "material": {
+                "country": "RAS",
+                "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "a4d621eb-dee9-4758-8522-fc1746bb08ea",
+          "quantity": 1,
+          "unitMass": 0.8,
+          "name": "Porte-bagage, Aluminium",
+          "elements": [
+            {
+              "amount": 1,
+              "material": {
+                "country": "REO",
+                "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a"
+              },
+              "transforms": [
+                {
+                  "country": "REO",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "REO",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                },
+                {
+                  "country": "REO",
+                  "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+                },
+                {
+                  "country": "REO",
+                  "id": "2e1cabad-3987-4810-84fa-4c752fc10ae0"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "recyclable": true
     },
     "scope": "veli"
   },
