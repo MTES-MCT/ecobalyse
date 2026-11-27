@@ -323,7 +323,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Exemple de batterie pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie",
+    "comment": "Batterie pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie",
     "elements": [
       {
         "amount": 21.3,
@@ -373,7 +373,7 @@
       }
     ],
     "id": "57df64a3-278e-4e93-b836-9ba44b880fb5",
-    "name": "[Composant] Batterie Li-ion 7kWh, NMC811, Chine",
+    "name": "Batterie Li-ion 7kWh, NMC811, Chine",
     "scopes": ["veli"]
   },
   {
